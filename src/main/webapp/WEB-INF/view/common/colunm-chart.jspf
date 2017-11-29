@@ -1,0 +1,39 @@
+
+<!-- Chart code -->
+<script>
+var data = ${jsonchart};
+var chart = AmCharts.makeChart("chartdiv", {
+    "type": "serial",
+    "theme": "light",
+    "marginRight": 70,
+    "dataProvider": data,
+    "valueAxes": [{
+            "axisAlpha": 0,
+            "position": "left",
+            "title": "Visit time of page access"
+        }],
+    "startDuration": 1,
+    "graphs": [{
+            "balloonText": "<b>[[category]]: [[value]]</b>",
+            "fillColorsField": "color",
+            "fillAlphas": 0.9,
+            "lineAlpha": 0.2,
+            "type": "column",
+            "valueField": "visit_time"
+        }],
+    "chartCursor": {
+        "categoryBalloonEnabled": false,
+        "cursorAlpha": 0,
+        "zoomable": false
+    },
+    "categoryField": "page_access",
+    "categoryAxis": {
+        "gridPosition": "start",
+        "labelRotation": 45
+    },
+    "export": {
+        "enabled": true
+    }
+
+});
+</script>

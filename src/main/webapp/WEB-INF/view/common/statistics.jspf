@@ -1,0 +1,49 @@
+<script src="${pageContext.request.contextPath}/resources/custom/follow-user-angular.js" type="text/javascript"></script>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel">
+            <header class="panel-heading">Follow Users</header>
+            <div class="box-tools m-b-15">
+                <div class="input-group">
+                    <input type="text" name="table_search" class="form-control input-sm pull-right" 
+                           style="width: 150px;" id="input-follow-user" onkeyup="searchInputTable('input-follow-user', 'follow-user-table')" 
+                           placeholder="Search for ip address.." title="Type in a ip address"/>
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body table-responsive" id="follow-user-box">
+                <table class="table-responsive" id="follow-user-table" ng-app="follow-users" ng-controller="folowUserCtrl">
+                   	<tr>
+						<th class="tr-p" ng-click="sortNum(followUserData)">No.</th>
+						<th class="tr-p" ng-click="sortIP(followUserData)">User IP Address</th>
+						<th class="tr-p" ng-click="sortExIP(followUserData)">External IP Address</th>
+						<th class="tr-p" ng-click="sortCountry(followUserData)">Country</th>
+						<th class="tr-p" ng-click="sortUser(followUserData)">User</th>
+						<th class="tr-p" ng-click="sortDateAccess(followUserData)">Date Access</th>
+						<th class="tr-p" ng-click="sortPageAccess(followUserData)">Page Access</th>
+						<th class="tr-p" ng-click="sortDuration(followUserData)">Duration</th>
+					</tr>
+                    <tbody id="followUserTableBody">
+	                    <tr ng-repeat="d in followUserData" follow-user-directive>
+	                        <td>{{ $index + 1 }}</td>
+							<td><a href = "/Hotel-booking-and-reservations-system-admin/follow-user-ip/{{d.user_ip_address}}.html">{{ d.user_ip_address }}</a></td>
+							<td><a href = "http://whatismyipaddress.com/ip/{{d.external_ip_address}}">{{ d.external_ip_address }}</a></td>
+							<td>{{ d.country }}</td>
+							<td>{{ d.username }}</td>
+							<td>{{ d.created_at | date:'medium'}}</td>
+							<td>{{ d.page_access }}</td>
+							<td>{{ d.duration | secondsToTime }}</td>
+	                    </tr>
+                	</tbody>
+                </table>
+            </div>
+            <br><center><button class="btn btn-danger" onclick="location.href = '${pageContext.request.contextPath}/downloadCSV.html'">
+                    <b>Download CSV</b> <i class="fa fa-download"></i></button></center><br>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+

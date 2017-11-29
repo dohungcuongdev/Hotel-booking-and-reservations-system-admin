@@ -1,0 +1,83 @@
+<div class="row" id="all-message">
+	<div class="col-md-12">
+		<section class="panel">
+			<header class="panel-heading"> All Message </header>
+			<div class="box-tools m-b-15">
+				<div class="input-group">
+					<input type="text" name="table_search"
+						class="form-control input-sm pull-right" style="width: 150px;"
+						placeholder="Search" />
+					<div class="input-group-btn">
+						<button class="btn btn-sm btn-default">
+							<i class="fa fa-search"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body" id="all-message-box">
+				<c:choose>
+					<c:when test="${totalMessage <= 0}">
+						<div class="alert alert-block alert-danger"
+							style="text-align: center">
+							<strong>No notification available!</strong>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="activity" items="${listactivily}">
+							<c:if test="${activity.click.equals('feedback') || activity.name.equals('Feedback Room')}">
+								<div class="alert alert-block alert-info">
+									<button data-dismiss="alert" class="close close-sm"
+										type="button">
+										<i class="fa fa-times"></i>
+									</button>
+									<strong class="tr-p"
+										onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'">
+										${activity.time}! </strong> <br>UserName: ${activity.username} <br>Sent
+									content: ${activity.content}
+								</div>
+							</c:if>
+							<c:if test="${activity.click.equals('register')}">
+								<div class="alert alert-block alert-success">
+									<button data-dismiss="alert" class="close close-sm"
+										type="button">
+										<i class="fa fa-times"></i>
+									</button>
+									<strong class="tr-p"
+										onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'">
+										${activity.time}! </strong> <br>UserName: ${activity.username} <br>Received
+									content: ${activity.content}
+								</div>
+							</c:if>
+							<c:if
+								test="${activity.name.equals('Book Room') || activity.name.equals('Cancel Room')}">
+								<div class="alert alert-block alert-danger">
+									<button data-dismiss="alert" class="close close-sm"
+										type="button">
+										<i class="fa fa-times"></i>
+									</button>
+									<strong class="tr-p"
+										onclick="location.href = '${pageContext.request.contextPath}/reply ${activity.name}/${activity.id}.html'">
+										${activity.time}! </strong> <br>UserName: ${activity.username} <br>Received
+									content: ${activity.content}
+								</div>
+							</c:if>
+							<c:if
+								test="${activity.click.equals('contact') || activity.click.equals('reservation')}">
+								<div class="alert alert-block alert-warning">
+									<button data-dismiss="alert" class="close close-sm"
+										type="button">
+										<i class="fa fa-times"></i>
+									</button>
+									<strong class="tr-p"
+										onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'">
+										${activity.time}! </strong> <br>${activity.username} <br>Sent
+									content: ${activity.content}
+								</div>
+							</c:if>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</section>
+	</div>
+</div>

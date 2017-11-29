@@ -1,0 +1,13 @@
+<script src="${pageContext.request.contextPath}/resources/custom/chart-angular.js" type="text/javascript"></script>
+<link href="${pageContext.request.contextPath}/resources/custom/chart.css" rel="stylesheet" type="text/css" />
+
+<div class="row" ng-app="chart" ng-controller="ChartController" >
+    <div class="col-md-12">
+        <section class="panel">
+            <header class="panel-heading">Country Visitor Graph</header>
+            <div class="panel-body">
+                <div id="chartdiv"></div>
+            </div>
+        </section>
+    </div>
+</div>

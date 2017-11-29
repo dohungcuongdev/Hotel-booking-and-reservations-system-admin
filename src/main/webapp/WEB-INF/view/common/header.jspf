@@ -1,0 +1,157 @@
+<%@ include file="head.jspf"%>
+<header class="header">
+    <a href="${pageContext.request.contextPath}/index.html" class="logo">
+        Hotel Admin
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+        <div class="navbar-right">
+            <ul class="nav navbar-nav">
+                <!-- Messages: style can be found in dropdown.less-->
+                <li class="dropdown messages-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-bell"></i>
+                        <c:if test="${newNotifications.size() > 0}"> 
+                            <span class="label label-danger">${newNotifications.size()}</span>
+                        </c:if>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">You have ${newNotifications.size()} notifications</li>
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                                <c:forEach var="newNoti" items="${newNotifications}">
+                                    <li>
+                                        <!-- start message -->
+                                        <c:choose>
+                                            <c:when test="${newNoti.click.equals('contact') || newNoti.click.equals('reservation')}"> 
+                                                <a href="${pageContext.request.contextPath}/notification/${newNoti.id}.html">
+                                                    <div class="pull-left">
+                                                        <img src="${pageContext.request.contextPath}/resources/img/users/guest.jpg" class="img-circle" alt="User Image" />
+                                                    </div>
+                                                    <h4 style="font-size: 11px">
+                                                        ${newNoti.username}
+                                                    </h4>
+                                                    <p>${newNoti.name}</p>
+                                                    <small class="pull-right"><i class="fa fa-clock-o"></i> ${newNoti.time}</small>
+                                                </a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="${pageContext.request.contextPath}/notification/${newNoti.id}.html">
+                                                    <div class="pull-left">
+                                                        <img src="${pageContext.request.contextPath}/resources/img/users/membership.png" class="img-circle" alt="User Image" />
+                                                    </div>
+                                                    <h4 style="font-size: 11px">
+                                                        User ${newNoti.username}
+                                                    </h4>
+                                                    <p>${newNoti.name}</p>
+                                                    <small class="pull-right"><i class="fa fa-clock-o"></i> ${newNoti.time}</small>
+                                                </a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </li>
+                                </c:forEach>
+                                <!-- end message -->
+                            </ul>
+                        </li>
+                        <li class="footer"><a href="${pageContext.request.contextPath}/message.html#all-notifications">See All Notifications</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown messages-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-envelope"></i>
+                        <span class="label label-success">${listactivily.size()}</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">You have ${listactivily.size()} message</li>
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                                <c:forEach var="message" items="${listactivily}">
+                                    <li>
+                                        <!-- start message -->
+                                        <c:choose>
+                                            <c:when test="${message.click.equals('contact') || message.click.equals('reservation')}"> 
+                                                <a href="${pageContext.request.contextPath}/notification/${message.id}.html">
+                                                    <div class="pull-left">
+                                                        <img src="${pageContext.request.contextPath}/resources/img/users/guest.jpg" class="img-circle" alt="User Image" />
+                                                    </div>
+                                                    <h4 style="font-size: 11px">
+                                                        ${message.username}
+                                                    </h4>
+                                                    <p>${message.name}</p>
+                                                    <small class="pull-right"><i class="fa fa-clock-o"></i> ${message.time}</small>
+                                                </a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="${pageContext.request.contextPath}/notification/${message.id}.html">
+                                                    <div class="pull-left">
+                                                        <img src="${pageContext.request.contextPath}/resources/img/users/membership.png" class="img-circle" alt="User Image" />
+                                                    </div>
+                                                    <h4 style="font-size: 11px">
+                                                        User ${message.username}
+                                                    </h4>
+                                                    <p>${message.name}</p>
+                                                    <small class="pull-right"><i class="fa fa-clock-o"></i> ${message.time}</small>
+                                                </a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </li>
+                                </c:forEach>
+                                <!-- end message item -->
+                            </ul>
+                        </li>
+                        <li class="footer">
+                            <a href="${pageContext.request.contextPath}/message.html#all-message">View All Messages</a></li>
+                </li>
+            </ul>
+            </li>
+            <!-- User Account: style can be found in dropdown.less -->
+            <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-user"></i>
+                    <span>${ad.name} <i class="caret"></i></span>
+                </a>
+                <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
+                    <li class="dropdown-header text-center">Account</li>
+
+                    <li>
+                        <a href="${pageContext.request.contextPath}/message.html#all-notifications">
+                            <i class="fa fa-bell fa-fw pull-right"></i>
+                            <span class="badge badge-success pull-right">${newNotifications.size()}</span> Notifications</a>
+                        <a href="${pageContext.request.contextPath}/message.html#all-message">
+                            <i class="fa fa-envelope-o fa-fw pull-right"></i>
+                            <span class="badge badge-danger pull-right">${listactivily.size()}</span> Messages</a>
+                        <a href="${pageContext.request.contextPath}/fqa.html""><i class="fa fa-question fa-fw pull-right"></i> 
+                            <span class="badge pull-right">8</span> FAQ</a>
+                    </li>
+
+                    <li class="divider"></li>
+
+                    <li>
+                        <a data-toggle="modal" href="${pageContext.request.contextPath}/profile.html">
+                            <i class="fa fa-cog fa-fw pull-right"></i> Profile
+                        </a>
+                        <a href="${pageContext.request.contextPath}/manage-users.html">
+                            <i class="fa fa-user fa-fw pull-right"></i>Manage Users
+                        </a>
+                    </li>
+
+                    <li class="divider"></li>
+
+                    <li>
+                        <a href="${pageContext.request.contextPath}/login.html"><i class="fa fa-ban fa-fw pull-right"></i> Logout</a>
+                    </li>
+                </ul>
+            </li>
+            </ul>
+        </div>
+    </nav>
+</header>
