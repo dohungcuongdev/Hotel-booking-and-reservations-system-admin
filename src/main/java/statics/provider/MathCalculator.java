@@ -5,8 +5,6 @@
  */
 package statics.provider;
 
-import java.util.List;
-
 /**
  *
  * @author HUNGCUONG

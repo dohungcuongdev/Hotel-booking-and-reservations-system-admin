@@ -55,8 +55,6 @@ public class EmailSender {
         }
         return AppData.EMAIL_SENT;
     }
-    
-    private EmailSender() {}
 
     private static class SMTPAuthenticator extends Authenticator {
 

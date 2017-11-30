@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import statics.AppData;
 import statics.provider.DateTimeCalculator;
-import services.impl.UserServiceImpl;
 
 /**
  *
@@ -123,17 +122,6 @@ public class HotelRoom extends HotelItem {
 
     private boolean isInvalidStatus() {
         return !AppData.ROOM_STATUS.contains(status);
-    }
-
-    private boolean isBookedbyCorrect() {
-        if (status.equals("booked")) {
-            if (!checkNotNull(booked_by, checkin, checkout)) {
-                return false;
-            } else if (!new UserServiceImpl().checkexsitCustomer(booked_by)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     private boolean isEnoughInfor() {

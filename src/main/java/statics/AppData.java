@@ -24,7 +24,7 @@ public class AppData {
     public static final int DATABASE_PORT = 27017;
     
     public static final String EMAIL = "cuongvip1295@gmail.com";
-    public static final String AUTHENTICATION = "Cuong@123";
+    public static final String AUTHENTICATION = "ititiu13170";
     public static final String MAIL_HOST = "smtp.gmail.com";
     public static final String MAIL_SMTP_PORT = "587";
     public static final String MAIL_SMTP_AUTH = "true";
