@@ -7,14 +7,14 @@ import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import daos.APIDAO;
+import api.APIProvider;
 import services.APIService;
 
 @Service
 public class APIServiceImpl implements APIService {
 	
 	@Autowired
-	private APIDAO testDAO;
+	private APIProvider testDAO;
 	
 	@Override
 	public String getResource(String name) {

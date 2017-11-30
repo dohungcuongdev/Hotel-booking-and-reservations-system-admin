@@ -31,6 +31,7 @@ public class FileUploader {
                 model.put("editResult", AppData.EDITSUCCESS);
                 return nameFile;
             } catch (IOException | IllegalStateException e) {
+                System.out.println(e.getMessage());
                 model.put("editResult", AppData.ERROR);
             }
         }

@@ -25,6 +25,8 @@ public class FollowUsers {
     private String country;
     private String city;
 
+    public FollowUsers() {}
+
     public String getId() {
         return id;
     }

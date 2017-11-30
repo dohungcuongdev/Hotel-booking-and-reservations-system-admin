@@ -25,6 +25,7 @@
 	<context:annotation-config />
 	<context:component-scan base-package="controller" />
 	<context:component-scan base-package="daos" />
+	<context:component-scan base-package="api" />
 	<context:component-scan base-package="services" />
 
 	<bean id="multipartResolver"

@@ -90,7 +90,7 @@ public class MainController {
 	public String editProfile(@ModelAttribute(value = "adminEdit") Administrator ad, ModelMap model) {
 		if (ad.isEnoughInfor()) {
 			userService.updateAdmin(ad);
-			AppData.setNewAdmin(ad);
+			AppData.setNewAdmin(ad);;
 			model.put(AppData.REUSE_STRING[5], AppData.EDITSUCCESS);
 		} else {
 			model.put(AppData.REUSE_STRING[5], AppData.INFOR_NOT_ENOUGH);

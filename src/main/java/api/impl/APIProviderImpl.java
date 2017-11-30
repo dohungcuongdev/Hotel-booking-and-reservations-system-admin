@@ -1,6 +1,8 @@
-package daos.impl;
+package api.impl;
 
 import org.springframework.stereotype.Repository;
+
+import api.APIProvider;
 
 import java.io.IOException;
 
@@ -19,12 +21,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 
-import daos.APIDAO;
-
 @Repository
 @Configuration
 @PropertySource("classpath:api.properties")
-public class APIDAOImpl implements APIDAO {
+public class APIProviderImpl implements APIProvider {
 
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {

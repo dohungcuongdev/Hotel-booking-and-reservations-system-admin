@@ -148,6 +148,8 @@ public class HotelRoom extends HotelItem {
         if (status.equals("available")) {
             return true;
         }
+        System.out.println(checkin);
+        System.out.println(checkout);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date today = DateTimeCalculator.formatDateTime(format.format(new Date()));
         Date checkindate = DateTimeCalculator.formatDateTime(checkin);
