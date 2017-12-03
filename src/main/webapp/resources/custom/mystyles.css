@@ -64,6 +64,6 @@ fa-bar-chart-o:before,.fa-bar-chart:before{content:"\f080"}
     font-weight: bold;
 }
 
-#follow-user-table tr {
+table tr {
 	font-size: 13px;
 }
