@@ -16,7 +16,7 @@
             </div>
             <div class="panel-body table-responsive" id="follow-user-box">
                 <table id="follow-user-table">
-                    <tr>
+                    <tr id="tableHeader">
                         <th class="tr-p" onclick="sortNum(0, 'follow-user-table')">No.</th>
                         <th class="tr-p" onclick="sortAlpha(1, 'follow-user-table')">User IP Address</th>
                         <th class="tr-p" onclick="sortAlpha(2, 'follow-user-table')">External IP Address</th>

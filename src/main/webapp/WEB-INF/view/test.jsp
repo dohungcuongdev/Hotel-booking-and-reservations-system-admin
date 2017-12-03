@@ -21,7 +21,7 @@
             </div>
             <div class="panel-body table-responsive">
                 <table id="ip-stat-table">
-                    <tr>
+                    <tr id="tableHeader">
                         <th class="tr-p" onclick="sortNum(0, 'ip-stat-table')">No.</th>
                         <th class="tr-p" onclick="sortAlpha(1, 'ip-stat-table')">IP Address</th>
                         <th class="tr-p" onclick="sortNum(2, 'ip-stat-table')">Visit Times</th>
@@ -60,7 +60,7 @@
             </div>
             <div class="panel-body table-responsive" id="page-access-box">
                 <table id="page-access-table">
-                    <tr>
+                    <tr id="tableHeader">
                         <th class="tr-p" onclick="sortNum(0, 'page-access-table')">No.</th>
                         <th class="tr-p" onclick="sortAlpha(1, 'page-access-table')">Page Access</th>
                         <th class="tr-p" onclick="sortNum(2, 'page-access-table')">Visit Times</th>

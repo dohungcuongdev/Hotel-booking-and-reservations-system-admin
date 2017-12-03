@@ -19,7 +19,7 @@
             </div>
             <div class="panel-body table-responsive" id="page-access-box">
                 <table id="page-access-ip-table">
-                    <tr>
+                    <tr id="tableHeader">
                         <th class="tr-p" onclick="sortNum(0, 'page-access-ip-table')">No.</th>
                         <th class="tr-p" onclick="sortAlpha(2, 'page-access-ip-table')">Page Access</th>
                         <th class="tr-p" onclick="sortAlpha(1, 'page-access-ip-table')">IP Address</th>
@@ -36,9 +36,6 @@
                     </c:forEach>
                 </table>
             </div>
-            <br><center><button class="btn btn-danger" onclick="location.href = '${pageContext.request.contextPath}/page-access-chart/${ip}.html'">
-                    <i class="fa fa-bar-chart"></i><b> View Chart of this IP Address </b> </button></center><br>
-            <!-- /.box-body -->
         </div>
         <!-- /.box -->
     </div>

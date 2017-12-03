@@ -31,7 +31,7 @@
             </div>
             <div class="panel-body table-responsive" id="page-access-box">
                 <table id="page-access-table">
-                    <tr>
+                    <tr id="tableHeader">
                         <th class="tr-p" onclick="sortNum(0, 'page-access-table')">No.</th>
                         <th class="tr-p" onclick="sortAlpha(1, 'page-access-table')">Page Access</th>
                         <th class="tr-p" onclick="sortNum(2, 'page-access-table')">Visit Times</th>
@@ -46,7 +46,13 @@
                     </c:forEach>
                 </table>
             </div>
-            <!-- /.box-body -->
+            <c:if test="${ipaddress.equals('All IP address')}"> 
+            	<br><center><button class="btn btn-danger" onclick="location.href = '${pageContext.request.contextPath}/follow-users.html'">
+            </c:if>
+            <c:if test="${!ipaddress.equals('All IP address')}"> 
+            	<br><center><button class="btn btn-danger" onclick="location.href = '${pageContext.request.contextPath}/follow-user-ip/${ipaddress}.html'">
+            </c:if>
+                    <i class="fa fa-globe"></i><b> Check more details </b> </button></center><br>
         </div>
         <!-- /.box -->
     </div>

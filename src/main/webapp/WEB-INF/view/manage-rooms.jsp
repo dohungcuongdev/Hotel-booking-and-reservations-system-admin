@@ -20,7 +20,7 @@
             </div>
             <div class="panel-body table-responsive" id="manage-rooms-box">    
                 <table id="table-management">
-                    <tr>
+                    <tr id="tableHeader">
                         <th class="tr-p" onclick="sortNum(0,'table-management')">No.</th>
                         <th class="tr-p" onclick="sortAlpha(1,'table-management')">Room</th>
                         <th class="tr-p" onclick="sortAlpha(2,'table-management')">Type</th>

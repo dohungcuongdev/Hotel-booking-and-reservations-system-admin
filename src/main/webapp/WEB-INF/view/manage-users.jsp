@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <table id="table-management">
-                    <tr>
+                    <tr id="tableHeader">
                         <th class="tr-p" onclick="sortNum(0,'table-management')">No.</th>
                         <th class="tr-p" onclick="sortAlpha(1,'table-management')">User</th>
                         <th class="tr-p" onclick="sortDate(2,'table-management')">Register Time</th>
@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 <table id="cdc-table">
-                    <tr>
+                    <tr id="tableHeader">
                         <th class="tr-p" onclick="sortNum(0,'cdc-table')">No.</th>
                         <th class="tr-p" onclick="sortAlpha(1,'cdc-table')">User</th>
                         <th class="tr-p" onclick="sortNum(2,'cdc-table')">Total Time Visited</th>

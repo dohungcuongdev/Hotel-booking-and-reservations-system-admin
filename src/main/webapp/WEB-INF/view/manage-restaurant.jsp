@@ -19,7 +19,7 @@
             </div>
             <div class="panel-body table-responsive" id="manage-services-box">
                 <table id="table-management">
-                    <tr>
+                    <tr id="tableHeader">
                         <th class="tr-p" onclick="sortAlpha(0,'table-management')">No.</th>
                         <th class="tr-p" onclick="sortAlpha(1,'table-management')">Name</th>
                         <th class="tr-p" onclick="sortAlpha(2,'table-management')">Type</th>

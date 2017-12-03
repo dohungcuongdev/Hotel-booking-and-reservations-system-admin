@@ -262,7 +262,7 @@ public class MainController {
 	public String pageAccessIPChart(@PathVariable(value = "ipaddress") String ipaddress, ModelMap model) {
 		initialize(model);
 		Map m = userService.getPageAccessChartDataByIP(ipaddress, userService.getListFollowUsers());
-		model.put("ipaddress", "IP address " + ipaddress);
+		model.put("ipaddress", ipaddress);
 		model.put("mapPageAccess", m);
 		model.put("jsonchart", userService.getJSONPageAccess(m));
 		return "page-access-chart";

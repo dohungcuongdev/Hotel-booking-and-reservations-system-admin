@@ -15,7 +15,7 @@
             </div>
             <div class="panel-body table-responsive" id="follow-user-box">
                 <table class="table-responsive" id="follow-user-table" ng-app="follow-users" ng-controller="folowUserCtrl">
-                   	<tr>
+                   	<tr id="tableHeader">
 						<th class="tr-p" ng-click="sortNum(followUserData)">No.</th>
 						<th class="tr-p" ng-click="sortIP(followUserData)">User IP Address</th>
 						<th class="tr-p" ng-click="sortExIP(followUserData)">External IP Address</th>
@@ -28,7 +28,7 @@
                     <tbody id="followUserTableBody">
 	                    <tr ng-repeat="d in followUserData" follow-user-directive>
 	                        <td>{{ $index + 1 }}</td>
-							<td><a href = "/Hotel-booking-and-reservations-system-admin/follow-user-ip/{{d.user_ip_address}}.html">{{ d.user_ip_address }}</a></td>
+							<td><a href = "/Hotel-booking-and-reservations-system-admin/page-access-chart/{{d.user_ip_address}}.html">{{ d.user_ip_address }}</a></td>
 							<td><a href = "http://whatismyipaddress.com/ip/{{d.external_ip_address}}">{{ d.external_ip_address }}</a></td>
 							<td>{{ d.country }}</td>
 							<td>{{ d.username }}</td>
