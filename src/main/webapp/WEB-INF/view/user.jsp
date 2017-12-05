@@ -54,7 +54,7 @@
                                 <i class="fa fa-times"></i>
                             </button> 
                             <strong class="tr-p" 
-                                    onclick="location.href = '${pageContext.request.contextPath}/notification.html'"> ${activity.time}! 
+                                    onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'"> ${activity.time}! 
                             </strong>
                             <br>UserName: ${customer.username}
                             <br>Sent content: ${activity.content}
@@ -66,7 +66,7 @@
                                 <i class="fa fa-times"></i>
                             </button> 
                             <strong class="tr-p" 
-                                    onclick="location.href = '${pageContext.request.contextPath}/notification.html'"> ${activity.time}! 
+                                    onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'"> ${activity.time}! 
                             </strong>
                             <br>UserName: ${customer.username}
                             <br>Received content: ${activity.content}
@@ -78,7 +78,7 @@
                                 <i class="fa fa-times"></i>
                             </button> 
                             <strong class="tr-p" 
-                                    onclick="location.href = '${pageContext.request.contextPath}/notification.html'"> ${activity.time}! 
+                                    onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'"> ${activity.time}! 
                             </strong>
                             <br>UserName: ${customer.username}
                             <br>Received content: ${activity.content}
@@ -90,7 +90,7 @@
                                 <i class="fa fa-times"></i>
                             </button> 
                             <strong class="tr-p" 
-                                    onclick="location.href = '${pageContext.request.contextPath}/notification.html'"> ${activity.time}! 
+                                    onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'"> ${activity.time}! 
                             </strong>
                             <br>UserName: ${customer.username}
                             <br>Received content: ${activity.content}

@@ -56,9 +56,9 @@
                             <td>${room.status}</td>
                             <td align="center">${room.numpeople}</td>
                             <td>${room.avgAminities}</td>
-                            <td><button onclick="location.href = '${pageContext.request.contextPath}/room/${room.name}.html'" class="btn btn-default btn-xs"><i class="fa fa-check"></i></button></td>
-                            <td><button onclick="location.href = '${pageContext.request.contextPath}/edit-room/${room.name}.html'" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button></td>
-                            <td><button onclick="deleteRoom('${room.name}')" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button></td>
+                            <td><button onclick="location.href = '${pageContext.request.contextPath}/room/${room.id}.html'" class="btn btn-default btn-xs"><i class="fa fa-check"></i></button></td>
+                            <td><button onclick="location.href = '${pageContext.request.contextPath}/edit-room/${room.id}.html'" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button></td>
+                            <td><button onclick="deleteRoom('${room.id}')" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button></td>
                         </tr>
                     </c:forEach>
                 </table>

@@ -34,7 +34,7 @@ public class RestaurantDAOImpl extends HotelItemDAOImp implements RestaurantDAO 
 
     public RestaurantDAOImpl() {
         try {
-        	collection = MongoDBConnector.createConnection("hotel-services");
+        	collection = MongoDBConnector.createConnection("restaurant");
         } catch (UnknownHostException ex) {
             Logger.getLogger(RestaurantDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

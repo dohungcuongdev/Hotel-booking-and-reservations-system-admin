@@ -18,6 +18,8 @@ import model.user.Customer;
  * @author Do Hung Cuong
  */
 public interface CustomerDAO {
+	
+	public Customer getCustomerByID(String id);
 
     public Customer getCustomerByUsername(String username);
 

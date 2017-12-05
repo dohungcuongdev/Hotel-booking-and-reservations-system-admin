@@ -6,7 +6,7 @@
     <div class="col-lg-6">
         <section class="panel">
             <div class="panel-body">
-                <form action="${pageContext.request.contextPath}/room-img-edited/${room.name}.html" method="post" enctype="multipart/form-data">
+                <form action="${pageContext.request.contextPath}/room-img-edited/${room.id}.html" method="post" enctype="multipart/form-data">
 
                     <div class="form-group">
                         <br><label style="font-size: 17px; color:blue"><strong>Change Image!</strong></label>
@@ -68,8 +68,9 @@
                     <div class="form-group">
                         <label>Room Name</label>
                     </div>
+                    <form:input type="hidden" value="${room.id}" readonly="true" path="id"/>
                     <div class="form-group">
-                        <form:input type="text" class="form-control" value="${room.name}" readonly="true" path="name"/>
+                        <form:input type="text" class="form-control" value="${room.name}" path="name"/>
                     </div>
                     <div class="form-group">
                         <label>Type</label>
@@ -162,7 +163,8 @@
 <%@ include file="common/footer.jspf"%>
 
 <script type="text/javascript">
-    window.onload = function () { //first loat page
+    window.onload = function () { //first load page
+    	$("#name").val('${room.name}');
         $("#type").val('${room.type}');
         $("#status").val('${room.status}');
         $('#details').val('${room.details}');
@@ -170,7 +172,7 @@
         showBookedInfor();
         var r = '${editResult}';
         checkeditresult(r);
-        window.history.pushState("string", "Hotel Admin", "${pageContext.request.contextPath}/edit-room/${room.name}.html");
+        window.history.pushState("string", "Hotel Admin", "${pageContext.request.contextPath}/edit-room/${room.id}.html");
 
     };
 

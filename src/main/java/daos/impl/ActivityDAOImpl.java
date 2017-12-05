@@ -5,23 +5,29 @@
  */
 package daos.impl;
 
-import daos.ActivityDAO;
-import com.google.gson.Gson;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import database.MongoDBConnector;
+import static statics.provider.DateTimeCalculator.getDateTime;
+
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.user.tracking.Activity;
+
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import static statics.provider.DateTimeCalculator.getDateTime;
+import com.google.gson.Gson;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+
+import daos.ActivityDAO;
+import daos.CustomerDAO;
+import database.MongoDBConnector;
+import model.user.Customer;
+import model.user.tracking.Activity;
 
 /**
  *
@@ -30,6 +36,9 @@ import static statics.provider.DateTimeCalculator.getDateTime;
 
 @Repository
 public class ActivityDAOImpl implements ActivityDAO {
+	
+	@Autowired
+	private CustomerDAO customerDAO;
 
 	private final Gson gson = new Gson();
 	
@@ -75,14 +84,20 @@ public class ActivityDAOImpl implements ActivityDAO {
         DBObject searchObject = new BasicDBObject();
         searchObject.put("_id", new ObjectId(id));
         DBCursor cursor = collection.find(searchObject);
+        Activity act = new Activity();
         while (cursor.hasNext()) {
             DBObject obj = cursor.next();
-            Activity act = gson.fromJson(obj + "", Activity.class);
+            act = gson.fromJson(obj + "", Activity.class);
             act.setId(obj.get("_id") + "");
             act.setTime(getDateTime(obj.get("created_at") + ""));
-            return act;
         }
-        return null;
+        Customer cus = customerDAO.getCustomerByUsername(act.getUsername());
+        if(cus != null) {
+            act.setEmail(cus.getUsername());
+            act.setFullname(cus.getName());
+            act.setPhone(cus.getPhone());
+        }
+        return act;
     }
 
     @Override

@@ -9,10 +9,19 @@ package model;
  * @author Do Hung Cuong
  */
 public abstract class AbstractModel {
-
+	
+	protected String id;
     protected String name;
 
-    public String getName() {
+    public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getName() {
         return name;
     }
 

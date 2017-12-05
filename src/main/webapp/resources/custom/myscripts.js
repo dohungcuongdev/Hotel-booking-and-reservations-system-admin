@@ -318,7 +318,7 @@ function deleteService(servicename) {
     });
 }
 
-function deleteRoom(roomname) {
+function deleteRoom(roomid) {
     swal({
         title: "Are you sure?",
         text: "Delete this room now!",
@@ -328,7 +328,7 @@ function deleteRoom(roomname) {
         confirmButtonText: "Yes, delete it!",
         closeOnConfirm: false
     }, function () {
-        window.location.href = '${pageContext.request.contextPath}/remove-room/' + roomname + '.htm';
+        window.location.href = '${pageContext.request.contextPath}/remove-room/' + roomid + '.htm';
     });
 }
 

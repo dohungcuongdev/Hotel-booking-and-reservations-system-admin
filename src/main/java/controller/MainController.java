@@ -119,15 +119,15 @@ public class MainController {
 		return manageRooms(model);
 	}
 
-	@RequestMapping(value = "room/{roomname}", method = RequestMethod.GET)
-	public String singleRoom(@PathVariable(value = "roomname") String roomname, ModelMap model) {
-		return initializeSingleRoom(model, roomname, AppData.REUSE_STRING[1]);
+	@RequestMapping(value = "room/{roomid}", method = RequestMethod.GET)
+	public String singleRoom(@PathVariable(value = "roomid") String roomid, ModelMap model) {
+		return initializeSingleRoom(model, roomid, AppData.REUSE_STRING[1]);
 	}
 
-	@RequestMapping(value = "edit-room/{roomname}", method = RequestMethod.GET)
-	public String editRoom(@PathVariable(value = "roomname") String roomname, ModelMap model) {
+	@RequestMapping(value = "edit-room/{roomid}", method = RequestMethod.GET)
+	public String editRoom(@PathVariable(value = "roomid") String roomid, ModelMap model) {
 		model.addAttribute("roomEdit", new HotelRoom());
-		return initializeSingleRoom(model, roomname, AppData.REUSE_STRING[3]);
+		return initializeSingleRoom(model, roomid, AppData.REUSE_STRING[3]);
 	}
 
 	@RequestMapping(value = "room-edited", method = RequestMethod.POST)
@@ -141,26 +141,26 @@ public class MainController {
 			model.put(AppData.REUSE_STRING[1], roomEdit);
 			model.put("relatedRoom", hotelItemService.getRelatedHotelRooms(roomEdit.getType()));
 		} else {
-			return initializeSingleRoom(model, roomEdit.getName(), AppData.REUSE_STRING[3]);
+			return initializeSingleRoom(model, roomEdit.getId(), AppData.REUSE_STRING[3]);
 		}
 		return AppData.REUSE_STRING[3];
 	}
 
-	@RequestMapping(value = "remove-room/{roomname}", method = RequestMethod.GET)
-	public String removeRoom(@PathVariable(value = "roomname") String roomname, ModelMap model) {
-		hotelItemService.deleteRoom(roomname);
+	@RequestMapping(value = "remove-room/{roomid}", method = RequestMethod.GET)
+	public String removeRoom(@PathVariable(value = "roomid") String roomid, ModelMap model) {
+		hotelItemService.deleteRoom(roomid);
 		model.put("deleteResult", AppData.ABLE_TO_EDIT);
 		return manageRooms(model);
 	}
 
-	@RequestMapping(value = "room-img-edited/{roomname}", method = RequestMethod.POST)
+	@RequestMapping(value = "room-img-edited/{roomid}", method = RequestMethod.POST)
 	public String roomImgEdited(@RequestParam(value = "img1") CommonsMultipartFile img1,
 			@RequestParam(value = "img2") CommonsMultipartFile img2, HttpServletRequest request,
-			@PathVariable(value = "roomname") String roomname, ModelMap model) {
+			@PathVariable(value = "roomid") String roomid, ModelMap model) {
 		model.addAttribute("roomEdit", new HotelRoom());
-		hotelItemService.editImageRoom(roomname, appService.uploadfile(img1, request, model, "rooms"),
+		hotelItemService.editImageRoom(roomid, appService.uploadfile(img1, request, model, "rooms"),
 				appService.uploadfile(img2, request, model, "rooms"));
-		return initializeSingleRoom(model, roomname, AppData.REUSE_STRING[3]);
+		return initializeSingleRoom(model, roomid, AppData.REUSE_STRING[3]);
 	}
 
 	// restaurant
@@ -387,9 +387,9 @@ public class MainController {
 
 	}
 
-	private String initializeSingleRoom(ModelMap model, String roomname, String redirect) {
+	private String initializeSingleRoom(ModelMap model, String roomid, String redirect) {
 		initialize(model);
-		HotelRoom room = hotelItemService.getRoomByName(roomname);
+		HotelRoom room = hotelItemService.getRoomByID(roomid);
 		model.put(AppData.REUSE_STRING[1], room);
 		model.put("relatedRoom", hotelItemService.getRelatedHotelRooms(room.getType()));
 		return redirect;

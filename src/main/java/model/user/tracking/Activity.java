@@ -15,7 +15,6 @@ import model.AbstractModel;
  */
 public class Activity extends AbstractModel {
 
-    private String id;
     private String username;
     private String click;
     private String details;

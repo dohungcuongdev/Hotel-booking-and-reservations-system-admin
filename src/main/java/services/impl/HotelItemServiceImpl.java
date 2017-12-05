@@ -31,8 +31,8 @@ public class HotelItemServiceImpl implements HotelItemService {
     private RestaurantDAO serviceDAO;
 
     @Override
-    public HotelRoom getRoomByName(String name) {
-        return roomDAO.getRoomByName(name);
+    public HotelRoom getRoomByID(String id) {
+        return roomDAO.getRoomByID(id);
     }
 
     @Override
@@ -76,8 +76,8 @@ public class HotelItemServiceImpl implements HotelItemService {
     }
 
     @Override
-    public void deleteRoom(String name) {
-        roomDAO.deleteItem(name);
+    public void deleteRoom(String id) {
+        roomDAO.deleteItem(id);
     }
 
     @Override

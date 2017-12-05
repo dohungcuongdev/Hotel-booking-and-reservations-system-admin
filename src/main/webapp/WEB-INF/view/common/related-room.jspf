@@ -42,8 +42,8 @@
                         <td>${room.booked_by}</td>
                         <td>${room.checkin}</td>
                         <td>${room.checkout}</td>
-                        <td><button onclick="location.href = '${pageContext.request.contextPath}/room/${room.name}.html'" class="btn btn-default btn-xs"><i class="fa fa-check"></i></button></td>
-                        <td><button onclick="location.href = '${pageContext.request.contextPath}/edit-room/${room.name}.html'" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button></td>
+                        <td><button onclick="location.href = '${pageContext.request.contextPath}/room/${room.id}.html'" class="btn btn-default btn-xs"><i class="fa fa-check"></i></button></td>
+                        <td><button onclick="location.href = '${pageContext.request.contextPath}/edit-room/${room.id}.html'" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button></td>
                         <td><button class="btn btn-default btn-xs"><i class="fa fa-times"></i></button></td>
                         </tr>
                     </c:forEach>

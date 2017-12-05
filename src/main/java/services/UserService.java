@@ -44,6 +44,8 @@ public interface UserService {
     
     public List<ChartData> getListFollowUsersChartData(List<FollowUsers> list);
     
+    public Customer getCustomerByID(String id);
+    
     public Customer getCustomerByUsername(String username);
 
     public List<Customer> getAllCustomers();

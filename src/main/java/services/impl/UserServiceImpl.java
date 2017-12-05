@@ -200,5 +200,10 @@ public class UserServiceImpl implements UserService {
 	public Map getPageAccessChartDataByIP(String ipaddress, List<FollowUsers> list) {
 		return userDAO.getPageAccessChartDataByIP(ipaddress, list);
 	}
+
+	@Override
+	public Customer getCustomerByID(String id) {
+		return customerDAO.getCustomerByID(id);
+	}
     
 }

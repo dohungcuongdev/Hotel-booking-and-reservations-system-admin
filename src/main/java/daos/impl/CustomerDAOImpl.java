@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,6 +28,7 @@ import daos.ActivityDAO;
 import daos.CustomerDAO;
 import daos.UserDAO;
 import database.MongoDBConnector;
+import model.hotel.HotelRoom;
 import model.user.Customer;
 import model.user.tracking.ActionTracking;
 import model.user.tracking.Activity;
@@ -60,19 +62,32 @@ public class CustomerDAOImpl implements CustomerDAO {
 			Logger.getLogger(RoomDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+	
+	@Override
+	public Customer getCustomerByID(String id) {
+		BasicDBObject whereQuery = new BasicDBObject();
+		whereQuery.put("_id", new ObjectId(id));
+		DBCursor cursor = collection.find(whereQuery);
+		while (cursor.hasNext()) {
+			DBObject obj = cursor.next();
+			return getCustomerWithID(obj);
+		}
+		return null;
+	}
 
 	@Override
 	public Customer getCustomerByUsername(String username) {
 		BasicDBObject whereQuery = new BasicDBObject();
 		whereQuery.put("username", username);
 		DBCursor cursor = collection.find(whereQuery);
-		Customer cus = new Customer();
 		while (cursor.hasNext()) {
+			Customer cus = new Customer();
 			DBObject obj = cursor.next();
 			cus = gson.fromJson(obj + "", Customer.class);
 			cus.setRegistered_date(getDateTime(obj.get("created_at") + ""));
+			return cus;
 		}
-		return cus;
+		return null;
 	}
 
 	@Override
@@ -237,4 +252,12 @@ public class CustomerDAOImpl implements CustomerDAO {
 				});
 		return fbr;
 	}
+	
+    private Customer getCustomerWithID(DBObject obj) {
+    	Customer cus = new Customer();
+    	cus = gson.fromJson(obj.toString(), Customer.class);
+    	cus.setId(obj.get("_id").toString());
+    	cus.setRegistered_date(getDateTime(obj.get("created_at") + ""));
+    	return cus;
+    }
 }

@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Repository;
 
 import model.hotel.HotelRoom;
@@ -41,12 +42,13 @@ public class RoomDAOImpl extends HotelItemDAOImp implements RoomDAO {
     }
 
     @Override
-    public HotelRoom getRoomByName(String name) {
+    public HotelRoom getRoomByID(String id) {
         BasicDBObject whereQuery = new BasicDBObject();
-        whereQuery.put("name", name);
+        whereQuery.put("_id", new ObjectId(id));
         DBCursor cursor = collection.find(whereQuery);
         while (cursor.hasNext()) {
-            return gson.fromJson(cursor.next().toString(), HotelRoom.class);
+        	DBObject obj = cursor.next();
+            return getRoomWithID(obj);
         }
         return null;
     }
@@ -56,7 +58,8 @@ public class RoomDAOImpl extends HotelItemDAOImp implements RoomDAO {
         ArrayList<HotelRoom> rooms = new ArrayList<>();
         DBCursor cursor = collection.find();
         while (cursor.hasNext()) {
-            rooms.add(gson.fromJson(cursor.next().toString(), HotelRoom.class));
+        	DBObject obj = cursor.next();
+        	addRoomtoList(rooms, obj);
         }
         return rooms;
     }
@@ -68,7 +71,8 @@ public class RoomDAOImpl extends HotelItemDAOImp implements RoomDAO {
         ArrayList<HotelRoom> rooms = new ArrayList<>();
         DBCursor cursor = collection.find(whereQuery);
         while (cursor.hasNext()) {
-            rooms.add(gson.fromJson(cursor.next().toString(), HotelRoom.class));
+        	DBObject obj = cursor.next();
+        	addRoomtoList(rooms, obj);
         }
         return rooms;
     }
@@ -77,7 +81,21 @@ public class RoomDAOImpl extends HotelItemDAOImp implements RoomDAO {
     public void updateRoom(HotelRoom room) {
         DBObject document = (DBObject) JSON.parse(gson.toJson(room));
         DBObject searchObject = new BasicDBObject();
-        searchObject.put("name", room.getName());
+        searchObject.put("_id", new ObjectId(room.getId()));
         collection.update(searchObject, document);
     }
+    
+    private void addRoomtoList(List<HotelRoom> rooms, DBObject obj) {
+    	HotelRoom room = new HotelRoom();
+    	room = gson.fromJson(obj.toString(), HotelRoom.class);
+    	room.setId(obj.get("_id").toString());
+    	rooms.add(room);
+    }
+    private HotelRoom getRoomWithID(DBObject obj) {
+    	HotelRoom room = new HotelRoom();
+    	room = gson.fromJson(obj.toString(), HotelRoom.class);
+    	room.setId(obj.get("_id").toString());
+    	return room;
+    }
+    
 }

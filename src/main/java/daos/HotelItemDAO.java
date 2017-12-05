@@ -13,5 +13,5 @@ public interface HotelItemDAO {
     
     public void editImage(String name, String img, String img2);
     
-    public void deleteItem(String name);
+    public void deleteItem(String id);
 }

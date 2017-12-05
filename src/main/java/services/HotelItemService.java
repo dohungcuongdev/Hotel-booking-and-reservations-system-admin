@@ -15,7 +15,7 @@ import model.hotel.HotelService;
  */
 public interface HotelItemService {
     
-    public HotelRoom getRoomByName(String name);
+    public HotelRoom getRoomByID(String id);
 
     public List<HotelRoom> getAllRooms();
 
@@ -25,7 +25,7 @@ public interface HotelItemService {
     
     public void editImageRoom(String name, String img, String img2);
     
-    public void deleteRoom(String name);
+    public void deleteRoom(String id);
     
     public HotelService getHotelServiceByName(String name);
 

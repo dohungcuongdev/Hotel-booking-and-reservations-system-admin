@@ -28,10 +28,10 @@
                     <tbody id="followUserTableBody">
 	                    <tr ng-repeat="d in followUserData" follow-user-directive>
 	                        <td>{{ $index + 1 }}</td>
-							<td><a href = "/Hotel-booking-and-reservations-system-admin/page-access-chart/{{d.user_ip_address}}.html">{{ d.user_ip_address }}</a></td>
+							<td><a href = "${pageContext.request.contextPath}/page-access-chart/{{d.user_ip_address}}.html">{{ d.user_ip_address }}</a></td>
 							<td><a href = "http://whatismyipaddress.com/ip/{{d.external_ip_address}}">{{ d.external_ip_address }}</a></td>
 							<td>{{ d.country }}</td>
-							<td>{{ d.username }}</td>
+							<td><a href = "${pageContext.request.contextPath}/customer/{{ d.username }}.html">{{ d.username }}</a></td>
 							<td>{{ d.created_at | date:'medium'}}</td>
 							<td>{{ d.page_access }}</td>
 							<td>{{ d.duration | secondsToTime }}</td>
