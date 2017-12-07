@@ -1,5 +1,3 @@
-
-<!-- Chart code -->
 <script>
 var data = ${jsonchart};
 var chart = AmCharts.makeChart("chartdiv", {

@@ -6,10 +6,8 @@
 package daos.impl;
 
 import daos.HotelItemDAO;
-
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Repository;
-
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 

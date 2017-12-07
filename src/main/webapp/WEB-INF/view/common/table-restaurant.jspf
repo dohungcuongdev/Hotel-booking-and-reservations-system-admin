@@ -1,0 +1,37 @@
+<table id="table-restaurant">
+    <tr id="tableHeader">
+        <th class="tr-p" onclick="sortAlpha(0,'table-restaurant')">No.</th>
+        <th class="tr-p" onclick="sortAlpha(1,'table-restaurant')">Name</th>
+        <th class="tr-p" onclick="sortAlpha(2,'table-restaurant')">Type</th>
+        <th class="tr-p" onclick="sortNum(3,'table-restaurant')">Pirce($)</th>
+        <th class="tr-p" onclick="sortNum(4,'table-restaurant')">Quantity</th>
+        <th class="tr-p" onclick="sortAlpha(5,'table-restaurant')">Note</th>
+        <th>View</th>
+        <th>Edit</th>
+        <th>Del</th>
+    </tr>
+    <c:forEach var="service" items="${listservices}" varStatus="loop">
+        <tr>
+            <td>${loop.index + 1}</td>
+            <td>${service.name}</td>
+            <c:if test="${service.type.equalsIgnoreCase('ice-cream')}">  
+                <td><span style="font-size: 14px" class="label label-danger">${service.type}</span></td>
+                </c:if>   
+                <c:if test="${service.type.equalsIgnoreCase('drink')}">  
+                <td><span style="font-size: 14px" class="label label-success">${service.type}</span></td>
+                </c:if> 
+                <c:if test="${service.type.equalsIgnoreCase('food')}">  
+                <td><span style="font-size: 14px" class="label label-primary">${service.type}</span></td>
+                </c:if>
+                <c:if test="${service.type.equalsIgnoreCase('fruit')}">  
+                <td><span style="font-size: 14px" class="label label-warning">${service.type}</span></td>
+                </c:if>  
+            <td>${service.price}</td>
+            <td>${service.quantity}</td>
+            <td>${service.note}</td>
+            <td><button onclick="location.href = '${pageContext.request.contextPath}/service/${service.id}.html'" class="btn btn-default btn-xs"><i class="fa fa-check"></i></button></td>
+            <td><button onclick="location.href = '${pageContext.request.contextPath}/edit-service/${service.id}.html'" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button></td>
+            <td><button onclick ="deleteService('${service.id}')" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button></td>
+        </tr>
+    </c:forEach>
+</table>

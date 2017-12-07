@@ -1,14 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<!-- Main row -->
 <div class="row">
-
     <div class="col-md-8">
-        <!--room image-->
         <section class="panel">
-            <header class="panel-heading">
-                ${service.name}
-            </header>
+            <header class="panel-heading">${service.name}</header>
             <div class="panel-body">
                 <div class="w3-content w3-display-container">
                     <img class="mySlides"src="${pageContext.request.contextPath}/resources/img/restaurant/${service.img}" alt="Service Image" style="height: 370px; width: 750px;"/>
@@ -19,48 +13,29 @@
                 </div>
             </div>
         </section>
-        <!--room image-->
-
     </div>
     <div class="col-lg-4">
-
-        <!--chat start-->
         <section class="panel">
-            <header class="panel-heading">
-                Informations
-            </header>
+            <header class="panel-heading">Informations</header>
             <div class="panel-body" id="noti-box">
                 <div class="alert alert-block alert-danger">
                     <h4><strong>${service.name}</strong></h4>
                     <p><strong>Type</strong>: ${service.type}</p>
                     <p><strong>Price</strong>: $${service.price}</p>
                 </div>
-
                 <div class="alert alert-block alert-warning">
                     <p><strong>Quantity</strong>: ${service.quantity}</p>
                     <p><strong>Note</strong>: ${service.note}</p>
                 </div>
-
                 <div class="alert alert-block alert-success">
                     <p><strong>Serve type</strong>: ${service.serveType}
                     <p><strong>Serve time</strong>: ${service.serveTime}
                 </div>
-
-
                 <div class="alert alert-block alert-info">
                     <p><strong>Details</strong>: ${service.details}</p>
                 </div>
-
-
-
             </div>
         </section>
-
-
-
     </div>
-
-
 </div>
-
 <script src="${pageContext.request.contextPath}/resources/custom/single-item.js" type="text/javascript"></script>

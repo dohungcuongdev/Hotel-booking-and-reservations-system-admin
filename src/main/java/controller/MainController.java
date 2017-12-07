@@ -8,7 +8,6 @@ package controller;
 import java.io.IOException;
 import model.user.Administrator;
 import statics.AppData;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.user.tracking.Activity;
@@ -26,7 +24,6 @@ import model.hotel.HotelRoom;
 import model.hotel.HotelService;
 import model.user.Customer;
 import model.user.tracking.FollowUsers;
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -70,12 +67,22 @@ public class MainController {
 
 	// checklogin
 	@RequestMapping(value = "check-login", method = RequestMethod.POST)
-	public String checklogin(@ModelAttribute(value = "loginbean") LoginBean loginbean, ModelMap model)
-			throws IOException {
+	public String checklogin(@ModelAttribute(value = "loginbean") LoginBean loginbean, ModelMap model) throws IOException {
 		if (loginbean.getUserName().equals("cuongvip1295@yahoo.com.vn") && loginbean.getPassword().equals("12101995")) {
 			return index(model);
 		}
 		return "login";
+	}
+	
+	@RequestMapping(value = "search-result/{keyword}", method = RequestMethod.GET)
+	public String searchResult(@PathVariable(value = "keyword") String keyword, ModelMap model) {
+		if(keyword!=null && !keyword.equals("")) {
+			initialize(model);
+			model.put("keyword", keyword);
+			model.put("cusDataCollection", userService.getDataCollection());
+			initializeFollowUser(model);
+		}
+		return "search-result";
 	}
 
 	// profile
@@ -175,15 +182,15 @@ public class MainController {
 		return manageRestaurant(model);
 	}
 
-	@RequestMapping(value = "service/{servicename}", method = RequestMethod.GET)
-	public String singleService(@PathVariable(value = "servicename") String servicename, ModelMap model) {
-		return initializeSingleService(model, servicename, AppData.REUSE_STRING[2]);
+	@RequestMapping(value = "service/{serviceid}", method = RequestMethod.GET)
+	public String singleService(@PathVariable(value = "serviceid") String serviceid, ModelMap model) {
+		return initializeSingleService(model, serviceid, AppData.REUSE_STRING[2]);
 	}
 
-	@RequestMapping(value = "edit-service/{servicename}", method = RequestMethod.GET)
-	public String editService(@PathVariable(value = "servicename") String servicename, ModelMap model) {
+	@RequestMapping(value = "edit-service/{serviceid}", method = RequestMethod.GET)
+	public String editService(@PathVariable(value = "serviceid") String serviceid, ModelMap model) {
 		model.addAttribute("serviceEdit", new HotelService());
-		return initializeSingleService(model, servicename, AppData.REUSE_STRING[4]);
+		return initializeSingleService(model, serviceid, AppData.REUSE_STRING[4]);
 	}
 
 	@RequestMapping(value = "service-edited", method = RequestMethod.POST)
@@ -197,26 +204,26 @@ public class MainController {
 			model.put(AppData.REUSE_STRING[2], serviceEdit);
 			model.put("relatedServices", hotelItemService.getRelatedHotelServices(serviceEdit.getType()));
 		} else {
-			return initializeSingleService(model, serviceEdit.getName(), AppData.REUSE_STRING[4]);
+			return initializeSingleService(model, serviceEdit.getId(), AppData.REUSE_STRING[4]);
 		}
 		return AppData.REUSE_STRING[4];
 	}
 
-	@RequestMapping(value = "remove-service/{servicename}", method = RequestMethod.GET)
-	public String removeService(@PathVariable(value = "servicename") String servicename, ModelMap model) {
-		hotelItemService.deleteService(servicename);
+	@RequestMapping(value = "remove-service/{serviceid}", method = RequestMethod.GET)
+	public String removeService(@PathVariable(value = "serviceid") String serviceid, ModelMap model) {
+		hotelItemService.deleteService(serviceid);
 		model.put("deleteResult", AppData.ABLE_TO_EDIT);
 		return manageRestaurant(model);
 	}
 
-	@RequestMapping(value = "service-img-edited/{servicename}", method = RequestMethod.POST)
+	@RequestMapping(value = "service-img-edited/{serviceid}", method = RequestMethod.POST)
 	public String serviceImgEdited(@RequestParam(value = "img1") CommonsMultipartFile img1,
 			@RequestParam(value = "img2") CommonsMultipartFile img2, HttpServletRequest request,
-			@PathVariable(value = "servicename") String servicename, ModelMap model) {
+			@PathVariable(value = "serviceid") String serviceid, ModelMap model) {
 		model.addAttribute("serviceEdit", new HotelService());
-		hotelItemService.editImageService(servicename, appService.uploadfile(img1, request, model, "restaurant"),
+		hotelItemService.editImageService(serviceid, appService.uploadfile(img1, request, model, "restaurant"),
 				appService.uploadfile(img2, request, model, "restaurant"));
-		return initializeSingleService(model, servicename, AppData.REUSE_STRING[4]);
+		return initializeSingleService(model, serviceid, AppData.REUSE_STRING[4]);
 	}
 
 	// users
@@ -230,9 +237,7 @@ public class MainController {
 	@RequestMapping(value = "follow-users", method = RequestMethod.GET)
 	public String followUsers(ModelMap model) {
 		initialize(model);
-		List<FollowUsers> list = userService.getListFollowUsers();
-		model.put("mapFollowUsers", userService.getFollowUsersMap(list));
-		model.put("mapFollowUsersIP", userService.getFollowUsersMapByIP(list));
+		initializeFollowUser(model);
 		return "follow-users";
 	}
 
@@ -276,6 +281,13 @@ public class MainController {
 		model.put("mapFollowUserIP", userService.getFollowUsersMapByOneIP(list, ip));
 		return "follow-user-ip";
 	}
+	
+	@RequestMapping(value = "ip-details/{externalip}", method = RequestMethod.GET)
+	public String ipDetails(@PathVariable(value = "externalip") String externalip, ModelMap model) {
+		initialize(model);
+		model.put("ipDetails", userService.getExternalIPDetails(externalip));
+		return "ip-details";
+	}
 
 	@RequestMapping(value = "user", method = RequestMethod.GET)
 	public String singleUser(ModelMap model) {
@@ -314,6 +326,7 @@ public class MainController {
 	public String notification(@PathVariable(value = "id") String id, ModelMap model) {
 		userService.seenNotification(id);
 		model.put(AppData.REUSE_STRING[0], userService.getActivityBy(id));
+		model.put("emailTemplates", AppData.EMAIL_TEMPLATE_1);
 		initialize(model);
 		return "notification";
 	}
@@ -322,6 +335,7 @@ public class MainController {
 	public String replyBooking(@PathVariable(value = "id") String id, ModelMap model) {
 		userService.seenNotification(id);
 		model.put(AppData.REUSE_STRING[0], userService.getActivityBy(id));
+		model.put("emailTemplates", AppData.EMAIL_TEMPLATE_1);
 		initialize(model);
 		model.put("emailsent", "");
 		return AppData.REUSE_STRING[6];
@@ -339,6 +353,7 @@ public class MainController {
 	public String sendMail(@RequestParam("activity-id") String id, @RequestParam("message") String message,
 			@RequestParam("user-email") String useremail, @RequestParam("subject") String subject, ModelMap model) {
 		model.put("emailsent", appService.sendEmail(appService.removeAccent(message), useremail, subject));
+		model.put("emailTemplates", AppData.EMAIL_TEMPLATE_1);
 		return replyEmail("reply " + subject, id, model);
 	}
 
@@ -384,7 +399,13 @@ public class MainController {
 		model.put("totalMessage", listactivily.size() * 100);
 		model.put("totalRooms", listrooms.size() * 100);
 		model.put("totalServices", listservices.size() * 100);
-
+	}
+	
+	private void initializeFollowUser(ModelMap model) {
+		List<FollowUsers> list = userService.getListFollowUsers();
+		model.put("mapFollowUsers", userService.getFollowUsersMap(list));
+		model.put("mapFollowUsersIP", userService.getFollowUsersMapByIP(list));
+		model.put("mapsExternalIP", userService.getMapByExternalIP(list));
 	}
 
 	private String initializeSingleRoom(ModelMap model, String roomid, String redirect) {
@@ -395,9 +416,9 @@ public class MainController {
 		return redirect;
 	}
 
-	private String initializeSingleService(ModelMap model, String servicename, String redirect) {
+	private String initializeSingleService(ModelMap model, String serviceid, String redirect) {
 		initialize(model);
-		HotelService service = hotelItemService.getHotelServiceByName(servicename);
+		HotelService service = hotelItemService.getHotelServiceByID(serviceid);
 		model.put(AppData.REUSE_STRING[2], service);
 		model.put("relatedServices", hotelItemService.getRelatedHotelServices(service.getType()));
 		return redirect;

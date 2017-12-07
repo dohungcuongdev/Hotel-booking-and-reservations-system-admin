@@ -10,7 +10,6 @@
 */
 
 const CHART_API_URL = "http://localhost:8080/Hotel-booking-and-reservations-system-admin/api/chart-data.html";
-
 var app = angular.module('chart', []);
 
 app.controller('ChartController', function($scope, $http) {

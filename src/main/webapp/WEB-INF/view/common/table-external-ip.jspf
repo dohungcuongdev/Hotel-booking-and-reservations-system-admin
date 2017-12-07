@@ -1,0 +1,14 @@
+<table id="externalip-table">
+    <tr id="tableHeader">
+        <th class="tr-p" onclick="sortNum(0, 'externalip-table')">No.</th>
+        <th class="tr-p" onclick="sortAlpha(1, 'externalip-table')">External IP</th>
+        <th class="tr-p" onclick="sortNum(2, 'externalip-table')">Visit Times</th>
+    </tr>
+    <c:forEach var="map" items="${mapsExternalIP}" varStatus="loop">
+        <tr>
+            <td>${loop.index + 1}</td>
+            <td><a href = "${pageContext.request.contextPath}/ip-details/${map.key}.html">${map.key}</a></td>
+            <td>${map.value}</td>
+        </tr>
+    </c:forEach>
+</table>

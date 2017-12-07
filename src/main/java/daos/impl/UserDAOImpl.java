@@ -7,6 +7,7 @@ package daos.impl;
 
 import daos.UserDAO;
 import com.google.gson.Gson;
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
@@ -18,12 +19,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.springframework.stereotype.Repository;
-
 import model.user.tracking.ChartData;
+import model.user.tracking.ExternalIP;
 import model.user.tracking.FollowUsers;
-
 import static statics.provider.DateTimeCalculator.formatMillisecond;
 import static statics.provider.DateTimeCalculator.getDateTime;
 import static statics.provider.MathCalculator.round;
@@ -63,6 +62,14 @@ public class UserDAOImpl implements UserDAO {
 			listFollowUsers.set(i, fu);
 		}
 		return listFollowUsers;
+	}
+	
+	@Override
+	public ExternalIP getExternalIPDetails(String external_ip_address) {
+		BasicDBObject whereQuery = new BasicDBObject();
+		whereQuery.put("external_ip_address", external_ip_address);
+		DBObject obj = collection.findOne(whereQuery);
+		return gson.fromJson(obj.toString(), ExternalIP.class);
 	}
 
 	@Override
@@ -155,10 +162,23 @@ public class UserDAOImpl implements UserDAO {
 	public String getJSONPageAccess(Map m) {
 		StringBuilder jsonArray = new StringBuilder("[");
 		m.keySet().stream().forEach((key) -> {
-			jsonArray.append("{\"page_access\" : \"").append(key).append("\", \"visit_time\" : ").append(m.get(key))
-					.append(", \"color\" : \"#CD0D74\"},");
+			jsonArray.append("{\"page_access\" : \"").append(key).append("\", \"visit_time\" : ").append(m.get(key)).append(", \"color\" : \"#CD0D74\"},");
 		});
 		return jsonArray.append("]").toString();
+	}
+	
+	@Override
+	public Map getMapByExternalIP(List<FollowUsers> list) {
+		Map m = new HashMap();
+		for (int i = 0; i < list.size(); i++) {
+			String key = list.get(i).getExternal_ip_address();
+			if (m.containsKey(key)) {
+				m.replace(key, Integer.parseInt(m.get(key) + "") + 1);
+			} else {
+				m.put(key, 1);
+			}
+		}
+		return m;
 	}
 
 	@Override
@@ -217,8 +237,7 @@ public class UserDAOImpl implements UserDAO {
 		StringBuilder jsonArray = new StringBuilder("[");
 		Map m = getMapFollowUsersCountry(list);
 		m.keySet().stream().forEach((key) -> {
-			jsonArray.append("{\"country\" : \"").append(key).append("\", \"visits\" : ").append(m.get(key))
-					.append("},");
+			jsonArray.append("{\"country\" : \"").append(key).append("\", \"visits\" : ").append(m.get(key)).append("},");
 		});
 		return jsonArray.append("]").toString();
 	}

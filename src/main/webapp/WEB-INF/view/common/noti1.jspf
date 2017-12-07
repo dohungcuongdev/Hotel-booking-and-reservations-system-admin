@@ -1,0 +1,5 @@
+<%@ include file="noti3.jspf"%>
+<h5>Full Name: ${activity.fullname}</h5>
+<h5>Email: ${activity.email}</h5>
+<h5>Phone: ${activity.phone}</h5>
+<%@ include file="noti2.jspf"%>

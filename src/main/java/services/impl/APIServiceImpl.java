@@ -6,7 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import api.APIProvider;
 import services.APIService;
 
@@ -25,5 +24,4 @@ public class APIServiceImpl implements APIService {
 	public JSONArray getListFollowUsers() throws IOException, JSONException {
 		return testDAO.getListFollowUsers();
 	}
-
 }

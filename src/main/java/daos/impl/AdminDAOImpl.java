@@ -9,18 +9,14 @@ import daos.AdminDAO;
 import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 import database.MongoDBConnector;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.springframework.stereotype.Repository;
-
 import model.user.Administrator;
-
 import static statics.provider.ImageEditor.editImagebyUserName;
 
 /**
@@ -31,10 +27,10 @@ import static statics.provider.ImageEditor.editImagebyUserName;
 @Repository
 public class AdminDAOImpl implements AdminDAO {
 
-    private final Gson gson = new Gson();
     private DBCollection collection;
+    private final Gson gson = new Gson();
 
-    {
+    public AdminDAOImpl() {
         try {
             collection = MongoDBConnector.createConnection("admin");
         } catch (UnknownHostException ex) {
@@ -46,11 +42,8 @@ public class AdminDAOImpl implements AdminDAO {
     public Administrator getAdminByUserName(String username) {
         BasicDBObject whereQuery = new BasicDBObject();
         whereQuery.put("username", username);
-        DBCursor cursor = collection.find(whereQuery);
-        while (cursor.hasNext()) {
-            return gson.fromJson(cursor.next().toString(), Administrator.class);
-        }
-        return null;
+        DBObject obj = collection.findOne(whereQuery);
+        return gson.fromJson(obj.toString(), Administrator.class);
     }
 
     @Override

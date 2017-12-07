@@ -1,12 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="common/sub-content.jspf"%>
-
 <div class="row">
     <div class="col-xs-12">
         <div class="panel">
-            <header class="panel-heading">
-                Page Access Statistics with User IP: ${ip}
-            </header>
+            <header class="panel-heading">Page Access Statistics with User IP: ${ip}</header>
             <div class="box-tools m-b-15">
                 <div class="input-group">
                     <input type="text" name="table_search" class="form-control input-sm pull-right" 
@@ -25,7 +22,6 @@
                         <th class="tr-p" onclick="sortAlpha(1, 'page-access-ip-table')">IP Address</th>
                         <th class="tr-p" onclick="sortNum(3, 'page-access-ip-table')">Visit Times</th>
                     </tr>
-
                     <c:forEach var="map" items="${mapFollowUserIP}" varStatus="loop">
                         <tr>
                             <td>${loop.index + 1}</td>
@@ -37,7 +33,6 @@
                 </table>
             </div>
         </div>
-        <!-- /.box -->
     </div>
 </div>
 <%@ include file="common/footer.jspf"%>

@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="row">
-
     <div class="col-md-8">
         <!--room image-->
         <section class="panel">
@@ -18,15 +17,10 @@
             </div>
         </section>
         <!--room image-->
-
     </div>
     <div class="col-lg-4">
-
-        <!--chat start-->
         <section class="panel">
-            <header class="panel-heading">
-                Informations
-            </header>
+            <header class="panel-heading">Informations</header>
             <div class="panel-body" id="noti-box">
                 <div class="alert alert-block alert-danger">
                     <h4><strong>Room ${room.name}</strong></h4>
@@ -36,7 +30,6 @@
                     <p><strong>Number of Adults</strong>: ${room.numpeople}</p>
                     <p><strong>Amenities Score</strong>: ${room.avgAminities}</p>
                 </div>
-
                 <div class="alert alert-block alert-warning">  
                     <p><strong>Status</strong>: ${room.status}</p>
                     <c:if test="${room.status.equals('booked')}">
@@ -45,32 +38,19 @@
                         <p><strong>Check out</strong>: ${room.checkout}</p>
                     </c:if> 
                 </div>
-
                 <div class="alert alert-block alert-success">
                     <p><strong>Details</strong>: ${room.details}</p>
                 </div>
-
-
                 <div class="alert alert-block alert-info">
                     <p><strong>Amenities</strong>:</p>
-                    <ul>
-                        <li>Shower</li>
-                        <li>Bathtub</li>
-                        <li>One bed for 2 adult
-                        <li>Seating unit</li>
-                        <li>Telephone.Mini-fridge</li>
-                        <li>Hair dryer</li>
-                        <li>TV 39 inchs</li>
-                        <li>Air-conditioner</li>
-                        <li>Free WiFi</li>
-                    </ul>
+	                <ul>
+	                    <c:forEach var="amenity" items="${room.amenities}">
+	                        <li>${amenity}</li>
+	                    </c:forEach>
+	                </ul>
                 </div>
-
-
-
             </div>
         </section>
     </div>
 </div>
-
 <script src="${pageContext.request.contextPath}/resources/custom/single-item.js" type="text/javascript"></script>

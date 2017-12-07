@@ -1,12 +1,8 @@
 <%@ include file="common/sub-content.jspf"%>
-
-
 <div class="row">
     <div class="col-lg-12">
         <section class="panel">
-            <header class="panel-heading" style="font-weight: bold; color:red">
-                F.Q.A - Frequently Asked Questions
-            </header>
+            <header class="panel-heading" style="font-weight: bold; color:red"> F.Q.A - Frequently Asked Questions</header>
             <div class="panel-body">          
                 <strong>What is the header? </strong> The header contains notifications and messages.
                 <img src="${pageContext.request.contextPath}/resources/img/fqa/header.bmp" alt="FQA"/>
@@ -35,6 +31,4 @@
         </section>
     </div>
 </div>
-<!--row1-->
-
 <%@ include file="common/footer.jspf"%>

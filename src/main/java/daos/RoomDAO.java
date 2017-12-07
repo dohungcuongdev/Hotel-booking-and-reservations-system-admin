@@ -15,15 +15,9 @@ import model.hotel.HotelRoom;
 public interface RoomDAO {
 
     public HotelRoom getRoomByID(String id);
-
     public List<HotelRoom> getAllRooms();
-
     public List<HotelRoom> getRelatedHotelRooms(String type);
-
     public void updateRoom(HotelRoom room);
-
 	public void editImage(String name, String img, String img2);
-
 	public void deleteItem(String id);
-
 }

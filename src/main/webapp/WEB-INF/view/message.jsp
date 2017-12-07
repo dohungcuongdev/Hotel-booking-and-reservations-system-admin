@@ -1,14 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="common/sub-content.jspf"%>
-
-<!-- Main row -->
 <div class="row">
-
     <div class="col-md-8" id="all-notifications">
         <section class="panel">
-            <header class="panel-heading">
-                Notifications
-            </header>
+            <header class="panel-heading">Notifications</header>
             <div class="panel-body" id="noti-box">
                 <c:choose>
                     <c:when test="${newNotifications.size() <= 0}"> 
@@ -27,7 +22,7 @@
                                             onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'"> ${activity.time}! 
                                     </strong>
                                     <br>UserName: ${activity.username}
-                                    <br>Sent content: ${activity.content}
+                                    <br><b>Sent content</b>: ${activity.content}
                                 </div>
                             </c:if>
                             <c:if test="${activity.click.equals('register')}"> 
@@ -39,7 +34,7 @@
                                             onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'"> ${activity.time}! 
                                     </strong>
                                     <br>UserName: ${activity.username}
-                                    <br>Received content: ${activity.content}
+                                    <br><b>Received content</b>: ${activity.content}
                                 </div>
                             </c:if>
                             <c:if test="${activity.name.equals('Book Room') || activity.name.equals('Cancel Room')}"> 
@@ -51,7 +46,7 @@
                                             onclick="location.href = '${pageContext.request.contextPath}/reply ${activity.name}/${activity.id}.html'"> ${activity.time}! 
                                     </strong>
                                     <br>UserName: ${activity.username}
-                                    <br>Received content: ${activity.content}
+                                    <br><b>Received content</b>: ${activity.content}
                                 </div>
                             </c:if>
                             <c:if test="${activity.click.equals('contact') || activity.click.equals('reservation')}"> 
@@ -63,26 +58,16 @@
                                             onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'"> ${activity.time}! 
                                     </strong>
                                     <br>${activity.username}
-                                    <br>Sent content: ${activity.content}
+                                    <br><b>Sent content</b>: ${activity.content}
                                 </div>
                             </c:if>
                         </c:forEach>
                     </c:otherwise>
                 </c:choose>
-
-
-
             </div>
         </section>
-
     </div>
     <%@ include file="common/mes-note.jspf"%>
-
-
 </div>
-
-
-<!-- Main row -->
 <%@ include file="common/all-mes.jspf"%>
-<!-- row end -->
 <%@ include file="common/footer.jspf"%>

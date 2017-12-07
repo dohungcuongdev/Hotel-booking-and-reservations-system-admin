@@ -149,11 +149,9 @@ public class Activity extends AbstractModel {
     }
 
     public static class CompareDateTime implements Comparator<Activity> {
-
         @Override
         public int compare(Activity a1, Activity a2) {
             return a2.time.compareTo(a1.time);
         }
     }
-
 }

@@ -15,12 +15,8 @@ import model.user.tracking.Activity;
 public interface ActivityDAO {
 
     public List<Activity> getAllActivity();
-
     public List<Activity> getAllActivityByUserName(String username);
-
     public List<Activity> getNewListNotification();
-
     public Activity getActivityBy(String id);
-    
     public void seenNotification(String id);
 }

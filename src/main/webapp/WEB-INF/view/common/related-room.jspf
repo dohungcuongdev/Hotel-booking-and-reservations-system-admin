@@ -1,21 +1,18 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="panel">
-            <header class="panel-heading">
-                Relate Rooms
-            </header>
+            <header class="panel-heading">Relate Rooms</header>
             <div class="panel-body table-responsive">
-                <table>
-                    <tr>
-                        <th>No.</th>
-                        <th>Room</th>
-                        <th>Type</th>
-                        <th>Size</th>
-                        <th>Pirce</th>
-                        <th>Status</th>
-                        <th>Booked by</th>
-                        <th>Check in</th>
-                        <th>Check out</th>
+                <table id="table-management">
+                    <tr id="tableHeader">
+                        <th class="tr-p" onclick="sortNum(0,'table-management')">No.</th>
+                        <th class="tr-p" onclick="sortAlpha(1,'table-management')">Room</th>
+                        <th class="tr-p" onclick="sortAlpha(2,'table-management')">Type</th>
+                        <th class="tr-p" onclick="sortNum(3,'table-management')">Size(sq)</th>
+                        <th class="tr-p" onclick="sortNum(4,'table-management')">Price($/day)</th>
+                        <th class="tr-p" onclick="sortAlpha(5,'table-management')">Status</th>
+                        <th class="tr-p" onclick="sortNum(6,'table-management')">No. of Adults</th>
+                        <th class="tr-p" onclick="sortNum(7,'table-management')">Amenities</th>
                         <th>View</th>
                         <th>Edit</th>
                         <th>Del</th>
@@ -23,35 +20,32 @@
                     <c:forEach var="room" items="${relatedRoom}" varStatus="loop">
                         <tr>
                             <td>${loop.index + 1}</td>
-                            <td>Room ${room.name}</td>
-                        <c:if test="${room.type.equalsIgnoreCase('deluxe')}">  
-                            <td><span style="font-size: 14px" class="label label-danger">${room.type}</span></td>
-                        </c:if>   
-                        <c:if test="${room.type.equalsIgnoreCase('family')}">  
-                            <td><span style="font-size: 14px" class="label label-success">${room.type}</span></td>
-                        </c:if> 
-                        <c:if test="${room.type.equalsIgnoreCase('couple')}">  
-                            <td><span style="font-size: 14px" class="label label-primary">${room.type}</span></td>
-                        </c:if>
-                        <c:if test="${room.type.equalsIgnoreCase('single')}">  
-                            <td><span style="font-size: 14px" class="label label-warning">${room.type}</span></td>
-                        </c:if>  
-                        <td>${room.size} sq</td>
-                        <td>$${room.price}/day</td>
-                        <td>${room.status}</td>
-                        <td>${room.booked_by}</td>
-                        <td>${room.checkin}</td>
-                        <td>${room.checkout}</td>
-                        <td><button onclick="location.href = '${pageContext.request.contextPath}/room/${room.id}.html'" class="btn btn-default btn-xs"><i class="fa fa-check"></i></button></td>
-                        <td><button onclick="location.href = '${pageContext.request.contextPath}/edit-room/${room.id}.html'" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button></td>
-                        <td><button class="btn btn-default btn-xs"><i class="fa fa-times"></i></button></td>
+                            <td>${room.name}</td>
+                            <c:if test="${room.type.equalsIgnoreCase('deluxe')}">  
+                                <td><span style="font-size: 14px" class="label label-danger">${room.type}</span></td>
+                                </c:if>   
+                                <c:if test="${room.type.equalsIgnoreCase('family')}">  
+                                <td><span style="font-size: 14px" class="label label-success">${room.type}</span></td>
+                                </c:if> 
+                                <c:if test="${room.type.equalsIgnoreCase('couple')}">  
+                                <td><span style="font-size: 14px" class="label label-primary">${room.type}</span></td>
+                                </c:if>
+                                <c:if test="${room.type.equalsIgnoreCase('single')}">  
+                                <td><span style="font-size: 14px" class="label label-warning">${room.type}</span></td>
+                                </c:if>  
+                            <td>${room.size}</td>
+                            <td>${room.price}</td>
+                            <td>${room.status}</td>
+                            <td align="center">${room.numpeople}</td>
+                            <td>${room.avgAminities}</td>
+                            <td><button onclick="location.href = '${pageContext.request.contextPath}/room/${room.id}.html'" class="btn btn-default btn-xs"><i class="fa fa-check"></i></button></td>
+                            <td><button onclick="location.href = '${pageContext.request.contextPath}/edit-room/${room.id}.html'" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button></td>
+                            <td><button onclick="deleteRoom('${room.id}')" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button></td>
                         </tr>
                     </c:forEach>
                 </table>
             </div>
-            <!-- /.box-body -->
         </div>
-        <!-- /.box -->
     </div>
 </div>
 <script>

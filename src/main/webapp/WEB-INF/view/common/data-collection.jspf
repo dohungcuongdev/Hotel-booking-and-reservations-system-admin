@@ -1,0 +1,29 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<table id="cdc-table">
+    <tr id="tableHeader">
+        <th class="tr-p" onclick="sortNum(0,'cdc-table')">No.</th>
+        <th class="tr-p" onclick="sortAlpha(1,'cdc-table')">User</th>
+        <th class="tr-p" onclick="sortNum(2,'cdc-table')">Total Time Visited</th>
+        <th class="tr-p" onclick="sortNum(3,'cdc-table')">Total Room Booked</th>
+        <th class="tr-p" onclick="sortNum(4,'cdc-table')">Total Room Canceled</th>
+        <th class="tr-p" onclick="sortNum(5,'cdc-table')">Average Feedback Room</th>
+        <th class="tr-p" onclick="sortNum(6,'cdc-table')">Average Feedback Service</th>
+        <th>View</th>
+        <th>Del</th>
+        <th>Ban</th>
+    </tr>
+    <c:forEach var="user" items="${cusDataCollection}" varStatus="loop">
+        <tr>
+            <td>${loop.index + 1}</td>
+            <td>${user.cus.username}</td>
+            <td>${user.dateVisited.size()}</td>
+            <td>${user.action.roomBooked.size()}</td>
+            <td>${user.action.roomCanceled.size()}</td>
+            <td>${user.action.avgfeedbackRoom} ★</td>
+            <td>${user.action.avgFeedbackSV} ★</td>
+            <td><button onclick="location.href = '${pageContext.request.contextPath}/customer/${user.cus.username}.html'" class="btn btn-default btn-xs"><i class="fa fa-check"></i></button></td>
+            <td><button class="btn btn-default btn-xs"><i class="fa fa-times"></i></button></td>
+            <td><button class="btn btn-default btn-xs"><i class="fa fa-ban"></i></button></td>
+        </tr>
+    </c:forEach>
+</table>

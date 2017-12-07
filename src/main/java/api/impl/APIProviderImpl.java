@@ -3,9 +3,7 @@ package api.impl;
 import org.springframework.stereotype.Repository;
 
 import api.APIProvider;
-
 import java.io.IOException;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -51,5 +49,4 @@ public class APIProviderImpl implements APIProvider {
 		}
 		return jsonArray;
 	}
-
 }

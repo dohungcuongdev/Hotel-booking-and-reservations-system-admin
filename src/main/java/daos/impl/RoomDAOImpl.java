@@ -17,10 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Repository;
-
 import model.hotel.HotelRoom;
 
 /**
@@ -45,12 +43,8 @@ public class RoomDAOImpl extends HotelItemDAOImp implements RoomDAO {
     public HotelRoom getRoomByID(String id) {
         BasicDBObject whereQuery = new BasicDBObject();
         whereQuery.put("_id", new ObjectId(id));
-        DBCursor cursor = collection.find(whereQuery);
-        while (cursor.hasNext()) {
-        	DBObject obj = cursor.next();
-            return getRoomWithID(obj);
-        }
-        return null;
+        DBObject obj = collection.findOne(whereQuery);
+        return getRoomWithID(obj);
     }
 
     @Override

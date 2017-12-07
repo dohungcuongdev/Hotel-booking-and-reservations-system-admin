@@ -16,27 +16,15 @@ import model.hotel.HotelService;
 public interface HotelItemService {
     
     public HotelRoom getRoomByID(String id);
-
     public List<HotelRoom> getAllRooms();
-
     public List<HotelRoom> getRelatedHotelRooms(String type);
-
     public void updateRoom(HotelRoom room);    
-    
-    public void editImageRoom(String name, String img, String img2);
-    
-    public void deleteRoom(String id);
-    
-    public HotelService getHotelServiceByName(String name);
-
-    public List<HotelService> getAllHotelServices();
-    
-    public List<HotelService> getRelatedHotelServices(String type);
-    
-    public void updateService(HotelService service);
-    
-    public void editImageService(String name, String img, String img2);
-    
-    public void deleteService(String name);
-    
+    public void editImageRoom(String name, String img, String img2);    
+    public void deleteRoom(String id);   
+    public HotelService getHotelServiceByID(String id);
+    public List<HotelService> getAllHotelServices();   
+    public List<HotelService> getRelatedHotelServices(String type);   
+    public void updateService(HotelService service);    
+    public void editImageService(String name, String img, String img2);    
+    public void deleteService(String name);   
 }

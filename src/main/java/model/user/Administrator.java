@@ -58,5 +58,4 @@ public class Administrator extends User {
     public String toString() {
         return "Administrator{" + "gender=" + gender + ", birthday=" + birthday + ", img=" + img + '}';
     }
-
 }

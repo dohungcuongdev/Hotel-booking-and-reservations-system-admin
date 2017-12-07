@@ -93,5 +93,4 @@ public class HotelService extends HotelItem {
     public String toString() {
         return "HotelService{" + "quantity=" + quantity + ", note=" + note + ", serveType=" + serveType + ", serveTime=" + serveTime + '}';
     }
-
 }

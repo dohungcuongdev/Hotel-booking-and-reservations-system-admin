@@ -5,9 +5,7 @@
             <header class="panel-heading">Follow Users</header>
             <div class="box-tools m-b-15">
                 <div class="input-group">
-                    <input type="text" name="table_search" class="form-control input-sm pull-right" 
-                           style="width: 150px;" id="input-follow-user" onkeyup="searchInputTable('input-follow-user', 'follow-user-table')" 
-                           placeholder="Search for ip address.." title="Type in a ip address"/>
+                    <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" id="input-follow-user" onkeyup="searchInputTable('input-follow-user', 'follow-user-table')" placeholder="Search for ip address.." title="Type in a ip address"/>
                     <div class="input-group-btn">
                         <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
                     </div>
@@ -29,7 +27,7 @@
 	                    <tr ng-repeat="d in followUserData" follow-user-directive>
 	                        <td>{{ $index + 1 }}</td>
 							<td><a href = "${pageContext.request.contextPath}/page-access-chart/{{d.user_ip_address}}.html">{{ d.user_ip_address }}</a></td>
-							<td><a href = "http://whatismyipaddress.com/ip/{{d.external_ip_address}}">{{ d.external_ip_address }}</a></td>
+							<td><a href = "${pageContext.request.contextPath}/ip-details/{{d.external_ip_address}}.html">{{ d.external_ip_address }}</a></td>
 							<td>{{ d.country }}</td>
 							<td><a href = "${pageContext.request.contextPath}/customer/{{ d.username }}.html">{{ d.username }}</a></td>
 							<td>{{ d.created_at | date:'medium'}}</td>
@@ -40,10 +38,8 @@
                 </table>
             </div>
             <br><center><button class="btn btn-danger" onclick="location.href = '${pageContext.request.contextPath}/downloadCSV.html'">
-                    <b>Download CSV</b> <i class="fa fa-download"></i></button></center><br>
-            <!-- /.box-body -->
+            <b>Download CSV</b> <i class="fa fa-download"></i></button></center><br>
         </div>
-        <!-- /.box -->
     </div>
 </div>
 

@@ -1,6 +1,4 @@
 <%@ include file="common/sub-content.jspf"%>
-
-
 <div class="row">
     <div class="col-lg-6">
         <section class="panel">
@@ -43,7 +41,6 @@
                     <button type="submit" class="btn btn-info">Submit</button>
                     <button type="submit" class="btn btn-danger">Cancel</button>
                 </form:form>
-
             </div>
         </section>
     </div>
@@ -103,10 +100,7 @@
         </section>
     </div>
 </div>
-<!--row1-->
-
 <%@ include file="common/footer.jspf"%>
-
 <script type="text/javascript">
     window.onload = function () { //first loat page
         var r = '${editResult}';

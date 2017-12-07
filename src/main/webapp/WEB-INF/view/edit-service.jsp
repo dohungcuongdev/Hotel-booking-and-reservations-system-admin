@@ -1,13 +1,10 @@
 <%@ include file="common/sub-content.jspf"%>
 <%@ include file="common/single-service.jspf"%>
-
-
 <div class="row">
     <div class="col-lg-6">
         <section class="panel">
             <div class="panel-body">
-                <form action="${pageContext.request.contextPath}/service-img-edited/${service.name}.html" method="post" enctype="multipart/form-data">
-
+                <form action="${pageContext.request.contextPath}/service-img-edited/${service.id}.html" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <br><label style="font-size: 17px; color:blue"><strong>Change Image!</strong></label>
                     </div>
@@ -17,41 +14,36 @@
                     <div class="form-group">
                         <input type="file" name="img1" onchange="readURL(this, '#blah', 500, 315);">
                     </div>
-
                     <div class="pull-left image">
                         <img id="blah" src="${pageContext.request.contextPath}/resources/img/restaurant/${service.img}" alt="Room Image" style="height: 315px; width: 500px;" />
                     </div>
-
                     <div class="form-group">
                         <label style="margin-top: 60px">Image 2</label>
                     </div>
                     <div class="form-group">
                         <input type="file" name="img2" onchange="readURL(this, '#blah2', 500, 315);">
                     </div>
-
                     <div class="pull-left image" style="margin-bottom: 30px" >
                         <img id="blah2" src="${pageContext.request.contextPath}/resources/img/restaurant/${service.img2}" alt="Room Image" style="height: 315px; width: 500px;" />
                     </div>
                     <p class="help-block">The image of the service will be changed after submit.</p>
-
                     <button type="submit" class="btn btn-info">Submit</button>
-                    <button type="reset" onclick="location.href = '${pageContext.request.contextPath}/edit-service/${service.name}.html'" class="btn btn-danger">Cancel</button>
+                    <button type="reset" onclick="location.href = '${pageContext.request.contextPath}/edit-service/${service.id}.html'" class="btn btn-danger">Cancel</button>
                 </form>
             </div>
         </section>
     </div>
     <div class="col-lg-6">
         <section class="panel">
-            <header class="panel-heading" style="font-weight: bold; color:red">
-                Change Information!
-            </header>
+            <header class="panel-heading" style="font-weight: bold; color:red">Change Information!</header>
             <div class="panel-body">
                 <form:form method="post" commandName="serviceEdit" action="${pageContext.request.contextPath}/service-edited.html">
+                    <form:input type="hidden" class="form-control" readonly="true" value="${service.id}" path="id"/>
                     <div class="form-group">
                         <label>Name</label>
                     </div>
                     <div class="form-group">
-                        <form:input type="text" class="form-control" value="${service.name}" readonly="true" path="name"/>
+                        <form:input type="text" class="form-control" value="${service.name}" path="name"/>
                     </div>
                     <div class="form-group">
                         <label>Type</label>
@@ -103,7 +95,7 @@
                     <form:input type="hidden" value="${service.img2}" path="img2"/>
                     <p class="help-block">Your item will be changed after submit.</p>
                     <button style="margin-top: 3.5px" type="submit" class="btn btn-info">Submit</button>
-                    <button style="margin-top: 3.5px" type="reset" onclick="location.href = '${pageContext.request.contextPath}/edit-service/${service.name}.html'" class="btn btn-danger">Cancel</button>
+                    <button style="margin-top: 3.5px" type="reset" onclick="location.href = '${pageContext.request.contextPath}/edit-service/${service.id}.html'" class="btn btn-danger">Cancel</button>
                     <div class="form-group">
                         <label style="margin-top: 10px">*Suggestion</label>
                         <ul>
@@ -120,11 +112,8 @@
         </section>
     </div>
 </div>
-
-
 <%@ include file="common/related-service.jspf"%>
 <%@ include file="common/footer.jspf"%>
-
 <script type="text/javascript">
     window.onload = function () { //first loat page
         $("#type").val('${service.type}');
@@ -132,6 +121,6 @@
         $('#details').val('${service.details}');
         var r = '${editResult}'
         checkeditresult(r);
-        window.history.pushState("string", "Hotel Admin", "${pageContext.request.contextPath}/edit-service/${service.name}.html");
+        window.history.pushState("string", "Hotel Admin", "${pageContext.request.contextPath}/edit-service/${service.id}.html");
     };
 </script>

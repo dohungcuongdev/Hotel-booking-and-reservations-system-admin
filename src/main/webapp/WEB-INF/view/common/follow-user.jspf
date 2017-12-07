@@ -1,14 +1,10 @@
-
-
 <div class="row">
     <div class="col-xs-12">
         <div class="panel">
             <header class="panel-heading"> Follow Users</header>
             <div class="box-tools m-b-15">
                 <div class="input-group">
-                    <input type="text" name="table_search" class="form-control input-sm pull-right" 
-                           style="width: 150px;" id="input-follow-user" onkeyup="searchInputTable('input-follow-user', 'follow-user-table')" 
-                           placeholder="Search for ip address.." title="Type in a ip address"/>
+                    <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" id="input-follow-user" onkeyup="searchInputTable('input-follow-user', 'follow-user-table')" placeholder="Search for ip address.." title="Type in a ip address"/>
                     <div class="input-group-btn">
                         <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
                     </div>
@@ -33,9 +29,7 @@
 	                            <td class="tr-p" onclick="location.href = '${pageContext.request.contextPath}/follow-user-ip/${user.user_ip_address}.html'">${user.user_ip_address}</td>
 	                            <td class="tr-p" onclick="location.href = 'http://whatismyipaddress.com/ip/${user.external_ip_address}'">${user.external_ip_address}</td>
 	                            <td>${user.country}</td>
-	                        <c:if test="${user.username == null}"> 
-	                            <td>guest</td>
-	                        </c:if>
+	                        <c:if test="${user.username == null}"> <td>guest</td></c:if>
 	                        <c:if test="${user.username != null}"> 
 	                            <td class="tr-p" onclick="location.href = '${pageContext.request.contextPath}/user/${user.username}.html'">${user.username}</td>
 	                        </c:if>
@@ -48,13 +42,10 @@
                 </table>
             </div>
              <div class="col-md-12 text-center">
-      				<ul class="pagination pagination-lg pager" id="myPager"></ul>
+      			<ul class="pagination pagination-lg pager" id="myPager"></ul>
       		</div>
-            <br><center><button class="btn btn-danger" onclick="location.href = '${pageContext.request.contextPath}/downloadCSV.html'">
-                    <b>Download CSV</b> <i class="fa fa-download"></i></button></center>
-            <!-- /.box-body -->
+            <br><center><button class="btn btn-danger" onclick="location.href = '${pageContext.request.contextPath}/downloadCSV.html'"><b>Download CSV</b> <i class="fa fa-download"></i></button></center>
         </div>
-        <!-- /.box -->
     </div>
 </div>
 

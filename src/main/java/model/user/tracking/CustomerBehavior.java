@@ -53,5 +53,4 @@ public class CustomerBehavior {
 	public String toString() {
 		return "CustomerBehavior [cus=" + cus + ", dateVisited=" + dateVisited + ", action=" + action + "]";
 	}
-
 }

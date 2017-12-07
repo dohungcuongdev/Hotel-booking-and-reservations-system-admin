@@ -59,5 +59,4 @@ public class FeedbackRoom {
     public String toString() {
         return "FeedbackRoom{" + "date=" + date + ", room=" + room + ", star=" + star + ", feedback=" + feedback + '}';
     }
-    
 }

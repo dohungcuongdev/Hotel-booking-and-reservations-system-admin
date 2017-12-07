@@ -10,7 +10,6 @@
     Author     : HUNGCUONG
 */
 const API_URL = "http://localhost:8080/Hotel-booking-and-reservations-system-admin/api/follow-users.html";
-
 var app = angular.module('follow-users', []);
 
 app.filter('secondsToTime',function(){

@@ -50,8 +50,7 @@ public class ActionTracking {
 		this.avgFeedbackSV = avgFeedbackSV;
 	}
 
-	public ActionTracking(List roomBooked, List roomCanceled, List feedbackroom, double avgfeedbackRoom,
-			double avgFeedbackSV) {
+	public ActionTracking(List roomBooked, List roomCanceled, List feedbackroom, double avgfeedbackRoom, double avgFeedbackSV) {
 		super();
 		this.roomBooked = roomBooked;
 		this.roomCanceled = roomCanceled;
@@ -65,5 +64,4 @@ public class ActionTracking {
 		return "ActionTracking [roomBooked=" + roomBooked + ", roomCanceled=" + roomCanceled + ", feedbackroom="
 				+ feedbackroom + ", avgfeedbackRoom=" + avgfeedbackRoom + ", avgFeedbackSV=" + avgFeedbackSV + "]";
 	}
-
 }

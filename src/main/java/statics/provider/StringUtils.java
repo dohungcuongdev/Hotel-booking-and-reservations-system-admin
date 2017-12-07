@@ -68,7 +68,6 @@ public class StringUtils {
         }
         return sb.toString();
     }
-
     
     //remove accent except some special character
     public static String encode(String s) {
@@ -77,7 +76,6 @@ public class StringUtils {
         return pattern.matcher(temp).replaceAll("");
     }
     
-
     //lowercase first character of string
     public static String lowerFirstChar(String varname) {
         return Character.toLowerCase(varname.charAt(0)) + varname.substring(1);

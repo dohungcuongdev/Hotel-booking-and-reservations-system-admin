@@ -96,26 +96,52 @@ function search() {
 }
 
 function searchInputTable(myInput,myTable) {
-    var input, filter, found, table, tr, td, i, j;
-    input = document.getElementById(myInput);
-    filter = input.value.toUpperCase();
-    table = document.getElementById(myTable);
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td");
-        for (j = 0; j < td.length; j++) {
-            if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
-                found = true;
-            }
-        }
-        if (found) {
-            tr[i].style.display = "";
-            found = false;
-        } else {
-        	if (tr[i].id != 'tableHeader')
-        		tr[i].style.display = "none";
-        }
-    }
+    var filter = document.getElementById(myInput).value.toUpperCase();
+    searchInputTableWithFilter(myInput, myTable, filter);
+}
+
+function searchInputTableWithFilter(myInput, myTable, filter) {
+	var filter, found, table, tr, td, i, j;
+	table = document.getElementById(myTable);
+	tr = table.getElementsByTagName("tr");
+	for (i = 0; i < tr.length; i++) {
+		td = tr[i].getElementsByTagName("td");
+		for (j = 0; j < td.length; j++) {
+			if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+				found = true;
+			}
+		}
+		if (found) {
+			tr[i].style.display = "";
+			found = false;
+		} else {
+			if (tr[i].id != 'tableHeader')
+				tr[i].style.display = "none";
+		}
+	}
+}
+
+function searchMessageWithFilter(myInput, myMesBox, filter) {
+	var mesBox = document.getElementById(myMesBox);
+	var messages = mesBox.getElementsByTagName("div");
+	var found;
+	for (i = 0; i < messages.length; i++) {
+		if (messages[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+			found = true;
+		}
+		if (found) {
+			messages[i].style.display = "";
+			found = false;
+		} else {
+			messages[i].style.display = "none";
+		}
+	}
+}
+
+
+function searchMessage(myInput,myMesBox) {
+    var filter = document.getElementById(myInput).value.toUpperCase();
+    searchMessageWithFilter(myInput, myMesBox, filter);
 }
 
 function readURL(input, imgTag, width, height) {
@@ -304,17 +330,17 @@ function sortDate(n, myTable) {
     }
 }
 
-function deleteService(servicename) {
+function deleteService(serviceid) {
     swal({
         title: "Are you sure?",
-        text: "Delete this service now!",
+        text: "Delete this item from restaurant now!",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "Yes, delete it!",
         closeOnConfirm: false
     }, function () {
-        window.location.href = '${pageContext.request.contextPath}/remove-service/' + servicename + '.htm';
+        window.location.href = 'remove-service/' + serviceid + '.htm';
     });
 }
 
@@ -328,7 +354,7 @@ function deleteRoom(roomid) {
         confirmButtonText: "Yes, delete it!",
         closeOnConfirm: false
     }, function () {
-        window.location.href = '${pageContext.request.contextPath}/remove-room/' + roomid + '.htm';
+        window.location.href = 'remove-room/' + roomid + '.htm';
     });
 }
 
@@ -348,4 +374,3 @@ function checkSendEmail(r) {
     else 
         swal('Oops...!', r, 'error');
 }
-

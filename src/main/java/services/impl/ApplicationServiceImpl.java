@@ -6,12 +6,10 @@
 package services.impl;
 
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import services.ApplicationService;
-
 import statics.provider.FileUploader;
 import statics.provider.EmailSender;
 import statics.provider.StringUtils;
@@ -39,5 +37,4 @@ public class ApplicationServiceImpl implements ApplicationService {
 	public String removeAccent(String originalString) {
 		return StringUtils.removeAccent(originalString);
 	}
-
 }

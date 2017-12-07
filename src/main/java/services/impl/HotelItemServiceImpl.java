@@ -6,10 +6,8 @@
 package services.impl;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import daos.RestaurantDAO;
 import daos.RoomDAO;
 import model.hotel.HotelRoom;
@@ -28,7 +26,7 @@ public class HotelItemServiceImpl implements HotelItemService {
     private RoomDAO roomDAO;
 	
 	@Autowired
-    private RestaurantDAO serviceDAO;
+    private RestaurantDAO restaurantDAO;
 
     @Override
     public HotelRoom getRoomByID(String id) {
@@ -51,23 +49,18 @@ public class HotelItemServiceImpl implements HotelItemService {
     }
 
     @Override
-    public HotelService getHotelServiceByName(String name) {
-        return serviceDAO.getHotelServiceByName(name);
-    }
-
-    @Override
     public List<HotelService> getAllHotelServices() {
-        return serviceDAO.getAllHotelServices();
+        return restaurantDAO.getAllHotelServices();
     }
 
     @Override
     public List<HotelService> getRelatedHotelServices(String type) {
-        return serviceDAO.getRelatedHotelServices(type);
+        return restaurantDAO.getRelatedHotelServices(type);
     }
 
     @Override
     public void updateService(HotelService service) {
-        serviceDAO.updateService(service);
+        restaurantDAO.updateService(service);
     }
 
     @Override
@@ -82,11 +75,16 @@ public class HotelItemServiceImpl implements HotelItemService {
 
     @Override
     public void editImageService(String name, String img, String img2) {
-        serviceDAO.editImage(name, img, img2);
+        restaurantDAO.editImage(name, img, img2);
     }
 
     @Override
-    public void deleteService(String name) {
-        serviceDAO.deleteItem(name);
+    public void deleteService(String id) {
+        restaurantDAO.deleteItem(id);
     }
+
+	@Override
+	public HotelService getHotelServiceByID(String id) {
+		return restaurantDAO.getHotelServiceByID(id);
+	}
 }

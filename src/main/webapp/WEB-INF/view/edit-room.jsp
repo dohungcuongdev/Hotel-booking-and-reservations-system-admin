@@ -1,13 +1,10 @@
 <%@ include file="common/sub-content.jspf"%>
 <%@ include file="common/single-room.jspf"%>
-
-
 <div class="row">
     <div class="col-lg-6">
         <section class="panel">
             <div class="panel-body">
                 <form action="${pageContext.request.contextPath}/room-img-edited/${room.id}.html" method="post" enctype="multipart/form-data">
-
                     <div class="form-group">
                         <br><label style="font-size: 17px; color:blue"><strong>Change Image!</strong></label>
                     </div>
@@ -17,25 +14,21 @@
                     <div class="form-group">
                         <input type="file" name="img1" onchange="readURL(this, '#blah', 500, 315);">
                     </div>
-
                     <div class="pull-left image">
                         <img id="blah" src="${pageContext.request.contextPath}/resources/img/rooms/${room.img}" alt="Room Image" style="height: 315px; width: 500px;" />
                     </div>
-
                     <div class="form-group">
                         <label style="margin-top: 28.5px">Image 2</label>
                     </div>
                     <div class="form-group">
                         <input type="file" name="img2" id="exampleInputFile" onchange="readURL(this, '#blah2', 500, 315);">
                     </div>
-
                     <div class="pull-left image">
                         <img id="blah2" src="${pageContext.request.contextPath}/resources/img/rooms/${room.img2}" alt="Room Image" style="height: 315px; width: 500px;" />
                     </div>
                     <p class="help-block">The image of the room will be changed after submit.</p>
-
                     <button type="submit" class="btn btn-info">Submit</button>
-                    <button onclick="location.href = '${pageContext.request.contextPath}/edit-room/${room.name}.html'"type="reset" class="btn btn-danger">Cancel</button>
+                    <button onclick="location.href = '${pageContext.request.contextPath}/edit-room/${room.id}.html'"type="reset" class="btn btn-danger">Cancel</button>
                 </form>
                 <label style="margin-top: 10px">*Suggestion</label>
                 <ul>
@@ -54,15 +47,12 @@
                     <li>Check in must be the the check in date of the customer</li>
                     <li>Check out must be the the check out date of the customer</li>
                 </ul>
-
             </div>
         </section>
     </div>
     <div class="col-lg-6">
         <section class="panel">
-            <header class="panel-heading" style="font-weight: bold; color:red">
-                Change Information!
-            </header>
+            <header class="panel-heading" style="font-weight: bold; color:red">Change Information!</header>
             <div class="panel-body">
                 <form:form method="post" commandName="roomEdit" action="${pageContext.request.contextPath}/room-edited.html">
                     <div class="form-group">
@@ -150,18 +140,14 @@
                     <form:input type="hidden" value="${room.img2}" path="img2"/>
                     <p class="help-block">Your room will be changed after submit.</p>
                     <button style="margin-top: 3.5px" type="submit" class="btn btn-info">Submit</button>
-                    <button style="margin-top: 3.5px" onclick="location.href = '${pageContext.request.contextPath}/edit-room/${room.name}.html'" type="reset" class="btn btn-danger">Cancel</button>
+                    <button style="margin-top: 3.5px" onclick="location.href = '${pageContext.request.contextPath}/edit-room/${room.id}.html'" type="reset" class="btn btn-danger">Cancel</button>
                 </form:form>
             </div>
         </section>
     </div>
 </div>
-
-
 <%@ include file="common/related-room.jspf"%>
-
 <%@ include file="common/footer.jspf"%>
-
 <script type="text/javascript">
     window.onload = function () { //first load page
     	$("#name").val('${room.name}');
@@ -173,9 +159,7 @@
         var r = '${editResult}';
         checkeditresult(r);
         window.history.pushState("string", "Hotel Admin", "${pageContext.request.contextPath}/edit-room/${room.id}.html");
-
     };
-
     function showBookedInfor() {
         var status = document.getElementById("status");
         var statusSelected = status.options[status.selectedIndex].value;

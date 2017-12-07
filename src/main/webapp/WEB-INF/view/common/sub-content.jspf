@@ -1,13 +1,7 @@
 <%@ include file="header.jspf"%>
-
 <div class="wrapper row-offcanvas row-offcanvas-left">
     <%@ include file="left-sidebar.jspf"%>
-
-
-
     <aside class="right-side">
-
         <!-- Main content -->
         <section class="content">
-
             <%@ include file="navigation.jspf"%>

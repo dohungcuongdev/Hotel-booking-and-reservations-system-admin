@@ -14,10 +14,7 @@ import model.user.Administrator;
 public interface AdminDAO {
 
     public Administrator getAdminByUserName(String username);
-
     public void updateAdmin(Administrator ad);
-
     public void updatePassword(String currentpassword, String correctpassword, String newpassword, String confirm);
-
     public void editProfileImg(String username, String img);
 }

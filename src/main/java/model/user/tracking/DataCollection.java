@@ -39,5 +39,4 @@ public class DataCollection {
     public String toString() {
         return "DataCollection{" + "date=" + date + ", data=" + data + '}';
     }
-    
 }

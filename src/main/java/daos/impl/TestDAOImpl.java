@@ -3,7 +3,6 @@ package daos.impl;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.ParseException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -19,7 +18,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
-
 import daos.TestDAO;
 
 @Repository
@@ -53,5 +51,4 @@ public class TestDAOImpl implements TestDAO {
 		}
 		return jsonArray;
 	}
-
 }

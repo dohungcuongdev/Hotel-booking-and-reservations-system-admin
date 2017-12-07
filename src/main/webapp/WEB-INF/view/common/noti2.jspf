@@ -1,0 +1,5 @@
+<h5>Details: ${activity.details}</h5>
+<h5>Note: ${activity.note}</h5>
+<h5>Response: ${activity.response}</h5>
+<h5><b>Contents</b>: </h5>
+<p>${activity.content}</p>

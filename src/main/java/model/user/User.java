@@ -60,5 +60,4 @@ public abstract class User extends AbstractModel {
 
     @Override
     public abstract String toString();
-
 }

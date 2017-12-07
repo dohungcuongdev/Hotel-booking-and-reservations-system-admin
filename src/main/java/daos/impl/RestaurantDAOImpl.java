@@ -17,9 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Repository;
-
 import model.hotel.HotelService;
 
 /**
@@ -41,16 +40,11 @@ public class RestaurantDAOImpl extends HotelItemDAOImp implements RestaurantDAO 
     }
 
     @Override
-    public HotelService getHotelServiceByName(String name) {
+    public HotelService getHotelServiceByID(String id) {
         BasicDBObject whereQuery = new BasicDBObject();
-        whereQuery.put("name", name);
-        DBCursor cursor = collection.find(whereQuery);
-        HotelService service = new HotelService();
-        while (cursor.hasNext()) {
-            service = gson.fromJson(cursor.next() + "", HotelService.class);
-            service.initializeServeTime();
-        }
-        return service;
+        whereQuery.put("_id", new ObjectId(id));
+        DBObject obj = collection.findOne(whereQuery);
+        return getHotelServiceWithID(obj);
     }
 
     @Override
@@ -58,9 +52,8 @@ public class RestaurantDAOImpl extends HotelItemDAOImp implements RestaurantDAO 
         ArrayList<HotelService> services = new ArrayList<>();
         DBCursor cursor = collection.find();
         while (cursor.hasNext()) {
-            HotelService service = gson.fromJson(cursor.next() + "", HotelService.class);
-            service.initializeServeTime();
-            services.add(service);
+        	DBObject obj = cursor.next();
+            services.add(getHotelServiceWithID(obj));
         }
         return services;
     }
@@ -72,9 +65,8 @@ public class RestaurantDAOImpl extends HotelItemDAOImp implements RestaurantDAO 
         ArrayList<HotelService> services = new ArrayList<>();
         DBCursor cursor = collection.find(whereQuery);
         while (cursor.hasNext()) {
-            HotelService service = gson.fromJson(cursor.next() + "", HotelService.class);
-            service.initializeServeTime();
-            services.add(service);
+        	DBObject obj = cursor.next();
+            services.add(getHotelServiceWithID(obj));
         }
         return services;
     }
@@ -83,7 +75,15 @@ public class RestaurantDAOImpl extends HotelItemDAOImp implements RestaurantDAO 
     public void updateService(HotelService service) {
         DBObject document = (DBObject) JSON.parse(gson.toJson(service));
         DBObject searchObject = new BasicDBObject();
-        searchObject.put("name", service.getName());
+        searchObject.put("_id", new ObjectId(service.getId()));
         collection.update(searchObject, document);
+    }
+    
+    private HotelService getHotelServiceWithID(DBObject obj) {
+    	HotelService service = new HotelService();
+    	service = gson.fromJson(obj.toString(), HotelService.class);
+    	service.setId(obj.get("_id").toString());
+        service.initializeServeTime();
+    	return service;
     }
 }
