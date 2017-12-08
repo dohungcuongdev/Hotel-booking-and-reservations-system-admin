@@ -7,6 +7,7 @@ public class ActionTracking {
 	private List roomBooked;
 	private List roomCanceled;
 	private List feedbackroom;
+	private List feedbackservice;
 	private double avgfeedbackRoom;
 	private double avgFeedbackSV;
 
@@ -50,11 +51,19 @@ public class ActionTracking {
 		this.avgFeedbackSV = avgFeedbackSV;
 	}
 
-	public ActionTracking(List roomBooked, List roomCanceled, List feedbackroom, double avgfeedbackRoom, double avgFeedbackSV) {
-		super();
+	public List getFeedbackservice() {
+		return feedbackservice;
+	}
+
+	public void setFeedbackservice(List feedbackservice) {
+		this.feedbackservice = feedbackservice;
+	}
+
+	public ActionTracking(List roomBooked, List roomCanceled, List feedbackroom, List feedbackservice, double avgfeedbackRoom, double avgFeedbackSV) {
 		this.roomBooked = roomBooked;
 		this.roomCanceled = roomCanceled;
 		this.feedbackroom = feedbackroom;
+		this.feedbackservice = feedbackservice;
 		this.avgfeedbackRoom = avgfeedbackRoom;
 		this.avgFeedbackSV = avgFeedbackSV;
 	}
@@ -62,6 +71,7 @@ public class ActionTracking {
 	@Override
 	public String toString() {
 		return "ActionTracking [roomBooked=" + roomBooked + ", roomCanceled=" + roomCanceled + ", feedbackroom="
-				+ feedbackroom + ", avgfeedbackRoom=" + avgfeedbackRoom + ", avgFeedbackSV=" + avgFeedbackSV + "]";
+				+ feedbackroom + ", feedbackservice=" + feedbackservice + ", avgfeedbackRoom=" + avgfeedbackRoom
+				+ ", avgFeedbackSV=" + avgFeedbackSV + "]";
 	}
 }

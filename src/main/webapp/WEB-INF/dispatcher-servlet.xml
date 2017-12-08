@@ -22,6 +22,7 @@
 			fall back to looking at the Accept headers -->
 		<property name="favorPathExtension" value="false" />
 	</bean>
+	
 	<context:annotation-config />
 	<context:component-scan base-package="controller" />
 	<context:component-scan base-package="daos" />
@@ -54,11 +55,9 @@
 		</property>
 	</bean>
 
-	<!-- The controller. -->
 	<bean name="index"
 		class="org.springframework.web.servlet.mvc.ParameterizableViewController"
 		p:viewName="index" />
-
+		
 	<mvc:resources mapping="/resources/**" location="/resources/" />
-
 </beans>

@@ -43,7 +43,7 @@ public class AdminDAOImpl implements AdminDAO {
         BasicDBObject whereQuery = new BasicDBObject();
         whereQuery.put("username", username);
         DBObject obj = collection.findOne(whereQuery);
-        return gson.fromJson(obj.toString(), Administrator.class);
+        return gson.fromJson(obj+"", Administrator.class);
     }
 
     @Override

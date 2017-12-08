@@ -3,9 +3,7 @@
     <div class="col-md-8">
         <!--room image-->
         <section class="panel">
-            <!--<header class="panel-heading">
-                Room 603
-            </header>-->
+            <header style="color: #a94442;background-color: #f2dede;" class="panel-heading"><b>Room ${room.name}</b></header>
             <div class="panel-body">
                 <div class="w3-content w3-display-container">
                     <img class="mySlides" src="${pageContext.request.contextPath}/resources/img/rooms/${room.img}" alt="Room Image" style="height: 410.5px; width: 750px;"/>

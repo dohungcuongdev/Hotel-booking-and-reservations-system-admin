@@ -4,9 +4,7 @@
 <div class="row">
     <div class="col-md-8">
         <section class="panel">
-            <header class="panel-heading">
-                Notifications
-            </header>
+            <header class="panel-heading">Notifications</header>
             <div class="panel-body" id="noti-box"> 
                 <div class="alert alert-danger">
                     <button data-dismiss="alert" class="close close-sm" type="button"></button>

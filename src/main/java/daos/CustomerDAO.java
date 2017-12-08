@@ -10,7 +10,7 @@ import java.util.List;
 import model.user.tracking.ActionTracking;
 import model.user.tracking.CustomerBehavior;
 import model.user.tracking.DataCollection;
-import model.user.tracking.FeedbackRoom;
+import model.user.tracking.Feedback;
 import model.user.Customer;
 
 /**
@@ -28,7 +28,7 @@ public interface CustomerDAO {
     public List<DataCollection> getListRoomCanceled(String username);    
     public double getAvgStarRoomFeedback(String username);    
     public double getAvgStarFeedback(String username);    
-    public List<FeedbackRoom> getListFeedbackRoom(String username);   
+    public List<Feedback> getListFeedbackRoom(String username);   
     public List<CustomerBehavior> getDataCollection();   
     public CustomerBehavior getOneDataCollection(String username);
 }

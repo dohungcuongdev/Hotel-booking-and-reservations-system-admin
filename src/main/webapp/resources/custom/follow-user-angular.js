@@ -9,7 +9,8 @@
     Created on : Nov 11, 2017, 9:38:05 AM
     Author     : HUNGCUONG
 */
-const API_URL = "http://localhost:8080/Hotel-booking-and-reservations-system-admin/api/follow-users.html";
+//const API_URL = "http://localhost:8080/Hotel-booking-and-reservations-system-admin/api/follow-users.html";
+const API_URL = "http://localhost:3000/api/follow-users";
 var app = angular.module('follow-users', []);
 
 app.filter('secondsToTime',function(){

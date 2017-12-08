@@ -5,11 +5,10 @@
  */
 package statics;
 
-import daos.impl.ActivityDAOImpl;
-import model.user.Administrator;
-import daos.impl.AdminDAOImpl;
 import java.util.Arrays;
 import java.util.List;
+
+import model.user.Administrator;
 import model.user.tracking.Activity;
 
 /**
@@ -61,27 +60,6 @@ public class AppData {
     		"Dear Mr. Đỗ Hùng Cường, &#13;&#13;Thank you for your interest in our hotel. This email is to acknowledge the receipt of your email and thank you for sending us your request. We will carefully review your request. Should your request match our ability, we will contact you soon. In other cases, we will keep the request for future opportunities.&#13;&#13;With best regards, &#13Hùng Cường.&#13&#13...&#13Holiday Crown.&#13Address: 24 Street 7, Bình An Ward, District 2.&#13Phone Number: 0908998923.&#13Hotline: (08).37404802.",
     		"Dear Mr. Đỗ Hùng Cường, &#13;&#13;Thank you for your interest in our hotel. This email is to acknowledge the receipt of your email and thank you for sending us your request. We will carefully review your request. Should your request match our ability, we will contact you soon. In other cases, we will keep the request for future opportunities.&#13;&#13;With best regards, &#13Hùng Cường.&#13&#13...&#13Holiday Crown.&#13Address: 24 Street 7, Bình An Ward, District 2.&#13Phone Number: 0908998923.&#13Hotline: (08).37404802."
     };
-    public static Administrator admin;
-    public static List<Activity> newNotifications;
     
-    static {
-        refreshAll();
-    }
-    
-    public static void setNewAdmin(Administrator ad) {
-    	admin = ad;
-    }
-
-    public static void refreshAll() {
-        refreshAdmin();
-        refreshNotification();
-    }
-
-    public static void refreshAdmin() {
-        admin = new AdminDAOImpl().getAdminByUserName("cuongvip1295@yahoo.com.vn");
-    }
-
-    public static void refreshNotification() {
-        newNotifications = new ActivityDAOImpl().getNewListNotification();
-    }
+    public static Administrator admin = new Administrator();
 }

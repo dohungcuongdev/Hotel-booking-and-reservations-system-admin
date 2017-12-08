@@ -81,14 +81,14 @@ public class RoomDAOImpl extends HotelItemDAOImp implements RoomDAO {
     
     private void addRoomtoList(List<HotelRoom> rooms, DBObject obj) {
     	HotelRoom room = new HotelRoom();
-    	room = gson.fromJson(obj.toString(), HotelRoom.class);
-    	room.setId(obj.get("_id").toString());
+    	room = gson.fromJson(obj + "", HotelRoom.class);
+    	room.setId(obj.get("_id") + "");
     	rooms.add(room);
     }
     private HotelRoom getRoomWithID(DBObject obj) {
     	HotelRoom room = new HotelRoom();
-    	room = gson.fromJson(obj.toString(), HotelRoom.class);
-    	room.setId(obj.get("_id").toString());
+    	room = gson.fromJson(obj + "", HotelRoom.class);
+    	room.setId(obj.get("_id") + "");
     	return room;
     }
     

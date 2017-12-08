@@ -69,7 +69,7 @@ public class UserDAOImpl implements UserDAO {
 		BasicDBObject whereQuery = new BasicDBObject();
 		whereQuery.put("external_ip_address", external_ip_address);
 		DBObject obj = collection.findOne(whereQuery);
-		return gson.fromJson(obj.toString(), ExternalIP.class);
+		return gson.fromJson(obj + "", ExternalIP.class);
 	}
 
 	@Override

@@ -15,7 +15,7 @@ import model.user.tracking.ChartData;
 import model.user.tracking.CustomerBehavior;
 import model.user.tracking.DataCollection;
 import model.user.tracking.ExternalIP;
-import model.user.tracking.FeedbackRoom;
+import model.user.tracking.Feedback;
 import model.user.Administrator;
 import model.user.Customer;
 import model.user.tracking.FollowUsers;
@@ -176,7 +176,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<FeedbackRoom> getListFeedbackRoom(String username) {
+    public List<Feedback> getListFeedbackRoom(String username) {
         return customerDAO.getListFeedbackRoom(username);
     }
 

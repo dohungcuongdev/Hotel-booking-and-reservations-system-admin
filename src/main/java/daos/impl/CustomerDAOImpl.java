@@ -28,7 +28,7 @@ import model.user.tracking.ActionTracking;
 import model.user.tracking.Activity;
 import model.user.tracking.CustomerBehavior;
 import model.user.tracking.DataCollection;
-import model.user.tracking.FeedbackRoom;
+import model.user.tracking.Feedback;
 import statics.AppData;
 
 /**
@@ -100,7 +100,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 	public ActionTracking getActionTrackingByUsername(String username) {
 		List<DataCollection> roombooked = new ArrayList<>();
 		List<DataCollection> roomcanceled = new ArrayList<>();
-		List<FeedbackRoom> feedbackroom = new ArrayList<>();
+		List<Feedback> feedbackroom = new ArrayList<>();
+		List<Feedback> feedbackservice = new ArrayList<>();
 		int starFBR = 0, countFBR = 0;
 		int starFB = 0, countFB = 0;
 		List<Activity> activities = activityDAO.getAllActivityByUserName(username);
@@ -116,21 +117,22 @@ public class CustomerDAOImpl implements CustomerDAO {
 				String room = act.getNote().substring(12, 15);
 				int star = act.getNote().charAt(21) - 48;
 				String feedback = act.getContent();
-				feedbackroom.add(new FeedbackRoom(date, room, star, feedback));
-
-				starFBR += act.getNote().charAt(21) - 48;
+				feedbackroom.add(new Feedback(date, room, star, feedback));
+				starFBR += star;
 				++countFBR;
 			}
 			if (act.getName().equals(AppData.ACTIVITY[3])) {
-				starFB += act.getNote().charAt(12) - 48;
+				String date = act.getTime() + "";
+				int star = act.getNote().charAt(12) - 48;
+				String feedback = act.getContent();
+				feedbackservice.add(new Feedback(date, star, feedback));
+				starFB += star;
 				++countFB;
 			}
-
 		}
 		double avgfeedbackRoom = round(starFBR * 1.0 / countFBR, 2);
 		double avgFeedbackSV = round(starFB * 1.0 / countFB, 2);
-		return new ActionTracking(roombooked, roomcanceled, feedbackroom, avgfeedbackRoom, avgFeedbackSV);
-
+		return new ActionTracking(roombooked, roomcanceled, feedbackroom, feedbackservice, avgfeedbackRoom, avgFeedbackSV);
 	}
 
 	@Override
@@ -212,22 +214,22 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 
 	@Override
-	public List<FeedbackRoom> getListFeedbackRoom(String username) {
-		List<FeedbackRoom> fbr = new ArrayList<>();
+	public List<Feedback> getListFeedbackRoom(String username) {
+		List<Feedback> fbr = new ArrayList<>();
 		activityDAO.getAllActivityByUserName(username).stream().filter((act) -> (act.getName().equals(AppData.ACTIVITY[2])))
 				.forEach((act) -> {
 					String date = act.getTime() + "";
 					String room = act.getNote().substring(12, 15);
 					int star = act.getNote().charAt(21) - 48;
 					String feedback = act.getContent();
-					fbr.add(new FeedbackRoom(date, room, star, feedback));
+					fbr.add(new Feedback(date, room, star, feedback));
 				});
 		return fbr;
 	}
 	
     private Customer getCustomerDB(DBObject obj) {
     	Customer cus = new Customer();
-    	cus = gson.fromJson(obj.toString(), Customer.class);
+    	cus = gson.fromJson(obj + "", Customer.class);
     	cus.setRegistered_date(getDateTime(obj.get("created_at") + ""));
     	return cus;
     }

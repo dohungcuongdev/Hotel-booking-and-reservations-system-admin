@@ -13,7 +13,7 @@ import model.user.tracking.ChartData;
 import model.user.tracking.CustomerBehavior;
 import model.user.tracking.DataCollection;
 import model.user.tracking.ExternalIP;
-import model.user.tracking.FeedbackRoom;
+import model.user.tracking.Feedback;
 import model.user.Administrator;
 import model.user.Customer;
 import model.user.tracking.FollowUsers;
@@ -45,7 +45,7 @@ public interface UserService {
     public List<DataCollection> getListRoomCanceled(String username);   
     public double getAvgStarRoomFeedback(String username);   
     public double getAvgStarFeedback(String username);   
-    public List<FeedbackRoom> getListFeedbackRoom(String username);   
+    public List<Feedback> getListFeedbackRoom(String username);   
     public List<CustomerBehavior> getDataCollection();  
     public CustomerBehavior getOneDataCollection(String username);  
     public Administrator getAdminByUserName(String username);

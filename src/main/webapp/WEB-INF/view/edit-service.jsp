@@ -115,7 +115,7 @@
 <%@ include file="common/related-service.jspf"%>
 <%@ include file="common/footer.jspf"%>
 <script type="text/javascript">
-    window.onload = function () { //first loat page
+    window.onload = function () { //first load page
         $("#type").val('${service.type}');
         $("#serveType").val('${service.serveType}');
         $('#details').val('${service.details}');

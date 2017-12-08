@@ -9,7 +9,7 @@ package model.user.tracking;
  *
  * @author HUNGCUONG
  */
-public class FeedbackRoom {
+public class Feedback {
     
     private String date;
     private String room;
@@ -48,7 +48,13 @@ public class FeedbackRoom {
         this.feedback = feedback;
     }
 
-    public FeedbackRoom(String date, String room, int star, String feedback) {
+    public Feedback(String date, int star, String feedback) {
+		this.date = date;
+		this.star = star;
+		this.feedback = feedback;
+	}
+
+	public Feedback(String date, String room, int star, String feedback) {
         this.date = date;
         this.room = room;
         this.star = star;

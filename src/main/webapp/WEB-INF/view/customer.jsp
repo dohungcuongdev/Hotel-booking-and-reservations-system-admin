@@ -18,8 +18,26 @@
                     <div class="form-group" style="color: #8a6d3b"><strong>Average Feedback Service</strong>: ${cusDataCollection.action.avgFeedbackSV} ★</div>
                 </form>
             </div>
-        </section>
+        </section>    
+        <section class="panel">
+        <header class="panel-heading">Notes</header>
+        <div class="panel-body">
+            <div class="alert alert-info">
+                <strong>Booking!</strong> This is the booking room request of customer.
+            </div>
+            <div class="alert alert-block alert-danger">
+                <strong>Cancel!</strong> This is the canceling room request of customer.
+            </div>
+            <div class="alert alert-success">
+                <strong>Date Visited!</strong> This is the date that customer visited.
+            </div>
+            <div class="alert alert-warning">
+                <strong>Feedback!</strong> This is the feedback of customer.
+            </div>
+        </div>
+    </section>
     </div>
+    
     <div class="col-md-8">
         <section class="panel">
             <header class="panel-heading">List of Rooms Booked</header>
@@ -58,7 +76,7 @@
         
         <section class="panel">
             <header class="panel-heading">List of Rooms Feedback</header>
-            <div class="panel-body" id="feedback-box">
+            <div class="panel-body" id="feedback-room-box">
                 <c:forEach var="feedbackroom" items="${cusDataCollection.action.feedbackroom}" varStatus="loop">
                     <div class="alert alert-block alert-warning">
                         <button data-dismiss="alert" class="close close-sm" type="button"><i class="fa fa-times"></i></button> 
@@ -66,6 +84,20 @@
                         <br>Room feedback: ${feedbackroom.room}
                         <br>Feedback Score: ${feedbackroom.star} ★
                         <br>Feedback content ${feedbackroom.feedback}
+                    </div>
+                </c:forEach>
+            </div>
+        </section>
+        
+        <section class="panel">
+            <header class="panel-heading">List of Hotel Service Feedback</header>
+            <div class="panel-body" id="feedback-box">
+                <c:forEach var="feedbackservice" items="${cusDataCollection.action.feedbackservice}" varStatus="loop">
+                    <div class="alert alert-block alert-warning">
+                        <button data-dismiss="alert" class="close close-sm" type="button"><i class="fa fa-times"></i></button> 
+                        <strong> ${feedbackservice.date}! </strong>
+                        <br>Feedback Score: ${feedbackservice.star} ★
+                        <br>Feedback content ${feedbackservice.feedback}
                     </div>
                 </c:forEach>
             </div>

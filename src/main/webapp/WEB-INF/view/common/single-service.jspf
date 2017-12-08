@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-md-8">
         <section class="panel">
-            <header class="panel-heading">${service.name}</header>
+        	<header style="color: #a94442;background-color: #f2dede;" class="panel-heading"><b>${service.name}</b></header>
             <div class="panel-body">
                 <div class="w3-content w3-display-container">
                     <img class="mySlides"src="${pageContext.request.contextPath}/resources/img/restaurant/${service.img}" alt="Service Image" style="height: 370px; width: 750px;"/>

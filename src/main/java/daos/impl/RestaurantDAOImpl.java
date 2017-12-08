@@ -81,8 +81,8 @@ public class RestaurantDAOImpl extends HotelItemDAOImp implements RestaurantDAO 
     
     private HotelService getHotelServiceWithID(DBObject obj) {
     	HotelService service = new HotelService();
-    	service = gson.fromJson(obj.toString(), HotelService.class);
-    	service.setId(obj.get("_id").toString());
+    	service = gson.fromJson(obj + "", HotelService.class);
+    	service.setId(obj.get("_id") + "");
         service.initializeServeTime();
     	return service;
     }

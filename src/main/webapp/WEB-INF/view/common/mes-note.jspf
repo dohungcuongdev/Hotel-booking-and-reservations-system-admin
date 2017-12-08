@@ -1,8 +1,6 @@
 <div class="col-lg-4">
     <section class="panel">
-        <header class="panel-heading">
-            Notes
-        </header>
+        <header class="panel-heading">Notes</header>
         <div class="panel-body" id="noti-box">
             <div class="alert alert-block alert-danger">
                 <strong>Important!</strong> This is the request of a membership.

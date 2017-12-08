@@ -134,7 +134,7 @@
                         </a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="${pageContext.request.contextPath}/login.html"><i class="fa fa-ban fa-fw pull-right"></i> Logout</a></li>
+                    <li><a href="${pageContext.request.contextPath}/logout.html"><i class="fa fa-ban fa-fw pull-right"></i> Logout</a></li>
                 </ul>
             </li>
             </ul>

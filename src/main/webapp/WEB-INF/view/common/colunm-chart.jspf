@@ -32,6 +32,5 @@ var chart = AmCharts.makeChart("chartdiv", {
     "export": {
         "enabled": true
     }
-
 });
 </script>
