@@ -39,7 +39,7 @@
                     <li>Number of Adults must be a natural number (*Note that: 2 children are counted as 1 adult)</li>
                     <li>Amenities Score must be a natural number ($)</li>
                     <li>You should write a suitable details for this room</li>
-                    <li>Amenities should be written in one line with each amenity is separated by '.' </li>
+                    <li>Amenities should be written in one line with each amenity is separated by ',' </li>
                     <li>Status much be available or booked</li>
                     <li>If Status is available then the Booked By, Check in, Check out must be null</li>
                     <li>If Status is booked then the Booked By, Check in, Check out must be filled out</li>

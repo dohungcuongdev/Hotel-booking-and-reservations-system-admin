@@ -113,10 +113,7 @@ public class MainController {
 	public String profile(ModelMap model, HttpServletRequest request) {
 		if (!isAuthenticated(request))
 			return "login";
-		initialize(model);
-		model.addAttribute("adminEdit", new Administrator());
-		model.addAttribute("changePassBean", new ChangePasswordBean());
-		return "profile";
+		return initializeProfile(model);
 	}
 
 	// profile
@@ -127,12 +124,13 @@ public class MainController {
 			return "login";
 		String correctPassword = AppData.admin.getPassword();
 		String newPassword = changePassBean.getNewpassword();
-		if (changePassBean.isMatchPassword(correctPassword))
+		model.put("pwCheckingResult", changePassBean.getPWCheckingResult(correctPassword));
+		if (changePassBean.isMatchPassword(correctPassword)) {
 			userService.updatePassword(AppData.admin.getUsername(), correctPassword,
 					changePassBean.getCurrentpassword(), newPassword, changePassBean.getConfirm());
-		initialize(model);
-		AppData.admin.setPassword(newPassword);
-		return "profile";
+			AppData.admin.setPassword(newPassword);
+		}
+		return initializeProfile(model);
 	}
 
 	@RequestMapping(value = "profile-edited", method = RequestMethod.POST)
@@ -147,8 +145,7 @@ public class MainController {
 		} else {
 			model.put("editResult", AppData.INFOR_NOT_ENOUGH);
 		}
-		initialize(model);
-		return "profile";
+		return initializeProfile(model);
 	}
 
 	@RequestMapping(value = "profile-img-edited", method = RequestMethod.POST)
@@ -536,6 +533,13 @@ public class MainController {
 		model.put("totalMessage", listactivily.size() * 100);
 		model.put("totalRooms", listrooms.size() * 100);
 		model.put("totalServices", listservices.size() * 100);
+	}
+	
+	private String initializeProfile(ModelMap model) {
+		initialize(model);
+		model.addAttribute("adminEdit", new Administrator());
+		model.addAttribute("changePassBean", new ChangePasswordBean());
+		return "profile";
 	}
 
 	private void initializeFollowUser(ModelMap model) {

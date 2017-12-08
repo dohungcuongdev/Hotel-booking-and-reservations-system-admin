@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="row">
     <div class="col-md-8">
@@ -34,6 +35,8 @@
                         <p><strong>Booked by</strong>: ${room.booked_by}</p>
                         <p><strong>Check in</strong>: ${room.checkin}</p>
                         <p><strong>Check out</strong>: ${room.checkout}</p>
+                        <p><strong>Star: </strong>: ${room.star}★</p>
+                        <p><strong>No. of vote</strong>: ${room.numvote}</p>
                     </c:if> 
                 </div>
                 <div class="alert alert-block alert-success">

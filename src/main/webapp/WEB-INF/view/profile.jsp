@@ -27,15 +27,15 @@
                     </div>
                     <div class="form-group">
                         <label>Current Password</label>
-                        <input type="password" class="form-control" path="currentpassword" placeholder="Password">
+                        <form:input type="password" class="form-control" path="currentpassword" placeholder="Current Password" required="true"/>
                     </div>
                     <div class="form-group">
                         <label>New Password</label>
-                        <input type="password" class="form-control" path="newpassword" placeholder="Password">
+                        <form:input type="password" class="form-control" path="newpassword" placeholder="New Password" required="true"/>
                     </div>
                     <div class="form-group">
                         <label>Confirm Password</label>
-                        <input type="password" class="form-control" path="confirm" placeholder="Confirm Password">
+                        <form:input type="password" class="form-control" path="confirm" placeholder="Confirm Password" required="true"/>
                         <p class="help-block">Make sure that your confirm password match.</p>
                     </div>
                     <button type="submit" class="btn btn-info">Submit</button>
@@ -102,10 +102,21 @@
 </div>
 <%@ include file="common/footer.jspf"%>
 <script type="text/javascript">
-    window.onload = function () { //first loat page
-        var r = '${editResult}';
-        checkeditresult(r);
+    window.onload = function () { //first load page
+        var editResult = '${editResult}';
+        checkeditresult(editResult);
         window.history.pushState("string", "Hotel Admin", "${pageContext.request.contextPath}/profile.html");
         $("#gender").val('${ad.gender}');
+        
+        var pwCheckingResult = "${pwCheckingResult}";
+        checkChangePWResult(pwCheckingResult);
     };
+    
+    function checkChangePWResult(r) {
+        if (r === undefined) {
+        } else if (r === "Password changed successfully")
+            swal('Congrats!', r, 'success');
+        else if (r !== '')
+            swal('Oops...!', r, 'error');
+    }
 </script>

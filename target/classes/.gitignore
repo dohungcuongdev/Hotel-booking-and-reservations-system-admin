@@ -1,4 +1,11 @@
-/daos/
-/services/
+/api.properties
+/api/
 /controller/
+/daos/
+/database.properties
+/database/
 /model/
+/services/
+/statics/
+/test/
+/META-INF/

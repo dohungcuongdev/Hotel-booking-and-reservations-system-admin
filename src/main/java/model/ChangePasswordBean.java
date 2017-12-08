@@ -29,8 +29,12 @@ public class ChangePasswordBean {
 		this.confirm = confirm;
 	}
 	
+	public String getPWCheckingResult(String correctPassword) {
+		return !currentpassword.equals(correctPassword) ? "Your current password is incorrect" : !newpassword.equals(confirm) ? "Password confirmation doesn't match password" : newpassword.equals(currentpassword) ? "New password is the same as currunt password": "Password changed successfully";
+	}
+	
 	public boolean isMatchPassword(String correctPassword) {
-		return (currentpassword.equals(correctPassword) && newpassword.equals(confirm));
+		return (currentpassword.equals(correctPassword) && !newpassword.equals(currentpassword) && newpassword.equals(confirm));
 	}
 	
 	public ChangePasswordBean() {
