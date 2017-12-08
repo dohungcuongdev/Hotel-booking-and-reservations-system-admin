@@ -111,8 +111,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updatePassword(String currentpassword, String correctpassword, String newpassword, String confirm) {
-        adminDAO.updatePassword(currentpassword, correctpassword, newpassword, confirm);
+    public void updatePassword(String username, String currentpassword, String correctpassword, String newpassword, String confirm) {
+        adminDAO.updatePassword(username, currentpassword, correctpassword, newpassword, confirm);
     }
 
     @Override

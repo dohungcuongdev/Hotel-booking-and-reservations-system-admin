@@ -21,21 +21,21 @@
                     <button type="submit" class="btn btn-info">Change your image</button>
                     <button type="submit" class="btn btn-danger">Cancel</button>
                 </form>
-                <form:form method="post" commandName="adminEdit" action="${pageContext.request.contextPath}/changePassword.html">
+                <form:form method="post" commandName="changePassBean" action="${pageContext.request.contextPath}/change-password.html">
                     <div class="form-group">
                         <br><label style="font-size: 17px; color:blue; margin-top: 24px"><strong>Change password!</strong></label>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Current Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        <label>Current Password</label>
+                        <input type="password" class="form-control" path="currentpassword" placeholder="Password">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">New Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        <label>New Password</label>
+                        <input type="password" class="form-control" path="newpassword" placeholder="Password">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Confirm Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password">
+                        <label>Confirm Password</label>
+                        <input type="password" class="form-control" path="confirm" placeholder="Confirm Password">
                         <p class="help-block">Make sure that your confirm password match.</p>
                     </div>
                     <button type="submit" class="btn btn-info">Submit</button>

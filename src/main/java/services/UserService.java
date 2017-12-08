@@ -50,7 +50,7 @@ public interface UserService {
     public CustomerBehavior getOneDataCollection(String username);  
     public Administrator getAdminByUserName(String username);
     public void updateAdmin(Administrator ad);
-    public void updatePassword(String currentpassword, String correctpassword, String newpassword, String confirm);
+    public void updatePassword(String username, String currentpassword, String correctpassword, String newpassword, String confirm);
     public void editProfileImg(String username, String img);
     public List<Activity> getAllActivity();
     public List<Activity> getAllActivityByUserName(String username);

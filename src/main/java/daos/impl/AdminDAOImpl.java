@@ -55,13 +55,11 @@ public class AdminDAOImpl implements AdminDAO {
     }
 
     @Override
-    public void updatePassword(String currentpassword, String correctpassword, String newpassword, String confirm) {
-        if (currentpassword.equals(correctpassword) && newpassword.equals(confirm)) {
-            BasicDBObject document = new BasicDBObject();
-            document.append("$set", new BasicDBObject().append("password", newpassword));
-            BasicDBObject searchQuery = new BasicDBObject().append("username", "cuongvip1295@yahoo.com.vn");
-            collection.update(searchQuery, document);
-        }
+    public void updatePassword(String username, String currentpassword, String correctpassword, String newpassword, String confirm) {
+        BasicDBObject document = new BasicDBObject();
+        document.append("$set", new BasicDBObject().append("password", newpassword));
+        BasicDBObject searchQuery = new BasicDBObject().append("username", username);
+        collection.update(searchQuery, document);
     }
 
     @Override

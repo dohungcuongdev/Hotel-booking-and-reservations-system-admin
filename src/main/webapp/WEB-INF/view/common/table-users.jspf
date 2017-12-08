@@ -6,7 +6,6 @@
         <th class="tr-p" onclick="sortAlpha(3,'table-users')">Full Name</th>
         <th class="tr-p" onclick="sortAlpha(4,'table-users')">Phone</th>
         <th class="tr-p" onclick="sortAlpha(5,'table-users')">Address</th>
-        <th class="tr-p" onclick="sortNum(6,'table-users')">Total Dates Visited</th>
         <th>View</th>
         <th>Del</th>
         <th>Ban</th>
@@ -19,7 +18,6 @@
             <td>${user.name}</td>
             <td><span class="label label-success">${user.phone}</span></td>
             <td>${user.address}</td>
-            <td>${user.dateVisit.size()}</td>
             <td><button onclick="location.href = '${pageContext.request.contextPath}/user/${user.username}.html'" class="btn btn-default btn-xs"><i class="fa fa-check"></i></button></td>
             <td><button class="btn btn-default btn-xs"><i class="fa fa-times"></i></button></td>
             <td><button class="btn btn-default btn-xs"><i class="fa fa-ban"></i></button></td>
