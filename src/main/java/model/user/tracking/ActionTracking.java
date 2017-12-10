@@ -4,34 +4,34 @@ import java.util.List;
 
 public class ActionTracking {
 
-	private List roomBooked;
-	private List roomCanceled;
-	private List feedbackroom;
-	private List feedbackservice;
+	private List<DataCollection> roomBooked;
+	private List<DataCollection> roomCanceled;
+	private List<Feedback> feedbackroom;
+	private List<Feedback> feedbackservice;
 	private double avgfeedbackRoom;
 	private double avgFeedbackSV;
 
-	public List getRoomBooked() {
+	public List<DataCollection> getRoomBooked() {
 		return roomBooked;
 	}
 
-	public void setRoomBooked(List roomBooked) {
+	public void setRoomBooked(List<DataCollection> roomBooked) {
 		this.roomBooked = roomBooked;
 	}
 
-	public List getRoomCanceled() {
+	public List<DataCollection> getRoomCanceled() {
 		return roomCanceled;
 	}
 
-	public void setRoomCanceled(List roomCanceled) {
+	public void setRoomCanceled(List<DataCollection> roomCanceled) {
 		this.roomCanceled = roomCanceled;
 	}
 
-	public List getFeedbackroom() {
+	public List<Feedback> getFeedbackroom() {
 		return feedbackroom;
 	}
 
-	public void setFeedbackroom(List feedbackroom) {
+	public void setFeedbackroom(List<Feedback> feedbackroom) {
 		this.feedbackroom = feedbackroom;
 	}
 
@@ -51,15 +51,17 @@ public class ActionTracking {
 		this.avgFeedbackSV = avgFeedbackSV;
 	}
 
-	public List getFeedbackservice() {
+	public List<Feedback> getFeedbackservice() {
 		return feedbackservice;
 	}
 
-	public void setFeedbackservice(List feedbackservice) {
+	public void setFeedbackservice(List<Feedback> feedbackservice) {
 		this.feedbackservice = feedbackservice;
 	}
 
-	public ActionTracking(List roomBooked, List roomCanceled, List feedbackroom, List feedbackservice, double avgfeedbackRoom, double avgFeedbackSV) {
+	public ActionTracking(List<DataCollection> roomBooked, List<DataCollection> roomCanceled,
+			List<Feedback> feedbackroom, List<Feedback> feedbackservice, double avgfeedbackRoom, double avgFeedbackSV) {
+		super();
 		this.roomBooked = roomBooked;
 		this.roomCanceled = roomCanceled;
 		this.feedbackroom = feedbackroom;
