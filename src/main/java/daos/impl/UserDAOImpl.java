@@ -129,7 +129,7 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return m;
 	}
-
+	
 	private String mergeKey(String key) {
 		if (key.contains("/rooms-tariff"))
 			key = "View Room";
@@ -155,6 +155,8 @@ public class UserDAOImpl implements UserDAO {
 			key = "Register";
 		else if (key.contains("/logout"))
 			key = "Logout";
+		else if (key.contains("/change-password") || key.contains("Change password"))
+			key = "Change password";
 		return key;
 	}
 
