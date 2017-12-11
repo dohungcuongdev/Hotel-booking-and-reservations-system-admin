@@ -69,8 +69,9 @@ public class HotelService extends HotelItem {
     private boolean isInvalidServeType() {
         return !AppData.MEALS_TYPES.contains(serveType);
     }
-
-    public String getAbleToEdit() {
+    
+    @Override
+    public String getAbleToUpdate() {
         if (!isEnoughInfor()) {
             return AppData.INFOR_NOT_ENOUGH;
         } else if (isInvalidType()) {

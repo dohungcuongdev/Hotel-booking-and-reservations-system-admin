@@ -28,6 +28,7 @@ public class HotelRoom extends HotelItem {
     private String avgAminities; 
     private String checkin;
     private String checkout;
+    private String created_by;
     private int star;
     private int numvote;
 
@@ -111,13 +112,29 @@ public class HotelRoom extends HotelItem {
         this.avgAminities = avgAminities;
     }
 
-    @Override
+    public String getCreated_by() {
+		return created_by;
+	}
+
+	public void setCreated_by(String created_by) {
+		this.created_by = created_by;
+	}
+
+	@Override
     public void initializeSomeInfor() {
         if (status.equals("available")) {
             this.booked_by = "";
             this.checkin = "";
             this.checkout = "";
         }
+    }
+    
+    public void setNewInfor() {
+    	this.img = AppData.ROOM_DEFAULT_IMG[0];
+    	this.img2 = AppData.ROOM_DEFAULT_IMG[1];
+    	this.created_by = AppData.admin.getUsername();
+    	this.status = "available";
+    	initializeSomeInfor();
     }
 
     private boolean isInvalidType() {
@@ -129,7 +146,7 @@ public class HotelRoom extends HotelItem {
     }
 
     private boolean isEnoughInfor() {
-        return checkNotNull(id, name, type, size, price, status, details, numpeople, amenities, avgAminities);
+        return checkNotNull(name, type, size, price, status, details, numpeople, amenities, avgAminities, created_by);
     }
     
     private boolean isNumberFormat() {
@@ -137,11 +154,8 @@ public class HotelRoom extends HotelItem {
     }
 
     public boolean isvalidDate() {
-        if (status.equals("available")) {
+        if (status.equals("available"))
             return true;
-        }
-        System.out.println(checkin);
-        System.out.println(checkout);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date today = DateTimeCalculator.formatDateTime(format.format(new Date()));
         Date checkindate = DateTimeCalculator.formatDateTime(checkin);
@@ -149,7 +163,8 @@ public class HotelRoom extends HotelItem {
         return today.compareTo(checkindate) <= 0 && checkindate.compareTo(checkoutdate) <= 0;
     }
 
-    public String getAbleToEdit() {
+    @Override
+    public String getAbleToUpdate() {
         if (!isEnoughInfor()) {
             return AppData.INFOR_NOT_ENOUGH;
         } else if(!isNumberFormat()) {
@@ -168,18 +183,6 @@ public class HotelRoom extends HotelItem {
         return isEnoughInfor() && !isInvalidType() && !isInvalidStatus() && isvalidDate() && isNumberFormat();
     }
 
-    public HotelRoom() {
-    }
-    
-    public HotelRoom(String name, String size, double price, String numpeople, String status, String img, String img2, String type, String details, String amenities, String avgAminities) {
-        super.setInfor(name, type, price, img, img2, details);
-        this.size = size;
-        this.numpeople = numpeople;
-        this.status = status;
-        this.amenities = amenities;
-        this.avgAminities = avgAminities;
-    }
-
     @Override
     public String toString() {
         return "HotelRoom{" + "id=" + id + ", name=" + name + ", size=" + size + ", numpeople=" + numpeople + ", status=" + status + ", amenities=" + amenities + ", booked_by=" + booked_by + ", avgAminities=" + avgAminities + ", checkin=" + checkin + ", checkout=" + checkout + ", star=" + star + ", numvote=" + numvote + '}';
@@ -187,7 +190,6 @@ public class HotelRoom extends HotelItem {
 	
     @Override
     public DBObject toDBObject() {
-        BasicDBObjectBuilder builder = BasicDBObjectBuilder.start("name", name).append("type", type).append("size", size).append("price", price).append("numpeople", numpeople).append("status", status).append("type", type).append("img", img).append("img2", img2).append("details", details).append("amenities", amenities).append("avgAminities", avgAminities);
-        return builder.get();
+    	return BasicDBObjectBuilder.start("name", name).append("type", type).append("size", size).append("price", price).append("numpeople", numpeople).append("status", status).append("type", type).append("img", img).append("img2", img2).append("details", details).append("amenities", amenities).append("avgAminities", avgAminities).append("created_by", created_by).get();
     }
 }

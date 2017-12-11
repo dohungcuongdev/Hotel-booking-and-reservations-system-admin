@@ -363,14 +363,6 @@ function deleteRoom(roomid) {
     });
 }
 
-function checkeditresult(r) {
-    if (r === undefined) {
-    } else if (r === "success")
-        swal('Congrats!', 'Edited successfully!', 'success');
-    else if (r !== '')
-        swal('Oops...!', r, 'error');
-}
-
 function checkSendEmail(r) {
     console.log(r);
     if (r === undefined || r === '') {
@@ -378,4 +370,20 @@ function checkSendEmail(r) {
         swal('Congrats!', 'Email Sent successfully!', 'success');
     else 
         swal('Oops...!', r, 'error');
+}
+
+function checkUpdateResult(r, success_mes) {
+    if (r === undefined) {
+    } else if (r === "success")
+        swal('Congrats!', success_mes, 'success');
+    else if (r !== '')
+        swal('Oops...!', r, 'error');
+}
+
+function checkeditresult(r) {
+	checkUpdateResult(r, 'Edited successfully!');
+}
+
+function checkAddResult(r) {
+	checkUpdateResult(r, 'Hotel Item Added with default image. You can change the image of the item!');
 }

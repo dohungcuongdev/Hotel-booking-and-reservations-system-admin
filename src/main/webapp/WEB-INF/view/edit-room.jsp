@@ -59,6 +59,7 @@
                         <label>Room Name</label>
                     </div>
                     <form:input type="hidden" value="${room.id}" readonly="true" path="id"/>
+                    <form:input type="hidden" value="${room.created_by}" readonly="true" path="created_by"/>
                     <div class="form-group">
                         <form:input required="true" type="text" class="form-control" value="${room.name}" path="name" placeholder="Room name"/>
                     </div>
@@ -156,8 +157,10 @@
         $('#details').val('${room.details}');
         $('#amenities').val('${room.amenities}');
         showBookedInfor();
-        var r = '${editResult}';
-        checkeditresult(r);
+        var editResult = '${editResult}';
+        checkeditresult(editResult);
+        var addResult = '${addResult}';
+        checkAddResult(addResult);
         window.history.pushState("string", "Hotel Admin", "${pageContext.request.contextPath}/edit-room/${room.id}.html");
     };
     function showBookedInfor() {

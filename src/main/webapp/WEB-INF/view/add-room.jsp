@@ -69,14 +69,7 @@
 <%@ include file="common/footer.jspf"%>
 <script type="text/javascript">
     window.onload = function () { //first load page
-    	$("#name").val('${room.name}');
-        $("#type").val('${room.type}');
-        $("#status").val('${room.status}');
-        $('#details').val('${room.details}');
-        $('#amenities').val('${room.amenities}');
-        showBookedInfor();
-        var r = '${editResult}';
-        checkeditresult(r);
-        window.history.pushState("string", "Hotel Admin", "${pageContext.request.contextPath}/edit-room/${room.id}.html");
+        var addResult = '${addResult}';
+        checkAddResult(addResult);
     };
 </script>

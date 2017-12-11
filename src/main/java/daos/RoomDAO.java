@@ -18,6 +18,7 @@ public interface RoomDAO {
     public List<HotelRoom> getAllRooms();
     public List<HotelRoom> getRelatedHotelRooms(String type);
     public void updateRoom(HotelRoom room);
+    public String findIDAndAddNewRoom(HotelRoom newRoom);
 	public void editImage(String name, String img, String img2);
 	public void deleteItem(String id);
 }

@@ -194,21 +194,28 @@ public class MainController {
 	public String addRoom(ModelMap model, HttpServletRequest request) {
 		if (!isAuthenticated(request))
 			return "login";
+		initialize(model);
 		model.addAttribute("newRoom", new HotelRoom());
 		return "add-room";
-	}
-	
-	public String addNewRoom(HotelRoom room) {
-		return "_id";
 	}
 	
 	@RequestMapping(value = "room-added", method = RequestMethod.POST)
 	public String roomAdded(@ModelAttribute(value = "newRoom") HotelRoom newRoom, ModelMap model, HttpServletRequest request) {
 		if (!isAuthenticated(request))
 			return "login";
-		model.addAttribute("newRoom", new HotelRoom());
-		System.out.println(newRoom);
-		return "add-room";
+		initialize(model);
+    	newRoom.setNewInfor();
+		String ableToAddNewRoom = newRoom.getAbleToUpdate();
+		model.put("addResult", ableToAddNewRoom);
+		if (ableToAddNewRoom.equals(AppData.ABLE_TO_ADD)) {
+			model.addAttribute("roomEdit", new HotelRoom());
+			model.put("room", newRoom);
+			model.put("relatedRoom", hotelItemService.getRelatedHotelRooms(newRoom.getType()));
+		} else {
+			model.addAttribute("newRoom", new HotelRoom());
+			return "add-room";
+		}
+		return initializeSingleRoom(model, hotelItemService.findIDAndAddNewRoom(newRoom), "edit-room");
 	}
 
 	@RequestMapping(value = "room-edited", method = RequestMethod.POST)
@@ -218,9 +225,9 @@ public class MainController {
 			return "login";
 		roomEdit.initializeSomeInfor();
 		initialize(model);
-		String strEdit = roomEdit.getAbleToEdit();
-		model.put("editResult", strEdit);
-		if (strEdit.equals(AppData.ABLE_TO_EDIT)) {
+		String ableToEditRoom = roomEdit.getAbleToUpdate();
+		model.put("editResult", ableToEditRoom);
+		if (ableToEditRoom.equals(AppData.ABLE_TO_EDIT)) {
 			hotelItemService.updateRoom(roomEdit);
 			model.put("room", roomEdit);
 			model.put("relatedRoom", hotelItemService.getRelatedHotelRooms(roomEdit.getType()));
@@ -292,7 +299,7 @@ public class MainController {
 			return "login";
 		serviceEdit.initializeSomeInfor();
 		initialize(model);
-		String strEdit = serviceEdit.getAbleToEdit();
+		String strEdit = serviceEdit.getAbleToUpdate();
 		model.put("editResult", strEdit);
 		if (strEdit.equals(AppData.ABLE_TO_EDIT)) {
 			hotelItemService.updateService(serviceEdit);

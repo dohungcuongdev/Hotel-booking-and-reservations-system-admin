@@ -82,5 +82,7 @@ public abstract class HotelItem extends AbstractModel {
     
     public abstract void initializeSomeInfor();
     
+    public abstract String getAbleToUpdate();
+    
     public abstract DBObject toDBObject();
 }

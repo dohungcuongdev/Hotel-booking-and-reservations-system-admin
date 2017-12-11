@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Repository;
 import model.hotel.HotelRoom;
+import statics.AppData;
 
 /**
  *
@@ -79,17 +80,28 @@ public class RoomDAOImpl extends HotelItemDAOImp implements RoomDAO {
         collection.update(searchObject, document);
     }
     
+    @Override
+    public String findIDAndAddNewRoom(HotelRoom newRoom) {
+    	collection.insert(newRoom.toDBObject());
+    	DBCursor cursorDocBuilder = collection.find();
+    	DBObject newRoomDB = null;
+    	while (cursorDocBuilder.hasNext()) {
+    		newRoomDB = cursorDocBuilder.next();
+    	}
+    	return newRoomDB.get("_id").toString();
+    }
+    
     private void addRoomtoList(List<HotelRoom> rooms, DBObject obj) {
     	HotelRoom room = new HotelRoom();
     	room = gson.fromJson(obj + "", HotelRoom.class);
     	room.setId(obj.get("_id") + "");
     	rooms.add(room);
     }
+    
     private HotelRoom getRoomWithID(DBObject obj) {
     	HotelRoom room = new HotelRoom();
     	room = gson.fromJson(obj + "", HotelRoom.class);
     	room.setId(obj.get("_id") + "");
     	return room;
     }
-    
 }

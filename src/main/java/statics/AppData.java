@@ -38,7 +38,8 @@ public class AppData {
     public static final String WRONG_TYPE_ROOM = "Type must be deluxe, family, couple or single!";
     public static final String WRONG_STATUS_ROOM = "Status must be available or booked!";
     public static final String WRONG_CHECKIN_CHECKOUT = "The checkin date and checkout date is not accepted!";
-    public static final String ABLE_TO_EDIT = "success";      
+    public static final String ABLE_TO_EDIT = "success";
+    public static final String ABLE_TO_ADD = ABLE_TO_EDIT;
     public static final String EDITSUCCESS = ABLE_TO_EDIT;
     public static final String ERROR = "error";    
     public static final String HEADERKEY = "Content-Disposition";
@@ -56,6 +57,7 @@ public class AppData {
     public static final String INVALID_SERVICE_TYPE = "Serve type must be breafast, lunch, dinner or snack!";
     public static final String ACTIVITY[] = {"Book Room","Cancel Room","Feedback Room","Feedback"}; 
     public static final String REUSE_STRING[] = {"activity", "room", "service", "edit-room", "edit-service", "editResult", "reply Book Room", "reply Cancel Room"}; 
+    public static final String ROOM_DEFAULT_IMG[] = {"room-pictures-excellent-luxury-hotel-rooms.jpg", "room-pictures-delightful-livingfamily-room-aaron-design-and-build-inc.jpg", };
     public static final String EMAIL_TEMPLATE_1[] = {"",
     		"Dear Mr. Đỗ Hùng Cường, &#13;&#13;Thank you for your interest in our hotel. This email is to acknowledge the receipt of your email and thank you for sending us your request. We will carefully review your request. Should your request match our ability, we will contact you soon. In other cases, we will keep the request for future opportunities.&#13;&#13;With best regards, &#13Hùng Cường.&#13&#13...&#13Holiday Crown.&#13Address: 24 Street 7, Bình An Ward, District 2.&#13Phone Number: 0908998923.&#13Hotline: (08).37404802.",
     		"Dear Mr. Đỗ Hùng Cường, &#13;&#13;Thank you for your interest in our hotel. This email is to acknowledge the receipt of your email and thank you for sending us your request. We will carefully review your request. Should your request match our ability, we will contact you soon. In other cases, we will keep the request for future opportunities.&#13;&#13;With best regards, &#13Hùng Cường.&#13&#13...&#13Holiday Crown.&#13Address: 24 Street 7, Bình An Ward, District 2.&#13Phone Number: 0908998923.&#13Hotline: (08).37404802."
