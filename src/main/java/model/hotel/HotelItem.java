@@ -5,6 +5,8 @@
  */
 package model.hotel;
 
+import com.mongodb.DBObject;
+
 import model.AbstractModel;
 
 /**
@@ -79,4 +81,6 @@ public abstract class HotelItem extends AbstractModel {
     }
     
     public abstract void initializeSomeInfor();
+    
+    public abstract DBObject toDBObject();
 }

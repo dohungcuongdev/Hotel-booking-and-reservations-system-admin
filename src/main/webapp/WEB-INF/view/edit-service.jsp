@@ -43,7 +43,7 @@
                         <label>Name</label>
                     </div>
                     <div class="form-group">
-                        <form:input type="text" class="form-control" value="${service.name}" path="name"/>
+                        <form:input required="true" type="text" class="form-control" value="${service.name}" path="name" placeholder="Item name"/>
                     </div>
                     <div class="form-group">
                         <label>Type</label>

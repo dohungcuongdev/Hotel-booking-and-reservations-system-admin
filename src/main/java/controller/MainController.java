@@ -189,6 +189,27 @@ public class MainController {
 		model.addAttribute("roomEdit", new HotelRoom());
 		return initializeSingleRoom(model, roomid, "edit-room");
 	}
+	
+	@RequestMapping(value = "add-room", method = RequestMethod.GET)
+	public String addRoom(ModelMap model, HttpServletRequest request) {
+		if (!isAuthenticated(request))
+			return "login";
+		model.addAttribute("newRoom", new HotelRoom());
+		return "add-room";
+	}
+	
+	public String addNewRoom(HotelRoom room) {
+		return "_id";
+	}
+	
+	@RequestMapping(value = "room-added", method = RequestMethod.POST)
+	public String roomAdded(@ModelAttribute(value = "newRoom") HotelRoom newRoom, ModelMap model, HttpServletRequest request) {
+		if (!isAuthenticated(request))
+			return "login";
+		model.addAttribute("newRoom", new HotelRoom());
+		System.out.println(newRoom);
+		return "add-room";
+	}
 
 	@RequestMapping(value = "room-edited", method = RequestMethod.POST)
 	public String roomEdited(@ModelAttribute(value = "roomEdit") HotelRoom roomEdit, ModelMap model,

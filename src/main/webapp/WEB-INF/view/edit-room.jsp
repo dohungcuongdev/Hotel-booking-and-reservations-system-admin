@@ -60,7 +60,7 @@
                     </div>
                     <form:input type="hidden" value="${room.id}" readonly="true" path="id"/>
                     <div class="form-group">
-                        <form:input type="text" class="form-control" value="${room.name}" path="name"/>
+                        <form:input required="true" type="text" class="form-control" value="${room.name}" path="name" placeholder="Room name"/>
                     </div>
                     <div class="form-group">
                         <label>Type</label>

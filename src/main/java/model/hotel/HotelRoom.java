@@ -7,6 +7,10 @@ package model.hotel;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import com.mongodb.BasicDBObjectBuilder;
+import com.mongodb.DBObject;
+
 import statics.AppData;
 import statics.provider.DateTimeCalculator;
 
@@ -166,28 +170,24 @@ public class HotelRoom extends HotelItem {
 
     public HotelRoom() {
     }
-
-    public HotelRoom(String name, String size, double price, String numpeople, String img, String img2, String type, String details, String amenities) {
-        super.setInfor(name, type, price, img, img2, details);
-        this.size = size;
-        this.numpeople = numpeople;
-        this.amenities = amenities;
-        this.status = "available";
-    }
-
-    public HotelRoom(String name, String size, double price, String numpeople, String status, String img, String img2, String type, String details, String amenities, String booked_by, String checkin, String checkout) {
+    
+    public HotelRoom(String name, String size, double price, String numpeople, String status, String img, String img2, String type, String details, String amenities, String avgAminities) {
         super.setInfor(name, type, price, img, img2, details);
         this.size = size;
         this.numpeople = numpeople;
         this.status = status;
         this.amenities = amenities;
-        this.booked_by = booked_by;
-        this.checkin = checkin;
-        this.checkout = checkout;
+        this.avgAminities = avgAminities;
     }
 
     @Override
     public String toString() {
         return "HotelRoom{" + "id=" + id + ", name=" + name + ", size=" + size + ", numpeople=" + numpeople + ", status=" + status + ", amenities=" + amenities + ", booked_by=" + booked_by + ", avgAminities=" + avgAminities + ", checkin=" + checkin + ", checkout=" + checkout + ", star=" + star + ", numvote=" + numvote + '}';
+    }
+	
+    @Override
+    public DBObject toDBObject() {
+        BasicDBObjectBuilder builder = BasicDBObjectBuilder.start("name", name).append("type", type).append("size", size).append("price", price).append("numpeople", numpeople).append("status", status).append("type", type).append("img", img).append("img2", img2).append("details", details).append("amenities", amenities).append("avgAminities", avgAminities);
+        return builder.get();
     }
 }

@@ -5,6 +5,9 @@
  */
 package model.hotel;
 
+import com.mongodb.BasicDBObjectBuilder;
+import com.mongodb.DBObject;
+
 import statics.AppData;
 
 /**
@@ -92,5 +95,14 @@ public class HotelService extends HotelItem {
     @Override
     public String toString() {
         return "HotelService{" + "quantity=" + quantity + ", note=" + note + ", serveType=" + serveType + ", serveTime=" + serveTime + '}';
+    }
+	
+    @Override
+    public DBObject toDBObject() {
+        BasicDBObjectBuilder builder = BasicDBObjectBuilder
+                .start("id", id)
+                .append("name", name)
+        		.append("type", type);
+        return builder.get();
     }
 }
