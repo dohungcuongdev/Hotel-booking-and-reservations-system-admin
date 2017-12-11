@@ -46,7 +46,7 @@ app.controller('folowUserCtrl', function($scope, $http) {
 	  for(var i = 0; i < $scope.followUserData.length;i++) {
 		if($scope.followUserData[i].username == null || $scope.followUserData[i].username == "")
 			$scope.followUserData[i].username = "guest";
-			$scope.followUserData[i].created_at = new Date($scope.followUserData[i].created_at);
+		$scope.followUserData[i].created_at = new Date($scope.followUserData[i].created_at);
 	  }
 	  $scope.sortDateAccess($scope.followUserData);
 	});

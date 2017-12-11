@@ -5,9 +5,9 @@
         <th class="tr-p" onclick="sortNum(2, 'ip-stat-table')">Visit Times</th>
     </tr>
     <c:forEach var="map" items="${mapFollowUsersIP}" varStatus="loop">
-        <tr class="tr-p" onclick="location.href = '${pageContext.request.contextPath}/page-access-chart/${map.key}.html'">
+        <tr>
             <td>${loop.index + 1}</td>
-            <td>${map.key}</td>
+            <td><a href="${pageContext.request.contextPath}/page-access-chart/${map.key}.html">${map.key}</a></td>
             <td>${map.value}</td>
         </tr>
     </c:forEach>
