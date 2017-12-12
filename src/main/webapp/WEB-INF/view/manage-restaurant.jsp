@@ -15,6 +15,9 @@
             <div class="panel-body table-responsive" id="manage-services-box">
 				<%@ include file="common/table-restaurant.jspf"%>
             </div>
+            <div class="panel-body">
+                 <center><button type="button" onclick="location.href='${pageContext.request.contextPath}/add-service.html'" class="btn btn-success">Add New Item <i class="fa fa-food"></i></button></center>
+            </div>
         </div>
     </div>
 </div>

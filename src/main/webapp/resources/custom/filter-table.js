@@ -1,101 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
-    Created on : Nov 11, 2017, 9:38:05 AM
-    Author     : HUNGCUONG
-*/
-
-$('input').on('ifChecked', function (event) {
-    // var element = $(this).parent().find('input:checkbox:first');
-    // element.parent().parent().parent().addClass('highlight');
-    $(this).parents('li').addClass("task-done");
-    console.log('ok');
-});
-$('input').on('ifUnchecked', function (event) {
-    // var element = $(this).parent().find('input:checkbox:first');
-    // element.parent().parent().parent().removeClass('highlight');
-    $(this).parents('li').removeClass("task-done");
-    console.log('not');
-});
-$('#noti-box').slimScroll({
-    height: '400px',
-    size: '5px',
-    BorderRadius: '5px'
-});
-$('#activity-box').slimScroll({
-    height: '707px',
-    size: '5px',
-    BorderRadius: '5px'
-});
-$('#room-booked-box').slimScroll({
-    height: '150px',
-    size: '5px',
-    BorderRadius: '5px'
-});
-$('#room-canceled-box').slimScroll({
-    height: '150px',
-    size: '5px',
-    BorderRadius: '5px'
-});
-$('#date-visited-box').slimScroll({
-    height: '150px',
-    size: '5px',
-    BorderRadius: '5px'
-});    
-$('#feedback-box').slimScroll({
-    height: '150px',
-    size: '5px',
-    BorderRadius: '5px'
-});
-$('#feedback-room-box').slimScroll({
-    height: '150px',
-    size: '5px',
-    BorderRadius: '5px'
-});
-$('input[type="checkbox"].flat-grey, input[type="radio"].flat-grey').iCheck({
-    checkboxClass: 'icheckbox_flat-grey',
-    radioClass: 'iradio_flat-grey'
-});
-$('#manage-services-box').slimScroll({
-    height: '400px',
-    size: '5px',
-    BorderRadius: '5px'
-});
-$('#manage-rooms-box').slimScroll({
-    height: '500px',
-    size: '5px',
-    BorderRadius: '5px'
-});
-$('#all-message-box').slimScroll({
-    height: '400px',
-    size: '5px',
-    BorderRadius: '5px'
-});
-$('#page-access-box').slimScroll({
-    height: '600px',
-    size: '5px',
-    BorderRadius: '5px'
-});
-$('#follow-user-box').slimScroll({
-    height: '400px',
-    size: '5px',
-    BorderRadius: '5px'
-});
-
-var windowsize = $(window).width();
-
-$(window).resize(function () {
-    windowsize = $(window).width();
-    if (windowsize < 1000) {
-        //if the window is greater than 440px wide then turn on jScrollPane..
-
-    }
-});
-
 function search() {
     searchInputTable("input-management","table-management")
 }
@@ -179,6 +81,18 @@ function compareInnerHTML(dataType, x, y) {
 		return convertDate(x.innerHTML) > convertDate(y.innerHTML);
 }
 
+function sortAlpha(n, myTable) {
+	sortTable(n, myTable, 'alpha');
+}
+
+function sortNum(n, myTable) {
+	sortTable(n, myTable, 'number');
+}
+
+function sortDate(n, myTable) {
+	sortTable(n, myTable, 'date');
+}
+
 function sortTable(n, myTable, dataType) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById(myTable);
@@ -232,68 +146,4 @@ function sortTable(n, myTable, dataType) {
             }
         }
     }
-}
-
-function sortAlpha(n, myTable) {
-	sortTable(n, myTable, 'alpha');
-}
-
-function sortNum(n, myTable) {
-	sortTable(n, myTable, 'number');
-}
-function sortDate(n, myTable) {
-	sortTable(n, myTable, 'date');
-}
-
-function deleteService(serviceid) {
-    swal({
-        title: "Are you sure?",
-        text: "Delete this item from restaurant now!",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Yes, delete it!",
-        closeOnConfirm: false
-    }, function () {
-        window.location.href = 'remove-service/' + serviceid + '.htm';
-    });
-}
-
-function deleteRoom(roomid) {
-    swal({
-        title: "Are you sure?",
-        text: "Delete this room now!",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Yes, delete it!",
-        closeOnConfirm: false
-    }, function () {
-        window.location.href = 'remove-room/' + roomid + '.htm';
-    });
-}
-
-function checkSendEmail(r) {
-    console.log(r);
-    if (r === undefined || r === '') {
-    } else if (r === "Sent successfully")
-        swal('Congrats!', 'Email Sent successfully!', 'success');
-    else 
-        swal('Oops...!', r, 'error');
-}
-
-function checkUpdateResult(r, success_mes) {
-    if (r === undefined) {
-    } else if (r === "success")
-        swal('Congrats!', success_mes, 'success');
-    else if (r !== '')
-        swal('Oops...!', r, 'error');
-}
-
-function checkeditresult(r) {
-	checkUpdateResult(r, 'Edited successfully!');
-}
-
-function checkAddResult(r) {
-	checkUpdateResult(r, 'Hotel Item Added with default image. You can change the image of this item!');
 }

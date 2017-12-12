@@ -15,17 +15,13 @@ th, td {
     padding: 8px;
 }
 
-tr:nth-child(even){
-    background-color: #FFEDCA
-}
-
-tr:nth-child(odd){
-    background-color: #FFFFFF
-}
-
 th {
     background-color: #CC0033;
     color: #FFFFFF;
+}
+
+table tr {
+	font-size: 13px;
 }
 
 tbody>tr:hover>th{
@@ -38,7 +34,17 @@ tbody>tr:hover{
     color: #FFFFFF;
 }
 
-fa-bar-chart-o:before,.fa-bar-chart:before{content:"\f080"}
+tr:nth-child(even){
+    background-color: #FFEDCA
+}
+
+tr:nth-child(odd){
+    background-color: #FFFFFF
+}
+
+.tr-p {
+    cursor: pointer;
+}
 
 #chartdiv {
     width: 100%;
@@ -49,11 +55,6 @@ fa-bar-chart-o:before,.fa-bar-chart:before{content:"\f080"}
     top: 10px;
     right: 0;
 }
-
-.tr-p {
-    cursor: pointer;
-}
-
 .midscreen {
     margin-left: 10%; 
     margin-top: 12.5%
@@ -64,6 +65,10 @@ fa-bar-chart-o:before,.fa-bar-chart:before{content:"\f080"}
     font-weight: bold;
 }
 
-table tr {
-	font-size: 13px;
+.fa-food:before {
+  content: "\f0f5";
+}
+
+fa-bar-chart-o:before,.fa-bar-chart:before{
+	content:"\f080"
 }

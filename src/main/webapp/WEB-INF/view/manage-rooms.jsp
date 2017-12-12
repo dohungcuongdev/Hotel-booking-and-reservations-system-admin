@@ -15,6 +15,9 @@
             <div class="panel-body table-responsive" id="manage-rooms-box">    
 				<%@ include file="common/table-rooms.jspf"%>
             </div>
+            <div class="panel-body">
+                 <center><button type="button" onclick="location.href='${pageContext.request.contextPath}/add-room.html'" class="btn btn-success">Add New Room <i class="fa fa-bed"></i></button></center>
+            </div>
         </div>
     </div>
 </div>
