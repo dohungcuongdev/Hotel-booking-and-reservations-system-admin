@@ -6,20 +6,21 @@
 package model.hotel;
 
 import com.mongodb.DBObject;
-
 import model.AbstractModel;
 
 /**
  *
  * @author Do Hung Cuong
  */
+
 public abstract class HotelItem extends AbstractModel {
 
-    protected double price;
+    protected String price;
     protected String img;
     protected String img2;
     protected String details;
     protected String type;
+    protected String created_by;
 
     public String getType() {
         return type;
@@ -29,11 +30,11 @@ public abstract class HotelItem extends AbstractModel {
         this.type = type;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -61,17 +62,15 @@ public abstract class HotelItem extends AbstractModel {
         this.details = details;
     }
 
-    public void defaultImage() {
-        //String imgname = name.toLowerCase().r
-        if (img == null || img.equals("")) {
-            img = name.toLowerCase() + ".jpg";
-        }
-        if (img2 == null || img2.equals("")) {
-            img2 = name.toLowerCase() + "_2.jpg";
-        }
-    }
+	public String getCreated_by() {
+		return created_by;
+	}
 
-    protected void setInfor(String name, String type, double price, String img, String img2, String details) {
+	public void setCreated_by(String created_by) {
+		this.created_by = created_by;
+	}
+
+    protected void setInfor(String name, String type, String price, String img, String img2, String details) {
         this.name = name;
         this.price = price;
         this.img = img;
@@ -85,4 +84,6 @@ public abstract class HotelItem extends AbstractModel {
     public abstract String getAbleToUpdate();
     
     public abstract DBObject toDBObject();
+    
+	public abstract void setNewInfor();
 }

@@ -92,4 +92,9 @@ public class HotelItemServiceImpl implements HotelItemService {
 	public String findIDAndAddNewRoom(HotelRoom newRoom) {
 		return roomDAO.findIDAndAddNewRoom(newRoom);
 	}
+
+	@Override
+	public String findIDAndAddNewService(HotelService newService) {
+		return restaurantDAO.findIDAndAddNewService(newService);
+	}
 }

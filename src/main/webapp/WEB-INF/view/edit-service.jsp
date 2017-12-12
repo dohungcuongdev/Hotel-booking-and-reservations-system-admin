@@ -119,8 +119,10 @@
         $("#type").val('${service.type}');
         $("#serveType").val('${service.serveType}');
         $('#details').val('${service.details}');
-        var r = '${editResult}'
-        checkeditresult(r);
+        var editResult = '${editResult}';
+        checkeditresult(editResult);
+        var addResult = '${addResult}';
+        checkAddResult(addResult);
         window.history.pushState("string", "Hotel Admin", "${pageContext.request.contextPath}/edit-service/${service.id}.html");
     };
 </script>

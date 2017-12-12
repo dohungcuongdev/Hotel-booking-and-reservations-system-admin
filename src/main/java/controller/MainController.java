@@ -72,15 +72,13 @@ public class MainController {
 
 	// checklogin
 	@RequestMapping(value = "check-login", method = RequestMethod.POST)
-	public String checklogin(@ModelAttribute(value = "loginbean") LoginBean loginbean, ModelMap model,
-			HttpServletRequest request) throws IOException {
+	public String checklogin(@ModelAttribute(value = "loginbean") LoginBean loginbean, ModelMap model, HttpServletRequest request) throws IOException {
 		if (isAuthenticated(request))
 			return index(model, request);
 		String username = loginbean.getUserName();
 		String password = loginbean.getPassword();
 		AppData.admin = userService.getAdminByUserName(username);
-		if (AppData.admin != null && username.equals(AppData.admin.getUsername())
-				&& password.equals(AppData.admin.getPassword())) {
+		if (AppData.admin != null && username.equals(AppData.admin.getUsername()) && password.equals(AppData.admin.getPassword())) {
 			request.getSession().setAttribute("username", username);
 			request.getSession().setMaxInactiveInterval(24 * 60 * 60);
 			return index(model, request);
@@ -97,8 +95,7 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "search-result/{keyword}", method = RequestMethod.GET)
-	public String searchResult(@PathVariable(value = "keyword") String keyword, ModelMap model,
-			HttpServletRequest request) {
+	public String searchResult(@PathVariable(value = "keyword") String keyword, ModelMap model, HttpServletRequest request) {
 		if (!isAuthenticated(request))
 			return "login";
 		initialize(model);
@@ -118,24 +115,21 @@ public class MainController {
 
 	// profile
 	@RequestMapping(value = "change-password", method = RequestMethod.POST)
-	public String changePassword(@ModelAttribute(value = "changePassBean") ChangePasswordBean changePassBean,
-			ModelMap model, HttpServletRequest request) {
+	public String changePassword(@ModelAttribute(value = "changePassBean") ChangePasswordBean changePassBean, ModelMap model, HttpServletRequest request) {
 		if (!isAuthenticated(request))
 			return "login";
 		String correctPassword = AppData.admin.getPassword();
 		String newPassword = changePassBean.getNewpassword();
 		model.put("pwCheckingResult", changePassBean.getPWCheckingResult(correctPassword));
 		if (changePassBean.isMatchPassword(correctPassword)) {
-			userService.updatePassword(AppData.admin.getUsername(), correctPassword,
-					changePassBean.getCurrentpassword(), newPassword, changePassBean.getConfirm());
+			userService.updatePassword(AppData.admin.getUsername(), correctPassword, changePassBean.getCurrentpassword(), newPassword, changePassBean.getConfirm());
 			AppData.admin.setPassword(newPassword);
 		}
 		return initializeProfile(model);
 	}
 
 	@RequestMapping(value = "profile-edited", method = RequestMethod.POST)
-	public String editProfile(@ModelAttribute(value = "adminEdit") Administrator ad, ModelMap model,
-			HttpServletRequest request) {
+	public String editProfile(@ModelAttribute(value = "adminEdit") Administrator ad, ModelMap model, HttpServletRequest request) {
 		if (!isAuthenticated(request))
 			return "login";
 		if (ad.isEnoughInfor()) {
@@ -149,8 +143,7 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "profile-img-edited", method = RequestMethod.POST)
-	public String profileImgEdited(@RequestParam(value = "img") CommonsMultipartFile img, HttpServletRequest request,
-			ModelMap model) {
+	public String profileImgEdited(@RequestParam(value = "img") CommonsMultipartFile img, HttpServletRequest request, ModelMap model) {
 		if (!isAuthenticated(request))
 			return "login";
 		userService.editProfileImg(AppData.admin.getUsername(), appService.uploadfile(img, request, model, "users"));
@@ -281,6 +274,34 @@ public class MainController {
 		if (!isAuthenticated(request))
 			return "login";
 		return initializeSingleService(model, serviceid, "service");
+	}
+	
+	@RequestMapping(value = "add-service", method = RequestMethod.GET)
+	public String addService(ModelMap model, HttpServletRequest request) {
+		if (!isAuthenticated(request))
+			return "login";
+		initialize(model);
+		model.addAttribute("newService", new HotelService());
+		return "add-service";
+	}
+	
+	@RequestMapping(value = "service-added", method = RequestMethod.POST)
+	public String serviceAdded(@ModelAttribute(value = "newService") HotelService newService, ModelMap model, HttpServletRequest request) {
+		if (!isAuthenticated(request))
+			return "login";
+		initialize(model);
+		newService.setNewInfor();
+		String ableToAddNewService = newService.getAbleToUpdate();
+		model.put("addResult", ableToAddNewService);
+		if (ableToAddNewService.equals(AppData.ABLE_TO_ADD)) {
+			model.addAttribute("serviceEdit", new HotelService());
+			model.put("service", newService);
+			model.put("relatedRoom", hotelItemService.getRelatedHotelServices(newService.getType()));
+		} else {
+			model.addAttribute("newService", new HotelService());
+			return "add-service";
+		}
+		return initializeSingleService(model, hotelItemService.findIDAndAddNewService(newService), "edit-service");
 	}
 
 	@RequestMapping(value = "edit-service/{serviceid}", method = RequestMethod.GET)

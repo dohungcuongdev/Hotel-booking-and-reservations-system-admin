@@ -17,6 +17,11 @@ import statics.AppData;
  * @author Do Hung Cuong
  */
 public class DateTimeCalculator {
+	
+	public static Date getToday() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		return formatDateTime(format.format(new Date()));
+	}
 
     public static Date getDateTime(String strDate) {
         SimpleDateFormat myFormat = new SimpleDateFormat(AppData.DATE_FORMAT);

@@ -48,14 +48,26 @@ public class HotelService extends HotelItem {
     public String getServeTime() {
         return serveTime;
     }
+    
+    @Override
+	public void setNewInfor() {
+    	initializeServeTime();
+		this.img = AppData.RESTAURANT_DEFAULT_IMG[0];
+		this.img2 = AppData.RESTAURANT_DEFAULT_IMG[1];
+    	this.created_by = AppData.admin.getUsername();
+	}
 
     public void initializeServeTime() {
         serveTime = AppData.MEALS_TIME.get(AppData.MEALS_TYPES.indexOf(serveType));
     }
 
     private boolean isEnoughInfor() {
-        return checkNotNull(name, type, details, quantity, note, serveType) && price > 0 && checkNaturalNumber(quantity);
+        return checkNotNull(name, type, details, quantity, note, serveType);
     }
+
+	private boolean isNumberFormat() {
+		return checkNaturalNumber(quantity, price);
+	}
 
     @Override
     public void initializeSomeInfor() {
@@ -72,25 +84,7 @@ public class HotelService extends HotelItem {
     
     @Override
     public String getAbleToUpdate() {
-        if (!isEnoughInfor()) {
-            return AppData.INFOR_NOT_ENOUGH;
-        } else if (isInvalidType()) {
-            return AppData.WRONG_TYPE_SERVICE;
-        } else if (isInvalidServeType()) {
-            return AppData.INVALID_SERVICE_TYPE;
-        }
-        return AppData.ABLE_TO_EDIT;
-    }
-
-    public HotelService() {
-    }
-
-    public HotelService(String name, String type, double price, String img, String img2, String details, String quantity, String note, String serveType, String serveTime) {
-        super.setInfor(name, type, price, img, img2, details);
-        this.quantity = quantity;
-        this.note = note;
-        this.serveType = serveType;
-        this.serveTime = serveTime;
+        return !isEnoughInfor() ?  AppData.INFOR_NOT_ENOUGH : !isNumberFormat() ? AppData.WRONG_NUMBER_FORMAT_SERVICE : isInvalidType() ? AppData.WRONG_TYPE_SERVICE : isInvalidServeType() ? AppData.INVALID_SERVICE_TYPE: AppData.ABLE_TO_EDIT;
     }
 
     @Override
@@ -100,10 +94,6 @@ public class HotelService extends HotelItem {
 	
     @Override
     public DBObject toDBObject() {
-        BasicDBObjectBuilder builder = BasicDBObjectBuilder
-                .start("id", id)
-                .append("name", name)
-        		.append("type", type);
-        return builder.get();
+    	return BasicDBObjectBuilder.start("name", name).append("type", type).append("price", price).append("quantity", quantity).append("note", note).append("details", details).append("img", img).append("img2", img2).append("serveType", serveType).get();
     }
 }

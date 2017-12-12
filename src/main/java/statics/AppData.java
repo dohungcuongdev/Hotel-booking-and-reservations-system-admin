@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import model.user.Administrator;
-import model.user.tracking.Activity;
 
 /**
  *
@@ -34,6 +33,7 @@ public class AppData {
     public static final String EMAIL_SENT = "Sent successfully";
     public static final String EMAIL_NO_SUBJECT_MES = "Please input subject and message!";
     public static final String INFOR_NOT_ENOUGH = "Please input all the information!";
+    public static final String WRONG_ROOM_NAME = "Room name must be 3 digits natural number! (Ex: 604)";
     public static final String WRONG_NUMBER_FORMAT_ROOM = "Price, Size, Star and Number of Adults must be a positive natural number!";
     public static final String WRONG_TYPE_ROOM = "Type must be deluxe, family, couple or single!";
     public static final String WRONG_STATUS_ROOM = "Status must be available or booked!";
@@ -53,11 +53,13 @@ public class AppData {
     public static final List<String> SERVICE_TYPES = Arrays.asList("food", "drink", "fruit", "ice-cream");
     public static final List<String> MEALS_TYPES = Arrays.asList("breakfast", "lunch", "dinner", "snack");
     public static final List<String> MEALS_TIME = Arrays.asList( "7:00 am to 10:00 am", "11:00 am to 4:00 pm", "5:00 pm to 9:00 pm", "Anytime");
+    public static final String WRONG_NUMBER_FORMAT_SERVICE = "Price and Quantity must be a positive natural number!";
     public static final String WRONG_TYPE_SERVICE = "Type must be food, drink, fruit or ice-cream!";
     public static final String INVALID_SERVICE_TYPE = "Serve type must be breafast, lunch, dinner or snack!";
     public static final String ACTIVITY[] = {"Book Room","Cancel Room","Feedback Room","Feedback"}; 
     public static final String REUSE_STRING[] = {"activity", "room", "service", "edit-room", "edit-service", "editResult", "reply Book Room", "reply Cancel Room"}; 
     public static final String ROOM_DEFAULT_IMG[] = {"room-pictures-excellent-luxury-hotel-rooms.jpg", "room-pictures-delightful-livingfamily-room-aaron-design-and-build-inc.jpg", };
+    public static final String RESTAURANT_DEFAULT_IMG[] = {"pizza.jpg", "pizza_2.jpg", };
     public static final String EMAIL_TEMPLATE_1[] = {"",
     		"Dear Mr. Đỗ Hùng Cường, &#13;&#13;Thank you for your interest in our hotel. This email is to acknowledge the receipt of your email and thank you for sending us your request. We will carefully review your request. Should your request match our ability, we will contact you soon. In other cases, we will keep the request for future opportunities.&#13;&#13;With best regards, &#13Hùng Cường.&#13&#13...&#13Holiday Crown.&#13Address: 24 Street 7, Bình An Ward, District 2.&#13Phone Number: 0908998923.&#13Hotline: (08).37404802.",
     		"Dear Mr. Đỗ Hùng Cường, &#13;&#13;Thank you for your interest in our hotel. This email is to acknowledge the receipt of your email and thank you for sending us your request. We will carefully review your request. Should your request match our ability, we will contact you soon. In other cases, we will keep the request for future opportunities.&#13;&#13;With best regards, &#13Hùng Cường.&#13&#13...&#13Holiday Crown.&#13Address: 24 Street 7, Bình An Ward, District 2.&#13Phone Number: 0908998923.&#13Hotline: (08).37404802."

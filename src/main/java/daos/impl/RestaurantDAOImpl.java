@@ -70,6 +70,17 @@ public class RestaurantDAOImpl extends HotelItemDAOImp implements RestaurantDAO 
         }
         return services;
     }
+    
+    @Override
+    public String findIDAndAddNewService(HotelService newService) {
+    	collection.insert(newService.toDBObject());
+    	DBCursor cursorDocBuilder = collection.find();
+    	DBObject newServiceDB = null;
+    	while (cursorDocBuilder.hasNext()) {
+    		newServiceDB = cursorDocBuilder.next();
+    	}
+    	return newServiceDB.get("_id").toString();
+    }
 
     @Override
     public void updateService(HotelService service) {
