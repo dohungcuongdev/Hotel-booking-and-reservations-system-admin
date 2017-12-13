@@ -1,29 +1,23 @@
-function deleteService(serviceid) {
+function remove(id, item, text) {
     swal({
         title: "Are you sure?",
-        text: "Delete this item from restaurant now!",
+        text: text,
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "Yes, delete it!",
         closeOnConfirm: false
     }, function () {
-        window.location.href = 'remove-service/' + serviceid + '.htm';
+        window.location.href = 'remove-' + item + '/' + id + '.html';
     });
 }
 
+function deleteService(serviceid) {
+	remove(serviceid, 'service', 'Delete this item from restaurant now!');
+}
+
 function deleteRoom(roomid) {
-    swal({
-        title: "Are you sure?",
-        text: "Delete this room now!",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Yes, delete it!",
-        closeOnConfirm: false
-    }, function () {
-        window.location.href = 'remove-room/' + roomid + '.htm';
-    });
+	remove(roomid, 'room', 'Delete this room now!');
 }
 
 function checkSendEmail(r) {
