@@ -1,4 +1,4 @@
-function remove(id, item, text) {
+function remove(url, text) {
     swal({
         title: "Are you sure?",
         text: text,
@@ -8,16 +8,16 @@ function remove(id, item, text) {
         confirmButtonText: "Yes, delete it!",
         closeOnConfirm: false
     }, function () {
-        window.location.href = 'remove-' + item + '/' + id + '.html';
+        window.location.href = url;
     });
 }
 
-function deleteService(serviceid) {
-	remove(serviceid, 'service', 'Delete this item from restaurant now!');
+function deleteService(url) {
+	remove(url, 'Delete this item from restaurant now!');
 }
 
-function deleteRoom(roomid) {
-	remove(roomid, 'room', 'Delete this room now!');
+function deleteRoom(url) {
+	remove(url, 'Delete this room now!');
 }
 
 function checkSendEmail(r) {
