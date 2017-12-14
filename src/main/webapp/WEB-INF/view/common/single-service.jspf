@@ -20,6 +20,8 @@
             <div class="panel-body" id="noti-box">
                 <div class="alert alert-block alert-danger">
                     <h4><strong>${service.name}</strong></h4>
+                    <p><strong>Added by</strong>: ${service.created_by}</p>
+                    <p><strong>Added at</strong>: ${service.created_at}</p>
                     <p><strong>Type</strong>: ${service.type}</p>
                     <p><strong>Price</strong>: $${service.price}</p>
                 </div>

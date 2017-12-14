@@ -5,6 +5,8 @@
  */
 package model.hotel;
 
+import java.util.Date;
+
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBObject;
 
@@ -55,6 +57,7 @@ public class HotelService extends HotelItem {
 		this.img = AppData.RESTAURANT_DEFAULT_IMG[0];
 		this.img2 = AppData.RESTAURANT_DEFAULT_IMG[1];
     	this.created_by = AppData.admin.getUsername();
+    	this.created_at = new Date().toString();
 	}
 
     public void initializeServeTime() {
@@ -94,6 +97,6 @@ public class HotelService extends HotelItem {
 	
     @Override
     public DBObject toDBObject() {
-    	return BasicDBObjectBuilder.start("name", name).append("type", type).append("price", price).append("quantity", quantity).append("note", note).append("details", details).append("img", img).append("img2", img2).append("serveType", serveType).get();
+    	return BasicDBObjectBuilder.start("name", name).append("type", type).append("price", price).append("quantity", quantity).append("note", note).append("details", details).append("img", img).append("img2", img2).append("serveType", serveType).append("created_by", created_by).append("created_at", created_at).get();
     }
 }

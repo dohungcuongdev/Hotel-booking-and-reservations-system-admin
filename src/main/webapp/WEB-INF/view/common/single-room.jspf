@@ -23,6 +23,8 @@
             <div class="panel-body" id="noti-box">
                 <div class="alert alert-block alert-danger">
                     <h4><strong>Room ${room.name}</strong></h4>
+                    <p><strong>Added by</strong>: ${room.created_by}</p>
+                    <p><strong>Added at</strong>: ${room.created_at}</p>
                     <p><strong>Type</strong>: ${room.type}</p>
                     <p><strong>Size</strong>: ${room.size}sq</p>
                     <p><strong>Price</strong>: $${room.price}/day</p>

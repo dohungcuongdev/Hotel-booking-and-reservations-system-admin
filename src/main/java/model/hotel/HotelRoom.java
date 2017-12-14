@@ -122,6 +122,7 @@ public class HotelRoom extends HotelItem {
 		this.img = AppData.ROOM_DEFAULT_IMG[0];
 		this.img2 = AppData.ROOM_DEFAULT_IMG[1];
 		this.created_by = AppData.admin.getUsername();
+		this.created_at = new Date().toString();
 		this.status = "available";
 		initializeSomeInfor();
 	}
@@ -171,6 +172,6 @@ public class HotelRoom extends HotelItem {
 
 	@Override
 	public DBObject toDBObject() {
-		return BasicDBObjectBuilder.start("name", name).append("type", type).append("size", size).append("price", price).append("numpeople", numpeople).append("status", status).append("type", type).append("img", img).append("img2", img2).append("details", details).append("amenities", amenities).append("avgAminities", avgAminities).append("created_by", created_by).get();
+		return BasicDBObjectBuilder.start("name", name).append("type", type).append("size", size).append("price", price).append("numpeople", numpeople).append("status", status).append("type", type).append("img", img).append("img2", img2).append("details", details).append("amenities", amenities).append("avgAminities", avgAminities).append("created_by", created_by).append("created_at", created_at).get();
 	}
 }

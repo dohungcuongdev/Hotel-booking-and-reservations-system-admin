@@ -21,6 +21,7 @@ public abstract class HotelItem extends AbstractModel {
     protected String details;
     protected String type;
     protected String created_by;
+    protected String created_at;
 
     public String getType() {
         return type;
@@ -70,7 +71,15 @@ public abstract class HotelItem extends AbstractModel {
 		this.created_by = created_by;
 	}
 
-    protected void setInfor(String name, String type, String price, String img, String img2, String details) {
+    public String getCreated_at() {
+		return created_at;
+	}
+
+	public void setCreated_at(String created_at) {
+		this.created_at = created_at;
+	}
+
+	protected void setInfor(String name, String type, String price, String img, String img2, String details) {
         this.name = name;
         this.price = price;
         this.img = img;
