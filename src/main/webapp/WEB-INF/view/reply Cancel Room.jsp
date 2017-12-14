@@ -24,7 +24,8 @@
                     <a href="#" class="pull-left"><img src="${pageContext.request.contextPath}/resources/img/users/${ad.img}" alt="Avatar" class="img-circle" width="48" height="48"></a>
                     <div class="media-body">
                         <a href="${pageContext.request.contextPath}/profile.html"><strong>${ad.name}</strong></a>
-                        <p>Send an email to reply this message! Forget the contents?<a href="#" class="text-danger"><strong>#view the message again!</strong></a></p>
+                        <p>Send an email to reply this message! Forget the contents?<a href="#" class="text-info"><strong>#view the message again!</strong></a></p>
+                        <a href="${pageContext.request.contextPath}/edit-room/${activity.click}.html" class="text-danger"><strong>#Change room status here!</strong></a></p>
                     </div>
                 </li>
             </ul>

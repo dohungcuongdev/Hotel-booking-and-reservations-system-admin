@@ -113,6 +113,12 @@ public class Activity extends AbstractModel {
     public void setResponse(String response) {
         this.response = response;
     }
+    
+    public void setCustomerInfor(String email, String fullname, String phone) {
+    	this.email = email;
+    	this.fullname = fullname;
+    	this.phone = phone;
+    }
 
     public Activity() {
     }

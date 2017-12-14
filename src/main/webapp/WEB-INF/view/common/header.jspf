@@ -25,36 +25,8 @@
                         <li>
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu">
-                                <c:forEach var="newNoti" items="${newNotifications}">
-                                    <li>
-                                        <!-- start message -->
-                                        <c:choose>
-                                            <c:when test="${newNoti.click.equals('contact') || newNoti.click.equals('reservation')}"> 
-                                                <a href="${pageContext.request.contextPath}/notification/${newNoti.id}.html">
-                                                    <div class="pull-left">
-                                                        <img src="${pageContext.request.contextPath}/resources/img/users/guest.jpg" class="img-circle" alt="User Image" />
-                                                    </div>
-                                                    <h4 style="font-size: 11px">
-                                                        ${newNoti.username}
-                                                    </h4>
-                                                    <p>${newNoti.name}</p>
-                                                    <small class="pull-right"><i class="fa fa-clock-o"></i> ${newNoti.time}</small>
-                                                </a>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <a href="${pageContext.request.contextPath}/notification/${newNoti.id}.html">
-                                                    <div class="pull-left">
-                                                        <img src="${pageContext.request.contextPath}/resources/img/users/membership.png" class="img-circle" alt="User Image" />
-                                                    </div>
-                                                    <h4 style="font-size: 11px">
-                                                        User ${newNoti.username}
-                                                    </h4>
-                                                    <p>${newNoti.name}</p>
-                                                    <small class="pull-right"><i class="fa fa-clock-o"></i> ${newNoti.time}</small>
-                                                </a>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </li>
+                                <c:forEach var="message" items="${newNotifications}">
+                                   <%@ include file="message.jspf"%>
                                 </c:forEach>
                                 <!-- end message -->
                             </ul>
@@ -73,35 +45,7 @@
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu">
                                 <c:forEach var="message" items="${listactivily}">
-                                    <li>
-                                        <!-- start message -->
-                                        <c:choose>
-                                            <c:when test="${message.click.equals('contact') || message.click.equals('reservation')}"> 
-                                                <a href="${pageContext.request.contextPath}/notification/${message.id}.html">
-                                                    <div class="pull-left">
-                                                        <img src="${pageContext.request.contextPath}/resources/img/users/guest.jpg" class="img-circle" alt="User Image" />
-                                                    </div>
-                                                    <h4 style="font-size: 11px">
-                                                        ${message.username}
-                                                    </h4>
-                                                    <p>${message.name}</p>
-                                                    <small class="pull-right"><i class="fa fa-clock-o"></i> ${message.time}</small>
-                                                </a>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <a href="${pageContext.request.contextPath}/notification/${message.id}.html">
-                                                    <div class="pull-left">
-                                                        <img src="${pageContext.request.contextPath}/resources/img/users/membership.png" class="img-circle" alt="User Image" />
-                                                    </div>
-                                                    <h4 style="font-size: 11px">
-                                                        User ${message.username}
-                                                    </h4>
-                                                    <p>${message.name}</p>
-                                                    <small class="pull-right"><i class="fa fa-clock-o"></i> ${message.time}</small>
-                                                </a>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </li>
+                                    <%@ include file="message.jspf"%>
                                 </c:forEach>
                                 <!-- end message item -->
                             </ul>

@@ -12,25 +12,26 @@
                 </div>
             </div>
             <div class="panel-body table-responsive" id="follow-user-box">
-                <table class="table-responsive" id="follow-user-table" ng-app="follow-users" ng-controller="folowUserCtrl">
-                   	<tr id="tableHeader">
+                <table id="follow-user-table" ng-app="follow-users" ng-controller="folowUserCtrl">
+                   	<tr id="tableHeader" style="font-size:11px">
 						<th class="tr-p" ng-click="sortNum(followUserData)">No.</th>
+						<th class="tr-p" ng-click="sortDateAccess(followUserData)">Date Access</th>
 						<th class="tr-p" ng-click="sortIP(followUserData)">User IP Address</th>
 						<th class="tr-p" ng-click="sortExIP(followUserData)">External IP Address</th>
 						<th class="tr-p" ng-click="sortCountry(followUserData)">Country</th>
 						<th class="tr-p" ng-click="sortUser(followUserData)">User</th>
-						<th class="tr-p" ng-click="sortDateAccess(followUserData)">Date Access</th>
 						<th class="tr-p" ng-click="sortPageAccess(followUserData)">Page Access</th>
 						<th class="tr-p" ng-click="sortDuration(followUserData)">Duration</th>
 					</tr>
                     <tbody id="followUserTableBody">
-	                    <tr ng-repeat="d in followUserData" follow-user-directive>
+	                    <tr ng-repeat="d in followUserData" follow-user-directive style="font-size:11px">
 	                        <td>{{ $index + 1 }}</td>
+	                    	<td>{{ d.created_at | date:'medium'}}</td>
 							<td><a href = "${pageContext.request.contextPath}/page-access-chart/{{d.user_ip_address}}.html">{{ d.user_ip_address }}</a></td>
 							<td><a href = "${pageContext.request.contextPath}/ip-details/{{d.external_ip_address}}.html">{{ d.external_ip_address }}</a></td>
 							<td>{{ d.country }}</td>
-							<td><a href = "${pageContext.request.contextPath}/customer/{{ d.username }}.html">{{ d.username }}</a></td>
-							<td>{{ d.created_at | date:'medium'}}</td>
+							<td ng-if="d.username != 'guest'"><a href = "${pageContext.request.contextPath}/customer/{{ d.username }}.html">{{ d.username }}</a></td>
+							<td ng-if="d.username == 'guest'">{{ d.username }}</td>
 							<td>{{ d.page_access }}</td>
 							<td>{{ d.duration | secondsToTime }}</td>
 	                    </tr>

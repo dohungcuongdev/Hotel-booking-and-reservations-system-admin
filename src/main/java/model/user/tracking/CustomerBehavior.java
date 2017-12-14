@@ -41,9 +41,14 @@ public class CustomerBehavior {
 	public void setAction(ActionTracking action) {
 		this.action = action;
 	}
-
+	
 	public CustomerBehavior(Customer cus, List dateVisited, ActionTracking action) {
-		super();
+		this.cus = cus;
+		this.dateVisited = dateVisited;
+		this.action = action;
+	}
+
+	public CustomerBehavior(Customer cus, ActionTracking action) {
 		this.cus = cus;
 		this.dateVisited = dateVisited;
 		this.action = action;

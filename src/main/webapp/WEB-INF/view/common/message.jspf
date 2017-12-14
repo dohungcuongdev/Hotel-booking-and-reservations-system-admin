@@ -1,0 +1,16 @@
+<li>
+	<!-- start message --> 
+	<a href="${pageContext.request.contextPath}/notification/${message.id}.html">
+		<c:choose>
+			<c:when test="${message.click.equals('contact') || message.click.equals('reservation')}">
+				<div class="pull-left"> <img src="${pageContext.request.contextPath}/resources/img/users/guest.jpg" class="img-circle" alt="User Image" /></div>
+			</c:when>
+			<c:otherwise>
+				<div class="pull-left"><img src="${pageContext.request.contextPath}/resources/img/users/membership.png"class="img-circle" alt="User Image" /></div>
+			</c:otherwise>
+		</c:choose>
+		<h4 style="font-size: 11px">${message.username}</h4>
+		<p>${message.name}</p> <small class="pull-right"><i
+			class="fa fa-clock-o"></i> ${message.time}</small>
+</a>
+</li>

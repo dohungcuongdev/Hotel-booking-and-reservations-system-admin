@@ -203,7 +203,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		List<Customer> customers = getAllCustomers();
 		customers.stream().forEach((cus) -> {
 			String un = cus.getUsername();
-			cdc.add(new CustomerBehavior(cus, getDateVisit(un), getActionTrackingByUsername(un)));
+			cdc.add(new CustomerBehavior(cus, getActionTrackingByUsername(un)));
 		});
 		return cdc;
 	}

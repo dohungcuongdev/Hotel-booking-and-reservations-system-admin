@@ -5,8 +5,12 @@
  */
 package model.hotel;
 
+import java.util.Date;
+
 import com.mongodb.DBObject;
 import model.AbstractModel;
+import statics.AppData;
+import statics.provider.DateTimeCalculator;
 
 /**
  *
@@ -87,6 +91,11 @@ public abstract class HotelItem extends AbstractModel {
         this.type = type;
         this.details = details;
     }
+	
+	public void setCreated() {
+		this.created_by = AppData.admin.getUsername();
+		this.created_at = DateTimeCalculator.getTimeToday();
+	}
     
     public abstract void initializeSomeInfor();
     

@@ -9,10 +9,10 @@
                 </div>
             </header>
             <div class="panel-body">
+                <div class="form-group"><strong style="margin-left: 10px">User Name</strong>: ${ad.username}</div>
                 <div class="form-group"><strong style="margin-left: 10px">Name</strong>: ${ad.name}</div>
                 <div class="form-group"><strong style="margin-left: 10px">Gender</strong>: ${ad.gender}</div>
                 <div class="form-group"><strong style="margin-left: 10px">Phone Number</strong>: ${ad.phone}</div>
-                <div class="form-group"><strong style="margin-left: 10px">User Name</strong>: ${ad.username}</div>
                 <div class="form-group"><strong style="margin-left: 10px">Birthday</strong>: ${ad.birthday}</div>
                 <form action="${pageContext.request.contextPath}/profile-img-edited.html" enctype="multipart/form-data" method="post">
                     <div class="form-group">

@@ -121,8 +121,7 @@ public class HotelRoom extends HotelItem {
 	public void setNewInfor() {
 		this.img = AppData.ROOM_DEFAULT_IMG[0];
 		this.img2 = AppData.ROOM_DEFAULT_IMG[1];
-		this.created_by = AppData.admin.getUsername();
-		this.created_at = new Date().toString();
+		super.setCreated();
 		this.status = "available";
 		initializeSomeInfor();
 	}
