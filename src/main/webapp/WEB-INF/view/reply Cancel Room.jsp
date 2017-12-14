@@ -37,7 +37,7 @@
                         <input type="hidden" name="user-email" value="${activity.username}"/>
                         <input type="hidden" name="subject" value="${activity.name}"/>
                         <div class="clearfix">
-                            <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-envelope-o"></i>Send Email</button>
+                            <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-envelope-o"></i> Send Email</button>
                             <a class="btn btn-link btn-icon fa fa-location-arrow" data-original-title="Add Location" data-placement="bottom" data-toggle="tooltip" href="#" style="text-decoration:none;" title=""></a>
                             <a class="btn btn-link btn-icon fa fa-camera" data-original-title="Add Photo" data-placement="bottom" data-toggle="tooltip" href="#" style="text-decoration:none;" title=""></a>
                         </div>
@@ -53,7 +53,7 @@
                         <input type="hidden" name="user-email" value="${activity.username}"/>
                         <input type="hidden" name="subject" value="${activity.name}"/>
                         <div class="clearfix">
-                            <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-envelope-o"></i>Send Email</button>
+                            <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-envelope-o"></i> Send Email</button>
                             <a class="btn btn-link btn-icon fa fa-location-arrow" data-original-title="Add Location" data-placement="bottom" data-toggle="tooltip" href="#" style="text-decoration:none;" title=""></a>
                             <a class="btn btn-link btn-icon fa fa-camera" data-original-title="Add Photo" data-placement="bottom" data-toggle="tooltip" href="#" style="text-decoration:none;" title=""></a>
                         </div>
@@ -69,7 +69,7 @@
                         <input type="hidden" name="user-email" value="${activity.username}"/>
                         <input type="hidden" name="subject" value="${activity.name}"/>
                         <div class="clearfix">
-                            <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-envelope-o"></i>Send Email</button>
+                            <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-envelope-o"></i> Send Email</button>
                             <a class="btn btn-link btn-icon fa fa-location-arrow" data-original-title="Add Location" data-placement="bottom" data-toggle="tooltip" href="#" style="text-decoration:none;" title=""></a>
                             <a class="btn btn-link btn-icon fa fa-camera" data-original-title="Add Photo" data-placement="bottom" data-toggle="tooltip" href="#" style="text-decoration:none;" title=""></a>
                         </div>

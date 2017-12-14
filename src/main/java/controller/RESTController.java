@@ -18,7 +18,7 @@ import services.UserService;
 public class RESTController {
 	
 	@Autowired
-	private APIService testService;
+	private APIService apiService;
 	
 	@Autowired
 	private UserService userService;
@@ -26,7 +26,7 @@ public class RESTController {
 	@CrossOrigin
 	@RequestMapping(value = "/follow-users", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
 	public String getListFollowUsers() throws ParseException, IOException, JSONException {
-		return testService.getListFollowUsers().toString();
+		return apiService.getListFollowUsers().toString();
 	}
 	
 	@CrossOrigin

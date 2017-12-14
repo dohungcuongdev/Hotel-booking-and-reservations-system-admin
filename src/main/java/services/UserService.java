@@ -57,4 +57,5 @@ public interface UserService {
     public List<Activity> getNewListNotification();
     public Activity getActivityBy(String id);
     public void seenNotification(String id);
+    public void replyNotification(String id);
 }

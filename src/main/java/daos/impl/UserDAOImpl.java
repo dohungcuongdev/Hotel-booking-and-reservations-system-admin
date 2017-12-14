@@ -229,7 +229,7 @@ public class UserDAOImpl implements UserDAO {
 		Map<String, Object> m = getMapFollowUsersCountry(list);
 		for (Map.Entry<String, Object> entry : m.entrySet()) {
 			int quantity = Integer.parseInt(entry.getValue().toString());
-			l.add(new ChartData(entry.getKey(), quantity, round(quantity * 100.0 / totalChartData, 2)));
+			l.add(new ChartData(entry.getKey(), quantity, round(quantity * 100.0 / totalChartData)));
 		}
 		return l;
 	}

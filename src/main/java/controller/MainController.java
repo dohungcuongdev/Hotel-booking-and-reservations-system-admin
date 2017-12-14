@@ -521,6 +521,7 @@ public class MainController {
 			return "login";
 		model.put("emailsent", appService.sendEmail(appService.removeAccent(message), useremail, subject));
 		model.put("emailTemplates", AppData.EMAIL_TEMPLATE_1);
+		userService.replyNotification(id);
 		return replyEmail("reply " + subject, id, model);
 	}
 

@@ -97,8 +97,17 @@ public class ActivityDAOImpl implements ActivityDAO {
 
 	@Override
 	public void seenNotification(String id) {
+		updateResponseNotification(id, "Seen");
+	}
+	
+	@Override
+	public void replyNotification(String id) {
+		updateResponseNotification(id, "Email sent");
+	}
+	
+	private void updateResponseNotification(String id, String response) {
 		BasicDBObject document = new BasicDBObject();
-		document.append("$set", new BasicDBObject().append("response", "Seen"));
+		document.append("$set", new BasicDBObject().append("response", response));
 		BasicDBObject searchQuery = new BasicDBObject().append("_id", new ObjectId(id));
 		collection.update(searchQuery, document);
 	}

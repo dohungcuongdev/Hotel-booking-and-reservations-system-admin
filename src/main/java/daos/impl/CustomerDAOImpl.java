@@ -130,8 +130,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 				++countFB;
 			}
 		}
-		double avgfeedbackRoom = round(starFBR * 1.0 / countFBR, 2);
-		double avgFeedbackSV = round(starFB * 1.0 / countFB, 2);
+		double avgfeedbackRoom = round(starFBR * 1.0 / countFBR);
+		double avgFeedbackSV = round(starFB * 1.0 / countFB);
 		return new ActionTracking(roombooked, roomcanceled, feedbackroom, feedbackservice, avgfeedbackRoom, avgFeedbackSV);
 	}
 
@@ -165,7 +165,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 			}
 		}
 		if(count == 0) return 0;
-		return round(star * 1.0 / count, 2);
+		return round(star * 1.0 / count);
 	}
 
 	public int getTotalStarRoomFeedback(String username) {
@@ -186,7 +186,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 			}
 		}
 		if(count == 0) return 0;
-		return round(star * 1.0 / count, 2);
+		return round(star * 1.0 / count);
 	}
 
 	public double getTotalStarFeedback(String username) {

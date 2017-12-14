@@ -49,6 +49,6 @@ function searchAll(myInput) {
 	if(keyword == null || keyword == '' )
 		swal("Oops...", "Please input keyword!", "warning");
 	else
-	window.location.href = '${pageContext.request.contextPath}/search-result/' + keyword + '.html';
+		window.location.href = '${pageContext.request.contextPath}/search-result/' + keyword + '.html';
 }
 </script>

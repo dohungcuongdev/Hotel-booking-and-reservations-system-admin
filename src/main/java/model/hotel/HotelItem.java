@@ -5,8 +5,6 @@
  */
 package model.hotel;
 
-import java.util.Date;
-
 import com.mongodb.DBObject;
 import model.AbstractModel;
 import statics.AppData;

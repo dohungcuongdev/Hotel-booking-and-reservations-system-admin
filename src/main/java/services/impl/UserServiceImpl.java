@@ -209,4 +209,10 @@ public class UserServiceImpl implements UserService {
 	public Map getMapByExternalIP(List<FollowUsers> list) {
 		return userDAO.getMapByExternalIP(list);
 	}
+
+	@Override
+	public void replyNotification(String id) {
+		activityDAO.replyNotification(id);
+		
+	}
 }
