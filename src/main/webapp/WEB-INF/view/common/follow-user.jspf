@@ -33,7 +33,7 @@
 	                        <c:if test="${user.username != null}"> 
 	                            <td class="tr-p" onclick="location.href = '${pageContext.request.contextPath}/user/${user.username}.html'">${user.username}</td>
 	                        </c:if>
-	                        <td>${user.date_access}</td>
+	                        <td>${user.created_at}</td>
 	                        <td>${user.page_access}</td>
 	                        <td>${user.durationTime}</td>
 	                        </tr>

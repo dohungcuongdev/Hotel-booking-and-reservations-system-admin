@@ -7,9 +7,11 @@ package statics.provider;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import statics.AppData;
 
 /**
@@ -28,24 +30,35 @@ public class DateTimeCalculator {
 		return format.format(new Date());
 	}
 
-    public static Date getDateTime(String strDate) {
+    public static Date getDateTime(String dateTime) {
         SimpleDateFormat myFormat = new SimpleDateFormat(AppData.DATE_FORMAT);
         try {
-            return myFormat.parse(strDate);
+            return myFormat.parse(dateTime);
+        } catch (ParseException ex) {
+            Logger.getLogger(DateTimeCalculator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public static Date formatDateTime(String dateTime, String format) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        try {
+            return sdf.parse(dateTime);
         } catch (ParseException ex) {
             Logger.getLogger(DateTimeCalculator.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
-    public static Date formatDateTime(String strDate) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            return format.parse(strDate);
-        } catch (ParseException ex) {
-            Logger.getLogger(DateTimeCalculator.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+    public static Date formatDateTime(String dateTime) {
+        return formatDateTime(dateTime, "yyyy-MM-dd");
+    }
+    
+    public static Date getICTDateTime(String dateTime) {
+    	Calendar cal = Calendar.getInstance();
+        cal.setTime(formatDateTime(dateTime.replaceFirst("T", " "), "yyyy-MM-dd HH:mm:ss"));
+        cal.add(Calendar.HOUR_OF_DAY, 7);
+    	return cal.getTime();
     }
 
     public static String formatMillisecond(int millis) {

@@ -9,7 +9,7 @@
     Created on : Nov 11, 2017, 9:38:05 AM
     Author     : HUNGCUONG
 */
-//const API_URL = "http://localhost:8080/Hotel-booking-and-reservations-system-admin/api/follow-users.html";
+
 const API_URL = "http://localhost:3000/api/follow-users";
 var app = angular.module('follow-users', []);
 
@@ -43,10 +43,16 @@ app.filter('secondsToTime',function(){
 app.controller('folowUserCtrl', function($scope, $http) {
   $http.get(API_URL).then(function (response) {
       $scope.followUserData = response.data;
-	  for(var i = 0; i < $scope.followUserData.length;i++) {
+      var size = $scope.followUserData.length;
+	  for(var i = 0; i < size; i++) {
 		if($scope.followUserData[i].username == null || $scope.followUserData[i].username == "")
 			$scope.followUserData[i].username = "guest";
 		$scope.followUserData[i].created_at = new Date($scope.followUserData[i].created_at);
+		if (i == size - 1) {
+			$scope.followUserData[i].duration = 0;
+		} else {
+			$scope.followUserData[i].duration = $scope.followUserData[i+1].duration;
+		}
 	  }
 	  $scope.sortDateAccess($scope.followUserData);
 	});

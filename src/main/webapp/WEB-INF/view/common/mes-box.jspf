@@ -9,25 +9,25 @@
 			<c:if test="${activity.click.equals('feedback') || activity.name.equals('Feedback Room')}">
 				<div class="alert alert-block alert-info">
 					<button data-dismiss="alert" class="close close-sm" type="button"> <i class="fa fa-times"></i> </button>
-					<strong class="tr-p" onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'">${activity.time}! </strong> <br>UserName: ${activity.username} <br><b>Sent content</b>: ${activity.content}
+					<strong class="tr-p" onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'">${activity.getICTDateTime(activity.created_at)}! </strong> <br>UserName: ${activity.username} <br><b>Sent content</b>: ${activity.content}
 				</div>
 			</c:if>
 			<c:if test="${activity.click.equals('register')}">
 				<div class="alert alert-block alert-success">
 					<button data-dismiss="alert" class="close close-sm" type="button"> <i class="fa fa-times"></i> </button>
-					<strong class="tr-p" onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'">${activity.time}! </strong> <br>UserName: ${activity.username} <br><b>Received content</b>: ${activity.content}
+					<strong class="tr-p" onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'">${activity.getICTDateTime(activity.created_at)}! </strong> <br>UserName: ${activity.username} <br><b>Received content</b>: ${activity.content}
 				</div>
 			</c:if>
 			<c:if test="${activity.name.equals('Book Room') || activity.name.equals('Cancel Room')}">
 				<div class="alert alert-block alert-danger">
 					<button data-dismiss="alert" class="close close-sm" type="button"> <i class="fa fa-times"></i> </button>
-					<strong class="tr-p" onclick="location.href = '${pageContext.request.contextPath}/reply ${activity.name}/${activity.id}.html'">${activity.time}! </strong> <br>UserName: ${activity.username} <br><b>Received content</b>: ${activity.content}
+					<strong class="tr-p" onclick="location.href = '${pageContext.request.contextPath}/reply ${activity.name}/${activity.id}.html'">${activity.getICTDateTime(activity.created_at)}! </strong> <br>UserName: ${activity.username} <br><b>Received content</b>: ${activity.content}
 				</div>
 			</c:if>
 			<c:if test="${activity.click.equals('contact') || activity.click.equals('reservation')}">
 				<div class="alert alert-block alert-warning">
 					<button data-dismiss="alert" class="close close-sm" type="button"> <i class="fa fa-times"></i> </button>
-					<strong class="tr-p" onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'">${activity.time}! </strong> <br>${activity.username} <br><b>Sent content</b>: ${activity.content}
+					<strong class="tr-p" onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'">${activity.getICTDateTime(activity.created_at)}! </strong> <br>${activity.username} <br><b>Sent content</b>: ${activity.content}
 				</div>
 			</c:if>
 		</c:forEach>

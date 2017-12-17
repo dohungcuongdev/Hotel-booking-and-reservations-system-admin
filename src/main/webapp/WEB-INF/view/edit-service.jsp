@@ -4,7 +4,7 @@
     <div class="col-lg-6">
         <section class="panel">
             <div class="panel-body">
-                <form action="${pageContext.request.contextPath}/service-img-edited/${service.id}.html" method="post" enctype="multipart/form-data">
+                <form action="${pageContext.request.contextPath}/service-img-edited/${service.name}.html" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <br><label style="font-size: 17px; color:blue"><strong>Change Image!</strong></label>
                     </div>
@@ -28,7 +28,7 @@
                     </div>
                     <p class="help-block">The image of the service will be changed after submit.</p>
                     <button type="submit" class="btn btn-info">Submit</button>
-                    <button type="reset" onclick="location.href = '${pageContext.request.contextPath}/edit-service/${service.id}.html'" class="btn btn-danger">Cancel</button>
+                    <button type="reset" onclick="location.href = '${pageContext.request.contextPath}/edit-service/${service.name}.html'" class="btn btn-danger">Cancel</button>
                 </form>
             </div>
         </section>
@@ -38,12 +38,13 @@
             <header class="panel-heading" style="font-weight: bold; color:red">Change Information!</header>
             <div class="panel-body">
                 <form:form method="post" commandName="serviceEdit" action="${pageContext.request.contextPath}/service-edited.html">
-                    <form:input type="hidden" class="form-control" readonly="true" value="${service.id}" path="id"/>
+                    <form:input type="hidden" value="${service.created_at}" readonly="true" path="created_at"/>
+                    <form:input type="hidden" value="${service.created_by}" readonly="true" path="created_by"/>
                     <div class="form-group">
                         <label>Name</label>
                     </div>
                     <div class="form-group">
-                        <form:input required="true" type="text" class="form-control" value="${service.name}" path="name" placeholder="Item name"/>
+                        <form:input required="true" type="text" class="form-control" value="${service.name}" path="name" readonly="true"/>
                     </div>
                     <div class="form-group">
                         <label>Type</label>
@@ -95,7 +96,7 @@
                     <form:input type="hidden" value="${service.img2}" path="img2"/>
                     <p class="help-block">Your item will be changed after submit.</p>
                     <button style="margin-top: 3.5px" type="submit" class="btn btn-info">Submit</button>
-                    <button style="margin-top: 3.5px" type="reset" onclick="location.href = '${pageContext.request.contextPath}/edit-service/${service.id}.html'" class="btn btn-danger">Cancel</button>
+                    <button style="margin-top: 3.5px" type="reset" onclick="location.href = '${pageContext.request.contextPath}/edit-service/${service.name}.html'" class="btn btn-danger">Cancel</button>
                     <div class="form-group">
                         <label style="margin-top: 10px">*Suggestion</label>
                         <ul>
@@ -123,6 +124,6 @@
         checkeditresult(editResult);
         var addResult = '${addResult}';
         checkAddResult(addResult);
-        window.history.pushState("string", "Hotel Admin", "${pageContext.request.contextPath}/edit-service/${service.id}.html");
+        window.history.pushState("string", "Hotel Admin", "${pageContext.request.contextPath}/edit-service/${service.name}.html");
     };
 </script>

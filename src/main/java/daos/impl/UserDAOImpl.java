@@ -7,10 +7,13 @@ package daos.impl;
 
 import daos.UserDAO;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +21,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Repository;
+
+import model.user.Customer;
 import model.user.tracking.ChartData;
 import model.user.tracking.ExternalIP;
 import model.user.tracking.FollowUsers;
@@ -37,53 +49,30 @@ import static statics.provider.StringUtils.upperFirstChar;
 public class UserDAOImpl implements UserDAO {
 
 	private final Gson gson = new Gson();
-	private DBCollection collection;
-
-	public UserDAOImpl() {
-		try {
-			collection = MongoDBConnector.createConnection("follow-users");
-		} catch (UnknownHostException ex) {
-			Logger.getLogger(AdminDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+	
+	public String getStringAPI(String api) {
+		//env.getProperty(api)
+		HttpGet httpGetKeyAndId = new HttpGet(api);
+		String jsonData = null;
+		try (CloseableHttpClient httpClient = HttpClients.createDefault();
+				CloseableHttpResponse response = httpClient.execute(httpGetKeyAndId);) {
+			HttpEntity entity = response.getEntity();
+			jsonData = EntityUtils.toString(entity);
+		} catch (IOException e) {
+			System.out.println("API not found");
 		}
-	}
-
-	private List<FollowUsers> fixFollowUsers(List<FollowUsers> listFollowUsers) {
-		int size = listFollowUsers.size();
-		for (int i = 0; i < size; i++) {
-			FollowUsers fu = listFollowUsers.get(i);
-			if (i == size - 1) {
-				fu.setDuration(0);
-				fu.setDurationTime(formatMillisecond(0));
-			} else {
-				int duration = listFollowUsers.get(i + 1).getDuration();
-				fu.setDuration(duration);
-				fu.setDurationTime(formatMillisecond(duration));
-			}
-			listFollowUsers.set(i, fu);
-		}
-		return listFollowUsers;
+		System.out.println(jsonData);
+		return jsonData;
 	}
 	
 	@Override
 	public ExternalIP getExternalIPDetails(String external_ip_address) {
-		BasicDBObject whereQuery = new BasicDBObject();
-		whereQuery.put("external_ip_address", external_ip_address);
-		DBObject obj = collection.findOne(whereQuery);
-		return gson.fromJson(obj + "", ExternalIP.class);
+		return gson.fromJson(getStringAPI("http://localhost:3000/api/follow-users/externalIP/" + external_ip_address), ExternalIP.class);
 	}
 
 	@Override
 	public List<FollowUsers> getListFollowUsers() {
-		ArrayList<FollowUsers> listFollowUsers = new ArrayList<>();
-		DBCursor cursor = collection.find();
-		while (cursor.hasNext()) {
-			DBObject obj = cursor.next();
-			FollowUsers followUsers = gson.fromJson(obj + "", FollowUsers.class);
-			followUsers.setId(obj.get("_id") + "");
-			followUsers.setDate_access(getDateTime(obj.get("created_at") + ""));
-			listFollowUsers.add(followUsers);
-		}
-		return fixFollowUsers(listFollowUsers);
+		return gson.fromJson(getStringAPI("http://localhost:3000/api/follow-users/"), new TypeToken<List<FollowUsers>>(){}.getType());
 	}
 
 	@Override

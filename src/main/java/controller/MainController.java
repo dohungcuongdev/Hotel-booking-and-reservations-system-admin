@@ -5,6 +5,8 @@
  */
 package controller;
 
+import static statics.provider.DateTimeCalculator.getDateTime;
+
 import java.io.IOException;
 import model.user.Administrator;
 import statics.AppData;
@@ -167,20 +169,20 @@ public class MainController {
 		return manageRooms(model, request);
 	}
 
-	@RequestMapping(value = "room/{roomid}", method = RequestMethod.GET)
-	public String singleRoom(@PathVariable(value = "roomid") String roomid, ModelMap model,
+	@RequestMapping(value = "room/{roomName}", method = RequestMethod.GET)
+	public String singleRoom(@PathVariable(value = "roomName") String roomName, ModelMap model,
 			HttpServletRequest request) {
 		if (!isAuthenticated(request))
 			return "login";
-		return initializeSingleRoom(model, roomid, "room");
+		return initializeSingleRoom(model, roomName, "room");
 	}
 
-	@RequestMapping(value = "edit-room/{roomid}", method = RequestMethod.GET)
-	public String editRoom(@PathVariable(value = "roomid") String roomid, ModelMap model, HttpServletRequest request) {
+	@RequestMapping(value = "edit-room/{roomName}", method = RequestMethod.GET)
+	public String editRoom(@PathVariable(value = "roomName") String roomName, ModelMap model, HttpServletRequest request) {
 		if (!isAuthenticated(request))
 			return "login";
 		model.addAttribute("roomEdit", new HotelRoom());
-		return initializeSingleRoom(model, roomid, "edit-room");
+		return initializeSingleRoom(model, roomName, "edit-room");
 	}
 	
 	@RequestMapping(value = "add-room", method = RequestMethod.GET)
@@ -208,7 +210,7 @@ public class MainController {
 			model.addAttribute("newRoom", new HotelRoom());
 			return "add-room";
 		}
-		return initializeSingleRoom(model, hotelItemService.findIDAndAddNewRoom(newRoom), "edit-room");
+		return initializeSingleRoom(model, hotelItemService.findAndAddNewRoom(newRoom), "edit-room");
 	}
 
 	@RequestMapping(value = "room-edited", method = RequestMethod.POST)
@@ -225,31 +227,31 @@ public class MainController {
 			model.put("room", roomEdit);
 			model.put("relatedRoom", hotelItemService.getRelatedHotelRooms(roomEdit.getType()));
 		} else {
-			return initializeSingleRoom(model, roomEdit.getId(), "edit-room");
+			return initializeSingleRoom(model, roomEdit.getName(), "edit-room");
 		}
 		return "edit-room";
 	}
 
-	@RequestMapping(value = "remove-room/{roomid}", method = RequestMethod.GET)
-	public String removeRoom(@PathVariable(value = "roomid") String roomid, ModelMap model,
+	@RequestMapping(value = "remove-room/{roomName}", method = RequestMethod.GET)
+	public String removeRoom(@PathVariable(value = "roomName") String roomName, ModelMap model,
 			HttpServletRequest request) {
 		if (!isAuthenticated(request))
 			return "login";
-		hotelItemService.deleteRoom(roomid);
+		hotelItemService.deleteRoom(roomName);
 		model.put("deleteResult", AppData.ABLE_TO_EDIT);
 		return manageRooms(model, request);
 	}
 
-	@RequestMapping(value = "room-img-edited/{roomid}", method = RequestMethod.POST)
+	@RequestMapping(value = "room-img-edited/{roomName}", method = RequestMethod.POST)
 	public String roomImgEdited(@RequestParam(value = "img1") CommonsMultipartFile img1,
 			@RequestParam(value = "img2") CommonsMultipartFile img2, HttpServletRequest request,
-			@PathVariable(value = "roomid") String roomid, ModelMap model) {
+			@PathVariable(value = "roomName") String roomName, ModelMap model) {
 		if (!isAuthenticated(request))
 			return "login";
 		model.addAttribute("roomEdit", new HotelRoom());
-		hotelItemService.editImageRoom(roomid, appService.uploadfile(img1, request, model, "rooms"),
+		hotelItemService.editImageRoom(roomName, appService.uploadfile(img1, request, model, "rooms"),
 				appService.uploadfile(img2, request, model, "rooms"));
-		return initializeSingleRoom(model, roomid, "edit-room");
+		return initializeSingleRoom(model, roomName, "edit-room");
 	}
 
 	// restaurant
@@ -268,12 +270,12 @@ public class MainController {
 		return manageRestaurant(model, request);
 	}
 
-	@RequestMapping(value = "service/{serviceid}", method = RequestMethod.GET)
-	public String singleService(@PathVariable(value = "serviceid") String serviceid, ModelMap model,
+	@RequestMapping(value = "service/{servicename}", method = RequestMethod.GET)
+	public String singleService(@PathVariable(value = "servicename") String servicename, ModelMap model,
 			HttpServletRequest request) {
 		if (!isAuthenticated(request))
 			return "login";
-		return initializeSingleService(model, serviceid, "service");
+		return initializeSingleService(model, servicename, "service");
 	}
 	
 	@RequestMapping(value = "add-service", method = RequestMethod.GET)
@@ -301,16 +303,16 @@ public class MainController {
 			model.addAttribute("newService", new HotelService());
 			return "add-service";
 		}
-		return initializeSingleService(model, hotelItemService.findIDAndAddNewService(newService), "edit-service");
+		return initializeSingleService(model, hotelItemService.findAndAddNewService(newService), "edit-service");
 	}
 
-	@RequestMapping(value = "edit-service/{serviceid}", method = RequestMethod.GET)
-	public String editService(@PathVariable(value = "serviceid") String serviceid, ModelMap model,
+	@RequestMapping(value = "edit-service/{servicename}", method = RequestMethod.GET)
+	public String editService(@PathVariable(value = "servicename") String servicename, ModelMap model,
 			HttpServletRequest request) {
 		if (!isAuthenticated(request))
 			return "login";
 		model.addAttribute("serviceEdit", new HotelService());
-		return initializeSingleService(model, serviceid, "edit-service");
+		return initializeSingleService(model, servicename, "edit-service");
 	}
 
 	@RequestMapping(value = "service-edited", method = RequestMethod.POST)
@@ -327,31 +329,31 @@ public class MainController {
 			model.put("service", serviceEdit);
 			model.put("relatedServices", hotelItemService.getRelatedHotelServices(serviceEdit.getType()));
 		} else {
-			return initializeSingleService(model, serviceEdit.getId(), "edit-service");
+			return initializeSingleService(model, serviceEdit.getName(), "edit-service");
 		}
 		return "edit-service";
 	}
 
-	@RequestMapping(value = "remove-service/{serviceid}", method = RequestMethod.GET)
-	public String removeService(@PathVariable(value = "serviceid") String serviceid, ModelMap model,
+	@RequestMapping(value = "remove-service/{servicename}", method = RequestMethod.GET)
+	public String removeService(@PathVariable(value = "servicename") String servicename, ModelMap model,
 			HttpServletRequest request) {
 		if (!isAuthenticated(request))
 			return "login";
-		hotelItemService.deleteService(serviceid);
+		hotelItemService.deleteService(servicename);
 		model.put("deleteResult", AppData.ABLE_TO_EDIT);
 		return manageRestaurant(model, request);
 	}
 
-	@RequestMapping(value = "service-img-edited/{serviceid}", method = RequestMethod.POST)
+	@RequestMapping(value = "service-img-edited/{servicename}", method = RequestMethod.POST)
 	public String serviceImgEdited(@RequestParam(value = "img1") CommonsMultipartFile img1,
 			@RequestParam(value = "img2") CommonsMultipartFile img2, HttpServletRequest request,
-			@PathVariable(value = "serviceid") String serviceid, ModelMap model) {
+			@PathVariable(value = "servicename") String servicename, ModelMap model) {
 		if (!isAuthenticated(request))
 			return "login";
 		model.addAttribute("serviceEdit", new HotelService());
-		hotelItemService.editImageService(serviceid, appService.uploadfile(img1, request, model, "restaurant"),
+		hotelItemService.editImageService(servicename, appService.uploadfile(img1, request, model, "restaurant"),
 				appService.uploadfile(img2, request, model, "restaurant"));
-		return initializeSingleService(model, serviceid, "edit-service");
+		return initializeSingleService(model, servicename, "edit-service");
 	}
 
 	// users
@@ -599,17 +601,17 @@ public class MainController {
 		model.put("mapsExternalIP", userService.getMapByExternalIP(list));
 	}
 
-	private String initializeSingleRoom(ModelMap model, String roomid, String redirect) {
+	private String initializeSingleRoom(ModelMap model, String roomName, String redirect) {
 		initialize(model);
-		HotelRoom room = hotelItemService.getRoomByID(roomid);
+		HotelRoom room = hotelItemService.getRoomByName(roomName);
 		model.put("room", room);
 		model.put("relatedRoom", hotelItemService.getRelatedHotelRooms(room.getType()));
 		return redirect;
 	}
 
-	private String initializeSingleService(ModelMap model, String serviceid, String redirect) {
+	private String initializeSingleService(ModelMap model, String servicename, String redirect) {
 		initialize(model);
-		HotelService service = hotelItemService.getHotelServiceByID(serviceid);
+		HotelService service = hotelItemService.getHotelServiceByName(servicename);
 		model.put("service", service);
 		model.put("relatedServices", hotelItemService.getRelatedHotelServices(service.getType()));
 		return redirect;

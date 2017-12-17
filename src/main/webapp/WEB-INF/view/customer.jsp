@@ -8,7 +8,7 @@
                 <form role="form">
                     <div class="form-group"><strong>User Name</strong>: ${cusDataCollection.cus.username}</div>
                     <div class="form-group"><strong>Full Name</strong>: ${cusDataCollection.cus.name}</div>
-                    <div class="form-group"><strong>Register Time</strong>: ${cusDataCollection.cus.registered_date}</div>
+                    <div class="form-group"><strong>Register Time</strong>: ${cusDataCollection.cus.getICTDateTime(cusDataCollection.cus.created_at)}</div>
                     <div class="form-group"><strong>Phone Number</strong>: ${cusDataCollection.cus.phone}</div>
                     <div class="form-group"><strong>Address</strong>: ${cusDataCollection.cus.address}</div>
                     <div class="form-group" style="color: #3c763d"><strong>Total Time Visited</strong>: ${cusDataCollection.dateVisited.size()}</div>

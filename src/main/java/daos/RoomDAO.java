@@ -15,10 +15,13 @@ import model.hotel.HotelRoom;
 public interface RoomDAO {
 
     public HotelRoom getRoomByID(String id);
+    public HotelRoom getRoomByName(String name);
     public List<HotelRoom> getAllRooms();
+    public long getNumRooms();
+    public List<HotelRoom> getRoomByPage(int skip, int limit);
     public List<HotelRoom> getRelatedHotelRooms(String type);
     public void updateRoom(HotelRoom room);
-    public String findIDAndAddNewRoom(HotelRoom newRoom);
+    public String findAndAddNewRoom(HotelRoom newRoom);
 	public void editImage(String name, String img, String img2);
 	public void deleteItem(String id);
 }

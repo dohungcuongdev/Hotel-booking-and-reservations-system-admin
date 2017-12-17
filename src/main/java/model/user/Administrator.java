@@ -56,6 +56,6 @@ public class Administrator extends User {
 
     @Override
     public String toString() {
-        return "Administrator{" + "gender=" + gender + ", birthday=" + birthday + ", img=" + img + '}';
+        return "Administrator{" + "id=" + _id + ", name=" + name + ", phone=" + phone + ", gender=" + gender + ", birthday=" + birthday + ", img=" + img + '}';
     }
 }

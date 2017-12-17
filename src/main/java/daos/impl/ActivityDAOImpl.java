@@ -5,24 +5,26 @@
  */
 package daos.impl;
 
-import static statics.provider.DateTimeCalculator.getDateTime;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
+
+import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
+
 import daos.ActivityDAO;
 import daos.CustomerDAO;
-import database.MongoDBConnector;
-import model.user.Customer;
 import model.user.tracking.Activity;
 
 /**
@@ -35,64 +37,40 @@ public class ActivityDAOImpl implements ActivityDAO {
 
 	@Autowired
 	private CustomerDAO customerDAO;
-	private DBCollection collection;
 	private final Gson gson = new Gson();
-
-	public ActivityDAOImpl() {
-		try {
-			collection = MongoDBConnector.createConnection("activity");
-		} catch (UnknownHostException ex) {
-			Logger.getLogger(RoomDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+	
+	public String getStringAPI(String api) {
+		//env.getProperty(api)
+		HttpGet httpGetKeyAndId = new HttpGet(api);
+		String jsonData = null;
+		try (CloseableHttpClient httpClient = HttpClients.createDefault();
+				CloseableHttpResponse response = httpClient.execute(httpGetKeyAndId);) {
+			HttpEntity entity = response.getEntity();
+			jsonData = EntityUtils.toString(entity);
+		} catch (IOException e) {
+			System.out.println("API not found");
 		}
-	}
-
-	private List<Activity> getAllActivity(DBCursor cursor) {
-		ArrayList<Activity> activitylist = new ArrayList<>();
-		while (cursor.hasNext()) {
-			DBObject obj = cursor.next();
-			activitylist.add(getActivityDB(obj));
-		}
-		activitylist.sort(new Activity.CompareDateTime());
-		return activitylist;
+		return jsonData;
 	}
 
 	@Override
 	public List<Activity> getAllActivity() {
-		DBCursor cursor = collection.find();
-		return getAllActivity(cursor);
+		return gson.fromJson(getStringAPI("http://localhost:3000/api/activity/"), new TypeToken<List<Activity>>(){}.getType());
 	}
 
 	@Override
 	public List<Activity> getAllActivityByUserName(String username) {
-		DBObject searchObject = new BasicDBObject();
-		searchObject.put("username", username);
-		DBCursor cursor = collection.find(searchObject);
-		return getAllActivity(cursor);
+		return gson.fromJson(getStringAPI("http://localhost:3000/api/activity/username/" + username), new TypeToken<List<Activity>>(){}.getType());
 	}
 
 	@Override
 	public Activity getActivityBy(String id) {
-		DBObject searchObject = new BasicDBObject();
-		searchObject.put("_id", new ObjectId(id));
-		DBCursor cursor = collection.find(searchObject);
-		Activity act = new Activity();
-		while (cursor.hasNext()) {
-			DBObject obj = cursor.next();
-			act = getActivityDB(obj);
-		}
-		if (!act.getUsername().contains("A guest")) {
-			Customer cus = customerDAO.getCustomerByUsername(act.getUsername());
-			act.setCustomerInfor(cus.getUsername(), cus.getName(),cus.getPhone());
-		}
-		return act;
+		return gson.fromJson(getStringAPI("http://localhost:3000/api/activity/" + id), Activity.class);
 	}
 
 	@Override
 	public List<Activity> getNewListNotification() {
-		DBObject searchObject = new BasicDBObject();
-		searchObject.put("response", "Not Yet");
-		DBCursor cursor = collection.find(searchObject);
-		return getAllActivity(cursor);
+		return gson.fromJson(getStringAPI("http://localhost:3000/api/activity/response/not-yet"), new TypeToken<List<Activity>>(){}.getType());
 	}
 
 	@Override
@@ -106,17 +84,18 @@ public class ActivityDAOImpl implements ActivityDAO {
 	}
 	
 	private void updateResponseNotification(String id, String response) {
-		BasicDBObject document = new BasicDBObject();
-		document.append("$set", new BasicDBObject().append("response", response));
-		BasicDBObject searchQuery = new BasicDBObject().append("_id", new ObjectId(id));
-		collection.update(searchQuery, document);
-	}
-
-	private Activity getActivityDB(DBObject obj) {
-		Activity act = gson.fromJson(obj + "", Activity.class);
-		act.setId(obj.get("_id") + "");
-		act.setTime(getDateTime(obj.get("created_at") + ""));
-		act.setContent(act.getContent().replaceAll("\n", "<br>"));
-		return act;
+//		HttpClient httpClient = new DefaultHttpClient();
+//		JSONObject keyArg = new JSONObject();
+//		HttpPut httpPut = new HttpPut();
+//		httpPut.addHeader("Content-Type", "application/json");
+//		httpPut.addHeader("Content-Length", "LENGTH");
+//		httpPut.addHeader("Key", "ad412f36a2eecbcd5c0e323e");
+//		httpPut.setEntity((HttpEntity) keyArg);
+//        HttpResponse response = httpClient.execute(httpPut);
+		
+//		BasicDBObject document = new BasicDBObject();
+//		document.append("$set", new BasicDBObject().append("response", response));
+//		BasicDBObject searchQuery = new BasicDBObject().append("_id", new ObjectId(id));
+//		collection.update(searchQuery, document);
 	}
 }

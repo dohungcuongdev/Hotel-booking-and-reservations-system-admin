@@ -11,6 +11,6 @@
 		</c:choose>
 		<h4 style="font-size: 11px">${message.username}</h4>
 		<p>${message.name}</p> <small class="pull-right"><i
-			class="fa fa-clock-o"></i> ${message.time}</small>
+			class="fa fa-clock-o"></i> ${message.created_at}</small>
 </a>
 </li>

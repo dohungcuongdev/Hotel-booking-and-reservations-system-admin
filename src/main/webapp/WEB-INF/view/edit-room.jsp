@@ -4,7 +4,7 @@
     <div class="col-lg-6">
         <section class="panel">
             <div class="panel-body">
-                <form action="${pageContext.request.contextPath}/room-img-edited/${room.id}.html" method="post" enctype="multipart/form-data">
+                <form action="${pageContext.request.contextPath}/room-img-edited/${room.name}.html" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <br><label style="font-size: 17px; color:blue"><strong>Change Image!</strong></label>
                     </div>
@@ -28,7 +28,7 @@
                     </div>
                     <p class="help-block">The image of the room will be changed after submit.</p>
                     <button type="submit" class="btn btn-info">Submit</button>
-                    <button onclick="location.href = '${pageContext.request.contextPath}/edit-room/${room.id}.html'"type="reset" class="btn btn-danger">Cancel</button>
+                    <button onclick="location.href = '${pageContext.request.contextPath}/edit-room/${room.name}.html'"type="reset" class="btn btn-danger">Cancel</button>
                 </form>
                 <label style="margin-top: 10px">*Suggestion</label>
                 <ul>
@@ -58,10 +58,10 @@
                     <div class="form-group">
                         <label>Room Name</label>
                     </div>
-                    <form:input type="hidden" value="${room.id}" readonly="true" path="id"/>
+                    <form:input type="hidden" value="${room.created_at}" readonly="true" path="created_at"/>
                     <form:input type="hidden" value="${room.created_by}" readonly="true" path="created_by"/>
                     <div class="form-group">
-                        <form:input required="true" type="text" class="form-control" value="${room.name}" path="name" placeholder="Room name"/>
+                        <form:input required="true" type="text" class="form-control" value="${room.name}" path="name" readonly="true"/>
                     </div>
                     <div class="form-group">
                         <label>Type</label>
@@ -141,7 +141,7 @@
                     <form:input type="hidden" value="${room.img2}" path="img2"/>
                     <p class="help-block">Your room will be changed after submit.</p>
                     <button style="margin-top: 3.5px" type="submit" class="btn btn-info">Submit</button>
-                    <button style="margin-top: 3.5px" onclick="location.href = '${pageContext.request.contextPath}/edit-room/${room.id}.html'" type="reset" class="btn btn-danger">Cancel</button>
+                    <button style="margin-top: 3.5px" onclick="location.href = '${pageContext.request.contextPath}/edit-room/${room.name}.html'" type="reset" class="btn btn-danger">Cancel</button>
                 </form:form>
             </div>
         </section>
@@ -161,7 +161,7 @@
         checkeditresult(editResult);
         var addResult = '${addResult}';
         checkAddResult(addResult);
-        window.history.pushState("string", "Hotel Admin", "${pageContext.request.contextPath}/edit-room/${room.id}.html");
+        window.history.pushState("string", "Hotel Admin", "${pageContext.request.contextPath}/edit-room/${room.name}.html");
     };
     function showBookedInfor() {
         var status = document.getElementById("status");

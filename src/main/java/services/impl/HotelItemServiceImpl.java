@@ -89,12 +89,32 @@ public class HotelItemServiceImpl implements HotelItemService {
 	}
 
 	@Override
-	public String findIDAndAddNewRoom(HotelRoom newRoom) {
-		return roomDAO.findIDAndAddNewRoom(newRoom);
+	public String findAndAddNewRoom(HotelRoom newRoom) {
+		return roomDAO.findAndAddNewRoom(newRoom);
 	}
 
 	@Override
-	public String findIDAndAddNewService(HotelService newService) {
-		return restaurantDAO.findIDAndAddNewService(newService);
+	public String findAndAddNewService(HotelService newService) {
+		return restaurantDAO.findAndAddNewService(newService);
+	}
+
+	@Override
+	public HotelRoom getRoomByName(String name) {
+		return roomDAO.getRoomByName(name);
+	}
+
+	@Override
+	public List<HotelRoom> getRoomByPage(int skip, int limit) {
+		return roomDAO.getRoomByPage(skip, limit);
+	}
+
+	@Override
+	public long getNumRooms() {
+		return roomDAO.getNumRooms();
+	}
+
+	@Override
+	public HotelService getHotelServiceByName(String name) {
+		return restaurantDAO.getHotelServiceByName(name);
 	}
 }

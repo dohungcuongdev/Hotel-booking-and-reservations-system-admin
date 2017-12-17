@@ -28,7 +28,7 @@
                 <c:if test="${activity.name.equals('Book Room') || activity.name.equals('Cancel Room')}"> 
                     <div class="alert alert-danger">
                         <button data-dismiss="alert" class="close close-sm" type="button"></button>
-                        <strong>${activity.time}!</strong>
+                        <strong>${activity.created_at}!</strong>
                         <%@ include file="common/noti1.jspf"%>
                     </div>
                 </c:if>

@@ -19,7 +19,7 @@
                                         <i class="fa fa-times"></i>
                                     </button> 
                                     <strong class="tr-p" 
-                                            onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'"> ${activity.time}! 
+                                            onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'"> ${activity.getICTDateTime(activity.created_at)}! 
                                     </strong>
                                     <br>UserName: ${activity.username}
                                     <br><b>Sent content</b>: ${activity.content}
@@ -31,7 +31,7 @@
                                         <i class="fa fa-times"></i>
                                     </button> 
                                     <strong class="tr-p" 
-                                            onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'"> ${activity.time}! 
+                                            onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'"> ${activity.getICTDateTime(activity.created_at)}! 
                                     </strong>
                                     <br>UserName: ${activity.username}
                                     <br><b>Received content</b>: ${activity.content}
@@ -43,7 +43,7 @@
                                         <i class="fa fa-times"></i>
                                     </button> 
                                     <strong class="tr-p" 
-                                            onclick="location.href = '${pageContext.request.contextPath}/reply ${activity.name}/${activity.id}.html'"> ${activity.time}! 
+                                            onclick="location.href = '${pageContext.request.contextPath}/reply ${activity.name}/${activity.id}.html'"> ${activity.getICTDateTime(activity.created_at)}! 
                                     </strong>
                                     <br>UserName: ${activity.username}
                                     <br><b>Received content</b>: ${activity.content}
@@ -55,7 +55,7 @@
                                         <i class="fa fa-times"></i>
                                     </button> 
                                     <strong class="tr-p" 
-                                            onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'"> ${activity.time}! 
+                                            onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'"> ${activity.getICTDateTime(activity.created_at)}! 
                                     </strong>
                                     <br>${activity.username}
                                     <br><b>Sent content</b>: ${activity.content}

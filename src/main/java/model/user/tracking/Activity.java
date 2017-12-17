@@ -20,7 +20,6 @@ public class Activity extends AbstractModel {
     private String details;
     private String note;
     private String content;
-    private Date time;
     private String response;
     private String fullname;
     private String email;
@@ -66,14 +65,6 @@ public class Activity extends AbstractModel {
         this.note = note;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -98,14 +89,6 @@ public class Activity extends AbstractModel {
         this.content = content;
     }
 
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
-
     public String getResponse() {
         return response;
     }
@@ -120,44 +103,17 @@ public class Activity extends AbstractModel {
     	this.phone = phone;
     }
 
-    public Activity() {
-    }
-
-    public Activity(String id, String username, String click, String details, String note, String content, Date time, String response) {
-        this.id = id;
-        this.username = username;
-        this.click = click;
-        this.details = details;
-        this.note = note;
-        this.content = content;
-        this.time = time;
-        this.response = response;
-    }
-
-    public Activity(String id, String name, String username, String click, String details, String note, String content, Date time, String response, String fullname, String email, String phone) {
-        this.id = id;
-        this.name = name;
-        this.username = username;
-        this.click = click;
-        this.details = details;
-        this.note = note;
-        this.content = content;
-        this.time = time;
-        this.response = response;
-        this.fullname = fullname;
-        this.email = email;
-        this.phone = phone;
-    }
-
-    @Override
-    public String toString() {
-        return "Activity{" + "id=" + id + ", username=" + username + ", click=" + click + ", details=" + details + ", note=" + note + ", content=" + content + ", time=" + time + ", response=" + response + ", fullname=" + fullname + ", email=" + email + ", phone=" + phone + '}';
-    }
-
     public static class CompareDateTime implements Comparator<Activity> {
         @Override
         public int compare(Activity a1, Activity a2) {
-            return a2.time.compareTo(a1.time);
+            return a2.created_at.compareTo(a1.created_at);
         }
     }
+
+	@Override
+	public String toString() {
+		return "Activity [username=" + username + ", click=" + click + ", details=" + details + ", note=" + note
+				+ ", content=" + content + ", response=" + response + ", fullname=" + fullname + ", email=" + email
+				+ ", phone=" + phone + "]";
+	}
 }

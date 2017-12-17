@@ -45,7 +45,7 @@ public class AppData {
     public static final String HEADERKEY = "Content-Disposition";
     public static final String CSV_FORMAT = "attachment; filename=\"%s\"";
     public static final String CSV_FILENAME = "follow-users.csv";
-    public static final String[] HEADERCSV = {"User_ip_address", "Page_access", "Date_access", "External_ip_address", "Username", "Duration", "Country"};   
+    public static final String[] HEADERCSV = {"User_ip_address", "Page_access", "Created_at", "External_ip_address", "Username", "Duration", "Country"};   
     public static final String DATE_FORMAT = "EEE MMM dd HH:mm:ss 'ICT' yyyy";
     public static final String IMAGE_RESOURCES = "resources/img/";   
     public static final List<String> ROOM_TYPES = Arrays.asList("deluxe", "family", "couple", "single");

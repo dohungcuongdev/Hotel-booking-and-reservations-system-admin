@@ -14,7 +14,7 @@
         <tr>
             <td>${loop.index + 1}</td>
             <td>${user.username}</td>
-            <td>${user.registered_date}</td>
+            <td>${user.getICTDateTime(user.created_at)}</td>
             <td>${user.name}</td>
             <td><span class="label label-success">${user.phone}</span></td>
             <td>${user.address}</td>

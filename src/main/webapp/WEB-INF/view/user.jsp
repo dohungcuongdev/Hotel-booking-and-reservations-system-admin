@@ -7,7 +7,7 @@
                 <form role="form">
                     <div class="form-group"><strong>User Name</strong>: ${customer.username}</div>
                     <div class="form-group"><strong>Full Name</strong>: ${customer.name}</div>
-                    <div class="form-group"><strong>Register Time</strong>: ${customer.registered_date}</div>
+                    <div class="form-group"><strong>Register Time</strong>: ${customer.getICTDateTime(customer.created_at)}</div>
                     <div class="form-group"><strong>Phone Number</strong>: ${customer.phone}</div>
                     <div class="form-group"><strong>Address</strong>: ${customer.address}</div>
                 </form>
