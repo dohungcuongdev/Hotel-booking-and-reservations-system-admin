@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -75,26 +76,8 @@ public class RESTController {
 	
 	@CrossOrigin
 	@RequestMapping(value = "/rooms/{name}", method = RequestMethod.PUT, produces = "application/json; charset=UTF-8")
-	public void upDateRoom(@PathVariable(value = "name") String name) {
-		HotelRoom room = hotelItemService.getRoomByName("808");
+	public void upDateRoom(@PathVariable(value = "name") String name, @RequestBody HotelRoom room) {
 		System.out.println(room);
-		room.setId(null);
-		room.setDetails("hello from me");
 		hotelItemService.updateRoom(room);
 	}
-	
-
-	
-/*	$scope.updateSonarQube = function() {
-		// insert or update sonarqube .../api/updateSonarQube
-		swal ( "Notify" ,  "Getting api from SonarQube" );
-		$http.put("http://localhost:8080/Hotel-booking-and-reservations-system-admin/api/rooms/5a362f6d7ba1a1c0e10aaf23").then(
-		function (response) {
-			swal ( "Congrats" ,  "Update successfully!" ,  "success" );
-		}, 
-		function (error) {
-			console.log(error);
-			swal ( "Oops" ,  "Update error! " + error.statusText ,  "error" );
-		});	
-	};*/
 }

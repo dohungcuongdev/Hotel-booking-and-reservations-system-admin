@@ -18,6 +18,6 @@ public interface ActivityDAO {
     public List<Activity> getAllActivityByUserName(String username);
     public List<Activity> getNewListNotification();
     public Activity getActivityBy(String id);
-    public void seenNotification(String id);
-    public void replyNotification(String id);
+    public Activity seenNotification(String id);
+    public Activity replyNotification(String id);
 }

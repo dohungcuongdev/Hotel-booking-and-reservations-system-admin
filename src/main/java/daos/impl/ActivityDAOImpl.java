@@ -74,28 +74,12 @@ public class ActivityDAOImpl implements ActivityDAO {
 	}
 
 	@Override
-	public void seenNotification(String id) {
-		updateResponseNotification(id, "Seen");
+	public Activity seenNotification(String id) {
+		return gson.fromJson(getStringAPI("http://localhost:3000/api/activity/seen-notification/" + id), Activity.class);
 	}
 	
 	@Override
-	public void replyNotification(String id) {
-		updateResponseNotification(id, "Email sent");
-	}
-	
-	private void updateResponseNotification(String id, String response) {
-//		HttpClient httpClient = new DefaultHttpClient();
-//		JSONObject keyArg = new JSONObject();
-//		HttpPut httpPut = new HttpPut();
-//		httpPut.addHeader("Content-Type", "application/json");
-//		httpPut.addHeader("Content-Length", "LENGTH");
-//		httpPut.addHeader("Key", "ad412f36a2eecbcd5c0e323e");
-//		httpPut.setEntity((HttpEntity) keyArg);
-//        HttpResponse response = httpClient.execute(httpPut);
-		
-//		BasicDBObject document = new BasicDBObject();
-//		document.append("$set", new BasicDBObject().append("response", response));
-//		BasicDBObject searchQuery = new BasicDBObject().append("_id", new ObjectId(id));
-//		collection.update(searchQuery, document);
+	public Activity replyNotification(String id) {
+		return gson.fromJson(getStringAPI("http://localhost:3000/api/activity/reply-notification" + id), Activity.class);
 	}
 }
