@@ -3,6 +3,8 @@ package controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -76,8 +78,10 @@ public class RESTController {
 	
 	@CrossOrigin
 	@RequestMapping(value = "/rooms/{name}", method = RequestMethod.PUT, produces = "application/json; charset=UTF-8")
-	public void upDateRoom(@PathVariable(value = "name") String name, @RequestBody HotelRoom room) {
+	public ResponseEntity<HotelRoom> upDateRoom(@PathVariable(value = "name") String name, @RequestBody HotelRoom room) {
 		System.out.println(room);
+		room.setId(null);
 		hotelItemService.updateRoom(room);
+		return new ResponseEntity<HotelRoom>(room, HttpStatus.OK);
 	}
 }

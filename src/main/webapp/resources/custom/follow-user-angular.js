@@ -45,8 +45,6 @@ app.controller('folowUserCtrl', function($scope, $http) {
       $scope.followUserData = response.data;
       var size = $scope.followUserData.length;
 	  for(var i = 0; i < size; i++) {
-		if($scope.followUserData[i].username == null || $scope.followUserData[i].username == "")
-			$scope.followUserData[i].username = "guest";
 		$scope.followUserData[i].created_at = new Date($scope.followUserData[i].created_at);
 		if (i == size - 1) {
 			$scope.followUserData[i].duration = 0;
@@ -54,7 +52,6 @@ app.controller('folowUserCtrl', function($scope, $http) {
 			$scope.followUserData[i].duration = $scope.followUserData[i+1].duration;
 		}
 	  }
-	  $scope.sortDateAccess($scope.followUserData);
 	});
 	
 	$scope.isSortAsc1, $scope.isSortAsc2, $scope.isSortAsc3, $scope.isSortAsc4, $scope.isSortAsc5, $scope.isSortAsc6, $scope.isSortAsc7 = false;

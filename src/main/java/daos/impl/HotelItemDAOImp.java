@@ -5,10 +5,6 @@
  */
 package daos.impl;
 
-import daos.HotelItemDAO;
-import model.hotel.HotelItem;
-import services.JsonParserService;
-
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,11 +13,12 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
-
-import static statics.provider.ImageEditor.editImagebyName;
-
 import java.util.ArrayList;
 import java.util.List;
+import daos.HotelItemDAO;
+import model.hotel.HotelItem;
+import services.JsonParserService;
+import static statics.provider.ImageEditor.editImagebyName;
 
 /**
  *

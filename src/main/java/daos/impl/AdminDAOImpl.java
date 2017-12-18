@@ -7,22 +7,16 @@ package daos.impl;
 
 import daos.AdminDAO;
 import database.MongoDBConnector;
-
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
-
+import java.net.UnknownHostException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import model.user.Administrator;
 import services.JsonParserService;
-
 import static statics.provider.ImageEditor.editImagebyUserName;
-
-import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

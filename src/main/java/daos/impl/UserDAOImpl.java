@@ -5,40 +5,23 @@
  */
 package daos.impl;
 
-import daos.UserDAO;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
+import static statics.provider.MathCalculator.round;
+import static statics.provider.StringUtils.upperFirstChar;
 
-import java.io.IOException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Repository;
 
-import model.user.Customer;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import daos.UserDAO;
 import model.user.tracking.ChartData;
 import model.user.tracking.ExternalIP;
 import model.user.tracking.FollowUsers;
-import database.MongoDBConnector;
-import static statics.provider.DateTimeCalculator.formatMillisecond;
-import static statics.provider.DateTimeCalculator.getDateTime;
-import static statics.provider.MathCalculator.round;
-import static statics.provider.StringUtils.upperFirstChar;
 
 /**
  *
@@ -46,24 +29,9 @@ import static statics.provider.StringUtils.upperFirstChar;
  */
 
 @Repository
-public class UserDAOImpl implements UserDAO {
+public class UserDAOImpl extends APIDAOImpl implements UserDAO {
 
 	private final Gson gson = new Gson();
-	
-	public String getStringAPI(String api) {
-		//env.getProperty(api)
-		HttpGet httpGetKeyAndId = new HttpGet(api);
-		String jsonData = null;
-		try (CloseableHttpClient httpClient = HttpClients.createDefault();
-				CloseableHttpResponse response = httpClient.execute(httpGetKeyAndId);) {
-			HttpEntity entity = response.getEntity();
-			jsonData = EntityUtils.toString(entity);
-		} catch (IOException e) {
-			System.out.println("API not found");
-		}
-		System.out.println(jsonData);
-		return jsonData;
-	}
 	
 	@Override
 	public ExternalIP getExternalIPDetails(String external_ip_address) {
