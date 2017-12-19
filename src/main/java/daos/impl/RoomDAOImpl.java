@@ -23,33 +23,34 @@ import services.JsonParserService;
  */
 
 @Repository
-public class RoomDAOImpl extends HotelItemDAOExtends implements RoomDAO {
+public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO {
     
     @Autowired
     private JsonParserService jsonParser;
 
     public RoomDAOImpl() throws UnknownHostException {
+    	classOfT = HotelRoom.class;
         collection = MongoDBConnector.createConnection("rooms");
     }
 
     @Override
     public HotelRoom getRoomByID(String id) {
-    	return (HotelRoom) getHotelItemByID(id, HotelRoom.class);
+    	return (HotelRoom) getHotelItemByID(id);
     }
     
     @Override
     public HotelRoom getRoomByName(String name) {
-        return (HotelRoom) getHotelItemByName(name, HotelRoom.class);
+        return (HotelRoom) getHotelItemByName(name);
     }
 
     @Override
     public List<HotelRoom> getAllRooms() {
-        return getAllHotelItems(HotelRoom.class);
+        return getAllHotelItems();
     }
 
     @Override
     public List<HotelRoom> getRelatedHotelRooms(String type) {
-        return getRelatedHotelItems(type, HotelRoom.class);
+        return getRelatedHotelItems(type);
     }
     
     @Override
@@ -63,7 +64,7 @@ public class RoomDAOImpl extends HotelItemDAOExtends implements RoomDAO {
         DBCursor cursor = collection.find().skip(skip).limit(limit);
         while (cursor.hasNext()) {
         	DBObject obj = cursor.next();
-        	rooms.add(jsonParser.fromJson(obj, HotelRoom.class));
+        	rooms.add(jsonParser.fromJson(obj, classOfT));
         }
         return rooms;
     }

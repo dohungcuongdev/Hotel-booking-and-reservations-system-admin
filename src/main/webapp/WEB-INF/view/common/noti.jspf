@@ -1,0 +1,15 @@
+<strong>${activity.getICTDateTime(activity.created_at)}!</strong>
+<h5>Request: ${activity.name}</h5>
+<c:choose>
+<c:when test="${activity.username.contains('A guest')}">
+<h5>Username: ${activity.username}</h5>
+</c:when>
+ <c:otherwise>
+<h5>Username: <a href="${pageContext.request.contextPath}/user/${activity.username}.html">${activity.username}</a></h5>
+</c:otherwise>
+</c:choose>
+<h5>Details: ${activity.details}</h5>
+<h5>Note: ${activity.note}</h5>
+<h5>Response: ${activity.response}</h5>
+<h5><b>Contents</b>:</h5>
+<p>${activity.content}</p>

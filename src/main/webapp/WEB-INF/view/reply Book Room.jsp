@@ -8,7 +8,7 @@
             <div class="panel-body" id="noti-box"> 
                 <div class="alert alert-danger">
                     <button data-dismiss="alert" class="close close-sm" type="button"></button>
-                    <%@ include file="common/noti1.jspf"%>
+                    <%@ include file="common/noti.jspf"%>
                 </div>
             </div>
         </section>

@@ -18,10 +18,9 @@
                                     <button data-dismiss="alert" class="close close-sm" type="button">
                                         <i class="fa fa-times"></i>
                                     </button> 
-                                    <strong class="tr-p" 
-                                            onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'"> ${activity.getICTDateTime(activity.created_at)}! 
+                                    <a href="${pageContext.request.contextPath}/notification/${activity.id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
                                     </strong>
-                                    <br>UserName: ${activity.username}
+                                    <br>Username: <a href="${pageContext.request.contextPath}/user/${activity.username}.html">${activity.username}</a>
                                     <br><b>Sent content</b>: ${activity.content}
                                 </div>
                             </c:if>
@@ -30,10 +29,8 @@
                                     <button data-dismiss="alert" class="close close-sm" type="button">
                                         <i class="fa fa-times"></i>
                                     </button> 
-                                    <strong class="tr-p" 
-                                            onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'"> ${activity.getICTDateTime(activity.created_at)}! 
-                                    </strong>
-                                    <br>UserName: ${activity.username}
+                                    <a href="${pageContext.request.contextPath}/notification/${activity.id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
+                                    <br>Username: <a href="${pageContext.request.contextPath}/user/${activity.username}.html">${activity.username}</a>
                                     <br><b>Received content</b>: ${activity.content}
                                 </div>
                             </c:if>
@@ -42,10 +39,8 @@
                                     <button data-dismiss="alert" class="close close-sm" type="button">
                                         <i class="fa fa-times"></i>
                                     </button> 
-                                    <strong class="tr-p" 
-                                            onclick="location.href = '${pageContext.request.contextPath}/reply ${activity.name}/${activity.id}.html'"> ${activity.getICTDateTime(activity.created_at)}! 
-                                    </strong>
-                                    <br>UserName: ${activity.username}
+                                    <a href="${pageContext.request.contextPath}/reply ${activity.name}/${activity.id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
+                                    <br>Username: <a href="${pageContext.request.contextPath}/user/${activity.username}.html">${activity.username}</a>
                                     <br><b>Received content</b>: ${activity.content}
                                 </div>
                             </c:if>
@@ -54,10 +49,17 @@
                                     <button data-dismiss="alert" class="close close-sm" type="button">
                                         <i class="fa fa-times"></i>
                                     </button> 
-                                    <strong class="tr-p" 
-                                            onclick="location.href = '${pageContext.request.contextPath}/notification/${activity.id}.html'"> ${activity.getICTDateTime(activity.created_at)}! 
+                                    <a href="${pageContext.request.contextPath}/notification/${activity.id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
                                     </strong>
-                                    <br>${activity.username}
+                                    <br>
+                                    <c:choose>
+									<c:when test="${activity.username.contains('A guest')}">
+									${activity.username}
+									</c:when>
+									 <c:otherwise>
+									Username: <a href="${pageContext.request.contextPath}/user/${activity.username}.html">${activity.username}</a>
+									</c:otherwise>
+									</c:choose>
                                     <br><b>Sent content</b>: ${activity.content}
                                 </div>
                             </c:if>

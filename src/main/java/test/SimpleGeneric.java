@@ -12,7 +12,7 @@ public class SimpleGeneric<T> {
 	
 	
 	public static void main(String args[]) {
-		SimpleGeneric<HotelRoom> r = new SimpleGeneric<HotelRoom>(null);
+		SimpleGeneric<HotelRoom> r = new SimpleGeneric<HotelRoom>(HotelRoom.class);
 		System.out.println();
 		
 	}

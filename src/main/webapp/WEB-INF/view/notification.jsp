@@ -9,27 +9,19 @@
                 <c:if test="${activity.click.equals('contact') || activity.click.equals('reservation')}"> 
                     <div class="alert alert-warning">
                         <button data-dismiss="alert" class="close close-sm" type="button"></button>
-                        <%@ include file="common/noti3.jspf"%>
-                        <%@ include file="common/noti2.jspf"%>
+                        <%@ include file="common/noti.jspf"%>
                     </div>
                 </c:if>
                 <c:if test="${activity.click.equals('feedback') || activity.name.equals('Feedback Room')}"> 
                     <div class="alert alert-info">
                         <button data-dismiss="alert" class="close close-sm" type="button"></button>
-                        <%@ include file="common/noti1.jspf"%>
+                        <%@ include file="common/noti.jspf"%>
                     </div>
                 </c:if>
                 <c:if test="${activity.click.equals('register')}"> 
                     <div class="alert alert-success">
                         <button data-dismiss="alert" class="close close-sm" type="button"></button>
-                       <%@ include file="common/noti1.jspf"%>
-                    </div>
-                </c:if>
-                <c:if test="${activity.name.equals('Book Room') || activity.name.equals('Cancel Room')}"> 
-                    <div class="alert alert-danger">
-                        <button data-dismiss="alert" class="close close-sm" type="button"></button>
-                        <strong>${activity.created_at}!</strong>
-                        <%@ include file="common/noti1.jspf"%>
+                       <%@ include file="common/noti.jspf"%>
                     </div>
                 </c:if>
             </div>
@@ -61,7 +53,7 @@
                         </textarea>
                         <input type="hidden" name="activity-id" value="${activity.id}"/>
                         <c:choose>
-                        <c:when test="${activity.click.equals('contact') || activity.click.equals('reservation')}">
+                        <c:when test="${activity.username.contains('A guest')}">
                         <input type="hidden" name="user-email" value="${activity.username.replaceFirst("a guest with name: ", "").split(",")[1].replaceFirst(" email: ", "")}"/>
                         </c:when>
                         <c:otherwise>

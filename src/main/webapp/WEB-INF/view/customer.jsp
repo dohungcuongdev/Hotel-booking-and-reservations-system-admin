@@ -45,7 +45,7 @@
                 <c:forEach var="roomBooked" items="${cusDataCollection.action.roomBooked}" varStatus="loop">
                     <div class="alert alert-block alert-info">
                         <button data-dismiss="alert" class="close close-sm" type="button"><i class="fa fa-times"></i></button> 
-                        <strong class="tr-p" onclick="location.href = '${pageContext.request.contextPath}/room/${roomBooked.data}.html'"> ${roomBooked.date}! </strong>Room booked: ${roomBooked.data}
+                        <a href = "${pageContext.request.contextPath}/room/${roomBooked.data}.html"> <strong>  ${roomBooked.date}! </strong></a>Room booked: ${roomBooked.data}
                     </div>
                 </c:forEach>
             </div>
@@ -56,7 +56,7 @@
                 <c:forEach var="roomCanceled" items="${cusDataCollection.action.roomCanceled}" varStatus="loop">
                     <div class="alert alert-block alert-danger">
                         <button data-dismiss="alert" class="close close-sm" type="button"><i class="fa fa-times"></i></button> 
-                        <strong class="tr-p" onclick="location.href = '${pageContext.request.contextPath}/room/${roomCanceled.data}.html'"> ${roomCanceled.date}! </strong>
+                        <a href = "${pageContext.request.contextPath}/room/${roomCanceled.data}.html"> <strong>${roomCanceled.date}! </strong></a>
                         Room canceled: ${roomCanceled.data}
                     </div>
                 </c:forEach>
@@ -80,7 +80,7 @@
                 <c:forEach var="feedbackroom" items="${cusDataCollection.action.feedbackroom}" varStatus="loop">
                     <div class="alert alert-block alert-warning">
                         <button data-dismiss="alert" class="close close-sm" type="button"><i class="fa fa-times"></i></button> 
-                        <strong class="tr-p" onclick="location.href = '${pageContext.request.contextPath}/room/${feedbackroom.room}.html'"> ${feedbackroom.date}! </strong>
+                         <a href = "${pageContext.request.contextPath}/room/${feedbackroom.room}.html"> <strong>${feedbackroom.date}!  </strong></a>
                         <br>Room feedback: ${feedbackroom.room}
                         <br>Feedback Score: ${feedbackroom.star} ★
                         <br>Feedback content ${feedbackroom.feedback}

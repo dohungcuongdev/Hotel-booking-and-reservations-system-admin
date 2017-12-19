@@ -18,30 +18,31 @@ import model.hotel.HotelService;
  */
 
 @Repository
-public class RestaurantDAOImpl extends HotelItemDAOExtends implements RestaurantDAO {
+public class RestaurantDAOImpl extends HotelItemDAOImpl<HotelService> implements RestaurantDAO {
 
     public RestaurantDAOImpl() throws UnknownHostException {
+    	classOfT = HotelService.class;
         collection = MongoDBConnector.createConnection("restaurant");
     }
 
     @Override
     public HotelService getHotelServiceByID(String id) {
-    	return (HotelService) getHotelItemByID(id, HotelService.class);
+    	return (HotelService) getHotelItemByID(id);
     }
     
     @Override
     public HotelService getHotelServiceByName(String name) {
-    	return (HotelService) getHotelItemByName(name, HotelService.class);
+    	return (HotelService) getHotelItemByName(name);
     }
 
 	@Override
 	public List<HotelService> getAllHotelServices() {
-		 return getAllHotelItems(HotelService.class);
+		 return getAllHotelItems();
 	}
 
     @Override
     public List<HotelService> getRelatedHotelServices(String type) {
-    	return getRelatedHotelItems(type, HotelService.class);
+    	return getRelatedHotelItems(type);
     }
     
     @Override

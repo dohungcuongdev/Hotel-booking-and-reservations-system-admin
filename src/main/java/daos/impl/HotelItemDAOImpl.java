@@ -30,49 +30,51 @@ import services.JsonParserService;
  */
 
 @Repository
-public abstract class HotelItemDAOExtends extends HotelItemDAO {
+public abstract class HotelItemDAOImpl<T> implements HotelItemDAO<T> {
 
     protected DBCollection collection;    
+    
+    protected Class<T> classOfT;
     
     @Autowired
     private JsonParserService jsonParser;
     
     @Override
-    public <T> T getHotelItemByID(String id, Class<T> classOfT) {
+    public T getHotelItemByID(String id) {
         BasicDBObject whereQuery = new BasicDBObject();
         whereQuery.put("_id", new ObjectId(id));
         DBObject obj = collection.findOne(whereQuery);
-        return jsonParser.fromJson(obj, classOfT);
+        return (T) jsonParser.fromJson(obj, classOfT);
     }
     
     @Override
-    public <T> T getHotelItemByName(String name, Class<T> classOfT) {
+    public T getHotelItemByName(String name) {
         BasicDBObject whereQuery = new BasicDBObject();
         whereQuery.put("name", name);
         DBObject obj = collection.findOne(whereQuery);
-        return jsonParser.fromJson(obj, classOfT);
+        return (T) jsonParser.fromJson(obj, classOfT);
     }
     
     @Override
-    public <T> List<T> getAllHotelItems(Class<T> classOfT) {
+    public List<T> getAllHotelItems() {
         ArrayList<T> items = new ArrayList<>();
         DBCursor cursor = collection.find();
         while (cursor.hasNext()) {
         	DBObject obj = cursor.next();
-        	items.add(jsonParser.fromJson(obj, classOfT));
+        	items.add((T) jsonParser.fromJson(obj, classOfT));
         }
         return items;
     }
     
     @Override
-    public <T> List<T> getRelatedHotelItems(String type, Class<T> classOfT) {
+    public List<T> getRelatedHotelItems(String type) {
         BasicDBObject whereQuery = new BasicDBObject();
         whereQuery.put("type", type);
         ArrayList<T> items = new ArrayList<>();
         DBCursor cursor = collection.find(whereQuery);
         while (cursor.hasNext()) {
         	DBObject obj = cursor.next();
-        	items.add(jsonParser.fromJson(obj, classOfT));
+        	items.add((T) jsonParser.fromJson(obj, classOfT));
         }
         return items;
     }

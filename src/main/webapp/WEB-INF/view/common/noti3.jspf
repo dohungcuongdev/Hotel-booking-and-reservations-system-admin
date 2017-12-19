@@ -1,3 +1,0 @@
-<strong>${activity.getICTDateTime(activity.created_at)}!</strong>
-<h5>Request: ${activity.name}</h5>
-<h5>Username: ${activity.username}</h5>

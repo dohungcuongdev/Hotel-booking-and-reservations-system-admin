@@ -38,25 +38,33 @@
                 <c:forEach var="activity" items="${customer.activity}">
                     <c:if test="${activity.name.contains('Feedback')}"> 
                         <div class="alert alert-block alert-warning">
-                            <%@ include file="common/activity.jspf"%>
+                            <button data-dismiss="alert" class="close close-sm" type="button"><i class="fa fa-times"></i></button>
+							<a href="${pageContext.request.contextPath}/notification/${activity.id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
+							<br>UserName: ${customer.username}
                             <br><b>Sent content:</b> ${activity.content}
                         </div>
                     </c:if>
                     <c:if test="${activity.click.equals('register')}"> 
                         <div class="alert alert-block alert-success">
-                            <%@ include file="common/activity.jspf"%>
+                            <button data-dismiss="alert" class="close close-sm" type="button"><i class="fa fa-times"></i></button>
+							<a href="${pageContext.request.contextPath}/notification/${activity.id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
+							<br>UserName: ${customer.username}
                             <br><b>Received content:</b> ${activity.content}
                         </div>
                     </c:if>
                     <c:if test="${activity.name.equals('Book Room')}"> 
                         <div class="alert alert-block alert-info">
-                            <%@ include file="common/activity.jspf"%>
-                            <br><b>Received content:</b> ${activity.content}
+                            <button data-dismiss="alert" class="close close-sm" type="button"><i class="fa fa-times"></i></button>
+							<a href="${pageContext.request.contextPath}/reply ${activity.name}/${activity.id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
+							<br>UserName: ${customer.username}
+							<br><b>Received content:</b> ${activity.content}
                         </div>
                     </c:if>
                     <c:if test="${activity.name.equals('Cancel Room')}"> 
                         <div class="alert alert-block alert-danger">
-                            <%@ include file="common/activity.jspf"%>
+                            <button data-dismiss="alert" class="close close-sm" type="button"><i class="fa fa-times"></i></button>
+							<a href="${pageContext.request.contextPath}/reply ${activity.name}/${activity.id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
+                            <br>UserName: ${customer.username}
                             <br><b>Received content:</b> ${activity.content}
                         </div>
                     </c:if>
