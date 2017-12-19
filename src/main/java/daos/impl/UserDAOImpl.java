@@ -19,7 +19,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import daos.UserDAO;
-import model.user.tracking.ChartData;
 import model.user.tracking.ExternalIP;
 import model.user.tracking.FollowUsers;
 
@@ -175,20 +174,6 @@ public class UserDAOImpl extends APIDAOImpl implements UserDAO {
 			result += Integer.parseInt(entry.getValue().toString());
 		}
 		return result;
-	}
-
-	@Override
-	public List<ChartData> getListFollowUsersChartData(List<FollowUsers> list) {
-		List<ChartData> l = new ArrayList();
-		int totalChartData = getTotalChartData(list);
-		if (totalChartData == 0)
-			return l;
-		Map<String, Object> m = getMapFollowUsersCountry(list);
-		for (Map.Entry<String, Object> entry : m.entrySet()) {
-			int quantity = Integer.parseInt(entry.getValue().toString());
-			l.add(new ChartData(entry.getKey(), quantity, round(quantity * 100.0 / totalChartData)));
-		}
-		return l;
 	}
 
 	@Override

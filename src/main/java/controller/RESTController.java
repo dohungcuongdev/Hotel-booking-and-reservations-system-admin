@@ -14,16 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import model.hotel.HotelRoom;
 import model.hotel.HotelService;
-import model.user.tracking.ChartData;
 import services.HotelItemService;
-import services.UserService;
 
 @RestController
 @RequestMapping("/api")
 public class RESTController {
-	
-	@Autowired
-	private UserService userService;
 	
 	@Autowired
 	private HotelItemService hotelItemService;
@@ -68,12 +63,6 @@ public class RESTController {
 	@RequestMapping(value = "/restaurant/{id}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
 	public HotelService getItemInRestaurant(@PathVariable(value = "id") String id) {
 		return hotelItemService.getHotelServiceByID(id);
-	}
-	
-	@CrossOrigin
-	@RequestMapping(value = "/chart-data", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-	public List<ChartData> getChartData() {
-		return userService.getListFollowUsersChartData(userService.getListFollowUsers());
 	}
 	
 	@CrossOrigin

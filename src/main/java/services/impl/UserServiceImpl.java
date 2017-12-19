@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import model.user.tracking.ActionTracking;
 import model.user.tracking.Activity;
-import model.user.tracking.ChartData;
 import model.user.tracking.CustomerBehavior;
 import model.user.tracking.DataCollection;
 import model.user.tracking.ExternalIP;
@@ -178,11 +177,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Feedback> getListFeedbackRoom(String username) {
         return customerDAO.getListFeedbackRoom(username);
-    }
-
-    @Override
-    public List<ChartData> getListFollowUsersChartData(List<FollowUsers> list) {
-        return userDAO.getListFollowUsersChartData(list);
     }
 
 	@Override

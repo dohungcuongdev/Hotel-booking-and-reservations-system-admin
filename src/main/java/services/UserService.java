@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import model.user.tracking.ActionTracking;
 import model.user.tracking.Activity;
-import model.user.tracking.ChartData;
 import model.user.tracking.CustomerBehavior;
 import model.user.tracking.DataCollection;
 import model.user.tracking.ExternalIP;
@@ -33,8 +32,7 @@ public interface UserService {
     public Map getPageAccessChartData(List<FollowUsers> list);    
     public Map getPageAccessChartDataByIP(String ipaddress, List<FollowUsers> list);    
     public String getJSONPageAccess(Map m);    
-    public String getFollowUsersCountry(List<FollowUsers> list);     
-    public List<ChartData> getListFollowUsersChartData(List<FollowUsers> list);    
+    public String getFollowUsersCountry(List<FollowUsers> list); 
     public ExternalIP getExternalIPDetails(String external_ip_address);    
     public Customer getCustomerByUsername(String username);
     public List<Customer> getAllCustomers();

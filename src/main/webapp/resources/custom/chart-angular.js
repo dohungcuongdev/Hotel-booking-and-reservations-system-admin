@@ -9,7 +9,7 @@
     Author     : HUNGCUONG
 */
 
-const CHART_API_URL = "http://localhost:8080/Hotel-booking-and-reservations-system-admin/api/chart-data.html";
+const CHART_API_URL = "http://localhost:3000/api/follow-users/country/chart-data";
 var app = angular.module('chart', []);
 
 app.controller('ChartController', function($scope, $http) {
@@ -51,8 +51,8 @@ app.controller('ChartController', function($scope, $http) {
     	    }]
     	  },
     	  "dataProvider": $scope.data,
-    	  "valueField": "quantity",
-    	  "titleField": "data",
+    	  "valueField": "count",
+    	  "titleField": "_id",
     	  "export": {
     	    "enabled": true
     	  }

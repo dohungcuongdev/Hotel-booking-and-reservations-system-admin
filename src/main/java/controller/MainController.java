@@ -372,6 +372,22 @@ public class MainController {
 		initializeFollowUser(model);
 		return "follow-users";
 	}
+	
+	@RequestMapping(value = "follow-users-exip", method = RequestMethod.GET)
+	public String followUsersExternalIP(ModelMap model, HttpServletRequest request) {
+		if (!isAuthenticated(request))
+			return "login";
+		initialize(model);
+		return "follow-users-exip";
+	}
+	
+	@RequestMapping(value = "follow-members", method = RequestMethod.GET)
+	public String followMemebers(ModelMap model, HttpServletRequest request) {
+		if (!isAuthenticated(request))
+			return "login";
+		initialize(model);
+		return "follow-members";
+	}
 
 	@RequestMapping(value = "view-statistics", method = RequestMethod.GET)
 	public String viewStatistics(ModelMap model, HttpServletRequest request) {
@@ -596,7 +612,6 @@ public class MainController {
 		List<FollowUsers> list = userService.getListFollowUsers();
 		model.put("mapFollowUsers", userService.getFollowUsersMap(list));
 		model.put("mapFollowUsersIP", userService.getFollowUsersMapByIP(list));
-		model.put("mapsExternalIP", userService.getMapByExternalIP(list));
 	}
 
 	private String initializeSingleRoom(ModelMap model, String roomName, String redirect) {
