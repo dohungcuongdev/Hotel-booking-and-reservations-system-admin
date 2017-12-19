@@ -23,7 +23,7 @@ import services.JsonParserService;
  */
 
 @Repository
-public class RoomDAOImpl extends HotelItemDAOImp implements RoomDAO {
+public class RoomDAOImpl extends HotelItemDAOExtends implements RoomDAO {
     
     @Autowired
     private JsonParserService jsonParser;

@@ -1,26 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package daos;
 
 import java.util.List;
 
 import model.hotel.HotelItem;
 
-/**
- *
- * @author HUNGCUONG
- */
-public interface HotelItemDAO {
+public abstract class HotelItemDAO {
 
-	public <T> T getHotelItemByID(String id, Class<T> classOfT);
-	public <T> T getHotelItemByName(String name, Class<T> classOfT);
-	public <T> List<T> getAllHotelItems(Class<T> classOfT);
-	public <T> List<T> getRelatedHotelItems(String type, Class<T> classOfT);
-	public String findAndAddNewItem(HotelItem newItem);
-	public void editImage(String id, String img, String img2);
-	public void deleteItem(String id);
-	public void updateItem(HotelItem item);
+	protected abstract <T> T getHotelItemByID(String id, Class<T> classOfT);
+	protected abstract <T> T getHotelItemByName(String name, Class<T> classOfT);
+	protected abstract <T> List<T> getAllHotelItems(Class<T> classOfT);
+	protected abstract <T> List<T> getRelatedHotelItems(String type, Class<T> classOfT);
+	protected abstract String findAndAddNewItem(HotelItem newItem);
+	protected abstract void editImage(String name, String img, String img2);
+	protected abstract void deleteItem(String name);
+	protected abstract void updateItem(HotelItem item);
 }

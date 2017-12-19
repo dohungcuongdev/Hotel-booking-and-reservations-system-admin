@@ -5,20 +5,24 @@
  */
 package daos.impl;
 
+import static statics.provider.ImageEditor.editImagebyName;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
-import java.util.ArrayList;
-import java.util.List;
+
 import daos.HotelItemDAO;
 import model.hotel.HotelItem;
 import services.JsonParserService;
-import static statics.provider.ImageEditor.editImagebyName;
 
 /**
  *
@@ -26,7 +30,7 @@ import static statics.provider.ImageEditor.editImagebyName;
  */
 
 @Repository
-public class HotelItemDAOImp implements HotelItemDAO {
+public abstract class HotelItemDAOExtends extends HotelItemDAO {
 
     protected DBCollection collection;    
     

@@ -29,16 +29,6 @@ public class DateTimeCalculator {
 		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		return format.format(new Date());
 	}
-
-    public static Date getDateTime(String dateTime) {
-        SimpleDateFormat myFormat = new SimpleDateFormat(AppData.DATE_FORMAT);
-        try {
-            return myFormat.parse(dateTime);
-        } catch (ParseException ex) {
-            Logger.getLogger(DateTimeCalculator.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
     
     public static Date formatDateTime(String dateTime, String format) {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
@@ -59,13 +49,5 @@ public class DateTimeCalculator {
         cal.setTime(formatDateTime(dateTime.replaceFirst("T", " "), "yyyy-MM-dd HH:mm:ss"));
         cal.add(Calendar.HOUR_OF_DAY, 7);
     	return cal.getTime();
-    }
-
-    public static String formatMillisecond(int millis) {
-        long second = (millis / 1000) % 60;
-        long minute = (millis / (1000 * 60)) % 60;
-        long hour = (millis / (1000 * 60 * 60)) % 24;
-        long sss = millis - hour * 3600 * 1000 - minute * 60 * 1000 - second * 1000;
-        return String.format("%02d:%02d:%02d:%03d", hour, minute, second, sss);
     }
 }

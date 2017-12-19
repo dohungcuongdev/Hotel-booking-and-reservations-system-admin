@@ -18,7 +18,7 @@ import model.hotel.HotelService;
  */
 
 @Repository
-public class RestaurantDAOImpl extends HotelItemDAOImp implements RestaurantDAO {
+public class RestaurantDAOImpl extends HotelItemDAOExtends implements RestaurantDAO {
 
     public RestaurantDAOImpl() throws UnknownHostException {
         collection = MongoDBConnector.createConnection("restaurant");
