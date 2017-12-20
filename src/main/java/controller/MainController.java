@@ -330,15 +330,10 @@ public class MainController {
 		return authInitializeRedirect(request, response, model, "country-chart");
 	}
 
-	@RequestMapping(value = "page-access-chart", method = RequestMethod.GET)
+	@RequestMapping(value = {"page-access-chart", "PageAccess/**"}, method = RequestMethod.GET)
 	public String pageAccessChart(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		checkAuth(request, response);
-		initialize(model);
-		Map m = userService.getPageAccessChartData(userService.getListFollowUsers());
 		model.put("ipaddress", "All IP address");
-		model.put("mapPageAccess", m);
-		model.put("jsonchart", userService.getJSONPageAccess(m));
-		return "page-access-chart";
+		return authInitializeRedirect(request, response, model, "page-access-chart");
 	}
 	
 	@RequestMapping(value = {"page-access-chart/{ipaddress}", "UserIP/{ipaddress}"}, method = RequestMethod.GET)

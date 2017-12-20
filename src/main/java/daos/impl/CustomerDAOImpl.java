@@ -10,8 +10,6 @@ import static statics.provider.MathCalculator.round;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Repository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -32,8 +30,6 @@ import statics.AppData;
  */
 
 @Repository
-@Configuration
-@PropertySource("classpath:database.properties")
 public class CustomerDAOImpl extends APIDAOImpl implements CustomerDAO {
 
 	@Autowired

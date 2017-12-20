@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import model.hotel.HotelRoom;
 import model.hotel.HotelService;
+import model.user.tracking.PageAccessData;
 import services.HotelItemService;
+import services.UserService;
 
 @RestController
 @RequestMapping("/api")
@@ -22,6 +25,9 @@ public class RESTController {
 	
 	@Autowired
 	private HotelItemService hotelItemService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@CrossOrigin
 	@RequestMapping(value = "/rooms", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
@@ -68,9 +74,14 @@ public class RESTController {
 	@CrossOrigin
 	@RequestMapping(value = "/rooms/{name}", method = RequestMethod.PUT, produces = "application/json; charset=UTF-8")
 	public ResponseEntity<HotelRoom> upDateRoom(@PathVariable(value = "name") String name, @RequestBody HotelRoom room) {
-		System.out.println(room);
 		room.setId(null);
 		hotelItemService.updateRoom(room);
 		return new ResponseEntity<HotelRoom>(room, HttpStatus.OK);
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value = "/page-access-chart", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	public List<PageAccessData> getPageAccessChart() {
+		return userService.getPageAccessChartData();
 	}
 }

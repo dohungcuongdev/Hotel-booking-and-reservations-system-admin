@@ -6,7 +6,6 @@
 package model.user.tracking;
 
 import java.util.Comparator;
-import java.util.Date;
 import model.AbstractModel;
 
 /**

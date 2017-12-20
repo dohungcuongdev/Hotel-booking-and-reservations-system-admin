@@ -17,9 +17,9 @@
             <div class="panel-body table-responsive">
 				<table id="table-tracking" ng-app="trackingTable" ng-controller="trackingCtrl">
 				    <tr id="tableHeader">
-				        <th class="tr-p" onclick="sortNum(0, 'externalip-table')">No.</th>
-				        <th class="tr-p" onclick="sortAlpha(1, 'externalip-table')">${tracking}</th>
-				        <th class="tr-p" onclick="sortNum(2, 'externalip-table')">Visit Times</th>
+				        <th class="tr-p" onclick="sortNum(0, 'table-tracking')">No.</th>
+				        <th class="tr-p" onclick="sortAlpha(1, 'table-tracking')">${tracking}</th>
+				        <th class="tr-p" onclick="sortNum(2, 'table-tracking')">Visit Times</th>
 				    </tr>
 				    <tr ng-repeat="d in trackingData">
 				        <td>{{ $index + 1 }}</td>
@@ -31,8 +31,6 @@
         </div>
     </div>
 </div>
-
-
 <script>
 const API_URL = "http://localhost:3000/api/follow-users/statistics/${tracking}";
 var app = angular.module('trackingTable', []);

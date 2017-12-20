@@ -13,6 +13,7 @@ import model.user.tracking.ExternalIP;
 import model.user.Administrator;
 import model.user.Customer;
 import model.user.tracking.FollowUsers;
+import model.user.tracking.PageAccessData;
 
 /**
  *
@@ -23,7 +24,7 @@ public interface UserService {
     public List<FollowUsers> getListFollowUsers();   
     public Map getFollowUsersMap(List<FollowUsers> list); 
     public Map getFollowUsersMapByOneIP(List<FollowUsers> list, String ip);    
-    public Map getPageAccessChartData(List<FollowUsers> list);    
+    public List<PageAccessData> getPageAccessChartData();    
     public Map getPageAccessChartDataByIP(String ipaddress, List<FollowUsers> list);    
     public String getJSONPageAccess(Map m);     
     public ExternalIP getExternalIPDetails(String external_ip_address);    

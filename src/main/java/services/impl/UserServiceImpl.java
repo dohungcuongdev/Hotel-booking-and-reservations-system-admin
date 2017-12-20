@@ -15,6 +15,7 @@ import model.user.tracking.ExternalIP;
 import model.user.Administrator;
 import model.user.Customer;
 import model.user.tracking.FollowUsers;
+import model.user.tracking.PageAccessData;
 import services.UserService;
 import daos.AdminDAO;
 import daos.CustomerDAO;
@@ -127,8 +128,8 @@ public class UserServiceImpl implements UserService {
     }
 
 	@Override
-	public Map getPageAccessChartData(List<FollowUsers> list) {
-		return userDAO.getPageAccessChartData(list);
+	public List<PageAccessData> getPageAccessChartData() {
+		return userDAO.getPageAccessChartData();
 	}
 
 	@Override

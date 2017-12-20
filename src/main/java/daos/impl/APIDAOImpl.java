@@ -22,7 +22,6 @@ public class APIDAOImpl {
 		} catch (IOException e) {
 			System.out.println("API not found");
 		}
-		System.out.println(jsonData);
 		return jsonData;
 	}
 
