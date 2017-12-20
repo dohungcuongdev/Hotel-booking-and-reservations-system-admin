@@ -104,8 +104,8 @@ public class HotelItemServiceImpl implements HotelItemService {
 	}
 
 	@Override
-	public List<HotelRoom> getRoomByPage(int skip, int limit) {
-		return roomDAO.getRoomByPage(skip, limit);
+	public List<HotelRoom> getRoomByPage(int page) {
+		return roomDAO.getRoomByPage(page);
 	}
 
 	@Override

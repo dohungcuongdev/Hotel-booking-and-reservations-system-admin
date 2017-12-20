@@ -53,35 +53,24 @@ public class MainController {
 	@Autowired
 	private ApplicationService appService;
 
-	// index
-	@RequestMapping(value = "index", method = RequestMethod.GET)
-	public String index(ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
-		initialize(model);
-		return "index";
-	}
-
 	// login
 	@RequestMapping(value = "login", method = RequestMethod.GET)
-	public String login(ModelMap model, HttpServletRequest request) {
+	public String login(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		if (isAuthenticated(request))
-			return index(model, request);
+			return index(request, response, model);
 		return "login";
 	}
 
 	// checklogin
 	@RequestMapping(value = "check-login", method = RequestMethod.POST)
-	public String checklogin(@ModelAttribute(value = "loginbean") LoginBean loginbean, ModelMap model, HttpServletRequest request) throws IOException {
-		if (isAuthenticated(request))
-			return index(model, request);
+	public String checklogin(@ModelAttribute(value = "loginbean") LoginBean loginbean, HttpServletRequest request, HttpServletResponse response, ModelMap model) throws IOException {
 		String username = loginbean.getUserName();
 		String password = loginbean.getPassword();
 		AppData.admin = userService.getAdminByUserName(username);
 		if (AppData.admin != null && username.equals(AppData.admin.getUsername()) && password.equals(AppData.admin.getPassword())) {
 			request.getSession().setAttribute("username", username);
 			request.getSession().setMaxInactiveInterval(24 * 60 * 60);
-			return index(model, request);
+			return index(request, response, model);
 		}
 		model.put("checkLogin", "Invalid username or password!");
 		return "login";
@@ -94,10 +83,15 @@ public class MainController {
 		return "login";
 	}
 
+	// index
+	@RequestMapping(value = "index", method = RequestMethod.GET)
+	public String index(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		return authInitializeRedirect(request, response, model, "index");
+	}
+
 	@RequestMapping(value = "search-result/{keyword}", method = RequestMethod.GET)
-	public String searchResult(@PathVariable(value = "keyword") String keyword, ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String searchResult(@PathVariable(value = "keyword") String keyword, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		initialize(model);
 		model.put("keyword", keyword);
 		model.put("cusDataCollection", userService.getDataCollection());
@@ -107,17 +101,15 @@ public class MainController {
 
 	// profile
 	@RequestMapping(value = "profile", method = RequestMethod.GET)
-	public String profile(ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String profile(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		return initializeProfile(model);
 	}
 
 	// profile
 	@RequestMapping(value = "change-password", method = RequestMethod.POST)
-	public String changePassword(@ModelAttribute(value = "changePassBean") ChangePasswordBean changePassBean, ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String changePassword(@ModelAttribute(value = "changePassBean") ChangePasswordBean changePassBean, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		String correctPassword = AppData.admin.getPassword();
 		String newPassword = changePassBean.getNewpassword();
 		model.put("pwCheckingResult", changePassBean.getPWCheckingResult(correctPassword));
@@ -129,9 +121,8 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "profile-edited", method = RequestMethod.POST)
-	public String editProfile(@ModelAttribute(value = "adminEdit") Administrator ad, ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String editProfile(@ModelAttribute(value = "adminEdit") Administrator ad, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		if (ad.isEnoughInfor()) {
 			userService.updateAdmin(ad);
 			AppData.admin = ad;
@@ -143,61 +134,43 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "profile-img-edited", method = RequestMethod.POST)
-	public String profileImgEdited(@RequestParam(value = "img") CommonsMultipartFile img, HttpServletRequest request, ModelMap model) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String profileImgEdited(@RequestParam(value = "img") CommonsMultipartFile img, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		userService.editProfileImg(AppData.admin.getUsername(), appService.uploadfile(img, request, model, "users"));
 		AppData.admin = userService.getAdminByUserName(AppData.admin.getUsername());
-		return profile(model, request);
+		return profile(request, response, model);
 	}
 
 	// rooms
-	@RequestMapping(value = "manage-rooms", method = RequestMethod.GET)
-	public String manageRooms(ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
-		initialize(model);
-		return "manage-rooms";
-	}
-
-	@RequestMapping(value = "room", method = RequestMethod.GET)
-	public String singleRoom(ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
-		return manageRooms(model, request);
+	@RequestMapping(value = {"manage-rooms", "room", "rooms"}, method = RequestMethod.GET)
+	public String manageRooms(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		return authInitializeRedirect(request, response, model, "manage-rooms");
 	}
 
 	@RequestMapping(value = "room/{roomName}", method = RequestMethod.GET)
-	public String singleRoom(@PathVariable(value = "roomName") String roomName, ModelMap model,
-			HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String singleRoom(@PathVariable(value = "roomName") String roomName, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		return initializeSingleRoom(model, roomName, "room");
 	}
 
 	@RequestMapping(value = "edit-room/{roomName}", method = RequestMethod.GET)
-	public String editRoom(@PathVariable(value = "roomName") String roomName, ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String editRoom(@PathVariable(value = "roomName") String roomName, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		model.addAttribute("roomEdit", new HotelRoom());
 		return initializeSingleRoom(model, roomName, "edit-room");
 	}
-	
+
 	@RequestMapping(value = "add-room", method = RequestMethod.GET)
-	public String addRoom(ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
-		initialize(model);
+	public String addRoom(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		model.addAttribute("newRoom", new HotelRoom());
-		return "add-room";
+		return authInitializeRedirect(request, response, model, "add-room");
 	}
-	
+
 	@RequestMapping(value = "room-added", method = RequestMethod.POST)
-	public String roomAdded(@ModelAttribute(value = "newRoom") HotelRoom newRoom, ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String roomAdded(@ModelAttribute(value = "newRoom") HotelRoom newRoom, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		initialize(model);
-    	newRoom.setNewInfor();
+		newRoom.setNewInfor();
 		String ableToAddNewRoom = newRoom.getAbleToUpdate();
 		model.put("addResult", ableToAddNewRoom);
 		if (ableToAddNewRoom.equals(AppData.ABLE_TO_ADD)) {
@@ -212,10 +185,8 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "room-edited", method = RequestMethod.POST)
-	public String roomEdited(@ModelAttribute(value = "roomEdit") HotelRoom roomEdit, ModelMap model,
-			HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String roomEdited(@ModelAttribute(value = "roomEdit") HotelRoom roomEdit, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		roomEdit.initializeSomeInfor();
 		initialize(model);
 		String ableToEditRoom = roomEdit.getAbleToUpdate();
@@ -231,64 +202,42 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "remove-room/{roomName}", method = RequestMethod.GET)
-	public String removeRoom(@PathVariable(value = "roomName") String roomName, ModelMap model,
-			HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String removeRoom(@PathVariable(value = "roomName") String roomName, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		hotelItemService.deleteRoom(roomName);
 		model.put("deleteResult", AppData.ABLE_TO_EDIT);
-		return manageRooms(model, request);
+		return manageRooms(request, response, model);
 	}
 
 	@RequestMapping(value = "room-img-edited/{roomName}", method = RequestMethod.POST)
-	public String roomImgEdited(@RequestParam(value = "img1") CommonsMultipartFile img1,
-			@RequestParam(value = "img2") CommonsMultipartFile img2, HttpServletRequest request,
-			@PathVariable(value = "roomName") String roomName, ModelMap model) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String roomImgEdited(@RequestParam(value = "img1") CommonsMultipartFile img1, @RequestParam(value = "img2") CommonsMultipartFile img2, @PathVariable(value = "roomName") String roomName, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		model.addAttribute("roomEdit", new HotelRoom());
-		hotelItemService.editImageRoom(roomName, appService.uploadfile(img1, request, model, "rooms"),
-				appService.uploadfile(img2, request, model, "rooms"));
+		hotelItemService.editImageRoom(roomName, appService.uploadfile(img1, request, model, "rooms"), appService.uploadfile(img2, request, model, "rooms"));
 		return initializeSingleRoom(model, roomName, "edit-room");
 	}
 
 	// restaurant
-	@RequestMapping(value = "manage-restaurant", method = RequestMethod.GET)
-	public String manageRestaurant(ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
-		initialize(model);
-		return "manage-restaurant";
-	}
-
-	@RequestMapping(value = "service", method = RequestMethod.GET)
-	public String singleService(ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
-		return manageRestaurant(model, request);
+	@RequestMapping(value = "{manage-restaurant, service, services}", method = RequestMethod.GET)
+	public String manageRestaurant(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		return authInitializeRedirect(request, response, model, "manage-restaurant");
 	}
 
 	@RequestMapping(value = "service/{servicename}", method = RequestMethod.GET)
-	public String singleService(@PathVariable(value = "servicename") String servicename, ModelMap model,
-			HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String singleService(@PathVariable(value = "servicename") String servicename, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		return initializeSingleService(model, servicename, "service");
 	}
-	
+
 	@RequestMapping(value = "add-service", method = RequestMethod.GET)
-	public String addService(ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
-		initialize(model);
+	public String addService(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		model.addAttribute("newService", new HotelService());
-		return "add-service";
+		return authInitializeRedirect(request, response, model, "add-service");
 	}
-	
+
 	@RequestMapping(value = "service-added", method = RequestMethod.POST)
-	public String serviceAdded(@ModelAttribute(value = "newService") HotelService newService, ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String serviceAdded(@ModelAttribute(value = "newService") HotelService newService, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		initialize(model);
 		newService.setNewInfor();
 		String ableToAddNewService = newService.getAbleToUpdate();
@@ -305,19 +254,14 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "edit-service/{servicename}", method = RequestMethod.GET)
-	public String editService(@PathVariable(value = "servicename") String servicename, ModelMap model,
-			HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String editService(@PathVariable(value = "servicename") String servicename, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		model.addAttribute("serviceEdit", new HotelService());
 		return initializeSingleService(model, servicename, "edit-service");
 	}
 
 	@RequestMapping(value = "service-edited", method = RequestMethod.POST)
-	public String serviceEdited(@ModelAttribute(value = "serviceEdit") HotelService serviceEdit, ModelMap model,
-			HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String serviceEdited(@ModelAttribute(value = "serviceEdit") HotelService serviceEdit, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		serviceEdit.initializeSomeInfor();
 		initialize(model);
 		String strEdit = serviceEdit.getAbleToUpdate();
@@ -333,21 +277,14 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "remove-service/{servicename}", method = RequestMethod.GET)
-	public String removeService(@PathVariable(value = "servicename") String servicename, ModelMap model,
-			HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String removeService(@PathVariable(value = "servicename") String servicename, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		hotelItemService.deleteService(servicename);
 		model.put("deleteResult", AppData.ABLE_TO_EDIT);
-		return manageRestaurant(model, request);
+		return manageRestaurant(request, response, model);
 	}
 
 	@RequestMapping(value = "service-img-edited/{servicename}", method = RequestMethod.POST)
-	public String serviceImgEdited(@RequestParam(value = "img1") CommonsMultipartFile img1,
-			@RequestParam(value = "img2") CommonsMultipartFile img2, HttpServletRequest request,
-			@PathVariable(value = "servicename") String servicename, ModelMap model) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String serviceImgEdited(@RequestParam(value = "img1") CommonsMultipartFile img1, @RequestParam(value = "img2") CommonsMultipartFile img2, @PathVariable(value = "servicename") String servicename, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		model.addAttribute("serviceEdit", new HotelService());
 		hotelItemService.editImageService(servicename, appService.uploadfile(img1, request, model, "restaurant"),
 				appService.uploadfile(img2, request, model, "restaurant"));
@@ -356,59 +293,46 @@ public class MainController {
 
 	// users
 	@RequestMapping(value = "manage-users", method = RequestMethod.GET)
-	public String manageUsers(ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String manageUsers(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		initialize(model);
 		model.put("cusDataCollection", userService.getDataCollection());
 		return "manage-users";
 	}
 
 	@RequestMapping(value = "follow-users", method = RequestMethod.GET)
-	public String followUsers(ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
-		initialize(model);
-		initializeFollowUser(model);
-		return "follow-users";
-	}
-	
-	@RequestMapping(value = "follow-users-exip", method = RequestMethod.GET)
-	public String followUsersExternalIP(ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
-		initialize(model);
-		return "follow-users-exip";
-	}
-	
-	@RequestMapping(value = "follow-members", method = RequestMethod.GET)
-	public String followMemebers(ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
-		initialize(model);
-		return "follow-members";
+	public String viewStatistics(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		return authInitializeRedirect(request, response, model, "follow-users");
 	}
 
-	@RequestMapping(value = "view-statistics", method = RequestMethod.GET)
-	public String viewStatistics(ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
-		initialize(model);
-		return "view-statistics";
+	@RequestMapping(value = "tracking-ip", method = RequestMethod.GET)
+	public String followUsers(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		return initializeTracking("UserIP", request, response, model);
+	}
+
+	@RequestMapping(value = "tracking-exip", method = RequestMethod.GET)
+	public String followUsersExternalIP(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		return initializeTracking("ExternalIP", request, response, model);
+	}
+
+	@RequestMapping(value = "tracking-members", method = RequestMethod.GET)
+	public String followMemebers(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		return initializeTracking("Username", request, response, model);
+	}
+	
+	@RequestMapping(value = "tracking-page-access", method = RequestMethod.GET)
+	public String pageAccessStatistics(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		return initializeTracking("PageAccess", request, response, model);
 	}
 
 	@RequestMapping(value = "country-chart", method = RequestMethod.GET)
-	public String followUserChart(ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
-		initialize(model);
-		return "country-chart";
+	public String followUserChart(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		return authInitializeRedirect(request, response, model, "country-chart");
 	}
 
 	@RequestMapping(value = "page-access-chart", method = RequestMethod.GET)
-	public String pageAccessChart(ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String pageAccessChart(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		initialize(model);
 		Map m = userService.getPageAccessChartData(userService.getListFollowUsers());
 		model.put("ipaddress", "All IP address");
@@ -416,12 +340,10 @@ public class MainController {
 		model.put("jsonchart", userService.getJSONPageAccess(m));
 		return "page-access-chart";
 	}
-
-	@RequestMapping(value = "page-access-chart/{ipaddress}", method = RequestMethod.GET)
-	public String pageAccessIPChart(@PathVariable(value = "ipaddress") String ipaddress, ModelMap model,
-			HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	
+	@RequestMapping(value = {"page-access-chart/{ipaddress}", "UserIP/{ipaddress}"}, method = RequestMethod.GET)
+	public String pageAccessIPChart(@PathVariable(value = "ipaddress") String ipaddress, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		initialize(model);
 		Map m = userService.getPageAccessChartDataByIP(ipaddress, userService.getListFollowUsers());
 		model.put("ipaddress", ipaddress);
@@ -431,45 +353,36 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "follow-user-ip/{ip}", method = RequestMethod.GET)
-	public String followUsersIP(@PathVariable(value = "ip") String ip, ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String followUsersIP(@PathVariable(value = "ip") String ip, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		initialize(model);
 		List<FollowUsers> list = userService.getListFollowUsers();
 		model.put("listFollowUsers", list);
 		model.put("mapFollowUserIP", userService.getFollowUsersMapByOneIP(list, ip));
 		return "follow-user-ip";
 	}
-
-	@RequestMapping(value = "ip-details/{externalip}", method = RequestMethod.GET)
-	public String ipDetails(@PathVariable(value = "externalip") String externalip, ModelMap model,
-			HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	
+	@RequestMapping(value = {"ip-details/{externalip}", "ExternalIP/{externalip}"}, method = RequestMethod.GET)
+	public String ipDetails(@PathVariable(value = "externalip") String externalip, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		initialize(model);
 		model.put("ipDetails", userService.getExternalIPDetails(externalip));
 		return "ip-details";
 	}
 
 	@RequestMapping(value = "user", method = RequestMethod.GET)
-	public String singleUser(ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
-		return manageUsers(model, request);
+	public String singleUser(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		return manageUsers(request, response, model);
 	}
 
 	@RequestMapping(value = "customer", method = RequestMethod.GET)
-	public String singleCustomer(ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
-		return manageUsers(model, request);
+	public String singleCustomer(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		return manageUsers(request, response, model);
 	}
 
 	@RequestMapping(value = "user/{username}", method = RequestMethod.GET)
-	public String singleUser(@PathVariable(value = "username") String username, ModelMap model,
-			HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String singleUser(@PathVariable(value = "username") String username, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		initialize(model);
 		Customer cus = userService.getCustomerByUsername(username);
 		cus.setActivity(userService.getAllActivityByUserName(username));
@@ -477,11 +390,8 @@ public class MainController {
 		return "user";
 	}
 
-	@RequestMapping(value = "customer/{username}", method = RequestMethod.GET)
-	public String singleCustomer(@PathVariable(value = "username") String username, ModelMap model,
-			HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	@RequestMapping(value = {"customer/{username}", "Username/{username}"}, method = RequestMethod.GET)
+	public String singleCustomer(@PathVariable(value = "username") String username, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		initialize(model);
 		model.put("cusDataCollection", userService.getOneDataCollection(username));
 		return "customer";
@@ -489,17 +399,13 @@ public class MainController {
 
 	// message
 	@RequestMapping(value = "message", method = RequestMethod.GET)
-	public String message(ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
-		initialize(model);
-		return "message";
+	public String message(HttpServletRequest request, HttpServletResponse response, ModelMap model)  {
+		return authInitializeRedirect(request, response, model, "message");
 	}
 
 	@RequestMapping(value = "notification/{id}", method = RequestMethod.GET)
-	public String notification(@PathVariable(value = "id") String id, ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String notification(@PathVariable(value = "id") String id, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		userService.seenNotification(id);
 		model.put("activity", userService.getActivityBy(id));
 		model.put("emailTemplates", AppData.EMAIL_TEMPLATE_1);
@@ -508,9 +414,8 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "reply Book Room/{id}", method = RequestMethod.GET)
-	public String replyBooking(@PathVariable(value = "id") String id, ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String replyBooking(@PathVariable(value = "id") String id, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		userService.seenNotification(id);
 		model.put("activity", userService.getActivityBy(id));
 		model.put("emailTemplates", AppData.EMAIL_TEMPLATE_1);
@@ -520,9 +425,8 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "reply Cancel Room/{id}", method = RequestMethod.GET)
-	public String replyCancel(@PathVariable(value = "id") String id, ModelMap model, HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String replyCancel(@PathVariable(value = "id") String id, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		userService.seenNotification(id);
 		model.put("activity", userService.getActivityBy(id));
 		initialize(model);
@@ -530,47 +434,38 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "send-mail", method = RequestMethod.POST)
-	public String sendMail(@RequestParam("activity-id") String id, @RequestParam("message") String message,
-			@RequestParam("user-email") String useremail, @RequestParam("subject") String subject, ModelMap model,
-			HttpServletRequest request) {
-		if (!isAuthenticated(request))
-			return "login";
+	public String sendMail(@RequestParam("activity-id") String id, @RequestParam("message") String message, @RequestParam("user-email") String useremail, @RequestParam("subject") String subject, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
 		model.put("emailsent", appService.sendEmail(appService.removeAccent(message), useremail, subject));
 		model.put("emailTemplates", AppData.EMAIL_TEMPLATE_1);
 		userService.replyNotification(id);
-		return replyEmail("reply " + subject, id, model);
+		model.put("activity", userService.getActivityBy(id));
+		initialize(model);
+		return (subject.equals("Book Room") || subject.equals("Cancel Room")) ? "reply " + subject : "notification";
 	}
 
 	// fqa
 	@RequestMapping(value = "fqa", method = RequestMethod.GET)
-	public String fqa(HttpServletRequest request, ModelMap model) {
-		if (!isAuthenticated(request))
-			return "login";
-		initialize(model);
-		return "fqa";
+	public String fqa(HttpServletRequest request, HttpServletResponse response, ModelMap model, String redirect) {
+		return authInitializeRedirect(request, response, model, "fqa");
 	}
 
 	@RequestMapping(value = "downloadCSV")
 	public void downloadCSV(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		if (!isAuthenticated(request))
-			response.sendRedirect("index");
-		else {
-			response.setContentType("text/csv");
-			// creates mock data
-			String headerKey = AppData.HEADERKEY;
-			String headerValue = String.format(AppData.CSV_FORMAT, AppData.CSV_FILENAME);
-			response.setHeader(headerKey, headerValue);
-			try ( // uses the Super CSV API to generate CSV data from the model data
-					ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(),
-							CsvPreference.STANDARD_PREFERENCE)) {
-				String[] header = AppData.HEADERCSV;
-				csvWriter.writeHeader(header);
-				for (FollowUsers r : userService.getListFollowUsers()) {
-					csvWriter.write(r, header);
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
+		response.setContentType("text/csv");
+		// creates mock data
+		String headerKey = AppData.HEADERKEY;
+		String headerValue = String.format(AppData.CSV_FORMAT, AppData.CSV_FILENAME);
+		response.setHeader(headerKey, headerValue);
+		try ( // uses the Super CSV API to generate CSV data from the model data
+				ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE)) {
+			String[] header = AppData.HEADERCSV;
+			csvWriter.writeHeader(header);
+			for (FollowUsers r : userService.getListFollowUsers()) {
+				csvWriter.write(r, header);
 			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -581,6 +476,22 @@ public class MainController {
 		if (AppData.admin.getUsername() == null)
 			AppData.admin = userService.getAdminByUserName(username);
 		return (AppData.admin != null && AppData.admin.getUsername().equals(username)) ? true : false;
+	}
+	
+	private void checkAuth(HttpServletRequest request, HttpServletResponse response) {
+		if(!isAuthenticated(request)) {
+			try {
+				response.sendRedirect("login");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private String authInitializeRedirect(HttpServletRequest request, HttpServletResponse response, ModelMap model, String redirect) {
+		checkAuth(request, response);
+		initialize(model);
+		return redirect;
 	}
 
 	// initialize function
@@ -600,7 +511,7 @@ public class MainController {
 		model.put("totalRooms", listrooms.size() * 100);
 		model.put("totalServices", listservices.size() * 100);
 	}
-	
+
 	private String initializeProfile(ModelMap model) {
 		initialize(model);
 		model.addAttribute("adminEdit", new Administrator());
@@ -611,7 +522,6 @@ public class MainController {
 	private void initializeFollowUser(ModelMap model) {
 		List<FollowUsers> list = userService.getListFollowUsers();
 		model.put("mapFollowUsers", userService.getFollowUsersMap(list));
-		model.put("mapFollowUsersIP", userService.getFollowUsersMapByIP(list));
 	}
 
 	private String initializeSingleRoom(ModelMap model, String roomName, String redirect) {
@@ -629,11 +539,9 @@ public class MainController {
 		model.put("relatedServices", hotelItemService.getRelatedHotelServices(service.getType()));
 		return redirect;
 	}
-
-	private String replyEmail(String redirect, String id, ModelMap model) {
-		model.put("activity", userService.getActivityBy(id));
-		initialize(model);
-		return (redirect.equals("reply Book Room") || redirect.equals("reply Cancel Room")) ? redirect : "notification";
+	
+	private String initializeTracking(String tracking, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		model.put("tracking", tracking);
+		return authInitializeRedirect(request, response, model, "tracking-users");
 	}
-
 }

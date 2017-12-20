@@ -7,12 +7,10 @@ package daos.impl;
 
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import daos.ActivityDAO;
-import daos.CustomerDAO;
 import model.user.tracking.Activity;
 
 /**
@@ -23,8 +21,6 @@ import model.user.tracking.Activity;
 @Repository
 public class ActivityDAOImpl extends APIDAOImpl implements ActivityDAO {
 
-	@Autowired
-	private CustomerDAO customerDAO;
 	private final Gson gson = new Gson();
 
 	@Override

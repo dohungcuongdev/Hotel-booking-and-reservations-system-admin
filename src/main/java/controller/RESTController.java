@@ -50,7 +50,7 @@ public class RESTController {
 	@CrossOrigin
 	@RequestMapping(value = "/rooms/page/{page}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
 	public List<HotelRoom> getRoomByPage(@PathVariable(value = "page") int page) {
-		return hotelItemService.getRoomByPage((page-1)*6, 6);
+		return hotelItemService.getRoomByPage(page);
 	}
 	
 	@CrossOrigin

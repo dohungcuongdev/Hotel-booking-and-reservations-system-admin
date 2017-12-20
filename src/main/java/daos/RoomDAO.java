@@ -18,7 +18,7 @@ public interface RoomDAO {
     public HotelRoom getRoomByName(String name);
     public List<HotelRoom> getAllRooms();
     public long getNumRooms();
-    public List<HotelRoom> getRoomByPage(int skip, int limit);
+    public List<HotelRoom> getRoomByPage(int page);
     public List<HotelRoom> getRelatedHotelRooms(String type);
     public void updateRoom(HotelRoom room);
     public String findAndAddNewRoom(HotelRoom newRoom);

@@ -9,12 +9,9 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import model.user.tracking.ActionTracking;
 import model.user.tracking.Activity;
 import model.user.tracking.CustomerBehavior;
-import model.user.tracking.DataCollection;
 import model.user.tracking.ExternalIP;
-import model.user.tracking.Feedback;
 import model.user.Administrator;
 import model.user.Customer;
 import model.user.tracking.FollowUsers;
@@ -55,23 +52,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map getFollowUsersMapByIP(List<FollowUsers> list) {
-        return userDAO.getFollowUsersMapByIP(list);
-    }
-
-    @Override
     public Map getFollowUsersMapByOneIP(List<FollowUsers> list, String ip) {
         return userDAO.getFollowUsersMapByOneIP(list, ip);
-    }
-
-    @Override
-    public Map getMapFollowUsersCountry(List<FollowUsers> list) {
-        return userDAO.getMapFollowUsersCountry(list);
-    }
-
-    @Override
-    public String getFollowUsersCountry(List<FollowUsers> list) {
-        return userDAO.getFollowUsersCountry(list);
     }
     
     @Override
@@ -87,16 +69,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Customer> getAllCustomers() {
         return customerDAO.getAllCustomers();
-    }
-
-    @Override
-    public boolean checkexsitCustomer(String username) {
-        return customerDAO.checkexsitCustomer(username);
-    }
-
-    @Override
-    public List<String> getDateVisit(String username) {
-        return customerDAO.getDateVisit(username);
     }
 
     @Override
@@ -145,44 +117,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<DataCollection> getListRoomBooked(String username) {
-        return customerDAO.getListRoomBooked(username);
-    }
-
-    @Override
-    public List<DataCollection> getListRoomCanceled(String username) {
-        return customerDAO.getListRoomCanceled(username);
-    }
-
-    @Override
-    public double getAvgStarRoomFeedback(String username) {
-        return customerDAO.getAvgStarRoomFeedback(username);
-    }
-
-    @Override
     public List<CustomerBehavior> getDataCollection() {
         return customerDAO.getDataCollection();
-    }
-
-    @Override
-    public double getAvgStarFeedback(String username) {
-        return customerDAO.getAvgStarFeedback(username);
     }
 
     @Override
     public CustomerBehavior getOneDataCollection(String username) {
         return customerDAO.getOneDataCollection(username);
     }
-
-    @Override
-    public List<Feedback> getListFeedbackRoom(String username) {
-        return customerDAO.getListFeedbackRoom(username);
-    }
-
-	@Override
-	public ActionTracking getActionTrackingByUsername(String username) {
-		return customerDAO.getActionTrackingByUsername(username);
-	}
 
 	@Override
 	public Map getPageAccessChartData(List<FollowUsers> list) {
@@ -200,13 +142,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Map getMapByExternalIP(List<FollowUsers> list) {
-		return userDAO.getMapByExternalIP(list);
-	}
-
-	@Override
 	public void replyNotification(String id) {
 		activityDAO.replyNotification(id);
-		
 	}
 }

@@ -1,42 +1,46 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="common/sub-content.jspf"%>
+<script src="${pageContext.request.contextPath}/resources/custom/follow-user-angular.js" type="text/javascript"></script>
 <div class="row">
     <div class="col-xs-12">
         <div class="panel">
-            <header class="panel-heading">IP Address Statistics</header>
+            <header class="panel-heading">Follow Users</header>
             <div class="box-tools m-b-15">
                 <div class="input-group">
-                    <input type="text" name="table_search" class="form-control input-sm pull-right" 
-                           style="width: 150px;" id="ip-stat-input" onkeyup="searchInputTable('ip-stat-input', 'ip-stat-table')" 
-                           placeholder="Search for ip address.." title="Type in a ip address"/>
+                    <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" id="input-follow-user" onkeyup="searchInputTable('input-follow-user', 'follow-user-table')" placeholder="Search for ip address.." title="Type in a ip address"/>
                     <div class="input-group-btn">
                         <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
             </div>
-            <div class="panel-body table-responsive">
-				<%@ include file="common/table-ip-address.jspf"%>
+            <div class="panel-body table-responsive" id="follow-user-box">
+                <table id="follow-user-table" ng-app="follow-users" ng-controller="folowUserCtrl">
+                   	<tr id="tableHeader" style="font-size:11px">
+						<th class="tr-p" ng-click="sortNum(followUserData)">No.</th>
+						<th class="tr-p" ng-click="sortDateAccess(followUserData)">Date Access</th>
+						<th class="tr-p" ng-click="sortIP(followUserData)">User IP Address</th>
+						<th class="tr-p" ng-click="sortExIP(followUserData)">External IP Address</th>
+						<th class="tr-p" ng-click="sortCountry(followUserData)">Country</th>
+						<th class="tr-p" ng-click="sortUser(followUserData)">User</th>
+						<th class="tr-p" ng-click="sortPageAccess(followUserData)">Page Access</th>
+						<th class="tr-p" ng-click="sortDuration(followUserData)">Duration</th>
+					</tr>
+                    <tbody id="followUserTableBody">
+	                    <tr ng-repeat="d in followUserData" follow-user-directive style="font-size:11px">
+	                        <td>{{ $index + 1 }}</td>
+	                    	<td>{{ d.created_at | date:'medium'}}</td>
+							<td><a href = "${pageContext.request.contextPath}/page-access-chart/{{d.user_ip_address}}.html">{{ d.user_ip_address }}</a></td>
+							<td><a href = "${pageContext.request.contextPath}/ip-details/{{d.external_ip_address}}.html">{{ d.external_ip_address }}</a></td>
+							<td>{{ d.country }}</td>
+							<td ng-if="d.username != 'guest'"><a href = "${pageContext.request.contextPath}/customer/{{ d.username }}.html">{{ d.username }}</a></td>
+							<td ng-if="d.username == 'guest'">{{ d.username }}</td>
+							<td>{{ d.page_access }}</td>
+							<td>{{ d.duration | secondsToTime }}</td>
+	                    </tr>
+                	</tbody>
+                </table>
             </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-12">
-        <div class="panel">
-            <header class="panel-heading">Page Access Statistics</header>
-            <div class="box-tools m-b-15">
-                <div class="input-group">
-                    <input type="text" name="table_search" class="form-control input-sm pull-right" 
-                           style="width: 150px;" id="page-access-input" onkeyup="searchInputTable('page-access-input', 'page-access-table')" 
-                           placeholder="Search for page access.." title="Type in a page access"/>
-                    <div class="input-group-btn">
-                        <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="panel-body table-responsive" id="page-access-box">
-				<%@ include file="common/table-page-access.jspf"%>
-            </div>
+            <br><center><button class="btn btn-danger" onclick="location.href = '${pageContext.request.contextPath}/downloadCSV.html'">
+            <b>Download CSV</b> <i class="fa fa-download"></i></button></center><br>
         </div>
     </div>
 </div>

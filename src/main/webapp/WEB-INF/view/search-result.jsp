@@ -39,24 +39,6 @@
 		<%@ include file="common/data-collection.jspf"%>
 	</div>
 </div><br><br></div>
-<div id="ip-address-result"><div class="row">
-	<div class="col-xs-12">
-		<header class="panel-heading"><center><b>IP Address</b></center></header>
-		<%@ include file="common/table-ip-address.jspf"%>
-	</div>
-</div><br><br></div>
-<div id="external-ip-result"><div class="row">
-	<div class="col-xs-12">
-		<header class="panel-heading"><center><b>External IP</b></center></header>
-		<%@ include file="common/table-external-ip.jspf"%>
-	</div>
-</div><br><br></div>
-<div id="page-access-result"><div class="row">
-	<div class="col-xs-12">
-		<header class="panel-heading"><center><b>Page Access</b></center></header>
-		<%@ include file="common/table-page-access.jspf"%>
-	</div>
-</div><br><br></div>
 <div id="keep-footer-bottom"></div>
 <%@ include file="common/footer.jspf"%>
 <script src="${pageContext.request.contextPath}/resources/custom/search-all.js" type="text/javascript"></script>

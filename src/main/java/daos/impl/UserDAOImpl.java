@@ -5,19 +5,13 @@
  */
 package daos.impl;
 
-import static statics.provider.MathCalculator.round;
 import static statics.provider.StringUtils.upperFirstChar;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.stereotype.Repository;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import daos.UserDAO;
 import model.user.tracking.ExternalIP;
 import model.user.tracking.FollowUsers;
@@ -121,67 +115,6 @@ public class UserDAOImpl extends APIDAOImpl implements UserDAO {
 		StringBuilder jsonArray = new StringBuilder("[");
 		m.keySet().stream().forEach((key) -> {
 			jsonArray.append("{\"page_access\" : \"").append(key).append("\", \"visit_time\" : ").append(m.get(key)).append(", \"color\" : \"#CD0D74\"},");
-		});
-		return jsonArray.append("]").toString();
-	}
-	
-	@Override
-	public Map getMapByExternalIP(List<FollowUsers> list) {
-		Map m = new HashMap();
-		for (int i = 0; i < list.size(); i++) {
-			String key = list.get(i).getExternal_ip_address();
-			if (m.containsKey(key)) {
-				m.replace(key, Integer.parseInt(m.get(key) + "") + 1);
-			} else {
-				m.put(key, 1);
-			}
-		}
-		return m;
-	}
-
-	@Override
-	public Map getFollowUsersMapByIP(List<FollowUsers> list) {
-		Map m = new HashMap();
-		for (int i = 0; i < list.size(); i++) {
-			String key = list.get(i).getUser_ip_address();
-			if (m.containsKey(key)) {
-				m.replace(key, Integer.parseInt(m.get(key) + "") + 1);
-			} else {
-				m.put(key, 1);
-			}
-		}
-		return m;
-	}
-
-	@Override
-	public Map getMapFollowUsersCountry(List<FollowUsers> list) {
-		Map m = new HashMap();
-		for (int i = 0; i < list.size(); i++) {
-			String key = list.get(i).getCountry();
-			if (m.containsKey(key)) {
-				m.replace(key, Integer.parseInt(m.get(key) + "") + 1);
-			} else {
-				m.put(key, 1);
-			}
-		}
-		return m;
-	}
-
-	private int getTotalChartData(List<FollowUsers> list) {
-		int result = 0;
-		Map<String, Object> m = getMapFollowUsersCountry(list);
-		for (Map.Entry<String, Object> entry : m.entrySet()) {
-			result += Integer.parseInt(entry.getValue().toString());
-		}
-		return result;
-	}
-
-	@Override
-	public String getFollowUsersCountry(List<FollowUsers> list) {
-		StringBuilder jsonArray = new StringBuilder("[");
-		Map m = getMapFollowUsersCountry(list);
-		m.keySet().stream().forEach((key) -> {
-			jsonArray.append("{\"country\" : \"").append(key).append("\", \"visits\" : ").append(m.get(key)).append("},");
 		});
 		return jsonArray.append("]").toString();
 	}

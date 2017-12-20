@@ -25,7 +25,7 @@
     </div>
     <div class="col-md-3 tr-p" onclick="location.href = '${pageContext.request.contextPath}/manage-restaurant.html'">
         <div class="sm-st clearfix">
-            <span class="sm-st-icon st-green"><i class="fa fa-glass"></i></span>
+            <span class="sm-st-icon st-green"><i class="fa fa-food"></i></span>
             <div class="sm-st-info">
                 <span>${totalServices}</span> Total Services
             </div>

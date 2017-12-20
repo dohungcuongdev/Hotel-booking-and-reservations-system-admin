@@ -54,25 +54,6 @@ public class CustomerDAOImpl extends APIDAOImpl implements CustomerDAO {
 	}
 
 	@Override
-	public boolean checkexsitCustomer(String username) {
-		return getAllCustomers().stream().anyMatch((customer) -> (customer.getUsername().equals(username)));
-	}
-
-	@Override
-	public List<String> getDateVisit(String username) {
-		List<String> dateVisits = new ArrayList<>();
-		userDAO.getListFollowUsers().stream()
-				.filter((fu) -> (fu.getUsername() != null && fu.getUsername().equals(username)))
-				.map((fu) -> fu.getCreated_at().toString().substring(0, 10))
-				.forEach((dateVisit) -> {
-					if (dateVisits.isEmpty() || !dateVisits.contains(dateVisit)) {
-						dateVisits.add(dateVisit);
-					}
-				});
-		return dateVisits;
-	}
-
-	@Override
 	public ActionTracking getActionTrackingByUsername(String username) {
 		List<DataCollection> roombooked = new ArrayList<>();
 		List<DataCollection> roomcanceled = new ArrayList<>();
@@ -112,70 +93,6 @@ public class CustomerDAOImpl extends APIDAOImpl implements CustomerDAO {
 	}
 
 	@Override
-	public List<DataCollection> getListRoomBooked(String username) {
-		List<DataCollection> roombooked = new ArrayList<>();
-		activityDAO.getAllActivityByUserName(username).stream()
-				.filter((act) -> (act.getName().equals(AppData.ACTIVITY[0]))).forEach((act) -> {
-					roombooked.add(new DataCollection(act.getICTStrDateTime(act.getCreated_at()), act.getDetails().substring(12)));
-				});
-		return roombooked;
-	}
-
-	@Override
-	public List<DataCollection> getListRoomCanceled(String username) {
-		List<DataCollection> roomcanceled = new ArrayList<>();
-		activityDAO.getAllActivityByUserName(username).stream()
-				.filter((act) -> (act.getName().equals(AppData.ACTIVITY[1]))).forEach((act) -> {
-					roomcanceled.add(new DataCollection(act.getICTStrDateTime(act.getCreated_at()), act.getDetails().substring(20)));
-				});
-		return roomcanceled;
-	}
-
-	@Override
-	public double getAvgStarRoomFeedback(String username) {
-		int star = 0, count = 0;
-		for (Activity act : activityDAO.getAllActivityByUserName(username)) {
-			if (act.getName().equals(AppData.ACTIVITY[2])) {
-				star += act.getNote().charAt(21) - 48;
-				++count;
-			}
-		}
-		if (count == 0)
-			return 0;
-		return round(star * 1.0 / count);
-	}
-
-	public int getTotalStarRoomFeedback(String username) {
-		int star = 0;
-		star = activityDAO.getAllActivityByUserName(username).stream()
-				.filter((act) -> (act.getName().equals(AppData.ACTIVITY[2])))
-				.map((act) -> act.getNote().charAt(21) - 48).reduce(star, Integer::sum);
-		return star;
-	}
-
-	@Override
-	public double getAvgStarFeedback(String username) {
-		int star = 0, count = 0;
-		for (Activity act : activityDAO.getAllActivityByUserName(username)) {
-			if (act.getName().equals(AppData.ACTIVITY[3])) {
-				star += act.getNote().charAt(12) - 48;
-				++count;
-			}
-		}
-		if (count == 0)
-			return 0;
-		return round(star * 1.0 / count);
-	}
-
-	public double getTotalStarFeedback(String username) {
-		int star = 0;
-		star = activityDAO.getAllActivityByUserName(username).stream()
-				.filter((act) -> (act.getName().equals(AppData.ACTIVITY[3])))
-				.map((act) -> act.getNote().charAt(12) - 48).reduce(star, Integer::sum);
-		return star;
-	}
-
-	@Override
 	public List<CustomerBehavior> getDataCollection() {
 		List<CustomerBehavior> cdc = new ArrayList<>();
 		List<Customer> customers = getAllCustomers();
@@ -192,17 +109,16 @@ public class CustomerDAOImpl extends APIDAOImpl implements CustomerDAO {
 				getActionTrackingByUsername(username));
 	}
 
-	@Override
-	public List<Feedback> getListFeedbackRoom(String username) {
-		List<Feedback> fbr = new ArrayList<>();
-		activityDAO.getAllActivityByUserName(username).stream()
-				.filter((act) -> (act.getName().equals(AppData.ACTIVITY[2]))).forEach((act) -> {
-					String date = act.getICTStrDateTime(act.getCreated_at());
-					String room = act.getNote().substring(12, 15);
-					int star = act.getNote().charAt(21) - 48;
-					String feedback = act.getContent();
-					fbr.add(new Feedback(date, room, star, feedback));
+	private List<String> getDateVisit(String username) {
+		List<String> dateVisits = new ArrayList<>();
+		userDAO.getListFollowUsers().stream()
+				.filter((fu) -> (fu.getUsername() != null && fu.getUsername().equals(username)))
+				.map((fu) -> fu.getCreated_at().toString().substring(0, 10))
+				.forEach((dateVisit) -> {
+					if (dateVisits.isEmpty() || !dateVisits.contains(dateVisit)) {
+						dateVisits.add(dateVisit);
+					}
 				});
-		return fbr;
+		return dateVisits;
 	}
 }

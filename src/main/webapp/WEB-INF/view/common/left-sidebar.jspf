@@ -28,9 +28,12 @@
             <li><a href="${pageContext.request.contextPath}/message.html"><i class="fa fa-envelope-o"></i> <span>Message</span></a></li>
             <li><a href="${pageContext.request.contextPath}/manage-users.html"><i class="fa fa-user"></i> <span>Manage Users</span></a></li>
             <li><a href="${pageContext.request.contextPath}/manage-rooms.html"><i class="fa fa-bed"></i> <span>Rooms & Bookings</span></a></li>
-            <li><a href="${pageContext.request.contextPath}/manage-restaurant.html"><i class="fa fa-glass"></i> <span>Restaurant & Services</span></a></li>
+            <li><a href="${pageContext.request.contextPath}/manage-restaurant.html"><i class="fa fa-food"></i> <span>Restaurant & Services</span></a></li>
             <li><a href="${pageContext.request.contextPath}/follow-users.html"><i class="fa fa-globe"></i> <span>Follow Users</span></a></li>
-           	<li><a href="${pageContext.request.contextPath}/view-statistics.html"><i class="fa fa-tasks"></i> <span>View Statistics</span></a></li>
+            <li><a href="${pageContext.request.contextPath}/tracking-members.html"><i class="fa fa-user-circle"></i> <span>Members Tracking</span></a></li>
+           	<li><a href="${pageContext.request.contextPath}/tracking-ip.html"><i class="fa fa-address-card-o"></i> <span>IP Address Tracking</span></a></li>
+            <li><a href="${pageContext.request.contextPath}/tracking-exip.html"><i class="fa fa-street-view"></i> <span>External IP Tracking</span></a></li>
+            <li><a href="${pageContext.request.contextPath}/tracking-page-access.html"><i class="fa fa-television"></i> <span>Page Access Tracking</span></a></li>
             <li><a href="${pageContext.request.contextPath}/country-chart.html"><i class="fa fa-pie-chart"></i> <span>View Country Chart</span></a></li>
             <li><a href="${pageContext.request.contextPath}/page-access-chart.html"><i class="fa fa-bar-chart"></i> <span>Page Access Chart</span></a></li>
         </ul>

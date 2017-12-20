@@ -26,16 +26,7 @@ public class MongoDBConnector {
     }
 
     public static void updateOne(String collectionName, String originalfield, String value, String updatefield, String updatevalue) throws UnknownHostException {
-        if (originalfield.equals("id")) {
-            createConnection(collectionName).update(
-                    new BasicDBObject("_id", new ObjectId(value)),
-                    new BasicDBObject("$set", new BasicDBObject(updatefield, updatevalue))
-            );
-        } else {
-            createConnection(collectionName).update(
-                    new BasicDBObject(originalfield, value),
-                    new BasicDBObject("$set", new BasicDBObject(updatefield, updatevalue))
-            );
-        }
+    	BasicDBObject dbObj = originalfield.equals("id") ? new BasicDBObject("_id", new ObjectId(value)): new BasicDBObject(originalfield, value);
+    	createConnection(collectionName).update(dbObj, new BasicDBObject("$set", new BasicDBObject(updatefield, updatevalue)));
     }
 }
