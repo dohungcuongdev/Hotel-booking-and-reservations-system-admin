@@ -60,6 +60,32 @@ public class UserDAOImpl extends APIDAOImpl implements UserDAO {
 		}
 		return m;
 	}
+	@Override
+	public List<PageAccessData> getPageAccessChartData() {
+		return getPageAccessChartData("http://localhost:3000/api/follow-users/statistics/PageAccess/");
+
+	}
+
+	@Override
+	public List<PageAccessData> getPageAccessChartDataByIP(String ipaddress) {
+		return getPageAccessChartData("http://localhost:3000/api/follow-users/statistics/PageAccess/" + ipaddress);
+	}
+
+	@Override
+	public Map getFollowUsersMapByOneIP(List<FollowUsers> list, String ip) {
+		Map m = new HashMap();
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getUser_ip_address().equals(ip)) {
+				String key = list.get(i).getPage_access();
+				if (m.containsKey(key)) {
+					m.replace(key, Integer.parseInt(m.get(key) + "") + 1);
+				} else {
+					m.put(key, 1);
+				}
+			}
+		}
+		return m;
+	}
 	
 	private int getIndexByKey(List<String> key, String keyword) {
 		for(int i = 0; i < key.size(); i++)
@@ -67,13 +93,12 @@ public class UserDAOImpl extends APIDAOImpl implements UserDAO {
 				return i;
 		return -1;
 	}
-
-	@Override
-	public List<PageAccessData> getPageAccessChartData() {
+	
+	private List<PageAccessData> getPageAccessChartData(String api) {
 		List<PageAccessData> listPAData = new ArrayList<>();
 		List<String> key = new ArrayList<>();
 		try {
-			JSONArray jsonArr = new JSONArray(getStringAPI("http://localhost:3000/api/follow-users/statistics/PageAccess"));
+			JSONArray jsonArr = new JSONArray(getStringAPI(api));
 			for (int i = 0; i < jsonArr.length(); i++) {
 				JSONObject o = jsonArr.getJSONObject(i);
 				String page_access = mergeKey(o.getString("_id"));
@@ -90,22 +115,6 @@ public class UserDAOImpl extends APIDAOImpl implements UserDAO {
 			e.printStackTrace();
 		}
 		return listPAData;
-	}
-
-	@Override
-	public Map getPageAccessChartDataByIP(String ipaddress, List<FollowUsers> list) {
-		Map m = new HashMap();
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).getUser_ip_address().equals(ipaddress)) {
-				String key = mergeKey(list.get(i).getPage_access());
-				if (m.containsKey(key)) {
-					m.replace(key, Integer.parseInt(m.get(key) + "") + 1);
-				} else {
-					m.put(key, 1);
-				}
-			}
-		}
-		return m;
 	}
 
 	private String mergeKey(String key) {
@@ -138,29 +147,4 @@ public class UserDAOImpl extends APIDAOImpl implements UserDAO {
 		return key;
 	}
 
-	@Override
-	public String getJSONPageAccess(Map m) {
-		StringBuilder jsonArray = new StringBuilder("[");
-		m.keySet().stream().forEach((key) -> {
-			jsonArray.append("{\"page_access\" : \"").append(key).append("\", \"visit_time\" : ").append(m.get(key))
-					.append(", \"color\" : \"#CD0D74\"},");
-		});
-		return jsonArray.append("]").toString();
-	}
-
-	@Override
-	public Map getFollowUsersMapByOneIP(List<FollowUsers> list, String ip) {
-		Map m = new HashMap();
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).getUser_ip_address().equals(ip)) {
-				String key = list.get(i).getPage_access();
-				if (m.containsKey(key)) {
-					m.replace(key, Integer.parseInt(m.get(key) + "") + 1);
-				} else {
-					m.put(key, 1);
-				}
-			}
-		}
-		return m;
-	}
 }

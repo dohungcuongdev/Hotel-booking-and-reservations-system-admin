@@ -98,6 +98,7 @@ public abstract class HotelItemDAOImpl<T> implements HotelItemDAO<T> {
     
     @Override
     public void updateItem(HotelItem item) {
+    	item.setId(null);
         DBObject document = (DBObject) JSON.parse(jsonParser.toJson(item));
         DBObject searchObject = new BasicDBObject();
         searchObject.put("name", item.getName());

@@ -74,7 +74,6 @@ public class RESTController {
 	@CrossOrigin
 	@RequestMapping(value = "/rooms/{name}", method = RequestMethod.PUT, produces = "application/json; charset=UTF-8")
 	public ResponseEntity<HotelRoom> upDateRoom(@PathVariable(value = "name") String name, @RequestBody HotelRoom room) {
-		room.setId(null);
 		hotelItemService.updateRoom(room);
 		return new ResponseEntity<HotelRoom>(room, HttpStatus.OK);
 	}
@@ -83,5 +82,11 @@ public class RESTController {
 	@RequestMapping(value = "/page-access-chart", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
 	public List<PageAccessData> getPageAccessChart() {
 		return userService.getPageAccessChartData();
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value = "/page-access-chart/{userIP}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	public List<PageAccessData> getPageAccessChartByIP(@PathVariable(value = "userIP") String userIP) {
+		return userService.getPageAccessChartDataByIP(userIP);
 	}
 }

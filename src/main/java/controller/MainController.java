@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.user.tracking.Activity;
@@ -338,13 +337,8 @@ public class MainController {
 	
 	@RequestMapping(value = {"page-access-chart/{ipaddress}", "UserIP/{ipaddress}"}, method = RequestMethod.GET)
 	public String pageAccessIPChart(@PathVariable(value = "ipaddress") String ipaddress, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		checkAuth(request, response);
-		initialize(model);
-		Map m = userService.getPageAccessChartDataByIP(ipaddress, userService.getListFollowUsers());
 		model.put("ipaddress", ipaddress);
-		model.put("mapPageAccess", m);
-		model.put("jsonchart", userService.getJSONPageAccess(m));
-		return "page-access-chart";
+		return authInitializeRedirect(request, response, model, "page-access-chart");
 	}
 
 	@RequestMapping(value = "follow-user-ip/{ip}", method = RequestMethod.GET)

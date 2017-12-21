@@ -21,7 +21,6 @@ public interface UserDAO {
     public Map getFollowUsersMap(List<FollowUsers> list);    
     public Map getFollowUsersMapByOneIP(List<FollowUsers> list, String ip);
     public List<PageAccessData> getPageAccessChartData();
-    public Map getPageAccessChartDataByIP(String ipaddress, List<FollowUsers> list);    
-    public String getJSONPageAccess(Map m);    
+    public List<PageAccessData> getPageAccessChartDataByIP(String ipaddress);
     public ExternalIP getExternalIPDetails(String external_ip_address);
 }

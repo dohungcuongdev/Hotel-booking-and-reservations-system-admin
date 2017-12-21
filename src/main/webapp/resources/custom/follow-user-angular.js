@@ -10,7 +10,6 @@
     Author     : HUNGCUONG
 */
 
-const API_URL = "http://localhost:3000/api/follow-users";
 var app = angular.module('follow-users', []);
 
 app.filter('secondsToTime',function(){
@@ -41,7 +40,7 @@ app.filter('secondsToTime',function(){
 });
 
 app.controller('folowUserCtrl', function($scope, $http) {
-  $http.get(API_URL).then(function (response) {
+  $http.get(TRACKING_API_URL).then(function (response) {
       $scope.followUserData = response.data;
       var size = $scope.followUserData.length;
 	  for(var i = 0; i < size; i++) {

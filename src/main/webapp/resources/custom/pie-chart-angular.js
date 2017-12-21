@@ -9,11 +9,10 @@
     Author     : HUNGCUONG
 */
 
-const CHART_API_URL = "http://localhost:3000/api/follow-users/country/chart-data";
 var app = angular.module('chart', []);
 
 app.controller('ChartController', function($scope, $http) {
-  $http.get(CHART_API_URL).then(function (response) {
+  $http.get(PIE_CHART_API_URL).then(function (response) {
       $scope.data = response.data;
       
       var chart = AmCharts.makeChart("chartdiv", {

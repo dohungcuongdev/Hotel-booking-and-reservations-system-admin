@@ -32,10 +32,9 @@
     </div>
 </div>
 <script>
-const API_URL = "http://localhost:3000/api/follow-users/statistics/${tracking}";
 var app = angular.module('trackingTable', []);
 app.controller('trackingCtrl', function($scope, $http) {
-  $http.get(API_URL).then(function (response) {
+  $http.get(STATISTICS_API_URL + '${tracking}').then(function (response) {
       $scope.trackingData = response.data;
   });
 });

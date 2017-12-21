@@ -28,11 +28,20 @@ public class PageAccessData {
 	public void setColor(String color) {
 		this.color = color;
 	}
+	
+	private String getColorByVisitTime() {
+		String colors[] = { "#000000", "#333333", "#999999", "#DDDDDD", "#754DEB", "#CD0D74", "#8A0CCF", "#2A0CD0", "#0D52D1", "#0D8ECF", "#04D215", "#B0DE09", "#F8FF01", "#FCD202", "#FF9E01", "#FF6600", "#FF0F00" };
+		int colorOrders[] = {10, 20, 30, 40, 50, 100, 125, 150, 200, 250, 300, 400, 500, 580, 600, 675};		
+		for(int i = 0; i < colorOrders.length; i++)
+			if(visit_time < colorOrders[i]) 
+				return colors[i];
+		return colors[16];
+	}
 
 	public PageAccessData(String page_access, int visit_time) {
 		this.page_access = page_access;
 		this.visit_time = visit_time;
-		this.color = color;
+		this.color = getColorByVisitTime();
 	}
 
 	@Override
