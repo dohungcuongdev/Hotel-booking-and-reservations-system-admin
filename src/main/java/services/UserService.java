@@ -26,6 +26,7 @@ public interface UserService {
     public Map getFollowUsersMapByOneIP(List<FollowUsers> list, String ip);    
     public List<PageAccessData> getPageAccessChartData();    
     public List<PageAccessData> getPageAccessChartDataByIP(String ipaddress);
+    public List<PageAccessData> getPageAccessChartDataByUsername(String username);
     public ExternalIP getExternalIPDetails(String external_ip_address);    
     public Customer getCustomerByUsername(String username);
     public List<Customer> getAllCustomers();   

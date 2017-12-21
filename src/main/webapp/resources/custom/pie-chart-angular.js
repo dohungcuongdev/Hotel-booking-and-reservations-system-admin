@@ -14,7 +14,7 @@ var app = angular.module('chart', []);
 app.controller('ChartController', function($scope, $http) {
   $http.get(PIE_CHART_API_URL).then(function (response) {
       $scope.data = response.data;
-      
+      $scope.sortCountry($scope.data);
       var chart = AmCharts.makeChart("chartdiv", {
     	  "type": "pie",
     	  "startDuration": 0,
@@ -72,4 +72,8 @@ app.controller('ChartController', function($scope, $http) {
     	  wedge.parentNode.appendChild(wedge);
     	}
   });
+  
+  $scope.sortCountry = function(data) {
+	  timsort.sort(data, (x, y) => y.count - x.count);
+  };
 });

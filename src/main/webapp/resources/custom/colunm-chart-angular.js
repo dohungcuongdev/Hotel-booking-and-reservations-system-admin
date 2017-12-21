@@ -48,16 +48,7 @@ app.controller('pageAccessChartCtrl', function($scope, $http) {
 		     }
 		});
 	});
-	
-	$scope.isSortAsc = false;
 	$scope.sortVisitTime = function(pageAccessData) {
-		if($scope.isSortAsc) {
-			timsort.sort(pageAccessData, (x, y) => x.visit_time - y.visit_time);
-			$scope.isSortAsc = false;
-		}
-		else {
-			timsort.sort(pageAccessData, (x, y) => y.visit_time - x.visit_time);
-			$scope.isSortAsc = true;;
-		}
+		timsort.sort(pageAccessData, (x, y) => y.visit_time - x.visit_time);
 	};
 });

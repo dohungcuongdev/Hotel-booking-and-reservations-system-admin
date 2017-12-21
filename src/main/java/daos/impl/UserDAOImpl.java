@@ -68,7 +68,12 @@ public class UserDAOImpl extends APIDAOImpl implements UserDAO {
 
 	@Override
 	public List<PageAccessData> getPageAccessChartDataByIP(String ipaddress) {
-		return getPageAccessChartData("http://localhost:3000/api/follow-users/statistics/PageAccess/" + ipaddress);
+		return getPageAccessChartData("http://localhost:3000/api/follow-users/statistics/PageAccess/userIP/" + ipaddress);
+	}
+	
+	@Override
+	public List<PageAccessData> getPageAccessChartDataByUsername(String username) {
+		return getPageAccessChartData("http://localhost:3000/api/follow-users/statistics/PageAccess/username/" + username);
 	}
 
 	@Override

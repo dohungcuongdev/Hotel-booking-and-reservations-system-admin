@@ -334,6 +334,12 @@ public class MainController {
 		model.put("ipaddress", "All IP address");
 		return authInitializeRedirect(request, response, model, "page-access-chart");
 	}
+
+	@RequestMapping(value = {"member-chart/{username}","Username/{username}"}, method = RequestMethod.GET)
+	public String pageAccessMemberChart(@PathVariable(value = "username") String username, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		model.put("username", username);
+		return authInitializeRedirect(request, response, model, "member-chart");
+	}
 	
 	@RequestMapping(value = {"page-access-chart/{ipaddress}", "UserIP/{ipaddress}"}, method = RequestMethod.GET)
 	public String pageAccessIPChart(@PathVariable(value = "ipaddress") String ipaddress, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
@@ -379,7 +385,7 @@ public class MainController {
 		return "user";
 	}
 
-	@RequestMapping(value = {"customer/{username}", "Username/{username}"}, method = RequestMethod.GET)
+	@RequestMapping(value = "customer/{username}", method = RequestMethod.GET)
 	public String singleCustomer(@PathVariable(value = "username") String username, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		initialize(model);
 		model.put("cusDataCollection", userService.getOneDataCollection(username));

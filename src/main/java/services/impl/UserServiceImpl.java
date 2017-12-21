@@ -141,4 +141,9 @@ public class UserServiceImpl implements UserService {
 	public void replyNotification(String id) {
 		activityDAO.replyNotification(id);
 	}
+
+	@Override
+	public List<PageAccessData> getPageAccessChartDataByUsername(String username) {
+		return userDAO.getPageAccessChartDataByUsername(username);
+	}
 }

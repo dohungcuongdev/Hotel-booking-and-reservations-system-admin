@@ -1,0 +1,9 @@
+<script>
+	var api_with_IP = '';
+	var ip ='${ipaddress}';
+	if(ip == 'All IP address') 
+		api_with_IP = COLUNM_CHART_API_URL;
+	else
+		api_with_IP = IP_COLUNM_CHART_API_URL + ip + '/';
+</script>
+<script src="${pageContext.request.contextPath}/resources/custom/colunm-chart-angular.js" type="text/javascript"></script>

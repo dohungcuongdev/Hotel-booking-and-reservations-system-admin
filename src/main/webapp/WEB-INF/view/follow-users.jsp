@@ -31,8 +31,7 @@
 							<td><a href = "${pageContext.request.contextPath}/page-access-chart/{{d.user_ip_address}}.html">{{ d.user_ip_address }}</a></td>
 							<td><a href = "${pageContext.request.contextPath}/ip-details/{{d.external_ip_address}}.html">{{ d.external_ip_address }}</a></td>
 							<td>{{ d.country }}</td>
-							<td ng-if="d.username != 'guest'"><a href = "${pageContext.request.contextPath}/customer/{{ d.username }}.html">{{ d.username }}</a></td>
-							<td ng-if="d.username == 'guest'">{{ d.username }}</td>
+							<td><a href = "${pageContext.request.contextPath}/member-chart/{{ d.username }}.html">{{ d.username }}</a></td>
 							<td>{{ d.page_access }}</td>
 							<td>{{ d.duration | secondsToTime }}</td>
 	                    </tr>

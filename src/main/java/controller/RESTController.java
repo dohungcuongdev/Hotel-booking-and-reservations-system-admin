@@ -85,8 +85,14 @@ public class RESTController {
 	}
 	
 	@CrossOrigin
-	@RequestMapping(value = "/page-access-chart/{userIP}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	@RequestMapping(value = "/page-access-chart/userIP/{userIP}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
 	public List<PageAccessData> getPageAccessChartByIP(@PathVariable(value = "userIP") String userIP) {
 		return userService.getPageAccessChartDataByIP(userIP);
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value = "/page-access-chart/username/{username}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	public List<PageAccessData> getPageAccessChartByUsername(@PathVariable(value = "username") String username) {
+		return userService.getPageAccessChartDataByUsername(username);
 	}
 }

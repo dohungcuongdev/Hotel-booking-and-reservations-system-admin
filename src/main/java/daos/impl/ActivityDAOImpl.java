@@ -50,6 +50,6 @@ public class ActivityDAOImpl extends APIDAOImpl implements ActivityDAO {
 	
 	@Override
 	public Activity replyNotification(String id) {
-		return gson.fromJson(getStringAPI("http://localhost:3000/api/activity/reply-notification" + id), Activity.class);
+		return gson.fromJson(getStringAPI("http://localhost:3000/api/activity/reply-notification/" + id), Activity.class);
 	}
 }
