@@ -19,7 +19,7 @@ import model.user.tracking.PageAccessData;
 import services.UserService;
 import daos.AdminDAO;
 import daos.CustomerDAO;
-import daos.UserDAO;
+import daos.TrackingDAO;
 import daos.ActivityDAO;
 
 /**
@@ -31,7 +31,7 @@ import daos.ActivityDAO;
 public class UserServiceImpl implements UserService {
     
 	@Autowired
-    private UserDAO userDAO;
+    private TrackingDAO userDAO;
 	
 	@Autowired
     private AdminDAO adminDAO;
@@ -45,16 +45,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<FollowUsers> getListFollowUsers() {
         return userDAO.getListFollowUsers();
-    }
-
-    @Override
-    public Map getFollowUsersMap(List<FollowUsers> list) {
-        return userDAO.getFollowUsersMap(list);
-    }
-
-    @Override
-    public Map getFollowUsersMapByOneIP(List<FollowUsers> list, String ip) {
-        return userDAO.getFollowUsersMapByOneIP(list, ip);
     }
     
     @Override
@@ -113,8 +103,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void seenNotification(String id) {
-        activityDAO.seenNotification(id);
+    public Activity seenNotification(String id) {
+        return activityDAO.seenNotification(id);
     }
 
     @Override
@@ -138,8 +128,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void replyNotification(String id) {
-		activityDAO.replyNotification(id);
+	public Activity replyNotification(String id) {
+		return activityDAO.replyNotification(id);
 	}
 
 	@Override

@@ -41,7 +41,7 @@ import services.ApplicationService;
 
 @Controller
 @RequestMapping(value = "/")
-public class MainController {
+public class AppController {
 
 	@Autowired
 	private UserService userService;
@@ -92,9 +92,7 @@ public class MainController {
 	public String searchResult(@PathVariable(value = "keyword") String keyword, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		checkAuth(request, response);
 		initialize(model);
-		model.put("keyword", keyword);
 		model.put("cusDataCollection", userService.getDataCollection());
-		initializeFollowUser(model);
 		return "search-result";
 	}
 
@@ -217,7 +215,7 @@ public class MainController {
 	}
 
 	// restaurant
-	@RequestMapping(value = "{manage-restaurant, service, services}", method = RequestMethod.GET)
+	@RequestMapping(value = {"manage-restaurant, service, services"}, method = RequestMethod.GET)
 	public String manageRestaurant(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		return authInitializeRedirect(request, response, model, "manage-restaurant");
 	}
@@ -336,24 +334,24 @@ public class MainController {
 
 	@RequestMapping(value = {"member-chart/{username}","Username/{username}"}, method = RequestMethod.GET)
 	public String pageAccessMemberChart(@PathVariable(value = "username") String username, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		model.put("username", username);
 		return authInitializeRedirect(request, response, model, "member-chart");
 	}
 	
 	@RequestMapping(value = {"page-access-chart/{ipaddress}", "UserIP/{ipaddress}"}, method = RequestMethod.GET)
 	public String pageAccessIPChart(@PathVariable(value = "ipaddress") String ipaddress, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		model.put("ipaddress", ipaddress);
 		return authInitializeRedirect(request, response, model, "page-access-chart");
 	}
 
-	@RequestMapping(value = "follow-user-ip/{ip}", method = RequestMethod.GET)
-	public String followUsersIP(@PathVariable(value = "ip") String ip, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		checkAuth(request, response);
-		initialize(model);
-		List<FollowUsers> list = userService.getListFollowUsers();
-		model.put("listFollowUsers", list);
-		model.put("mapFollowUserIP", userService.getFollowUsersMapByOneIP(list, ip));
-		return "follow-user-ip";
+	@RequestMapping(value = "click-tracking-ip/{trackingParam}", method = RequestMethod.GET)
+	public String followUsersIP(@PathVariable(value = "trackingParam") String ip, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		model.put("tracking","ip");
+		return authInitializeRedirect(request, response, model, "click-tracking");
+	}
+	
+	@RequestMapping(value = "click-tracking-member/{trackingParam}", method = RequestMethod.GET)
+	public String followMember(@PathVariable(value = "trackingParam") String username, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		model.put("tracking","member");
+		return authInitializeRedirect(request, response, model, "click-tracking");
 	}
 	
 	@RequestMapping(value = {"ip-details/{externalip}", "ExternalIP/{externalip}"}, method = RequestMethod.GET)
@@ -421,8 +419,7 @@ public class MainController {
 	@RequestMapping(value = "reply Cancel Room/{id}", method = RequestMethod.GET)
 	public String replyCancel(@PathVariable(value = "id") String id, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		checkAuth(request, response);
-		userService.seenNotification(id);
-		model.put("activity", userService.getActivityBy(id));
+		model.put("activity", userService.seenNotification(id));
 		initialize(model);
 		return "reply Cancel Room";
 	}
@@ -432,8 +429,7 @@ public class MainController {
 		checkAuth(request, response);
 		model.put("emailsent", appService.sendEmail(appService.removeAccent(message), useremail, subject));
 		model.put("emailTemplates", AppData.EMAIL_TEMPLATE_1);
-		userService.replyNotification(id);
-		model.put("activity", userService.getActivityBy(id));
+		model.put("activity", userService.replyNotification(id));
 		initialize(model);
 		return (subject.equals("Book Room") || subject.equals("Cancel Room")) ? "reply " + subject : "notification";
 	}
@@ -519,11 +515,6 @@ public class MainController {
 		model.addAttribute("adminEdit", new Administrator());
 		model.addAttribute("changePassBean", new ChangePasswordBean());
 		return "profile";
-	}
-
-	private void initializeFollowUser(ModelMap model) {
-		List<FollowUsers> list = userService.getListFollowUsers();
-		model.put("mapFollowUsers", userService.getFollowUsersMap(list));
 	}
 
 	private String initializeSingleRoom(ModelMap model, String roomName, String redirect) {

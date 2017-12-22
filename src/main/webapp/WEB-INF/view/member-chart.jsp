@@ -15,7 +15,7 @@
 	        <div class="panel">
 	            <header class="panel-heading">Page Access Statistics for ${username}</header>
 				<%@ include file="common/tracking.jspf"%>
-	            <br><center><button class="btn btn-danger" onclick="location.href = '${pageContext.request.contextPath}/follow-user-ip/${username}.html'"><i class="fa fa-globe"></i><b> Check more details </b> </button></center><br>
+	            <br><center><button class="btn btn-danger" onclick="location.href = '${pageContext.request.contextPath}/click-tracking-member/${username}.html'"><i class="fa fa-globe"></i><b> Check more details </b> </button></center><br>
 	        </div>
 	    </div>
 	</div>

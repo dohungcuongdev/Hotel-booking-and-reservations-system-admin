@@ -6,7 +6,7 @@
 package daos.impl;
 
 import daos.AdminDAO;
-import database.MongoDBConnector;
+import database.MongoDbConnector;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
@@ -32,7 +32,7 @@ public class AdminDAOImpl implements AdminDAO {
     private JsonParserService jsonParser;
     
     public AdminDAOImpl() throws UnknownHostException {
-        collection = MongoDBConnector.createConnection("admin");
+        collection = MongoDbConnector.createConnection("admin");
     }
 
     @Override

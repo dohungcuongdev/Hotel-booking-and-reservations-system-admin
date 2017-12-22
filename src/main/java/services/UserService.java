@@ -22,8 +22,6 @@ import model.user.tracking.PageAccessData;
 public interface UserService {    
     
     public List<FollowUsers> getListFollowUsers();   
-    public Map getFollowUsersMap(List<FollowUsers> list); 
-    public Map getFollowUsersMapByOneIP(List<FollowUsers> list, String ip);    
     public List<PageAccessData> getPageAccessChartData();    
     public List<PageAccessData> getPageAccessChartDataByIP(String ipaddress);
     public List<PageAccessData> getPageAccessChartDataByUsername(String username);
@@ -40,6 +38,6 @@ public interface UserService {
     public List<Activity> getAllActivityByUserName(String username);
     public List<Activity> getNewListNotification();
     public Activity getActivityBy(String id);
-    public void seenNotification(String id);
-    public void replyNotification(String id);
+    public Activity seenNotification(String id);
+    public Activity replyNotification(String id);
 }

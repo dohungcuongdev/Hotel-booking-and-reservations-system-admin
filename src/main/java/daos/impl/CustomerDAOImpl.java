@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import daos.ActivityDAO;
 import daos.CustomerDAO;
-import daos.UserDAO;
+import daos.TrackingDAO;
 import model.user.Customer;
 import model.user.tracking.ActionTracking;
 import model.user.tracking.Activity;
@@ -36,7 +36,7 @@ public class CustomerDAOImpl extends APIDAOImpl implements CustomerDAO {
 	private ActivityDAO activityDAO;
 
 	@Autowired
-	private UserDAO userDAO;
+	private TrackingDAO userDAO;
 	private final Gson gson = new Gson();
 
 	@Override

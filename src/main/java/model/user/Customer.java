@@ -6,7 +6,6 @@
 package model.user;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import model.user.tracking.Activity;
 
@@ -46,7 +45,6 @@ public class Customer extends User {
 
 	@Override
 	public String toString() {
-		return "Customer [activity=" + activity + ", address=" + address + ", created_at=" + created_at + ", dateVisit="
-				+ dateVisit + "]";
+		return "Customer [activity=" + activity + ", address=" + address + ", created_at=" + created_at + ", dateVisit=" + dateVisit + "]";
 	}
 }

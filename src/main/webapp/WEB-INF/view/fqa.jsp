@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="col-lg-12">
 		<iframe src="${pageContext.request.contextPath}/resources/pdf/fqa.pdf"
-			width="1000px" height="1000px"></iframe>
+			width="1100px" height="1000px"></iframe>
 		<form action="${pageContext.request.contextPath}/upload-fqa.html" enctype="multipart/form-data" method="post">
 			<div class="form-group">
 				<input type="file" name="fqaPDF" />

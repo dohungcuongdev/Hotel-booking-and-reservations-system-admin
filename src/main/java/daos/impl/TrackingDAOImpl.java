@@ -8,18 +8,13 @@ package daos.impl;
 import static statics.provider.StringUtils.upperFirstChar;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Repository;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import daos.UserDAO;
+import daos.TrackingDAO;
 import model.user.tracking.ExternalIP;
 import model.user.tracking.FollowUsers;
 import model.user.tracking.PageAccessData;
@@ -30,36 +25,20 @@ import model.user.tracking.PageAccessData;
  */
 
 @Repository
-public class UserDAOImpl extends APIDAOImpl implements UserDAO {
+public class TrackingDAOImpl extends APIDAOImpl implements TrackingDAO {
 
 	private final Gson gson = new Gson();
 
 	@Override
 	public ExternalIP getExternalIPDetails(String external_ip_address) {
-		return gson.fromJson(getStringAPI("http://localhost:3000/api/follow-users/externalIP/" + external_ip_address),
-				ExternalIP.class);
+		return gson.fromJson(getStringAPI("http://localhost:3000/api/follow-users/externalIP/" + external_ip_address),ExternalIP.class);
 	}
 
 	@Override
 	public List<FollowUsers> getListFollowUsers() {
-		return gson.fromJson(getStringAPI("http://localhost:3000/api/follow-users/"),
-				new TypeToken<List<FollowUsers>>() {
-				}.getType());
+		return gson.fromJson(getStringAPI("http://localhost:3000/api/follow-users/"),new TypeToken<List<FollowUsers>>() {}.getType());
 	}
-
-	@Override
-	public Map getFollowUsersMap(List<FollowUsers> list) {
-		Map m = new HashMap();
-		for (int i = 0; i < list.size(); i++) {
-			String key = list.get(i).getPage_access();
-			if (m.containsKey(key)) {
-				m.replace(key, Integer.parseInt(m.get(key) + "") + 1);
-			} else {
-				m.put(key, 1);
-			}
-		}
-		return m;
-	}
+	
 	@Override
 	public List<PageAccessData> getPageAccessChartData() {
 		return getPageAccessChartData("http://localhost:3000/api/follow-users/statistics/PageAccess/");
@@ -74,29 +53,6 @@ public class UserDAOImpl extends APIDAOImpl implements UserDAO {
 	@Override
 	public List<PageAccessData> getPageAccessChartDataByUsername(String username) {
 		return getPageAccessChartData("http://localhost:3000/api/follow-users/statistics/PageAccess/username/" + username);
-	}
-
-	@Override
-	public Map getFollowUsersMapByOneIP(List<FollowUsers> list, String ip) {
-		Map m = new HashMap();
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).getUser_ip_address().equals(ip)) {
-				String key = list.get(i).getPage_access();
-				if (m.containsKey(key)) {
-					m.replace(key, Integer.parseInt(m.get(key) + "") + 1);
-				} else {
-					m.put(key, 1);
-				}
-			}
-		}
-		return m;
-	}
-	
-	private int getIndexByKey(List<String> key, String keyword) {
-		for(int i = 0; i < key.size(); i++)
-			if(key.get(i).equals(keyword))
-				return i;
-		return -1;
 	}
 	
 	private List<PageAccessData> getPageAccessChartData(String api) {
@@ -120,6 +76,13 @@ public class UserDAOImpl extends APIDAOImpl implements UserDAO {
 			e.printStackTrace();
 		}
 		return listPAData;
+	}
+	
+	private int getIndexByKey(List<String> key, String keyword) {
+		for(int i = 0; i < key.size(); i++)
+			if(key.get(i).equals(keyword))
+				return i;
+		return -1;
 	}
 
 	private String mergeKey(String key) {
@@ -151,5 +114,4 @@ public class UserDAOImpl extends APIDAOImpl implements UserDAO {
 			return "Change password";
 		return key;
 	}
-
 }

@@ -17,7 +17,7 @@ import org.bson.types.ObjectId;
  *
  * @author Do Hung Cuong
  */
-public class MongoDBConnector {
+public class MongoDbConnector {
 
     public static DBCollection createConnection(String collectionName) throws UnknownHostException {
         MongoClient mongoClient = new MongoClient(AppData.DATABASE_HOST, AppData.DATABASE_PORT);

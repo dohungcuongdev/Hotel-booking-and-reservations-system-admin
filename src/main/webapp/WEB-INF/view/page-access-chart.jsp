@@ -19,8 +19,8 @@
 	            	<br><center><button class="btn btn-danger" onclick="location.href = '${pageContext.request.contextPath}/follow-users.html'">
 	            </c:if>
 	            <c:if test="${!ipaddress.equals('All IP address')}"> 
-	            	<br><center><button class="btn btn-danger" onclick="location.href = '${pageContext.request.contextPath}/follow-user-ip/${ipaddress}.html'">
-	            </c:if> 
+	            	<br><center><button class="btn btn-danger" onclick="location.href = '${pageContext.request.contextPath}/click-tracking-ip/${ipaddress}.html'">
+	            </c:if>
 	            <i class="fa fa-globe"></i><b> Check more details </b> </button></center><br>
 	        </div>
 	    </div>

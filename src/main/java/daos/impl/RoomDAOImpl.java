@@ -6,7 +6,7 @@
 package daos.impl;
 
 import daos.RoomDAO;
-import database.MongoDBConnector;
+import database.MongoDbConnector;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import java.net.UnknownHostException;
@@ -30,7 +30,7 @@ public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO 
 
 	public RoomDAOImpl() throws UnknownHostException {
 		classOfT = HotelRoom.class;
-		collection = MongoDBConnector.createConnection("rooms");
+		collection = MongoDbConnector.createConnection("rooms");
 	}
 
 	@Override

@@ -6,7 +6,7 @@
 package daos.impl;
 
 import daos.RestaurantDAO;
-import database.MongoDBConnector;
+import database.MongoDbConnector;
 import java.net.UnknownHostException;
 import java.util.List;
 import org.springframework.stereotype.Repository;
@@ -22,7 +22,7 @@ public class RestaurantDAOImpl extends HotelItemDAOImpl<HotelService> implements
 
     public RestaurantDAOImpl() throws UnknownHostException {
     	classOfT = HotelService.class;
-        collection = MongoDBConnector.createConnection("restaurant");
+        collection = MongoDbConnector.createConnection("restaurant");
     }
 
     @Override
