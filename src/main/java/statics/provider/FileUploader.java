@@ -18,7 +18,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
  */
 public class FileUploader {
 
-    public static String uploadfile(CommonsMultipartFile commonsMultipartFiles, HttpServletRequest request, ModelMap model, String itemType) {
+    public static String uploadImage(CommonsMultipartFile commonsMultipartFiles, HttpServletRequest request, ModelMap model, String itemType) {
         String nameFile = commonsMultipartFiles.getOriginalFilename();
         if (!"".equals(nameFile)) {
             String dirFile = request.getServletContext().getRealPath(AppData.IMAGE_RESOURCES + itemType);
@@ -36,5 +36,26 @@ public class FileUploader {
             }
         }
         return nameFile;
+    }
+    
+    public static void uploadPDF(CommonsMultipartFile commonsMultipartFiles, HttpServletRequest request, ModelMap model) {
+        String nameFile = commonsMultipartFiles.getOriginalFilename();
+        if (nameFile.equals("")) {
+        	model.put("uploadResult", AppData.NO_FILE_CHOSEN);
+        } else if (!nameFile.contains("pdf")) {
+        	model.put("uploadResult", AppData.NOT_PDF);
+        } else {
+            String dirFile = request.getServletContext().getRealPath(AppData.PDF_RESOURCES);
+            File fileDir = new File(dirFile);
+            if (!fileDir.exists()) {
+                fileDir.mkdir();
+            }
+            try {
+                commonsMultipartFiles.transferTo(new File(fileDir + File.separator + "fqa.pdf"));
+                model.put("uploadResult", AppData.UPLOAD_SUCCESS);
+            } catch (IOException | IllegalStateException e) {
+                model.put("uploadResult", AppData.ERROR);
+            }
+        }
     }
 }

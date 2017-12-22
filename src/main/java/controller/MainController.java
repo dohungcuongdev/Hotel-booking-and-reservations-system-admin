@@ -135,9 +135,9 @@ public class MainController {
 	@RequestMapping(value = "profile-img-edited", method = RequestMethod.POST)
 	public String profileImgEdited(@RequestParam(value = "img") CommonsMultipartFile img, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		checkAuth(request, response);
-		userService.editProfileImg(AppData.admin.getUsername(), appService.uploadfile(img, request, model, "users"));
+		userService.editProfileImg(AppData.admin.getUsername(), appService.uploadImage(img, request, model, "users"));
 		AppData.admin = userService.getAdminByUserName(AppData.admin.getUsername());
-		return profile(request, response, model);
+		return initializeProfile(model);
 	}
 
 	// rooms
@@ -212,7 +212,7 @@ public class MainController {
 	public String roomImgEdited(@RequestParam(value = "img1") CommonsMultipartFile img1, @RequestParam(value = "img2") CommonsMultipartFile img2, @PathVariable(value = "roomName") String roomName, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		checkAuth(request, response);
 		model.addAttribute("roomEdit", new HotelRoom());
-		hotelItemService.editImageRoom(roomName, appService.uploadfile(img1, request, model, "rooms"), appService.uploadfile(img2, request, model, "rooms"));
+		hotelItemService.editImageRoom(roomName, appService.uploadImage(img1, request, model, "rooms"), appService.uploadImage(img2, request, model, "rooms"));
 		return initializeSingleRoom(model, roomName, "edit-room");
 	}
 
@@ -285,8 +285,7 @@ public class MainController {
 	@RequestMapping(value = "service-img-edited/{servicename}", method = RequestMethod.POST)
 	public String serviceImgEdited(@RequestParam(value = "img1") CommonsMultipartFile img1, @RequestParam(value = "img2") CommonsMultipartFile img2, @PathVariable(value = "servicename") String servicename, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		model.addAttribute("serviceEdit", new HotelService());
-		hotelItemService.editImageService(servicename, appService.uploadfile(img1, request, model, "restaurant"),
-				appService.uploadfile(img2, request, model, "restaurant"));
+		hotelItemService.editImageService(servicename, appService.uploadImage(img1, request, model, "restaurant"), appService.uploadImage(img2, request, model, "restaurant"));
 		return initializeSingleService(model, servicename, "edit-service");
 	}
 
@@ -443,6 +442,14 @@ public class MainController {
 	@RequestMapping(value = "fqa", method = RequestMethod.GET)
 	public String fqa(HttpServletRequest request, HttpServletResponse response, ModelMap model, String redirect) {
 		return authInitializeRedirect(request, response, model, "fqa");
+	}
+	
+	@RequestMapping(value = "upload-fqa", method = RequestMethod.POST)
+	public String UploadFQA(@RequestParam(value = "fqaPDF") CommonsMultipartFile fqaPDF, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		checkAuth(request, response);
+		initialize(model);
+		appService.uploadPDF(fqaPDF, request, model);
+		return "fqa";
 	}
 
 	@RequestMapping(value = "downloadCSV")

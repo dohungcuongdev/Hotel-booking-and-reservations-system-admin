@@ -46,6 +46,10 @@ public class AppData {
     public static final String CSV_FORMAT = "attachment; filename=\"%s\"";
     public static final String CSV_FILENAME = "follow-users.csv";
     public static final String[] HEADERCSV = {"User_ip_address", "Page_access", "Created_at", "External_ip_address", "Username", "Duration", "Country"};   
+    public static final String NO_FILE_CHOSEN = "No file chosen";
+    public static final String NOT_PDF = "Just accept PDF format";
+    public static final String PDF_RESOURCES = "resources/pdf/";
+    public static final String UPLOAD_SUCCESS = "Upload successfully";
     public static final String DATE_FORMAT = "EEE MMM dd HH:mm:ss 'ICT' yyyy";
     public static final String IMAGE_RESOURCES = "resources/img/";   
     public static final List<String> ROOM_TYPES = Arrays.asList("deluxe", "family", "couple", "single");

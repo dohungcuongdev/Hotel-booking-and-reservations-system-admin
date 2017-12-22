@@ -23,9 +23,8 @@ import statics.provider.StringUtils;
 public class ApplicationServiceImpl implements ApplicationService {
 
 	@Override
-	public String uploadfile(CommonsMultipartFile commonsMultipartFiles, HttpServletRequest request, ModelMap model,
-			String itemType) {
-		return FileUploader.uploadfile(commonsMultipartFiles, request, model, itemType);
+	public String uploadImage(CommonsMultipartFile commonsMultipartFiles, HttpServletRequest request, ModelMap model, String itemType) {
+		return FileUploader.uploadImage(commonsMultipartFiles, request, model, itemType);
 	}
 
 	@Override
@@ -36,5 +35,10 @@ public class ApplicationServiceImpl implements ApplicationService {
 	@Override
 	public String removeAccent(String originalString) {
 		return StringUtils.removeAccent(originalString);
+	}
+
+	@Override
+	public void uploadPDF(CommonsMultipartFile commonsMultipartFiles, HttpServletRequest request, ModelMap model) {
+		FileUploader.uploadPDF(commonsMultipartFiles, request, model);
 	}
 }
