@@ -215,7 +215,7 @@ public class AppController {
 	}
 
 	// restaurant
-	@RequestMapping(value = {"manage-restaurant, service, services"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"manage-restaurant", "service", "services"}, method = RequestMethod.GET)
 	public String manageRestaurant(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		return authInitializeRedirect(request, response, model, "manage-restaurant");
 	}
