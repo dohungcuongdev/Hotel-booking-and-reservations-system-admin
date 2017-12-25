@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import daos.ActivityDAO;
-import model.user.tracking.Activity;
+import model.mongodb.user.tracking.Activity;
 
 /**
  *

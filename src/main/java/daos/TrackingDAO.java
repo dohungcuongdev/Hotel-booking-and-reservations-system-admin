@@ -6,9 +6,10 @@
 package daos;
 
 import java.util.List;
-import model.user.tracking.ExternalIP;
-import model.user.tracking.FollowUsers;
-import model.user.tracking.PageAccessData;
+
+import model.api.user.tracking.ExternalIP;
+import model.api.user.tracking.FollowUsers;
+import model.api.user.tracking.PageAccessData;
 
 /**
  *

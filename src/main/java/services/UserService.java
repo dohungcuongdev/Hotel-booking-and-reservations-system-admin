@@ -7,13 +7,14 @@ package services;
 
 import java.util.List;
 import java.util.Map;
-import model.user.tracking.Activity;
-import model.user.tracking.CustomerBehavior;
-import model.user.tracking.ExternalIP;
-import model.user.Administrator;
-import model.user.Customer;
-import model.user.tracking.FollowUsers;
-import model.user.tracking.PageAccessData;
+
+import model.api.user.tracking.CustomerBehavior;
+import model.api.user.tracking.ExternalIP;
+import model.api.user.tracking.FollowUsers;
+import model.api.user.tracking.PageAccessData;
+import model.mongodb.user.Customer;
+import model.mongodb.user.tracking.Activity;
+import model.mysql.user.Administrator;
 
 /**
  *
@@ -32,7 +33,7 @@ public interface UserService {
     public CustomerBehavior getOneDataCollection(String username);  
     public Administrator getAdminByUserName(String username);
     public void updateAdmin(Administrator ad);
-    public void updatePassword(String username, String currentpassword, String correctpassword, String newpassword, String confirm);
+    public void updatePassword(String username,  String newpassword);
     public void editProfileImg(String username, String img);
     public List<Activity> getAllActivity();
     public List<Activity> getAllActivityByUserName(String username);

@@ -5,24 +5,16 @@
  */
 package daos.impl;
 
-import static statics.provider.ImageEditor.editImagebyName;
-
-import java.util.ArrayList;
 import java.util.List;
 
-import org.bson.types.ObjectId;
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.util.JSON;
+import org.springframework.transaction.annotation.Transactional;
 
 import daos.HotelItemDAO;
-import model.hotel.HotelItem;
-import services.JsonParserService;
+import model.mysql.hotel.HotelItem;
 
 /**
  *
@@ -30,79 +22,69 @@ import services.JsonParserService;
  */
 
 @Repository
+@Transactional
 public abstract class HotelItemDAOImpl<T> implements HotelItemDAO<T> {
-
-    protected DBCollection collection;    
     
     protected Class<T> classOfT;
-    
-    @Autowired
-    private JsonParserService jsonParser;
+
+	@Autowired
+	private SessionFactory sessionFactory;
     
     @Override
     public T getHotelItemByID(String id) {
-        BasicDBObject whereQuery = new BasicDBObject();
-        whereQuery.put("_id", new ObjectId(id));
-        DBObject obj = collection.findOne(whereQuery);
-        return (T) jsonParser.fromJson(obj, classOfT);
+    	return (T) sessionFactory.getCurrentSession().get(classOfT, id);
     }
     
     @Override
     public T getHotelItemByName(String name) {
-        BasicDBObject whereQuery = new BasicDBObject();
-        whereQuery.put("name", name);
-        DBObject obj = collection.findOne(whereQuery);
-        return (T) jsonParser.fromJson(obj, classOfT);
+		Query q = sessionFactory.getCurrentSession().createQuery("from " + classOfT.getName() + " where name = :name"); 
+		q.setParameter("name", name);
+		return (T) q.uniqueResult();
     }
     
     @Override
     public List<T> getAllHotelItems() {
-        ArrayList<T> items = new ArrayList<>();
-        DBCursor cursor = collection.find();
-        while (cursor.hasNext()) {
-        	DBObject obj = cursor.next();
-        	items.add((T) jsonParser.fromJson(obj, classOfT));
-        }
-        return items;
+    	return sessionFactory.getCurrentSession().createQuery("from " + classOfT.getName()).list(); 
     }
     
     @Override
     public List<T> getRelatedHotelItems(String type) {
-        BasicDBObject whereQuery = new BasicDBObject();
-        whereQuery.put("type", type);
-        ArrayList<T> items = new ArrayList<>();
-        DBCursor cursor = collection.find(whereQuery);
-        while (cursor.hasNext()) {
-        	DBObject obj = cursor.next();
-        	items.add((T) jsonParser.fromJson(obj, classOfT));
-        }
-        return items;
+		Query q = sessionFactory.getCurrentSession().createQuery("from "  + classOfT.getName() + " where type = :type"); 
+		q.setParameter("type", type);
+		return q.list();
     }
     
     @Override
     public String findAndAddNewItem(HotelItem newItem) {
-    	collection.insert(newItem.toDBObject());
-    	return newItem.getName();
+		if(!isExists(newItem)) {
+			sessionFactory.getCurrentSession().save(newItem);
+			return newItem.getName();
+		}
+		return null;
     }
 
     @Override
     public void editImage(String name, String img, String img2) {
-    	editImagebyName(collection, name, "img", img);
-    	editImagebyName(collection, name, "img2", img2);
+		Query q = sessionFactory.getCurrentSession().createQuery("update " + classOfT + " set img = :img where name = :name");
+		q.setParameter("name", name);
+		q.setParameter("img", img);
+		q.setParameter("img", img2);
+		q.executeUpdate();
     }
     
     @Override
     public void deleteItem(String name) {
-        collection.remove(new BasicDBObject().append("name", name));
+        
     }
     
     @Override
     public void updateItem(HotelItem item) {
-    	item.setId(null);
-        DBObject document = (DBObject) JSON.parse(jsonParser.toJson(item));
-        DBObject searchObject = new BasicDBObject();
-        searchObject.put("name", item.getName());
-        collection.update(searchObject, document);
-    }
-
+		sessionFactory.getCurrentSession().save(item);
+    }	
+    
+    private boolean isExists (HotelItem item) {
+	    Query query = sessionFactory.getCurrentSession().createQuery("from " + classOfT.getName() + " where name = :name");
+	    query.setParameter("name", item.getName());
+	    return query.uniqueResult() != null;
+	}
 }

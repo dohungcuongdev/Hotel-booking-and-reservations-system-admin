@@ -6,11 +6,13 @@
 package daos.impl;
 
 import daos.RestaurantDAO;
-import database.MongoDbConnector;
-import java.net.UnknownHostException;
+import model.mysql.hotel.HotelService;
 import java.util.List;
+
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import model.hotel.HotelService;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -18,13 +20,16 @@ import model.hotel.HotelService;
  */
 
 @Repository
-public class RestaurantDAOImpl extends HotelItemDAOImpl<HotelService> implements RestaurantDAO {
-
-    public RestaurantDAOImpl() throws UnknownHostException {
+@Transactional
+public class RestaurantDAOImpl extends HotelItemDAOImpl<HotelService> implements RestaurantDAO {	
+	
+	@Autowired
+	private SessionFactory sessionFactory;
+	
+    public RestaurantDAOImpl() {
     	classOfT = HotelService.class;
-        collection = MongoDbConnector.createConnection("restaurant");
     }
-
+	
     @Override
     public HotelService getHotelServiceByID(String id) {
     	return (HotelService) getHotelItemByID(id);

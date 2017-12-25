@@ -6,7 +6,7 @@
 package controller;
 
 import java.io.IOException;
-import model.user.Administrator;
+
 import statics.AppData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,13 +17,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.user.tracking.Activity;
-import model.ChangePasswordBean;
-import model.LoginBean;
-import model.hotel.HotelRoom;
-import model.hotel.HotelService;
-import model.user.Customer;
-import model.user.tracking.FollowUsers;
+
+import model.api.user.tracking.FollowUsers;
+import model.bean.ChangePasswordBean;
+import model.bean.LoginBean;
+import model.mongodb.user.Customer;
+import model.mongodb.user.tracking.Activity;
+import model.mysql.hotel.HotelRoom;
+import model.mysql.hotel.HotelService;
+import model.mysql.user.Administrator;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -111,7 +114,7 @@ public class AppController {
 		String newPassword = changePassBean.getNewpassword();
 		model.put("pwCheckingResult", changePassBean.getPWCheckingResult(correctPassword));
 		if (changePassBean.isMatchPassword(correctPassword)) {
-			userService.updatePassword(AppData.admin.getUsername(), correctPassword, changePassBean.getCurrentpassword(), newPassword, changePassBean.getConfirm());
+			userService.updatePassword(AppData.admin.getUsername(), newPassword);
 			AppData.admin.setPassword(newPassword);
 		}
 		return initializeProfile(model);

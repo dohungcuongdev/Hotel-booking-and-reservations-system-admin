@@ -8,7 +8,7 @@ package statics;
 import java.util.Arrays;
 import java.util.List;
 
-import model.user.Administrator;
+import model.mysql.user.Administrator;
 
 /**
  *

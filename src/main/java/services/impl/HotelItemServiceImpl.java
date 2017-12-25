@@ -6,13 +6,16 @@
 package services.impl;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import daos.RestaurantDAO;
 import daos.RoomDAO;
-import model.hotel.HotelRoom;
-import model.hotel.HotelService;
+import model.mysql.hotel.HotelRoom;
+import model.mysql.hotel.HotelService;
 import services.HotelItemService;
+import test.TestRoomAPI;
 
 /**
  *
@@ -116,5 +119,15 @@ public class HotelItemServiceImpl implements HotelItemService {
 	@Override
 	public HotelService getHotelServiceByName(String name) {
 		return restaurantDAO.getHotelServiceByName(name);
+	}
+	
+	@Override
+	public void convertRoomFromMongoToMySQL() {
+		List<HotelRoom> l = TestRoomAPI.convertRoomFromMongoToMySQL();
+		System.out.println(l);
+		for(HotelRoom r: l) {
+			String roomName = roomDAO.findAndAddNewRoom(r);
+			System.out.println(roomName);
+		}
 	}
 }

@@ -6,16 +6,16 @@
 package services.impl;
 
 import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import model.user.tracking.Activity;
-import model.user.tracking.CustomerBehavior;
-import model.user.tracking.ExternalIP;
-import model.user.Administrator;
-import model.user.Customer;
-import model.user.tracking.FollowUsers;
-import model.user.tracking.PageAccessData;
+
+import model.api.user.tracking.CustomerBehavior;
+import model.api.user.tracking.ExternalIP;
+import model.api.user.tracking.FollowUsers;
+import model.api.user.tracking.PageAccessData;
+import model.mongodb.user.Customer;
+import model.mongodb.user.tracking.Activity;
+import model.mysql.user.Administrator;
 import services.UserService;
 import daos.AdminDAO;
 import daos.CustomerDAO;
@@ -73,8 +73,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updatePassword(String username, String currentpassword, String correctpassword, String newpassword, String confirm) {
-        adminDAO.updatePassword(username, currentpassword, correctpassword, newpassword, confirm);
+    public void updatePassword(String username,  String newpassword) {
+        adminDAO.updatePassword(username, newpassword);
     }
 
     @Override

@@ -5,17 +5,19 @@
  */
 package daos.impl;
 
-import daos.RoomDAO;
-import database.MongoDbConnector;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import model.hotel.HotelRoom;
-import services.JsonParserService;
+import org.springframework.transaction.annotation.Transactional;
+
+import daos.CustomerDAO;
+import daos.RoomDAO;
+import model.mongodb.user.Customer;
+import model.mysql.hotel.HotelRoom;
 
 /**
  *
@@ -23,15 +25,18 @@ import services.JsonParserService;
  */
 
 @Repository
+@Transactional
 public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO {
+	
+    public RoomDAOImpl() {
+    	classOfT = HotelRoom.class;
+    }
 
 	@Autowired
-	private JsonParserService jsonParser;
-
-	public RoomDAOImpl() throws UnknownHostException {
-		classOfT = HotelRoom.class;
-		collection = MongoDbConnector.createConnection("rooms");
-	}
+	private SessionFactory sessionFactory;
+	
+	@Autowired
+	private CustomerDAO customerDAO;
 
 	@Override
 	public HotelRoom getRoomByID(String id) {
@@ -61,21 +66,26 @@ public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO 
 	@Override
 	public List<HotelRoom> getRoomByPage(int page) {
 		ArrayList<HotelRoom> rooms = new ArrayList<>();
-		DBCursor cursor = collection.find().skip((page - 1) * 6).limit(6);
-		while (cursor.hasNext()) {
-			DBObject obj = cursor.next();
-			rooms.add(jsonParser.fromJson(obj, classOfT));
-		}
-		return rooms;
+		Query q = sessionFactory.getCurrentSession().createQuery("from " + HotelRoom.class.getName());
+		q.setFirstResult((page - 1) * 6);
+		q.setMaxResults(6);
+		return q.list();
 	}
 
 	@Override
 	public long getNumRooms() {
-		return collection.count();
+		return 0;
 	}
 
 	@Override
 	public void updateRoom(HotelRoom room) {
 		updateItem(room);
+	}
+	
+	public void bookRoom(HotelRoom room) {
+		Customer whoBook = customerDAO.getCustomerByUsername(room.getBooked_by());
+		if(whoBook.getBalance() >= room.getPrice()) {
+			updateRoom(room);
+		}
 	}
 }

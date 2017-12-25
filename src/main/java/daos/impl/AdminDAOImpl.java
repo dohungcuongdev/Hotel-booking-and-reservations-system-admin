@@ -6,17 +6,13 @@
 package daos.impl;
 
 import daos.AdminDAO;
-import database.MongoDbConnector;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
-import com.mongodb.util.JSON;
-import java.net.UnknownHostException;
+import model.mysql.user.Administrator;
+
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import model.user.Administrator;
-import services.JsonParserService;
-import static statics.provider.ImageEditor.editImagebyUserName;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -24,43 +20,46 @@ import static statics.provider.ImageEditor.editImagebyUserName;
  */
 
 @Repository
+@Transactional
 public class AdminDAOImpl implements AdminDAO {
-
-    private DBCollection collection;
-    
-    @Autowired
-    private JsonParserService jsonParser;
-    
-    public AdminDAOImpl() throws UnknownHostException {
-        collection = MongoDbConnector.createConnection("admin");
-    }
+	
+	@Autowired
+	private SessionFactory sessionFactory;
 
     @Override
     public Administrator getAdminByUserName(String username) {
-        BasicDBObject whereQuery = new BasicDBObject();
-        whereQuery.put("username", username);
-        DBObject obj = collection.findOne(whereQuery);
-        return jsonParser.fromJson(obj, Administrator.class);
+		Query q = sessionFactory.getCurrentSession().createQuery("from admin where username = :username"); 
+		q.setParameter("username", username);
+		return (Administrator) q.uniqueResult();
     }
 
     @Override
-    public void updateAdmin(Administrator ad) {
-        DBObject document = (DBObject) JSON.parse(jsonParser.toJson(ad));
-        DBObject searchObject = new BasicDBObject();
-        searchObject.put("username", ad.getUsername());
-        collection.update(searchObject, document);
+    public void updateAdmin(Administrator admin) {
+		if(!isExists(admin))
+			sessionFactory.getCurrentSession().saveOrUpdate(admin);
     }
 
     @Override
-    public void updatePassword(String username, String currentpassword, String correctpassword, String newpassword, String confirm) {
-        BasicDBObject document = new BasicDBObject();
-        document.append("$set", new BasicDBObject().append("password", newpassword));
-        BasicDBObject searchQuery = new BasicDBObject().append("username", username);
-        collection.update(searchQuery, document);
+    public void updatePassword(String username, String newpassword) {
+		Query q = sessionFactory.getCurrentSession()
+				.createQuery("update " + Administrator.class.getName() + " set password = :password where username = :username");
+		q.setParameter("username", username);
+		q.setParameter("password", newpassword);
+		q.executeUpdate();
     }
 
     @Override
     public void editProfileImg(String username, String img) {
-        editImagebyUserName(collection, username, img);
+		Query q = sessionFactory.getCurrentSession().createQuery("update " + Administrator.class.getName() + " set img = :img where username = :username");
+		q.setParameter("username", username);
+		q.setParameter("img", img);
+		q.executeUpdate();
     }
+	
+	private boolean isExists (Administrator admin) {
+	    Query query = sessionFactory.getCurrentSession().createQuery("from " + Administrator.class.getName() + " where username = :username");
+	    query.setParameter("username", admin.getUsername());
+	    return query.uniqueResult() != null;
+	}
+
 }

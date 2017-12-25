@@ -15,9 +15,9 @@ import org.springframework.stereotype.Repository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import daos.TrackingDAO;
-import model.user.tracking.ExternalIP;
-import model.user.tracking.FollowUsers;
-import model.user.tracking.PageAccessData;
+import model.api.user.tracking.ExternalIP;
+import model.api.user.tracking.FollowUsers;
+import model.api.user.tracking.PageAccessData;
 
 /**
  *

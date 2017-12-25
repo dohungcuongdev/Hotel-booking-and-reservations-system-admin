@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import model.hotel.HotelRoom;
-import model.hotel.HotelService;
-import model.user.tracking.PageAccessData;
+
+import model.api.user.tracking.PageAccessData;
+import model.mysql.hotel.HotelRoom;
+import model.mysql.hotel.HotelService;
 import services.HotelItemService;
 import services.UserService;
 
@@ -25,6 +26,13 @@ public class RESTController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@CrossOrigin
+	@RequestMapping(value = "/convert", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	public List<HotelRoom> convertRoomFromMongoToMySQL() {
+		hotelItemService.convertRoomFromMongoToMySQL();
+		return hotelItemService.getAllRooms();
+	}
 	
 	@CrossOrigin
 	@RequestMapping(value = "/rooms", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")

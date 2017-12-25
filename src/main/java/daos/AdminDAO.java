@@ -5,7 +5,7 @@
  */
 package daos;
 
-import model.user.Administrator;
+import model.mysql.user.Administrator;
 
 /**
  *
@@ -15,6 +15,6 @@ public interface AdminDAO {
 
     public Administrator getAdminByUserName(String username);
     public void updateAdmin(Administrator ad);
-    public void updatePassword(String username, String currentpassword, String correctpassword, String newpassword, String confirm);
     public void editProfileImg(String username, String img);
+    public void updatePassword(String username, String newpassword);
 }

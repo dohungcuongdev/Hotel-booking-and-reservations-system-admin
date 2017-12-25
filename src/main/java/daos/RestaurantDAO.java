@@ -6,7 +6,8 @@
 package daos;
 
 import java.util.List;
-import model.hotel.HotelService;
+
+import model.mysql.hotel.HotelService;
 
 /**
  *

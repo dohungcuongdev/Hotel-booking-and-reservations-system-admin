@@ -6,8 +6,9 @@
 package services;
 
 import java.util.List;
-import model.hotel.HotelRoom;
-import model.hotel.HotelService;
+
+import model.mysql.hotel.HotelRoom;
+import model.mysql.hotel.HotelService;
 
 /**
  *
@@ -32,5 +33,6 @@ public interface HotelItemService {
     public String findAndAddNewService(HotelService newService);
     public void updateService(HotelService service);    
     public void editImageService(String name, String img, String img2);    
-    public void deleteService(String name);   
+    public void deleteService(String name);
+    public void convertRoomFromMongoToMySQL();
 }

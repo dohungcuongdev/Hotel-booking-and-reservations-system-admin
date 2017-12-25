@@ -16,12 +16,12 @@ import com.google.gson.reflect.TypeToken;
 import daos.ActivityDAO;
 import daos.CustomerDAO;
 import daos.TrackingDAO;
-import model.user.Customer;
-import model.user.tracking.ActionTracking;
-import model.user.tracking.Activity;
-import model.user.tracking.CustomerBehavior;
-import model.user.tracking.DataCollection;
-import model.user.tracking.Feedback;
+import model.api.user.tracking.ActionTracking;
+import model.api.user.tracking.CustomerBehavior;
+import model.api.user.tracking.DataCollection;
+import model.api.user.tracking.Feedback;
+import model.mongodb.user.Customer;
+import model.mongodb.user.tracking.Activity;
 import statics.AppData;
 
 /**

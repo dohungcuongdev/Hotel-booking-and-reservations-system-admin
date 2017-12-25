@@ -6,7 +6,8 @@
 package daos;
 
 import java.util.List;
-import model.user.tracking.Activity;
+
+import model.mongodb.user.tracking.Activity;
 
 /**
  *
