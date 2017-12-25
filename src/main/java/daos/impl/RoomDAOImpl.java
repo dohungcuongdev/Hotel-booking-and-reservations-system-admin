@@ -39,7 +39,7 @@ public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO 
 	private CustomerDAO customerDAO;
 
 	@Override
-	public HotelRoom getRoomByID(String id) {
+	public HotelRoom getRoomByID(int id) {
 		return (HotelRoom) getHotelItemByID(id);
 	}
 
@@ -82,10 +82,13 @@ public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO 
 		updateItem(room);
 	}
 	
+	@Override
 	public void bookRoom(HotelRoom room) {
-		Customer whoBook = customerDAO.getCustomerByUsername(room.getBooked_by());
-		if(whoBook.getBalance() >= room.getPrice()) {
-			updateRoom(room);
+		if(room.isReadyToBook()) {
+			Customer whoBook = customerDAO.getCustomerByUsername(room.getBooked_by());
+			if(whoBook.getBalance() >= room.getPrice()) {
+				updateRoom(room);
+			}
 		}
 	}
 }

@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import statics.provider.DateTimeCalculator;
 
@@ -65,17 +67,36 @@ public abstract class AbstractModel {
 		return true;
 	}
 	
-//	Date today = DateTimeCalculator.getToday();
-//	Date checkindate = DateTimeCalculator.formatDateTime(checkin);
-//	Date checkoutdate = DateTimeCalculator.formatDateTime(checkout);
-//	
-//	public Date getToday() {
-//		return DateTimeCalculator.getToday();
-//	}
-//	
-//	public Date getDateTimeFormated() {
-//		return DateTimeCalculator.formatDateTime(checkin);
-//	}
+	protected boolean checkIsDateTimeFormat(String strDate) {
+		try {
+			getDateFormated(strDate);
+			return true;
+		} catch(ParseException e) {
+			return false;
+		}
+	}
+	
+	protected boolean checkIsDateFormat(String... strDates) {
+		for (String strDate : strDates) {
+			if (!checkIsDateTimeFormat(strDate)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	
+	public Date getToday() {
+		return DateTimeCalculator.getToday();
+	}
+	
+	public static Date getDateFormated(String strDate) throws ParseException {
+		return DateTimeCalculator.getDateFormated(strDate);
+	}
+	
+	public Date getDateTimeFormated(String date) {
+		return DateTimeCalculator.formatDateTime(date);
+	}
 
 	public Date getICTDateTime(String dateTime) {
 		return DateTimeCalculator.getICTDateTime(dateTime);

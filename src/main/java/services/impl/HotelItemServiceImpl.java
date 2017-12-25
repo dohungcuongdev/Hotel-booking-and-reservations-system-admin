@@ -32,7 +32,7 @@ public class HotelItemServiceImpl implements HotelItemService {
     private RestaurantDAO restaurantDAO;
 
     @Override
-    public HotelRoom getRoomByID(String id) {
+    public HotelRoom getRoomByID(int id) {
         return roomDAO.getRoomByID(id);
     }
 
@@ -72,7 +72,7 @@ public class HotelItemServiceImpl implements HotelItemService {
     }
 
     @Override
-    public void deleteRoom(String id) {
+    public void deleteRoom(int id) {
         roomDAO.deleteItem(id);
     }
 
@@ -82,12 +82,12 @@ public class HotelItemServiceImpl implements HotelItemService {
     }
 
     @Override
-    public void deleteService(String id) {
+    public void deleteService(int id) {
         restaurantDAO.deleteItem(id);
     }
 
 	@Override
-	public HotelService getHotelServiceByID(String id) {
+	public HotelService getHotelServiceByID(int id) {
 		return restaurantDAO.getHotelServiceByID(id);
 	}
 
@@ -129,5 +129,19 @@ public class HotelItemServiceImpl implements HotelItemService {
 			String roomName = roomDAO.findAndAddNewRoom(r);
 			System.out.println(roomName);
 		}
+	}
+
+	@Override
+	public void convertRestaurantMongoToMySQL() {
+		List<HotelService> l = TestRoomAPI.convertRestaurantMongoToMySQL();
+		for(HotelService hs: l) {
+			restaurantDAO.findAndAddNewService(hs);
+		}
+		
+	}
+
+	@Override
+	public void bookRoom(HotelRoom room) {
+		roomDAO.bookRoom(room);
 	}
 }

@@ -38,6 +38,7 @@
             <header class="panel-heading" style="font-weight: bold; color:red">Change Information!</header>
             <div class="panel-body">
                 <form:form method="post" commandName="serviceEdit" action="${pageContext.request.contextPath}/service-edited.html">
+                    <form:input type="hidden" value="${service.id}" readonly="true" path="id"/>
                     <form:input type="hidden" value="${service.created_at}" readonly="true" path="created_at"/>
                     <form:input type="hidden" value="${service.created_by}" readonly="true" path="created_by"/>
                     <div class="form-group">

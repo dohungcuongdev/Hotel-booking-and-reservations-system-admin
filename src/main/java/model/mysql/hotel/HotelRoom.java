@@ -9,6 +9,9 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import org.hibernate.annotations.Type;
+
 import statics.AppData;
 import statics.provider.DateTimeCalculator;
 
@@ -20,34 +23,35 @@ import statics.provider.DateTimeCalculator;
 @Entity(name = "rooms")
 public class HotelRoom extends HotelItem {
 	
-	@Column(name = "size")
+	@Column(name = "size", nullable = false)
 	private int size;
 	
-	@Column(name = "numpeople")
+	@Column(name = "numpeople", nullable = false)
 	private int numpeople;
 	
-	@Column(name = "status")
+	@Column(name = "status", nullable = false)
 	private String status;
 	
-	@Column(name = "amenities")
-	private String amenities;
-	
-	@Column(name = "booked_by")
+	@Column(name = "booked_by", nullable = true)
 	private String booked_by;
 	
-	@Column(name = "avgAminities")
+	@Column(name = "amenities", nullable = false)
+	@Type(type="text")
+	private String amenities;
+	
+	@Column(name = "avgAminities", nullable = false)
 	private int avgAminities;
 	
-	@Column(name = "checkin")
-	private Date checkin;
+	@Column(name = "checkin", nullable = true)
+	private String checkin;
 	
-	@Column(name = "checkout")
-	private Date checkout;
+	@Column(name = "checkout", nullable = true)
+	private String checkout;
 	
-	@Column(name = "star")
+	@Column(name = "star", nullable = true)
 	private int star;
 	
-	@Column(name = "numvote")
+	@Column(name = "numvote", nullable = true)
 	private int numvote;
 
 	public int getSize() {
@@ -90,19 +94,19 @@ public class HotelRoom extends HotelItem {
 		this.booked_by = booked_by;
 	}
 
-	public Date getCheckin() {
+	public String getCheckin() {
 		return checkin;
 	}
 
-	public void setCheckin(Date checkin) {
+	public void setCheckin(String checkin) {
 		this.checkin = checkin;
 	}
 
-	public Date getCheckout() {
+	public String getCheckout() {
 		return checkout;
 	}
 
-	public void setCheckout(Date checkout) {
+	public void setCheckout(String checkout) {
 		this.checkout = checkout;
 	}
 
@@ -168,7 +172,9 @@ public class HotelRoom extends HotelItem {
 		if (status.equals("available"))
 			return true;
 		Date today = DateTimeCalculator.getToday();
-		return today.compareTo(checkin) <= 0 && checkin.compareTo(checkout) <= 0;
+		Date checkindate = DateTimeCalculator.formatDateTime(checkin);
+		Date checkoutdate = DateTimeCalculator.formatDateTime(checkout);
+		return today.compareTo(checkindate) <= 0 && checkindate.compareTo(checkoutdate) <= 0;
 	}
 
 	public boolean isCorrectRoomName() {
@@ -184,9 +190,13 @@ public class HotelRoom extends HotelItem {
 		return isEnoughInfor() && !isInvalidType() && !isInvalidStatus() && isvalidDate() && isNumberFormat();
 	}
 	
+	public boolean isReadyToBook() {
+		return checkNotNull(booked_by, checkin, checkout) && isvalidDate();
+	}
+	
 	public HotelRoom() {}
 	
-	public HotelRoom(String name, int price, String img, String img2, String details, String type, String created_by, Date created_at, int size, int numpeople, String status, String amenities, String booked_by, int avgAminities, Date checkin, Date checkout, int star, int numvote) {
+	public HotelRoom(String name, int price, String img, String img2, String details, String type, String created_by, String created_at, int size, int numpeople, String status, String amenities, String booked_by, int avgAminities, String checkin, String checkout, int star, int numvote) {
 		super(name, price, img, img2, details, type, created_by, created_at);
 		this.size = size;
 		this.numpeople = numpeople;
@@ -200,14 +210,14 @@ public class HotelRoom extends HotelItem {
 		this.numvote = numvote;
 	}
 
-	public HotelRoom(int id, String name, int price, String img, String img2, String details, String type, String created_by, Date created_at, int size, int numpeople, String status, String amenities, String booked_by, int avgAminities, Date checkin, Date checkout, int star, int numvote) {
+	public HotelRoom(int id, String name, int price, String img, String img2, String details, String type, String created_by, String created_at, int size, int numpeople, String status, String amenities, String booked_by, int avgAminities, String checkin, String checkout, int star, int numvote) {
 		this(name, price, img, img2, details, type, created_by, created_at, size, numpeople, status, amenities, booked_by, avgAminities, checkin, checkout, star, numvote);
 		this.id = id;
 	}
 
 	@Override
 	public String toString() {
-		return "HotelRoom [ id=" + id + ", size=" + size + ", numpeople=" + numpeople + ", status=" + status + ", amenities=" + amenities + ", booked_by=" + booked_by + ", avgAminities=" + avgAminities + ", checkin=" + checkin + ", checkout=" + checkout + ", star=" + star + ", numvote=" + numvote + ", name=" + name + ", price=" + price + ", img=" + img + ", img2=" + img2 + ", details=" + details + ", type=" + type + ", created_by=" + created_by + ", created_at=" + created_at + "]";
+		return "HotelRoom [ id=" + id + ", name=" + name + ", size=" + size + ", numpeople=" + numpeople + ", status=" + status + ", amenities=" + amenities + ", booked_by=" + booked_by + ", avgAminities=" + avgAminities + ", checkin=" + checkin + ", checkout=" + checkout + ", star=" + star + ", numvote=" + numvote + ", price=" + price + ", img=" + img + ", img2=" + img2 + ", details=" + details + ", type=" + type + ", created_by=" + created_by + ", created_at=" + created_at + "]";
 	}
 	
 }

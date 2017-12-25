@@ -24,5 +24,4 @@ public class APIDAOImpl {
 		}
 		return jsonData;
 	}
-
 }

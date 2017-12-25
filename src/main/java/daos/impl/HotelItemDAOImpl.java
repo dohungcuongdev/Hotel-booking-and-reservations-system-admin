@@ -31,7 +31,7 @@ public abstract class HotelItemDAOImpl<T> implements HotelItemDAO<T> {
 	private SessionFactory sessionFactory;
     
     @Override
-    public T getHotelItemByID(String id) {
+    public T getHotelItemByID(int id) {
     	return (T) sessionFactory.getCurrentSession().get(classOfT, id);
     }
     
@@ -65,21 +65,31 @@ public abstract class HotelItemDAOImpl<T> implements HotelItemDAO<T> {
 
     @Override
     public void editImage(String name, String img, String img2) {
-		Query q = sessionFactory.getCurrentSession().createQuery("update " + classOfT + " set img = :img where name = :name");
+    	if(!img.equals("") || !img2.equals("")) {
+    		if(!img.equals(""))
+    			updateImage(name,"img", img);
+    		if(!img2.equals(""))
+    			updateImage(name,"img2", img2);
+    	}
+    }
+    
+    private void updateImage(String name, String imgdb, String imgFile) {
+    	Query q = sessionFactory.getCurrentSession().createQuery("update " + classOfT.getName() + " set " + imgdb + " = :" + imgdb + " where name = :name");
 		q.setParameter("name", name);
-		q.setParameter("img", img);
-		q.setParameter("img", img2);
+		q.setParameter(imgdb, imgFile);
 		q.executeUpdate();
     }
     
     @Override
-    public void deleteItem(String name) {
-        
+    public void deleteItem(int id) {
+		Query q = sessionFactory.getCurrentSession().createQuery("delete " + classOfT.getName() +" where id = :id");
+		q.setParameter("id", id);
+		q.executeUpdate();
     }
     
     @Override
     public void updateItem(HotelItem item) {
-		sessionFactory.getCurrentSession().save(item);
+		sessionFactory.getCurrentSession().saveOrUpdate(item);
     }	
     
     private boolean isExists (HotelItem item) {

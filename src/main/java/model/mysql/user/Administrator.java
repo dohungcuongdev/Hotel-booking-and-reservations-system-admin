@@ -21,19 +21,19 @@ public class Administrator extends MySQLAbstractModel {
 	@Column(name = "username", unique = true, nullable = false, length = 255)
 	protected String username;
 	
-	@Column(name = "phone")
+	@Column(name = "phone", nullable = false)
 	protected String phone;
 	
-	@Column(name = "password")
+	@Column(name = "password", nullable = false)
 	protected String password;
 
-	@Column(name = "gender")
+	@Column(name = "gender", nullable = false)
 	private String gender;
 
-	@Column(name = "birthday")
+	@Column(name = "birthday", nullable = false)
 	private String birthday;
 
-	@Column(name = "img")
+	@Column(name = "img", nullable = false)
 	private String img;
 
 	public String getUsername() {

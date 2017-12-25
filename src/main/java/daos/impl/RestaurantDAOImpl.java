@@ -8,9 +8,6 @@ package daos.impl;
 import daos.RestaurantDAO;
 import model.mysql.hotel.HotelService;
 import java.util.List;
-
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,15 +20,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class RestaurantDAOImpl extends HotelItemDAOImpl<HotelService> implements RestaurantDAO {	
 	
-	@Autowired
-	private SessionFactory sessionFactory;
-	
     public RestaurantDAOImpl() {
     	classOfT = HotelService.class;
     }
 	
     @Override
-    public HotelService getHotelServiceByID(String id) {
+    public HotelService getHotelServiceByID(int id) {
     	return (HotelService) getHotelItemByID(id);
     }
     

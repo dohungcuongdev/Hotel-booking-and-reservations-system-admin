@@ -28,7 +28,7 @@
                     </div>
                     <p class="help-block">The image of the room will be changed after submit.</p>
                     <button type="submit" class="btn btn-info">Submit</button>
-                    <button onclick="location.href = '${pageContext.request.contextPath}/edit-room/${room.name}.html'"type="reset" class="btn btn-danger">Cancel</button>
+                    <button onclick="location.href = '${pageContext.request.contextPath}/edit-room/${room.name}.html'" type="reset" class="btn btn-danger">Cancel</button>
                 </form>
                 <label style="margin-top: 10px">*Suggestion</label>
                 <ul>
@@ -58,6 +58,7 @@
                     <div class="form-group">
                         <label>Room Name</label>
                     </div>
+                    <form:input type="hidden" value="${room.id}" readonly="true" path="id"/>
                     <form:input type="hidden" value="${room.created_at}" readonly="true" path="created_at"/>
                     <form:input type="hidden" value="${room.created_by}" readonly="true" path="created_by"/>
                     <div class="form-group">

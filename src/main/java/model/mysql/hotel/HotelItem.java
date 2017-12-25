@@ -5,10 +5,10 @@
  */
 package model.mysql.hotel;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+
+import org.hibernate.annotations.Type;
 
 import model.mysql.MySQLAbstractModel;
 import statics.AppData;
@@ -22,26 +22,27 @@ import statics.provider.DateTimeCalculator;
 @MappedSuperclass
 public abstract class HotelItem extends MySQLAbstractModel {
 
-	@Column(name = "price")
+	@Column(name = "price", nullable = false)
     protected int price;
 	
-	@Column(name = "img")
+	@Column(name = "img", nullable = false)
     protected String img;
 	
-	@Column(name = "img2")
+	@Column(name = "img2", nullable = false)
     protected String img2;
 	
-	@Column(name = "details")
+	@Column(name = "details", nullable = false)
+	@Type(type="text")
     protected String details;
 	
-	@Column(name = "type")
+	@Column(name = "type", nullable = false)
     protected String type;
 	
-	@Column(name = "created_by")
+	@Column(name = "created_by", nullable = false)
     protected String created_by;
 
-	@Column(name = "created_at")
-	protected Date created_at;
+	@Column(name = "created_at", nullable = false)
+	protected String created_at;
 
 	public String getType() {
         return type;
@@ -91,11 +92,11 @@ public abstract class HotelItem extends MySQLAbstractModel {
 		this.created_by = created_by;
 	}
 
-	public Date getCreated_at() {
+	public String getCreated_at() {
 		return created_at;
 	}
 
-	public void setCreated_at(Date created_at) {
+	public void setCreated_at(String created_at) {
 		this.created_at = created_at;
 	}
 
@@ -110,12 +111,12 @@ public abstract class HotelItem extends MySQLAbstractModel {
 	
 	public void setCreated() {
 		this.created_by = AppData.admin.getUsername();
-		this.created_at = new Date();
+		this.created_at = DateTimeCalculator.getTimeToday();
 	}
 	
 	public HotelItem() {}
 	
-    public HotelItem(String name, int price, String img, String img2, String details, String type, String created_by, Date created_at) {
+    public HotelItem(String name, int price, String img, String img2, String details, String type, String created_by, String created_at) {
 		this.name = name;
 		this.price = price;
 		this.img = img;
@@ -126,7 +127,7 @@ public abstract class HotelItem extends MySQLAbstractModel {
 		this.created_at = created_at;
 	}
 	
-    public HotelItem(int id, String name, int price, String img, String img2, String details, String type, String created_by, Date created_at) {
+    public HotelItem(int id, String name, int price, String img, String img2, String details, String type, String created_by, String created_at) {
 		this(name, price, img, img2, details, type, created_by, created_at);
 		this.id = id;
 	}

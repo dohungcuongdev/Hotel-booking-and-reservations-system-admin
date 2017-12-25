@@ -201,10 +201,10 @@ public class AppController {
 		return "edit-room";
 	}
 
-	@RequestMapping(value = "remove-room/{roomName}", method = RequestMethod.GET)
-	public String removeRoom(@PathVariable(value = "roomName") String roomName, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+	@RequestMapping(value = "remove-room/{id}", method = RequestMethod.GET)
+	public String removeRoom(@PathVariable(value = "id") int id, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		checkAuth(request, response);
-		hotelItemService.deleteRoom(roomName);
+		hotelItemService.deleteRoom(id);
 		model.put("deleteResult", AppData.ABLE_TO_EDIT);
 		return manageRooms(request, response, model);
 	}
@@ -276,9 +276,9 @@ public class AppController {
 		return "edit-service";
 	}
 
-	@RequestMapping(value = "remove-service/{servicename}", method = RequestMethod.GET)
-	public String removeService(@PathVariable(value = "servicename") String servicename, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		hotelItemService.deleteService(servicename);
+	@RequestMapping(value = "remove-service/{id}", method = RequestMethod.GET)
+	public String removeService(@PathVariable(value = "id") int id, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		hotelItemService.deleteService(id);
 		model.put("deleteResult", AppData.ABLE_TO_EDIT);
 		return manageRestaurant(request, response, model);
 	}

@@ -27,6 +27,11 @@ public class DateTimeCalculator {
 		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		return format.format(new Date());
 	}
+	
+	public static Date getDateFormated(String strDate) throws ParseException {
+		SimpleDateFormat format = new SimpleDateFormat("mm/dd/yyyy");
+		return format.parse(strDate);
+	}
     
     public static Date formatDateTime(String dateTime, String format) {
         SimpleDateFormat sdf = new SimpleDateFormat(format);

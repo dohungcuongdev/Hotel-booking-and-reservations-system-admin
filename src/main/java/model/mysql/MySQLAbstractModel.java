@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import model.AbstractModel;
 
 /**
@@ -22,11 +24,11 @@ import model.AbstractModel;
 public abstract class MySQLAbstractModel extends AbstractModel {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)
 	protected int id;
 	
-	@Column(name = "name")
+	@Column(name = "name", unique = true, nullable = false)
 	protected String name;
 
     public int getId() {

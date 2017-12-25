@@ -18,16 +18,16 @@ import statics.AppData;
 @Entity(name = "restaurant")
 public class HotelService extends HotelItem {
 
-	@Column(name = "quantity")
+	@Column(name = "quantity", nullable = false)
     private int quantity;
 	
-	@Column(name = "note")
+	@Column(name = "note", nullable = false)
     private String note;
 	
-	@Column(name = "serveType")
+	@Column(name = "serveType", nullable = false)
     private String serveType;
 	
-	@Column(name = "serveTime")
+	@Column(name = "serveTime", nullable = false)
     private String serveTime;
 
     public int getQuantity() {
@@ -95,12 +95,38 @@ public class HotelService extends HotelItem {
     public String getAbleToUpdate() {
         return !isEnoughInfor() ?  AppData.INFOR_NOT_ENOUGH : !isNumberFormat() ? AppData.WRONG_NUMBER_FORMAT_SERVICE : isInvalidType() ? AppData.WRONG_TYPE_SERVICE : isInvalidServeType() ? AppData.INVALID_SERVICE_TYPE: AppData.ABLE_TO_EDIT;
     }
+    
+    
+
+	public HotelService() {
+	}
+
+	public HotelService(int id, String name, int price, String img, String img2, String details, String type, String created_by, String created_at, int quantity, String note, String serveType, String serveTime) {
+		this(name, price, img, img2, details, type, created_by, created_at, quantity, note, serveType, serveTime);
+		this.id = id;
+	}
+
+	public HotelService(String name, int price, String img, String img2, String details, String type, String created_by, String created_at, int quantity, String note, String serveType, String serveTime) {
+		super(name, price, img, img2, details, type, created_by, created_at);
+		this.quantity = quantity;
+		this.note = note;
+		this.serveType = serveType;
+		this.serveTime = serveTime;
+	}
+
+	public HotelService(int quantity, String note, String serveType, String serveTime) {
+		super();
+		this.quantity = quantity;
+		this.note = note;
+		this.serveType = serveType;
+		this.serveTime = serveTime;
+	}
 
 	@Override
 	public String toString() {
-		return "HotelService [quantity=" + quantity + ", note=" + note + ", serveType=" + serveType + ", serveTime="
+		return "HotelService [ id=" + id
+				+ ", name=" + name + ", quantity=" +  quantity + ", note=" + note + ", serveType=" + serveType + ", serveTime="
 				+ serveTime + ", price=" + price + ", img=" + img + ", img2=" + img2 + ", details=" + details
-				+ ", type=" + type + ", created_by=" + created_by + ", created_at=" + created_at + ", id=" + id
-				+ ", name=" + name + "]";
+				+ ", type=" + type + ", created_by=" + created_by + ", created_at=" + created_at + "]";
 	}
 }

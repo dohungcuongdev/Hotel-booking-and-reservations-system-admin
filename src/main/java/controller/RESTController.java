@@ -28,13 +28,6 @@ public class RESTController {
 	private UserService userService;
 	
 	@CrossOrigin
-	@RequestMapping(value = "/convert", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-	public List<HotelRoom> convertRoomFromMongoToMySQL() {
-		hotelItemService.convertRoomFromMongoToMySQL();
-		return hotelItemService.getAllRooms();
-	}
-	
-	@CrossOrigin
 	@RequestMapping(value = "/rooms", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
 	public List<HotelRoom> getListRooms() {
 		return hotelItemService.getAllRooms();
@@ -47,13 +40,13 @@ public class RESTController {
 	}	
 	
 	@CrossOrigin
-	@RequestMapping(value = "/rooms/{id}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-	public HotelRoom getRoom(@PathVariable(value = "id") String id) {
+	@RequestMapping(value = "/rooms/id/{id}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	public HotelRoom getRoom(@PathVariable(value = "id") int id) {
 		return hotelItemService.getRoomByID(id);
 	}
 	
 	@CrossOrigin
-	@RequestMapping(value = "/rooms/roomname/{name}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	@RequestMapping(value = "/rooms/{name}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
 	public HotelRoom getRoomByName(@PathVariable(value = "name") String name) {
 		return hotelItemService.getRoomByName(name);
 	}
@@ -72,14 +65,14 @@ public class RESTController {
 	
 	@CrossOrigin
 	@RequestMapping(value = "/restaurant/{id}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-	public HotelService getItemInRestaurant(@PathVariable(value = "id") String id) {
+	public HotelService getItemInRestaurant(@PathVariable(value = "id") int id) {
 		return hotelItemService.getHotelServiceByID(id);
 	}
 	
 	@CrossOrigin
 	@RequestMapping(value = "/rooms/{name}", method = RequestMethod.PUT, produces = "application/json; charset=UTF-8")
-	public ResponseEntity<HotelRoom> upDateRoom(@PathVariable(value = "name") String name, @RequestBody HotelRoom room) {
-		hotelItemService.updateRoom(room);
+	public ResponseEntity<HotelRoom> bookRoom(@PathVariable(value = "name") String name, @RequestBody HotelRoom room) {
+		hotelItemService.bookRoom(room);
 		return new ResponseEntity<HotelRoom>(room, HttpStatus.OK);
 	}
 	
@@ -100,4 +93,19 @@ public class RESTController {
 	public List<PageAccessData> getPageAccessChartByUsername(@PathVariable(value = "username") String username) {
 		return userService.getPageAccessChartDataByUsername(username);
 	}
+	
+	
+//	@CrossOrigin
+//	@RequestMapping(value = "/convert", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+//	public List<HotelRoom> convertRoomFromMongoToMySQL() {
+//		hotelItemService.convertRoomFromMongoToMySQL();
+//		return hotelItemService.getAllRooms();
+//	}
+//	
+//	@CrossOrigin
+//	@RequestMapping(value = "/convert2", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+//	public List<HotelService> convertRestaurantMongoToMySQL() {
+//		hotelItemService.convertRestaurantMongoToMySQL();
+//		return hotelItemService.getAllHotelServices();
+//	}
 }

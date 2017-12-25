@@ -15,7 +15,7 @@ import model.mysql.hotel.HotelRoom;
  */
 public interface RoomDAO {
 
-    public HotelRoom getRoomByID(String id);
+    public HotelRoom getRoomByID(int id);
     public HotelRoom getRoomByName(String name);
     public List<HotelRoom> getAllRooms();
     public long getNumRooms();
@@ -24,5 +24,6 @@ public interface RoomDAO {
     public void updateRoom(HotelRoom room);
     public String findAndAddNewRoom(HotelRoom newRoom);
 	public void editImage(String name, String img, String img2);
-	public void deleteItem(String id);
+	public void deleteItem(int id);
+	public void bookRoom(HotelRoom room);
 }

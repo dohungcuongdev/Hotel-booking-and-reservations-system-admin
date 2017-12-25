@@ -36,7 +36,7 @@
                             <td>${service.note}</td>
                             <td><button onclick="location.href = '${pageContext.request.contextPath}/service/${service.name}.html'" class="btn btn-default btn-xs"><i class="fa fa-check"></i></button></td>
                             <td><button onclick="location.href = '${pageContext.request.contextPath}/edit-service/${service.name}.html'" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button></td>
-                            <td><button onclick ="deleteService('${pageContext.request.contextPath}/remove-service/${service.name}.html')" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button></td>
+                            <td><button onclick ="deleteService('${pageContext.request.contextPath}/remove-service/${service.id}.html')" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button></td>
                         </tr>
                     </c:forEach>
                 </table>

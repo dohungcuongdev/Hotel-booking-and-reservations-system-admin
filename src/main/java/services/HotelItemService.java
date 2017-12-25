@@ -16,7 +16,7 @@ import model.mysql.hotel.HotelService;
  */
 public interface HotelItemService {
     
-    public HotelRoom getRoomByID(String id);
+    public HotelRoom getRoomByID(int id);
     public HotelRoom getRoomByName(String name);
     public List<HotelRoom> getAllRooms();
     public long getNumRooms();
@@ -25,14 +25,16 @@ public interface HotelItemService {
     public void updateRoom(HotelRoom room);
     public String findAndAddNewRoom(HotelRoom newRoom);
     public void editImageRoom(String name, String img, String img2);    
-    public void deleteRoom(String id);   
-    public HotelService getHotelServiceByID(String id);
+    public void deleteRoom(int id);
+    public void bookRoom(HotelRoom room);
+    public HotelService getHotelServiceByID(int id);
     public HotelService getHotelServiceByName(String name);
     public List<HotelService> getAllHotelServices();   
     public List<HotelService> getRelatedHotelServices(String type);
     public String findAndAddNewService(HotelService newService);
     public void updateService(HotelService service);    
     public void editImageService(String name, String img, String img2);    
-    public void deleteService(String name);
+    public void deleteService(int id);
     public void convertRoomFromMongoToMySQL();
+    public void convertRestaurantMongoToMySQL();
 }
