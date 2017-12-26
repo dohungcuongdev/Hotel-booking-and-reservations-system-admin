@@ -1,4 +1,10 @@
 <%@ include file="common/sub-content.jspf"%>
+<script>
+var page = ${page};
+if(page <= 0)
+	  location.href='index.html';
+var tracking_api_url = TRACKING_API_URL_PAGE + page
+</script>
 <script src="${pageContext.request.contextPath}/resources/custom/follow-user-angular.js" type="text/javascript"></script>
 <div class="row">
     <div class="col-xs-12">
@@ -12,20 +18,20 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-body table-responsive" id="follow-user-box">
-                <table id="follow-user-table" ng-app="follow-users" ng-controller="folowUserCtrl">
+            <div class="panel-body table-responsive" ng-app="follow-users" ng-controller="folowUserCtrl">
+                <table id="follow-user-table">
                    	<tr id="tableHeader" style="font-size:11px">
-						<th class="tr-p" ng-click="sortNum(followUserData)">No.</th>
-						<th class="tr-p" ng-click="sortDateAccess(followUserData)">Date Access</th>
-						<th class="tr-p" ng-click="sortIP(followUserData)">User IP Address</th>
-						<th class="tr-p" ng-click="sortExIP(followUserData)">External IP Address</th>
-						<th class="tr-p" ng-click="sortCountry(followUserData)">Country</th>
-						<th class="tr-p" ng-click="sortUser(followUserData)">User</th>
-						<th class="tr-p" ng-click="sortPageAccess(followUserData)">Page Access</th>
-						<th class="tr-p" ng-click="sortDuration(followUserData)">Duration</th>
+						<th class="tr-p">No.</th>
+						<th class="tr-p" ng-click="sortDB('created_at')">Date Access</th>
+						<th class="tr-p" ng-click="sortDB('user_ip_address')">User IP Address</th>
+						<th class="tr-p" ng-click="sortDB('external_ip_address')">External IP Address</th>
+						<th class="tr-p" ng-click="sortDB('country')">Country</th>
+						<th class="tr-p" ng-click="sortDB('username')">User</th>
+						<th class="tr-p" ng-click="sortDB('page_access')">Page Access</th>
+						<th class="tr-p" ng-click="sortDB('duration')">Duration</th>
 					</tr>
                     <tbody id="followUserTableBody">
-	                    <tr ng-repeat="d in followUserData" follow-user-directive style="font-size:11px">
+	                    <tr ng-repeat="d in followUserData" style="font-size:11px">
 	                        <td>{{ $index + 1 }}</td>
 	                    	<td>{{ d.created_at | date:'medium'}}</td>
 							<td><a href = "${pageContext.request.contextPath}/page-access-chart/{{d.user_ip_address}}.html">{{ d.user_ip_address }}</a></td>
@@ -37,6 +43,16 @@
 	                    </tr>
                 	</tbody>
                 </table>
+                 <div class="table-foot">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                    <li><a href="${pageContext.request.contextPath}/follow-users/{{backPage}}.html"">&laquo;</a></li>
+                    <li ng-repeat="page in arrPageDisplay">
+                    	<a ng-if="currentPage == page" style="color: white; background-color: #CC0033" href="${pageContext.request.contextPath}/follow-users/{{page}}.html">{{page}}</a>
+                    	<a ng-if="currentPage != page" href="${pageContext.request.contextPath}/follow-users/{{page}}.html">{{page}}</a>
+                    </li>
+                    <li><a href="${pageContext.request.contextPath}/follow-users/{{nextPage}}.html"">&raquo;</a></li>
+                </ul>
+                </div>
             </div>
             <br><center><button class="btn btn-danger" onclick="location.href = '${pageContext.request.contextPath}/downloadCSV.html'">
             <b>Download CSV</b> <i class="fa fa-download"></i></button></center><br>

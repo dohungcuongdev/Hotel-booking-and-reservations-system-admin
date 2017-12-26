@@ -298,24 +298,31 @@ public class AppController {
 		model.put("cusDataCollection", userService.getDataCollection());
 		return "manage-users";
 	}
-
+	
 	@RequestMapping(value = "follow-users", method = RequestMethod.GET)
-	public String viewStatistics(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+	public String followUsers(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		model.put("page", 1);
+		return authInitializeRedirect(request, response, model, "follow-users");
+	}
+	
+	@RequestMapping(value = "follow-users/{page}", method = RequestMethod.GET)
+	public String followUsersPage(@PathVariable(value = "page") int page, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		model.put("page", page);
 		return authInitializeRedirect(request, response, model, "follow-users");
 	}
 
 	@RequestMapping(value = "tracking-ip", method = RequestMethod.GET)
-	public String followUsers(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+	public String trackingIP(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		return initializeTracking("UserIP", request, response, model);
 	}
 
 	@RequestMapping(value = "tracking-exip", method = RequestMethod.GET)
-	public String followUsersExternalIP(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+	public String trackingExternalIP(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		return initializeTracking("ExternalIP", request, response, model);
 	}
 
 	@RequestMapping(value = "tracking-members", method = RequestMethod.GET)
-	public String followMemebers(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+	public String trackingMemebers(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		return initializeTracking("Username", request, response, model);
 	}
 	
