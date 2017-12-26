@@ -6,8 +6,6 @@
 package services;
 
 import java.util.List;
-import java.util.Map;
-
 import model.api.user.tracking.CustomerBehavior;
 import model.api.user.tracking.ExternalIP;
 import model.api.user.tracking.FollowUsers;

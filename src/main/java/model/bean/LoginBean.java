@@ -9,6 +9,7 @@ package model.bean;
  *
  * @author HUNGCUONG
  */
+
 public class LoginBean {
 
     private String userName;
