@@ -61,12 +61,12 @@
                 <br>
                  <div class="table-foot">
                     <ul class="pagination pagination-sm no-margin pull-right">
-                    <li><a href="${pageContext.request.contextPath}/follow-users/${fieldname}/${sort}/{{backPage}}.html"">&laquo;</a></li>
+                    <li><a href="${pageContext.request.contextPath}/follow-users/${fieldname}/${sort}/{{backPage}}.html#follow-user-table">&laquo;</a></li>
                     <li ng-repeat="page in arrPageDisplay">
-                    	<a ng-if="currentPage == page" style="color: white; background-color: #CC0033" href="${pageContext.request.contextPath}/follow-users/{{page}}.html">{{page}}</a>
-                    	<a ng-if="currentPage != page" href="${pageContext.request.contextPath}/follow-users/${fieldname}/${sort}/{{page}}.html">{{page}}</a>
+                    	<a ng-if="currentPage == page" style="color: white; background-color: #CC0033" href="${pageContext.request.contextPath}/follow-users/{{page}}.html#follow-user-table">{{page}}</a>
+                    	<a ng-if="currentPage != page" href="${pageContext.request.contextPath}/follow-users/${fieldname}/${sort}/{{page}}.html#follow-user-table">{{page}}</a>
                     </li>
-                    <li><a href="${pageContext.request.contextPath}/follow-users/${fieldname}/${sort}/{{nextPage}}.html"">&raquo;</a></li>
+                    <li><a href="${pageContext.request.contextPath}/follow-users/${fieldname}/${sort}/{{nextPage}}.html#follow-user-table">&raquo;</a></li>
                 </ul>
                 </div>
             </div>
