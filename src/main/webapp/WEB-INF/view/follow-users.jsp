@@ -89,7 +89,6 @@ function filter() {
 }
 
 window.onload = function () { //first load page
-	//window.history.pushState("string", "Hotel Admin", "${pageContext.request.contextPath}/profile.html");
     $("#fieldname").val('${fieldname}');
     $("#sort").val('${sort}');
 };
