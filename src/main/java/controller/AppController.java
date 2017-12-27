@@ -301,12 +301,24 @@ public class AppController {
 	
 	@RequestMapping(value = "follow-users", method = RequestMethod.GET)
 	public String followUsers(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		model.put("fieldname", "created_at");
+		model.put("sort", "des");
 		model.put("page", 1);
 		return authInitializeRedirect(request, response, model, "follow-users");
 	}
 	
 	@RequestMapping(value = "follow-users/{page}", method = RequestMethod.GET)
 	public String followUsersPage(@PathVariable(value = "page") int page, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		model.put("fieldname", "created_at");
+		model.put("sort", "des");
+		model.put("page", page);
+		return authInitializeRedirect(request, response, model, "follow-users");
+	}
+	
+	@RequestMapping(value = "follow-users/{fieldname}/{sort}/{page}", method = RequestMethod.GET)
+	public String followUsersPageSorted(@PathVariable(value = "fieldname") String fieldname, @PathVariable(value = "sort") String sort, @PathVariable(value = "page") int page, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		model.put("fieldname", fieldname);
+		model.put("sort", sort);
 		model.put("page", page);
 		return authInitializeRedirect(request, response, model, "follow-users");
 	}

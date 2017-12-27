@@ -7,7 +7,7 @@
             <div class="panel-body table-responsive">
                 <div class="box-tools m-b-15">
                     <div class="input-group">
-                        <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" id="input-user" onkeyup="searchInputTable('input-user', 'table-users')" placeholder="Search for names.." title="Type in a name"/>
+                        <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" id="input-user" onkeyup="searchInputTable('input-user', 'table-users')" placeholder="Search for customers.." title="Type in a customer"/>
                         <div class="input-group-btn">
                             <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
                         </div>
@@ -25,7 +25,7 @@
             <div class="panel-body table-responsive">
                 <div class="box-tools m-b-15">
                     <div class="input-group">
-                        <input type="text" name="table_search" class="form-control input-sm pull-right"  style="width: 150px;" id="cdc-input" onkeyup="searchInputTable('cdc-input', 'cdc-table')"  placeholder="Search for names.." title="Type in a name"/>
+                        <input type="text" name="table_search" class="form-control input-sm pull-right"  style="width: 150px;" id="cdc-input" onkeyup="searchInputTable('cdc-input', 'cdc-table')"  placeholder="Search for data.." title="Type in data collection"/>
                         <div class="input-group-btn">
                             <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
                         </div>

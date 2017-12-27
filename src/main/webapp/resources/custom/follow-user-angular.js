@@ -40,10 +40,11 @@ app.filter('secondsToTime',function(){
 });
 
 app.controller('folowUserCtrl', function($scope, $http) {
+  $scope.currentPage = page;
   $http.get(TRACKING_TOTAL_PAGE_API).then(function (response) {
       var totalpage = response.data.total_page;
       if(page > totalpage)
-    	  location.href='index.html';
+    	  location.href='1';
       var arrPageDisplay = new Array(TOTAL_PAGE_DISPLAY);
       for(var i = 0; i < TOTAL_PAGE_DISPLAY; i++) {
     	  if(page == 1)
@@ -54,7 +55,6 @@ app.controller('folowUserCtrl', function($scope, $http) {
       $scope.arrPageDisplay = arrPageDisplay;
       $scope.backPage = page - 1;
       $scope.nextPage = page + 1;
-      $scope.currentPage = page;
       if(page == 1)
     	  $scope.backPage = 1;
       if(page == totalpage)

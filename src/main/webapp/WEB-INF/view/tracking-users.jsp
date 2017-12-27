@@ -8,7 +8,7 @@
                 <div class="input-group">
                     <input type="text" name="table_search" class="form-control input-sm pull-right" 
                            style="width: 150px;" id="input-tracking" onkeyup="searchInputTable('input-tracking', 'table-tracking')" 
-                           placeholder="Search for ip address.." title="Type in a ip address"/>
+                           placeholder="Search for tracking.." title="Type in tracking data"/>
                     <div class="input-group-btn">
                         <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
                     </div>
