@@ -158,6 +158,13 @@
 			<artifactId>json</artifactId>
 			<version>20090211</version>
 		</dependency>
+		
+		<!-- GEO IP -->
+		<dependency>
+		    <groupId>com.maxmind.geoip</groupId>
+		    <artifactId>geoip-api</artifactId>
+		    <version>1.2.14</version>
+		</dependency>
 
 		<!-- fasterxml Jackson -->
 		<dependency>

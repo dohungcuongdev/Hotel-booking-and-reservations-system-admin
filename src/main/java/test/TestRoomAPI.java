@@ -1,20 +1,14 @@
 package test;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Column;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.gson.Gson;
-
 import model.mysql.hotel.HotelRoom;
 import model.mysql.hotel.HotelService;
-import statics.provider.DateTimeCalculator;
 
 public class TestRoomAPI {
 
