@@ -9,6 +9,7 @@ import java.util.List;
 
 import model.api.user.tracking.ExternalIP;
 import model.api.user.tracking.FollowUsers;
+import model.api.user.tracking.GeoSameCountry;
 import model.api.user.tracking.PageAccessData;
 
 /**
@@ -22,4 +23,5 @@ public interface TrackingDAO {
     public List<PageAccessData> getPageAccessChartDataByIP(String ipaddress);
     public List<PageAccessData> getPageAccessChartDataByUsername(String username);
     public ExternalIP getExternalIPDetails(String external_ip_address);
+    public List<GeoSameCountry> getGeoSameCountry();
 }

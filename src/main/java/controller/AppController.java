@@ -36,6 +36,7 @@ import services.ApplicationService;
 import services.HotelItemService;
 import services.UserService;
 import statics.AppData;
+import statics.provider.GeoLookup;
 import testGeoIP.LookUpProgram;
 
 /**
@@ -382,7 +383,7 @@ public class AppController {
 		checkAuth(request, response);
 		initialize(model);
 
-		LookUpProgram.testGEO(externalip);
+		GeoLookup.getLocation(externalip);
 		
 		
 		model.put("ipDetails", userService.getExternalIPDetails(externalip));

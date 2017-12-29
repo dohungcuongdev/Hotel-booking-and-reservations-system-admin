@@ -9,6 +9,7 @@ import java.util.List;
 import model.api.user.tracking.CustomerBehavior;
 import model.api.user.tracking.ExternalIP;
 import model.api.user.tracking.FollowUsers;
+import model.api.user.tracking.GeoSameCountry;
 import model.api.user.tracking.PageAccessData;
 import model.mongodb.user.Customer;
 import model.mongodb.user.tracking.Activity;
@@ -24,7 +25,8 @@ public interface UserService {
     public List<PageAccessData> getPageAccessChartData();    
     public List<PageAccessData> getPageAccessChartDataByIP(String ipaddress);
     public List<PageAccessData> getPageAccessChartDataByUsername(String username);
-    public ExternalIP getExternalIPDetails(String external_ip_address);    
+    public ExternalIP getExternalIPDetails(String external_ip_address);
+    public List<GeoSameCountry> getGeoSameCountry();
     public Customer getCustomerByUsername(String username);
     public List<Customer> getAllCustomers();   
     public List<CustomerBehavior> getDataCollection();  

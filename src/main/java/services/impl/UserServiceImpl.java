@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import model.api.user.tracking.CustomerBehavior;
 import model.api.user.tracking.ExternalIP;
 import model.api.user.tracking.FollowUsers;
+import model.api.user.tracking.GeoSameCountry;
 import model.api.user.tracking.PageAccessData;
 import model.mongodb.user.Customer;
 import model.mongodb.user.tracking.Activity;
@@ -31,7 +32,7 @@ import daos.ActivityDAO;
 public class UserServiceImpl implements UserService {
     
 	@Autowired
-    private TrackingDAO userDAO;
+    private TrackingDAO trackingDAO;
 	
 	@Autowired
     private AdminDAO adminDAO;
@@ -44,12 +45,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<FollowUsers> getListFollowUsers() {
-        return userDAO.getListFollowUsers();
+        return trackingDAO.getListFollowUsers();
     }
     
     @Override
     public ExternalIP getExternalIPDetails(String external_ip_address) {
-    	return userDAO.getExternalIPDetails(external_ip_address);
+    	return trackingDAO.getExternalIPDetails(external_ip_address);
     }
 
     @Override
@@ -119,12 +120,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<PageAccessData> getPageAccessChartData() {
-		return userDAO.getPageAccessChartData();
+		return trackingDAO.getPageAccessChartData();
 	}
 
 	@Override
 	public List<PageAccessData> getPageAccessChartDataByIP(String ipaddress) {
-		return userDAO.getPageAccessChartDataByIP(ipaddress);
+		return trackingDAO.getPageAccessChartDataByIP(ipaddress);
 	}
 
 	@Override
@@ -134,6 +135,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<PageAccessData> getPageAccessChartDataByUsername(String username) {
-		return userDAO.getPageAccessChartDataByUsername(username);
+		return trackingDAO.getPageAccessChartDataByUsername(username);
+	}
+
+	@Override
+	public List<GeoSameCountry> getGeoSameCountry() {
+		return trackingDAO.getGeoSameCountry();
 	}
 }
