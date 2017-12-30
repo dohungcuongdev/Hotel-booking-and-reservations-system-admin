@@ -22,15 +22,15 @@ app.controller('ChartController', function($scope, $http) {
     	  "addClassNames": true,
     	  "legend":{
     	   	"position":"right",
-    	    "marginRight":150,
+    	    "marginRight":50,
     	    "autoMargins":false
     	  },
     	  "innerRadius": "30%",
     	  "defs": {
     	    "filter": [{
     	      "id": "shadow",
-    	      "width": "200%",
-    	      "height": "200%",
+    	      "width": "100%",
+    	      "height": "100%",
     	      "feOffset": {
     	        "result": "offOut",
     	        "in": "SourceAlpha",
@@ -50,8 +50,8 @@ app.controller('ChartController', function($scope, $http) {
     	    }]
     	  },
     	  "dataProvider": $scope.data,
-    	  "valueField": "count",
-    	  "titleField": "_id",
+    	  "valueField": "visitTime",
+    	  "titleField": "countryName",
     	  "export": {
     	    "enabled": true
     	  }
@@ -74,6 +74,6 @@ app.controller('ChartController', function($scope, $http) {
   });
   
   $scope.sortCountry = function(data) {
-	  timsort.sort(data, (x, y) => y.count - x.count);
+	  timsort.sort(data, (x, y) => y.visitTime - x.visitTime);
   };
 });
