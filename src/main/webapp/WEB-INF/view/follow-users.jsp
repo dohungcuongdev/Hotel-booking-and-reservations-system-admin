@@ -1,11 +1,11 @@
 <%@ include file="common/sub-content.jspf"%>
-<div class="row">
+<div class="row" ng-app="follow-users" ng-controller="folowUserCtrl">
     <div class="col-xs-12">
         <div class="panel">
             <header class="panel-heading">Follow Users</header>
 			<div class="panel-body table-responsive">
 				Field Name
-		        <select id="fieldname">
+		        <select id="fieldname" onchange="selectFieldName()">
 		           	<option value="created_at">Date Access</option>
 		           	<option value="user_ip_address">User IP Address</option>
 		           	<option value="external_ip_address">External IP Address</option>
@@ -26,14 +26,15 @@
 			
             <div class="box-tools m-b-15">
                 <div class="input-group">
-                    <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" id="input-follow-user" onkeyup="searchInputTable('input-follow-user', 'follow-user-table')" placeholder="Search for tracking.." title="Type in tracking data"/>
+                    <input ng-model="keywordValue" type="text" name="keyword" id="keyword" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search for tracking.." title="Type in tracking data"/>
+                    <p style="display: none" id="range-value" class="input-sm pull-right">Value: {{ keywordValue | secondsToTime }} <p/>
                     <div class="input-group-btn">
-                        <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                        <button class="btn btn-sm btn-default" onclick="search()"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
             </div>
             
-            <div class="panel-body table-responsive" ng-app="follow-users" ng-controller="folowUserCtrl">
+            <div class="panel-body table-responsive">
                 <table id="follow-user-table">
                    	<tr id="tableHeader" style="font-size:11px">
 						<th class="tr-p">No.</th>
@@ -61,12 +62,12 @@
                 <br>
                  <div class="table-foot">
                     <ul class="pagination pagination-sm no-margin pull-right">
-                    <li><a href="${pageContext.request.contextPath}/follow-users/${fieldname}/${sort}/{{backPage}}.html#follow-user-table">&laquo;</a></li>
+                    <li><a ng-href="{{clickBackPageURL}}">&laquo;</a></li>
                     <li ng-repeat="page in arrPageDisplay">
-                    	<a ng-if="currentPage == page" style="color: white; background-color: #CC0033" href="${pageContext.request.contextPath}/follow-users/{{page}}.html#follow-user-table">{{page}}</a>
-                    	<a ng-if="currentPage != page" href="${pageContext.request.contextPath}/follow-users/${fieldname}/${sort}/{{page}}.html#follow-user-table">{{page}}</a>
+                    	<a ng-if="currentPage == page" style="color: white; background-color: #CC0033">{{page}}</a>
+                    	<a ng-if="currentPage != page" ng-href="{{clickPageURL}}{{page}}{{footerURL}}">{{page}}</a>
                     </li>
-                    <li><a href="${pageContext.request.contextPath}/follow-users/${fieldname}/${sort}/{{nextPage}}.html#follow-user-table">&raquo;</a></li>
+                    <li><a ng-href="{{clickNextPageURL}}">&raquo;</a></li>
                 </ul>
                 </div>
             </div>
@@ -77,20 +78,52 @@
 </div>
 <%@ include file="common/footer.jspf"%>
 <script>
-var filename = '${fieldname}';
-var sort = '${sort}';
 var page = ${page};
-if(page <= 0)
-	  location.href='1';
-var tracking_api_url = TRACKING_API_URL + filename + '/' + sort + '/' + page
+var action = '${action}';
+var fieldname = '${fieldname}';
+var sort = '${sort}';
+var totalPageAPI = TRACKING_TOTAL_PAGE_API;
+var clickPageURL = '${pageContext.request.contextPath}/';
+var tracking_api_url = '';
+
+if(action == 'search') {
+	var keyword = '${keyword}';
+	totalPageAPI = 'http://localhost:3000/api/follow-users/search/total-page/' + fieldname + '/' + keyword;
+	tracking_api_url = 'http://localhost:3000/api/follow-users/search/all/' +  fieldname + '/' + keyword + '/' + sort + '/' + page;
+	clickPageURL += 'follow-users-search/' + fieldname + '/' + keyword + '/' + sort  + '/';
+} else {
+	tracking_api_url = TRACKING_API_URL + fieldname + '/' + sort + '/' + page;
+	clickPageURL += 'follow-users/' + fieldname + '/' + sort  + '/';
+}
+
+window.onload = function () { //first load page
+	$("#fieldname").val('${fieldname}');
+	$("#sort").val('${sort}');
+	$("#keyword").val('${keyword}');
+	selectFieldName();
+};
+
+function search() {
+	location.href='${pageContext.request.contextPath}/follow-users-search/'+ $("#fieldname").val() + '/' + $("#keyword").val() + '/' + $("#sort").val() + '/1';
+}
 
 function filter() {
 	location.href='${pageContext.request.contextPath}/follow-users/' + $("#fieldname").val() + '/' + $("#sort").val() + '/1';
 }
 
-window.onload = function () { //first load page
-    $("#fieldname").val('${fieldname}');
-    $("#sort").val('${sort}');
-};
+function selectFieldName() {
+	var selected = document.getElementById('fieldname').value;
+	if(selected == 'duration') {
+		document.getElementById('keyword').type = 'range';
+		document.getElementById('range-value').style.display = 'block';
+	} else {
+		document.getElementById('range-value').style.display = 'none';
+		if(selected == 'created_at')
+			document.getElementById('keyword').type = 'date';
+		else
+			document.getElementById('keyword').type = 'text';
+	}
+		
+}
 </script>
 <script src="${pageContext.request.contextPath}/resources/custom/follow-user-angular.js" type="text/javascript"></script>
