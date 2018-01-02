@@ -9,7 +9,6 @@
 		           	<option value="created_at">Date Access</option>
 		           	<option value="user_ip_address">User IP Address</option>
 		           	<option value="external_ip_address">External IP Address</option>
-		           	<option value="country">Country</option>
 		           	<option value="username">User</option>
 		           	<option value="page_access">Page Access</option>
 		           	<option value="duration">Duration</option>
@@ -26,8 +25,8 @@
 			
             <div class="box-tools m-b-15">
                 <div class="input-group">
-                    <input ng-model="keywordValue" type="text" name="keyword" id="keyword" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search for tracking.." title="Type in tracking data"/>
-                    <p style="display: none" id="range-value" class="input-sm pull-right">Value: {{ keywordValue | secondsToTime }} <p/>
+                    <input min="0" max="359999999" type="text" name="keyword" id="keyword" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search for tracking.." title="Type in tracking data" onchange="showRangeVal()"/>
+                    <p style="display: none" id="range-value" class="input-sm pull-right">
                     <div class="input-group-btn">
                         <button class="btn btn-sm btn-default" onclick="search()"><i class="fa fa-search"></i></button>
                     </div>
@@ -41,7 +40,6 @@
 						<th class="tr-p" ng-click="sortDB('created_at')">Date Access</th>
 						<th class="tr-p" ng-click="sortDB('user_ip_address')">User IP Address</th>
 						<th class="tr-p" ng-click="sortDB('external_ip_address')">External IP Address</th>
-						<th class="tr-p" ng-click="sortDB('country')">Country</th>
 						<th class="tr-p" ng-click="sortDB('username')">User</th>
 						<th class="tr-p" ng-click="sortDB('page_access')">Page Access</th>
 						<th class="tr-p" ng-click="sortDB('duration')">Duration</th>
@@ -52,7 +50,6 @@
 	                    	<td>{{ d.created_at | date:'medium'}}</td>
 							<td><a href = "${pageContext.request.contextPath}/page-access-chart/{{d.user_ip_address}}.html">{{ d.user_ip_address }}</a></td>
 							<td><a href = "${pageContext.request.contextPath}/ip-details/{{d.external_ip_address}}.html">{{ d.external_ip_address }}</a></td>
-							<td>{{ d.country }}</td>
 							<td><a href = "${pageContext.request.contextPath}/member-chart/{{ d.username }}.html">{{ d.username }}</a></td>
 							<td>{{ d.page_access }}</td>
 							<td>{{ d.duration | secondsToTime }}</td>
@@ -82,12 +79,12 @@ var page = ${page};
 var action = '${action}';
 var fieldname = '${fieldname}';
 var sort = '${sort}';
+var keyword = '${keyword}';
 var totalPageAPI = TRACKING_TOTAL_PAGE_API;
 var clickPageURL = '${pageContext.request.contextPath}/';
 var tracking_api_url = '';
 
 if(action == 'search') {
-	var keyword = '${keyword}';
 	totalPageAPI = 'http://localhost:3000/api/follow-users/search/total-page/' + fieldname + '/' + keyword;
 	tracking_api_url = 'http://localhost:3000/api/follow-users/search/all/' +  fieldname + '/' + keyword + '/' + sort + '/' + page;
 	clickPageURL += 'follow-users-search/' + fieldname + '/' + keyword + '/' + sort  + '/';
@@ -99,12 +96,21 @@ if(action == 'search') {
 window.onload = function () { //first load page
 	$("#fieldname").val('${fieldname}');
 	$("#sort").val('${sort}');
-	$("#keyword").val('${keyword}');
+	$("#keyword").val(keyword);
 	selectFieldName();
 };
 
+function showRangeVal() {
+	console.log(getTimeBySecond($("#keyword").val()));
+	$("#range-value").html('Value: ' + getTimeBySecond($("#keyword").val()));
+}
+
 function search() {
-	location.href='${pageContext.request.contextPath}/follow-users-search/'+ $("#fieldname").val() + '/' + $("#keyword").val() + '/' + $("#sort").val() + '/1';
+	var input = $("#keyword").val();
+	if(input == '') 
+		swal("Oops...", "Please input keyword!", "warning");
+	else
+		location.href='${pageContext.request.contextPath}/follow-users-search/'+ $("#fieldname").val() + '/' + input + '/' + $("#sort").val() + '/1';
 }
 
 function filter() {
@@ -116,6 +122,12 @@ function selectFieldName() {
 	if(selected == 'duration') {
 		document.getElementById('keyword').type = 'range';
 		document.getElementById('range-value').style.display = 'block';
+		if(keyword == '' || isNaN(parseInt(keyword))) {
+			keyword = 0;
+			$("#keyword").val(0);
+		}
+			//$("#range-value").html('Value: 00:00:00:000');
+		$("#range-value").html('Value: ' + getTimeBySecond(keyword));
 	} else {
 		document.getElementById('range-value').style.display = 'none';
 		if(selected == 'created_at')
@@ -123,7 +135,6 @@ function selectFieldName() {
 		else
 			document.getElementById('keyword').type = 'text';
 	}
-		
 }
 </script>
 <script src="${pageContext.request.contextPath}/resources/custom/follow-user-angular.js" type="text/javascript"></script>

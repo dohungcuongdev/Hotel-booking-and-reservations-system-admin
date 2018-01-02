@@ -78,7 +78,7 @@ public class TestRoomAPI {
 	}
 
 	public static void main(String[] args) throws JSONException {
-
+		System.out.println((99*3600 + 59*60 + 59)*1000 + 999);
 	}
 
 }

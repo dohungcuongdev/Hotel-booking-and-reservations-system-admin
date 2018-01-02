@@ -10,38 +10,43 @@
     Author     : HUNGCUONG
 */
 
+function padTime(t) {
+    return t < 10 ? "0"+t : t;
+}
 
+function padMilli(s) {
+	if(s < 10)
+		return "00"+s;
+	else if(s < 100)
+		return "0"+s;
+	return s;
+}
+
+function getTimeBySecond(s) {
+    var ms = s % 1000;
+    s = (s - ms) / 1000;
+    var secs = s % 60;
+    s = (s - secs) / 60;
+    var mins = s % 60;
+    var hrs = (s - mins) / 60;
+
+    return padTime(hrs) + ':' + padTime(mins) + ':' + padTime(secs) + ':' + padMilli(ms);  
+}
 
 var app = angular.module('follow-users', []);
 
 app.filter('secondsToTime',function(){
-	function padTime(t) {
-        return t < 10 ? "0"+t : t;
-    }
-	
-	function padMilli(s) {
-		if(s < 10)
-			return "00"+s;
-		else if(s < 100)
-			return "0"+s;
-		return s;
-    }
+
 
     return function (s) {
-    	console.log(typeof s);
-		if (typeof s !== "number" || s < 0)
+		if (s < 0)
             return "00:00:00:000";
 		if(typeof s !== "number") {
-			s = parseInt(s)
+			if(s == "NaN") {
+				return "00:00:00:000";
+			}
 		}
-        var ms = s % 1000;
-        s = (s - ms) / 1000;
-        var secs = s % 60;
-        s = (s - secs) / 60;
-        var mins = s % 60;
-        var hrs = (s - mins) / 60;
-
-        return padTime(hrs) + ':' + padTime(mins) + ':' + padTime(secs) + ':' + padMilli(ms);        
+		return getTimeBySecond(s);
     };
 });
 
