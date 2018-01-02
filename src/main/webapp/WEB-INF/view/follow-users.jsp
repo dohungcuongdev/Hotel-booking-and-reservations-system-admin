@@ -25,8 +25,8 @@
 			
             <div class="box-tools m-b-15">
                 <div class="input-group">
-                    <input min="0" max="359999999" type="text" name="keyword" id="keyword" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search for tracking.." title="Type in tracking data" onchange="showRangeVal()"/>
-                    <p style="display: none" id="range-value" class="input-sm pull-right">
+                    <input min="0" max="10799999" type="text" name="keyword" id="keyword" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search for tracking.." title="Type in tracking data" onchange="showRangeVal()"/>
+                    <input oninput="changeRangeVal()" type="text" style="display: none" id="range-value" class="input-sm pull-right" placeholder="Input duration.." title="Type in duration..">
                     <div class="input-group-btn">
                         <button class="btn btn-sm btn-default" onclick="search()"><i class="fa fa-search"></i></button>
                     </div>
@@ -81,12 +81,15 @@ var fieldname = '${fieldname}';
 var sort = '${sort}';
 var keyword = '${keyword}';
 var totalPageAPI = TRACKING_TOTAL_PAGE_API;
-var clickPageURL = '${pageContext.request.contextPath}/';
+var serverURL = '${pageContext.request.contextPath}/'
+var clickPageURL = serverURL;
+
+
 var tracking_api_url = '';
 
 if(action == 'search') {
-	totalPageAPI = 'http://localhost:3000/api/follow-users/search/total-page/' + fieldname + '/' + keyword;
-	tracking_api_url = 'http://localhost:3000/api/follow-users/search/all/' +  fieldname + '/' + keyword + '/' + sort + '/' + page;
+	totalPageAPI = TOTAL_PAGE_SEARCH_API + fieldname + '/' + keyword;
+	tracking_api_url = TRACKING_SEARCH_API +  fieldname + '/' + keyword + '/' + sort + '/' + page;
 	clickPageURL += 'follow-users-search/' + fieldname + '/' + keyword + '/' + sort  + '/';
 } else {
 	tracking_api_url = TRACKING_API_URL + fieldname + '/' + sort + '/' + page;
@@ -101,8 +104,39 @@ window.onload = function () { //first load page
 };
 
 function showRangeVal() {
-	console.log(getTimeBySecond($("#keyword").val()));
-	$("#range-value").html('Value: ' + getTimeBySecond($("#keyword").val()));
+	$("#range-value").val(getTimeBySecond($("#keyword").val()));
+}
+
+function is2Digit(s) {
+	if(s.length != 2)
+		return false;
+	else if(isNaN(s))
+		return false;
+	else
+		return true;
+}
+
+function is3Digit(s) {
+	if(s.length != 3)
+		return false;
+	if(isNaN(s))
+		return false;
+	return true;
+}
+
+function changeRangeVal() {
+	var input = $("#range-value").val();
+	var temp = input.split(":");
+	var hour = temp[0];
+	var min = temp[1];
+	var second = temp[2];
+	var millis = temp[3];
+	if(!is2Digit(hour) || !is2Digit(min) || !is2Digit(second) || !is3Digit(millis) ||  min > 59 || second > 59 || millis > 999 || min < 0 || second < 0 || millis < 0) {
+		swal("Oops...", "Invalid Time Format!", "warning");
+	} else {
+		var totalMills = 1000*(3600*parseInt(hour)+ 60*parseInt(min) + parseInt(second)) + parseInt(millis);
+		$("#keyword").val(totalMills);
+	}
 }
 
 function search() {
@@ -110,15 +144,15 @@ function search() {
 	if(input == '') 
 		swal("Oops...", "Please input keyword!", "warning");
 	else
-		location.href='${pageContext.request.contextPath}/follow-users-search/'+ $("#fieldname").val() + '/' + input + '/' + $("#sort").val() + '/1';
+		location.href= serverURL + 'follow-users-search/'+ $("#fieldname").val() + '/' + input + '/' + $("#sort").val() + '/1';
 }
 
 function filter() {
-	location.href='${pageContext.request.contextPath}/follow-users/' + $("#fieldname").val() + '/' + $("#sort").val() + '/1';
+	location.href= serverURL+ 'follow-users/' + $("#fieldname").val() + '/' + $("#sort").val() + '/1';
 }
 
 function selectFieldName() {
-	var selected = document.getElementById('fieldname').value;
+	var selected = $("#fieldname").val();
 	if(selected == 'duration') {
 		document.getElementById('keyword').type = 'range';
 		document.getElementById('range-value').style.display = 'block';
@@ -126,8 +160,7 @@ function selectFieldName() {
 			keyword = 0;
 			$("#keyword").val(0);
 		}
-			//$("#range-value").html('Value: 00:00:00:000');
-		$("#range-value").html('Value: ' + getTimeBySecond(keyword));
+		$("#range-value").val(getTimeBySecond(keyword));
 	} else {
 		document.getElementById('range-value').style.display = 'none';
 		if(selected == 'created_at')

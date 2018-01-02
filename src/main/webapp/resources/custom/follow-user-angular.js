@@ -10,6 +10,7 @@
     Author     : HUNGCUONG
 */
 
+
 function padTime(t) {
     return t < 10 ? "0"+t : t;
 }
@@ -55,13 +56,21 @@ app.controller('folowUserCtrl', function($scope, $http) {
   $http.get(totalPageAPI).then(function (response) {
       var totalpage = response.data.total_page;
       var arrPageDisplay = new Array(TOTAL_PAGE_DISPLAY);
-      for(var i = 0; i < TOTAL_PAGE_DISPLAY; i++) {
-    	  if(page == 1)
-    		  arrPageDisplay[i] = page + i;
-    	  else
-    		  arrPageDisplay[i] = page - 1 + i;
+      console.log(response.data.total_page);
+      if(totalpage <= 1) 
+    	  arrPageDisplay = [1];
+      else if(page >= totalpage) 
+    	  arrPageDisplay = [page-1, page];
+      else {
+          for(var i = 0; i < TOTAL_PAGE_DISPLAY; i++) {
+        	  if(page == 1)
+        		  arrPageDisplay[i] = page + i;
+        	  else
+        		  arrPageDisplay[i] = page - 1 + i;
+          }
       }
       $scope.arrPageDisplay = arrPageDisplay;
+      console.log(arrPageDisplay);
       var backPage = page - 1;
       var nextPage = page + 1;
       if(page == 1)
@@ -73,9 +82,6 @@ app.controller('folowUserCtrl', function($scope, $http) {
 	  $scope.clickBackPageURL = clickPageURL + backPage + footerURL;
 	  $scope.clickNextPageURL = clickPageURL + nextPage + footerURL;
 	  $scope.footerURL = footerURL;
-	  console.log($scope.clickPageURL);
-	  console.log($scope.clickBackPageURL);
-	  console.log($scope.clickNextPageURL);
   });
   $http.get(tracking_api_url).then(function (response) {
       $scope.followUserData = response.data;
