@@ -96,9 +96,21 @@ if(action == 'search') {
 	clickPageURL += 'follow-users/' + fieldname + '/' + sort  + '/';
 }
 
+function search() {
+	var input = $("#keyword").val();
+	if(input == '') 
+		swal("Oops...", "Please input keyword!", "warning");
+	else
+		location.href= serverURL + 'follow-users-search/'+ $("#fieldname").val() + '/' + input + '/' + $("#sort").val() + '/1';
+}
+
+function filter() {
+	location.href= serverURL+ 'follow-users/' + $("#fieldname").val() + '/' + $("#sort").val() + '/1';
+}
+
 window.onload = function () { //first load page
-	$("#fieldname").val('${fieldname}');
-	$("#sort").val('${sort}');
+	$("#fieldname").val(fieldname);
+	$("#sort").val(sort);
 	$("#keyword").val(keyword);
 	selectFieldName();
 };
@@ -107,8 +119,8 @@ function showRangeVal() {
 	$("#range-value").val(getTimeBySecond($("#keyword").val()));
 }
 
-function is2Digit(s) {
-	if(s.length != 2)
+function isNDigit(s, n) {
+	if(s.length != n)
 		return false;
 	else if(isNaN(s))
 		return false;
@@ -116,12 +128,12 @@ function is2Digit(s) {
 		return true;
 }
 
+function is2Digit(s) {
+	return isNDigit(s,2);
+}
+
 function is3Digit(s) {
-	if(s.length != 3)
-		return false;
-	if(isNaN(s))
-		return false;
-	return true;
+	return isNDigit(s,3);
 }
 
 function changeRangeVal() {
@@ -137,18 +149,6 @@ function changeRangeVal() {
 		var totalMills = 1000*(3600*parseInt(hour)+ 60*parseInt(min) + parseInt(second)) + parseInt(millis);
 		$("#keyword").val(totalMills);
 	}
-}
-
-function search() {
-	var input = $("#keyword").val();
-	if(input == '') 
-		swal("Oops...", "Please input keyword!", "warning");
-	else
-		location.href= serverURL + 'follow-users-search/'+ $("#fieldname").val() + '/' + input + '/' + $("#sort").val() + '/1';
-}
-
-function filter() {
-	location.href= serverURL+ 'follow-users/' + $("#fieldname").val() + '/' + $("#sort").val() + '/1';
 }
 
 function selectFieldName() {

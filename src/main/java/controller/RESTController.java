@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import model.api.user.tracking.GeoSameCountry;
-import model.api.user.tracking.PageAccessData;
+import model.api.user.tracking.CountryChartData;
+import model.api.user.tracking.PageAccessChartData;
 import model.mysql.hotel.HotelRoom;
 import model.mysql.hotel.HotelService;
 import services.HotelItemService;
@@ -79,26 +79,26 @@ public class RESTController {
 	
 	@CrossOrigin
 	@RequestMapping(value = "/page-access-chart", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-	public List<PageAccessData> getPageAccessChart() {
+	public List<PageAccessChartData> getPageAccessChart() {
 		return userService.getPageAccessChartData();
 	}
 	
 	@CrossOrigin
 	@RequestMapping(value = "/page-access-chart/userIP/{userIP}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-	public List<PageAccessData> getPageAccessChartByIP(@PathVariable(value = "userIP") String userIP) {
+	public List<PageAccessChartData> getPageAccessChartByIP(@PathVariable(value = "userIP") String userIP) {
 		return userService.getPageAccessChartDataByIP(userIP);
 	}
 	
 	@CrossOrigin
 	@RequestMapping(value = "/page-access-chart/username/{username}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-	public List<PageAccessData> getPageAccessChartByUsername(@PathVariable(value = "username") String username) {
+	public List<PageAccessChartData> getPageAccessChartByUsername(@PathVariable(value = "username") String username) {
 		return userService.getPageAccessChartDataByUsername(username);
 	}
 	
 	@CrossOrigin
 	@RequestMapping(value = "/country-chart", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-	public List<GeoSameCountry> getCountryChartData() {
-		return userService.getGeoSameCountry();
+	public List<CountryChartData> getCountryChartData() {
+		return userService.getCountryChartData();
 	}
 	
 	

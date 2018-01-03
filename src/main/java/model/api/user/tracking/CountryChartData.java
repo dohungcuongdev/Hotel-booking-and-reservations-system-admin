@@ -9,7 +9,7 @@ package model.api.user.tracking;
  *
  * @author HUNGCUONG
  */
-public class GeoSameCountry {
+public class CountryChartData {
 
 	private String countryCode;
 	private String countryName;

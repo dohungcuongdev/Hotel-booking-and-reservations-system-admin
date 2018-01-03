@@ -16,10 +16,7 @@ import model.mysql.user.Administrator;
  */
 
 public class AppData {
-    
-    public static final String DATABASE = "HotelBookingReservationsSystem";
-    public static final String DATABASE_HOST = "localhost";
-    public static final int DATABASE_PORT = 27017;
+	
     public static final String EMAIL = "cuongvip1295@gmail.com";
     public static final String AUTHENTICATION = "ititiu13170";
     public static final String MAIL_HOST = "smtp.gmail.com";
@@ -45,7 +42,7 @@ public class AppData {
     public static final String HEADERKEY = "Content-Disposition";
     public static final String CSV_FORMAT = "attachment; filename=\"%s\"";
     public static final String CSV_FILENAME = "follow-users.csv";
-    public static final String[] HEADERCSV = {"User_ip_address", "Page_access", "Created_at", "External_ip_address", "Username", "Duration", "Country"};   
+    public static final String[] HEADERCSV = {"User_ip_address", "Page_access", "Created_at", "External_ip_address", "Username", "Duration"};   
     public static final String NO_FILE_CHOSEN = "No file chosen";
     public static final String NOT_PDF = "Just accept PDF format";
     public static final String PDF_RESOURCES = "resources/pdf/";

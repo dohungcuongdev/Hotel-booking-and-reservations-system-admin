@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 import model.api.user.tracking.CustomerBehavior;
 import model.api.user.tracking.ExternalIP;
 import model.api.user.tracking.FollowUsers;
-import model.api.user.tracking.GeoSameCountry;
-import model.api.user.tracking.PageAccessData;
+import model.api.user.tracking.CountryChartData;
+import model.api.user.tracking.PageAccessChartData;
 import model.mongodb.user.Customer;
 import model.mongodb.user.tracking.Activity;
 import model.mysql.user.Administrator;
@@ -119,12 +119,12 @@ public class UserServiceImpl implements UserService {
     }
 
 	@Override
-	public List<PageAccessData> getPageAccessChartData() {
+	public List<PageAccessChartData> getPageAccessChartData() {
 		return trackingDAO.getPageAccessChartData();
 	}
 
 	@Override
-	public List<PageAccessData> getPageAccessChartDataByIP(String ipaddress) {
+	public List<PageAccessChartData> getPageAccessChartDataByIP(String ipaddress) {
 		return trackingDAO.getPageAccessChartDataByIP(ipaddress);
 	}
 
@@ -134,12 +134,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<PageAccessData> getPageAccessChartDataByUsername(String username) {
+	public List<PageAccessChartData> getPageAccessChartDataByUsername(String username) {
 		return trackingDAO.getPageAccessChartDataByUsername(username);
 	}
 
 	@Override
-	public List<GeoSameCountry> getGeoSameCountry() {
-		return trackingDAO.getGeoSameCountry();
+	public List<CountryChartData> getCountryChartData() {
+		return trackingDAO.getCountryChartData();
 	}
 }

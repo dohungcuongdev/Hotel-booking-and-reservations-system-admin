@@ -19,8 +19,6 @@ public class FollowUsers {
 	private String page_access;
 	private int duration;
 	private String durationTime;
-	private String country;
-	private String city;
 	
 	public String getUser_ip_address() {
 		return user_ip_address;
@@ -78,22 +76,6 @@ public class FollowUsers {
 		this.durationTime = durationTime;
 	}
 
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
 	public String getCreated_at() {
 		return created_at;
 	}
@@ -104,9 +86,8 @@ public class FollowUsers {
 
 	@Override
 	public String toString() {
-		return "FollowUsers [user_ip_address=" + user_ip_address + ", external_ip_address="
-				+ external_ip_address + ", user_id=" + user_id + ", username=" + username + ", page_access="
-				+ page_access + ", created_at=" + created_at + ", duration=" + duration + ", durationTime="
-				+ durationTime + ", country=" + country + ", city=" + city + "]";
+		return "FollowUsers [user_ip_address=" + user_ip_address + ", external_ip_address=" + external_ip_address
+				+ ", user_id=" + user_id + ", username=" + username + ", created_at=" + created_at + ", page_access="
+				+ page_access + ", duration=" + duration + ", durationTime=" + durationTime + "]";
 	}
 }

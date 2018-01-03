@@ -9,8 +9,8 @@ import java.util.List;
 import model.api.user.tracking.CustomerBehavior;
 import model.api.user.tracking.ExternalIP;
 import model.api.user.tracking.FollowUsers;
-import model.api.user.tracking.GeoSameCountry;
-import model.api.user.tracking.PageAccessData;
+import model.api.user.tracking.CountryChartData;
+import model.api.user.tracking.PageAccessChartData;
 import model.mongodb.user.Customer;
 import model.mongodb.user.tracking.Activity;
 import model.mysql.user.Administrator;
@@ -22,11 +22,11 @@ import model.mysql.user.Administrator;
 public interface UserService {    
     
     public List<FollowUsers> getListFollowUsers();   
-    public List<PageAccessData> getPageAccessChartData();    
-    public List<PageAccessData> getPageAccessChartDataByIP(String ipaddress);
-    public List<PageAccessData> getPageAccessChartDataByUsername(String username);
+    public List<PageAccessChartData> getPageAccessChartData();    
+    public List<PageAccessChartData> getPageAccessChartDataByIP(String ipaddress);
+    public List<PageAccessChartData> getPageAccessChartDataByUsername(String username);
     public ExternalIP getExternalIPDetails(String external_ip_address);
-    public List<GeoSameCountry> getGeoSameCountry();
+    public List<CountryChartData> getCountryChartData();
     public Customer getCustomerByUsername(String username);
     public List<Customer> getAllCustomers();   
     public List<CustomerBehavior> getDataCollection();  

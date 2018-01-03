@@ -19,8 +19,9 @@ import daos.TrackingDAO;
 import model.api.user.tracking.ExternalIP;
 import model.api.user.tracking.FollowUsers;
 import model.api.user.tracking.GeoLocation;
-import model.api.user.tracking.GeoSameCountry;
-import model.api.user.tracking.PageAccessData;
+import model.api.user.tracking.CountryChartData;
+import model.api.user.tracking.PageAccessChartData;
+import statics.APIData;
 import statics.provider.GeoLookup;
 
 /**
@@ -32,41 +33,41 @@ import statics.provider.GeoLookup;
 public class TrackingDAOImpl extends APIDAOImpl implements TrackingDAO {
 
 	private final Gson gson = new Gson();
-
+	
 	@Override
 	public ExternalIP getExternalIPDetails(String external_ip_address) {
-		return gson.fromJson(getStringAPI("http://localhost:3000/api/follow-users/externalIP/" + external_ip_address),ExternalIP.class);
+		return gson.fromJson(getStringAPI(APIData.EXTERNAL_IP_DETAILS_API + external_ip_address),ExternalIP.class);
 	}
 
 	@Override
 	public List<FollowUsers> getListFollowUsers() {
-		return gson.fromJson(getStringAPI("http://localhost:3000/api/follow-users/"),new TypeToken<List<FollowUsers>>() {}.getType());
+		return gson.fromJson(getStringAPI(APIData.FOLLOW_USERS_API),new TypeToken<List<FollowUsers>>() {}.getType());
 	}
 	
 	@Override
-	public List<PageAccessData> getPageAccessChartData() {
-		return getPageAccessChartData("http://localhost:3000/api/follow-users/statistics/PageAccess/");
+	public List<PageAccessChartData> getPageAccessChartData() {
+		return getPageAccessChartData(APIData.PAGE_ACCESS_API);
 
 	}
 
 	@Override
-	public List<PageAccessData> getPageAccessChartDataByIP(String ipaddress) {
-		return getPageAccessChartData("http://localhost:3000/api/follow-users/statistics/PageAccess/userIP/" + ipaddress);
+	public List<PageAccessChartData> getPageAccessChartDataByIP(String ipaddress) {
+		return getPageAccessChartData(APIData.PAGE_ACCESS_USERIP_API + ipaddress);
 	}
 	
 	@Override
-	public List<PageAccessData> getPageAccessChartDataByUsername(String username) {
-		return getPageAccessChartData("http://localhost:3000/api/follow-users/statistics/PageAccess/username/" + username);
+	public List<PageAccessChartData> getPageAccessChartDataByUsername(String username) {
+		return getPageAccessChartData(APIData.PAGE_ACCESS_USERNAME_API + username);
 	}
 	
 	@Override
-	public List<GeoSameCountry> getGeoSameCountry() {
-		List<GeoSameCountry> listGeo = new ArrayList<>();
+	public List<CountryChartData> getCountryChartData() {
+		List<CountryChartData> listGeo = new ArrayList<>();
 		try {
-			JSONArray jsonArray = new JSONArray(getStringAPI("http://localhost:3000/api/follow-users/statistics/ExternalIP"));
+			JSONArray jsonArray = new JSONArray(getStringAPI(APIData.EXTERNAL_IP_API));
 			List<String> temp = new ArrayList<>();
 			for (int i = 0; i < jsonArray.length(); i++) {
-				GeoSameCountry geo = new GeoSameCountry();
+				CountryChartData geo = new CountryChartData();
 				JSONObject jsonObj = jsonArray.getJSONObject(i);
 				String exPI = jsonObj.getString("_id");
 				int visitTime = jsonObj.getInt("count");
@@ -90,8 +91,8 @@ public class TrackingDAOImpl extends APIDAOImpl implements TrackingDAO {
 		return listGeo;
 	}
 	
-	private List<PageAccessData> getPageAccessChartData(String api) {
-		List<PageAccessData> listPAData = new ArrayList<>();
+	private List<PageAccessChartData> getPageAccessChartData(String api) {
+		List<PageAccessChartData> listPAData = new ArrayList<>();
 		List<String> keys = new ArrayList<>();
 		try {
 			JSONArray jsonArr = new JSONArray(getStringAPI(api));
@@ -101,10 +102,10 @@ public class TrackingDAOImpl extends APIDAOImpl implements TrackingDAO {
 				int visit_time = o.getInt("count");
 				if(keys.contains(page_access)) {
 					int index = keys.indexOf(page_access);
-					listPAData.set(index, new PageAccessData(page_access, listPAData.get(index).getVisit_time() + visit_time));
+					listPAData.set(index, new PageAccessChartData(page_access, listPAData.get(index).getVisit_time() + visit_time));
 				} else {
 					keys.add(page_access);
-					listPAData.add(new PageAccessData(page_access, visit_time));
+					listPAData.add(new PageAccessChartData(page_access, visit_time));
 				}
 			}
 		} catch (Exception e) {

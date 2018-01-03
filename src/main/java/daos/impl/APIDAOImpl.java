@@ -14,7 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import model.api.user.tracking.GeoSameCountry;
+import model.api.user.tracking.CountryChartData;
 import statics.provider.GeoLookup;
 
 public class APIDAOImpl {

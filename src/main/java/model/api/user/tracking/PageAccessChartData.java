@@ -1,6 +1,6 @@
 package model.api.user.tracking;
 
-public class PageAccessData {
+public class PageAccessChartData {
 	private String page_access;
 	private int visit_time;
 	private String color;
@@ -38,7 +38,7 @@ public class PageAccessData {
 		return colors[16];
 	}
 
-	public PageAccessData(String page_access, int visit_time) {
+	public PageAccessChartData(String page_access, int visit_time) {
 		this.page_access = page_access;
 		this.visit_time = visit_time;
 		this.color = getColorByVisitTime();
