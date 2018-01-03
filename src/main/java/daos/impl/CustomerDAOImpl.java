@@ -22,6 +22,7 @@ import model.api.user.tracking.DataCollection;
 import model.api.user.tracking.Feedback;
 import model.mongodb.user.Customer;
 import model.mongodb.user.tracking.Activity;
+import statics.APIData;
 import statics.AppData;
 
 /**
@@ -41,12 +42,12 @@ public class CustomerDAOImpl extends APIDAOImpl implements CustomerDAO {
 
 	@Override
 	public Customer getCustomerByUsername(String username) {
-		return gson.fromJson(getStringAPI("http://localhost:3000/api/users/username/" + username), Customer.class);
+		return gson.fromJson(getStringAPI(APIData.USER_USERNAME_API + username), Customer.class);
 	}
 
 	@Override
 	public List<Customer> getAllCustomers() {
-		return gson.fromJson(getStringAPI("http://localhost:3000/api/users/"), new TypeToken<List<Customer>>(){}.getType());
+		return gson.fromJson(getStringAPI(APIData.USER_API), new TypeToken<List<Customer>>(){}.getType());
 	}
 
 	@Override
