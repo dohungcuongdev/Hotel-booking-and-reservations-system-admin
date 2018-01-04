@@ -1,11 +1,14 @@
 package statics.provider;
 
+import java.io.IOException;
+
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+
 import com.maxmind.geoip.Location;
 import com.maxmind.geoip.LookupService;
 
 import model.api.user.tracking.GeoLocation;
-
-import java.io.IOException;
 
 public class GeoLookup {
 
@@ -13,7 +16,8 @@ public class GeoLookup {
 
     static {
         try {
-            lookUp = new LookupService(GeoLookup.class.getResource("/GeoLiteCity.dat").getFile(), LookupService.GEOIP_MEMORY_CACHE);
+        	Resource resource = new ClassPathResource("/GeoLiteCity.dat");
+            lookUp = new LookupService(resource.getFile(), LookupService.GEOIP_MEMORY_CACHE);
         } catch (IOException e) {
             System.out.println("Could not load geo ip database: " + e.getMessage());
         }
