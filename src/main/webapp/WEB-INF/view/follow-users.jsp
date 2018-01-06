@@ -25,7 +25,7 @@
 			
             <div class="box-tools m-b-15">
                 <div class="input-group">
-                    <input min="0" max="10799999" type="text" name="keyword" id="keyword" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search for tracking.." title="Type in tracking data" onchange="showRangeVal()"/>
+                    <input min="0" max="3600000" type="text" name="keyword" id="keyword" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search for tracking.." title="Type in tracking data" onchange="showRangeVal()"/>
                     <input oninput="changeRangeVal()" type="text" style="display: none" id="range-value" class="input-sm pull-right" placeholder="Input duration.." title="Type in duration..">
                     <div class="input-group-btn">
                         <button class="btn btn-sm btn-default" onclick="search()"><i class="fa fa-search"></i></button>
