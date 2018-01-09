@@ -20,15 +20,17 @@
 		           	<option value="des">Descending</option>
 		        </select>
 		        &nbsp;&nbsp;
-		        <buton class="btn btn-success" onclick="filter()">Filter & View</a></buton>
+		        <buton class="btn btn-success" onclick="filter()">Filter & View</buton>
 	        </div>
 			
             <div class="box-tools m-b-15">
                 <div class="input-group">
-                    <input min="0" max="3600000" type="text" name="keyword" id="keyword" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search for tracking.." title="Type in tracking data" onchange="showRangeVal()"/>
-                    <input oninput="changeRangeVal()" type="text" style="display: none" id="range-value" class="input-sm pull-right" placeholder="Input duration.." title="Type in duration..">
+                    <input type="text" name="keyword" id="keyword" class="form-control input-sm pull-right" style="width: 220px;" placeholder="Search for tracking.." title="Type in tracking data" oninput="changeRangeVal()" />
+					<input onchange="showRangeVal()" class="input-sm pull-right slider" min="0" max="3600000" type="range" style="display: none; margin-right: 20px;" id="range2" title="Type in duration..">
+                    <input onchange="showRangeVal()" class="input-sm pull-right slider" min="0" max="3600000" type="range" style="display: none; margin-right: 20px;" id="range1" title="Type in duration..">
+                    <h5 id="search-keyword" style="margin-left:15px; margin-top: 6px;"></h5>
                     <div class="input-group-btn">
-                        <button class="btn btn-sm btn-default" onclick="search()"><i class="fa fa-search"></i></button>
+                        <button class="btn btn-sm btn-default" style="margin-top:-5px" onclick="search()"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
             </div>
@@ -74,6 +76,10 @@
     </div>
 </div>
 <%@ include file="common/footer.jspf"%>
+
+
+
+
 <script>
 var page = ${page};
 var action = '${action}';
@@ -83,7 +89,6 @@ var keyword = '${keyword}';
 var totalPageAPI = TRACKING_TOTAL_PAGE_API;
 var serverURL = '${pageContext.request.contextPath}/'
 var clickPageURL = serverURL;
-
 
 var tracking_api_url = '';
 
@@ -96,11 +101,30 @@ if(action == 'search') {
 	clickPageURL += 'follow-users/' + fieldname + '/' + sort  + '/';
 }
 
+function alertInvalidDuration() {
+	swal("Oops...", "Invalid Duration Format! \nCorrect Format: hh:MM:ss:SSS -> hh:MM:ss:SSS", "warning");
+}
+
 function search() {
 	var input = $("#keyword").val();
 	if(input == '') 
 		swal("Oops...", "Please input keyword!", "warning");
-	else
+	else if($("#fieldname").val() == 'duration') {
+		let temp = input.split(" -> ");
+		if(temp.length != 2)
+			alertInvalidDuration();
+		else {
+			let i = getDurationFormat(temp[0]);
+			let k = getDurationFormat(temp[1]);
+			if(i == -1 || k == -1)
+				alertInvalidDuration();
+			else if(i <= k) {
+				location.href= serverURL + 'follow-users-search/'+ $("#fieldname").val() + '/' + i + ',' + k + '/' + $("#sort").val() + '/1';
+			}
+			else 
+				swal("Oops...", "The second time input must be greater than the first one", "warning");
+		}
+	} else
 		location.href= serverURL + 'follow-users-search/'+ $("#fieldname").val() + '/' + input + '/' + $("#sort").val() + '/1';
 }
 
@@ -112,62 +136,8 @@ window.onload = function () { //first load page
 	$("#fieldname").val(fieldname);
 	$("#sort").val(sort);
 	$("#keyword").val(keyword);
-	selectFieldName();
+	initFieldName();
+	showSearchKeyword();
 };
-
-function showRangeVal() {
-	$("#range-value").val(getTimeBySecond($("#keyword").val()));
-}
-
-function isNDigit(s, n) {
-	if(s.length != n)
-		return false;
-	else if(isNaN(s))
-		return false;
-	else
-		return true;
-}
-
-function is2Digit(s) {
-	return isNDigit(s,2);
-}
-
-function is3Digit(s) {
-	return isNDigit(s,3);
-}
-
-function changeRangeVal() {
-	var input = $("#range-value").val();
-	var temp = input.split(":");
-	var hour = temp[0];
-	var min = temp[1];
-	var second = temp[2];
-	var millis = temp[3];
-	if(!is2Digit(hour) || !is2Digit(min) || !is2Digit(second) || !is3Digit(millis) ||  min > 59 || second > 59 || millis > 999 || min < 0 || second < 0 || millis < 0) {
-		swal("Oops...", "Invalid Time Format!", "warning");
-	} else {
-		var totalMills = 1000*(3600*parseInt(hour)+ 60*parseInt(min) + parseInt(second)) + parseInt(millis);
-		$("#keyword").val(totalMills);
-	}
-}
-
-function selectFieldName() {
-	var selected = $("#fieldname").val();
-	if(selected == 'duration') {
-		document.getElementById('keyword').type = 'range';
-		document.getElementById('range-value').style.display = 'block';
-		if(keyword == '' || isNaN(parseInt(keyword))) {
-			keyword = 0;
-			$("#keyword").val(0);
-		}
-		$("#range-value").val(getTimeBySecond(keyword));
-	} else {
-		document.getElementById('range-value').style.display = 'none';
-		if(selected == 'created_at')
-			document.getElementById('keyword').type = 'date';
-		else
-			document.getElementById('keyword').type = 'text';
-	}
-}
 </script>
 <script src="${pageContext.request.contextPath}/resources/custom/follow-user-angular.js" type="text/javascript"></script>

@@ -10,30 +10,6 @@
     Author     : HUNGCUONG
 */
 
-
-function padTime(t) {
-    return t < 10 ? "0"+t : t;
-}
-
-function padMilli(s) {
-	if(s < 10)
-		return "00"+s;
-	else if(s < 100)
-		return "0"+s;
-	return s;
-}
-
-function getTimeBySecond(s) {
-    var ms = s % 1000;
-    s = (s - ms) / 1000;
-    var secs = s % 60;
-    s = (s - secs) / 60;
-    var mins = s % 60;
-    var hrs = (s - mins) / 60;
-
-    return padTime(hrs) + ':' + padTime(mins) + ':' + padTime(secs) + ':' + padMilli(ms);  
-}
-
 var app = angular.module('follow-users', []);
 
 app.filter('secondsToTime',function(){
@@ -93,3 +69,129 @@ app.controller('folowUserCtrl', function($scope, $http) {
 	  });
   }
 });
+
+
+function padTime(t) {
+    return t < 10 ? "0"+t : t;
+}
+
+function padMilli(s) {
+	if(s < 10)
+		return "00"+s;
+	else if(s < 100)
+		return "0"+s;
+	return s;
+}
+
+function getTimeBySecond(s) {
+    var ms = s % 1000;
+    s = (s - ms) / 1000;
+    var secs = s % 60;
+    s = (s - secs) / 60;
+    var mins = s % 60;
+    var hrs = (s - mins) / 60;
+
+    return padTime(hrs) + ':' + padTime(mins) + ':' + padTime(secs) + ':' + padMilli(ms);  
+}
+
+function isNDigit(s, n) {
+	if(s.length != n)
+		return false;
+	else if(isNaN(s))
+		return false;
+	else
+		return true;
+}
+
+function is2Digit(s) {
+	return isNDigit(s,2);
+}
+
+function is3Digit(s) {
+	return isNDigit(s,3);
+}
+
+function getDurationFormat(input) {
+	let temp = input.split(":");
+	let hour = temp[0];
+	let min = temp[1];
+	let second = temp[2];
+	let millis = temp[3];
+	if(!is2Digit(hour) || !is2Digit(min) || !is2Digit(second) || !is3Digit(millis) ||  min > 59 || second > 59 || millis > 999 || min < 0 || second < 0 || millis < 0) {
+		return -1;
+	}
+	else	
+		return 1000*(3600*parseInt(hour)+ 60*parseInt(min) + parseInt(second)) + parseInt(millis);
+}
+
+function getDurationKeywordFormat(keyword) {
+	let temp = keyword.split(",");
+	if(temp.length != 2)
+		return '00:00:00:000 -> 00:00:00:000';
+	else {
+		let i = getTimeBySecond(temp[0]);
+		let k = getTimeBySecond(temp[1]);
+		return i + ' -> ' + k;
+	}
+}
+
+function changeRangeVal() {
+	let keyword = $("#keyword").val();
+	let temp = keyword.split(" -> ");
+	if(temp.length == 2) {
+		let i = getDurationFormat(temp[0]);
+		let k = getDurationFormat(temp[1]);
+		console.log(i);
+		if(i != -1 && k != -1) {
+			$("#range1").val(i);
+			$("#range2").val(k);
+		}
+	}
+}
+
+function showRangeVal() {
+	let input1 = $("#range1").val();
+	let input2 = $("#range2").val();
+	let duration1 = getTimeBySecond(input1);
+	let duration2 = getTimeBySecond(input2);
+	if(duration1 != -1 && duration2 != -1)
+		$("#keyword").val(duration1 + " -> " + duration2);
+}
+
+function initFieldName() {
+	let selected = $("#fieldname").val();
+	if(selected == 'duration') {
+		document.getElementById('keyword').type = 'text';
+		document.getElementById('range1').style.display = 'block';
+		document.getElementById('range2').style.display = 'block';
+		let keywordDuration = getDurationKeywordFormat(keyword);
+		$("#keyword").val(keywordDuration);
+		changeRangeVal();
+	} else {
+		document.getElementById('range1').style.display = 'none';
+		document.getElementById('range2').style.display = 'none';
+		if(selected == 'created_at')
+			document.getElementById('keyword').type = 'date';
+		else
+			document.getElementById('keyword').type = 'text';
+	}
+}
+
+function selectFieldName() {
+	initFieldName();
+	$("#keyword").val('');
+	$("#range1").val(0);
+	$("#range2").val(0);
+	$("#search-keyword").html('');
+}
+
+function showSearchKeyword() {
+	let searchKW = '';
+	if(keyword != '') {
+		if(fieldname == 'duration')
+			searchKW = 'Keyword: ' + '<b style=\"color:#CC0033\">' + getDurationKeywordFormat(keyword) + '<b>';
+		else
+			searchKW = 'Keyword: ' + '<b style=\"color:#CC0033\">' + keyword + '<b>';
+	}
+	$("#search-keyword").html(searchKW);
+}
