@@ -70,8 +70,10 @@
                 </ul>
                 </div>
             </div>
-            <center><button class="btn btn-danger" onclick="location.href = '${pageContext.request.contextPath}/downloadCSV.html'">
-            <b>Download CSV</b> <i class="fa fa-download"></i></button></center><br>
+            <center>
+            	<button class="btn btn-danger" onclick="location.href = '${pageContext.request.contextPath}/follow-all-users.html'"><b>View All</b> <i class="fa fa-user-circle"></i></button>
+            	<button class="btn btn-danger" onclick="location.href = '${pageContext.request.contextPath}/downloadCSV.html'"><b>Download CSV</b> <i class="fa fa-download"></i></button>
+            </center><br>
         </div>
     </div>
 </div>

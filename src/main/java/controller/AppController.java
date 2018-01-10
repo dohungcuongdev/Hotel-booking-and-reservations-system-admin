@@ -300,6 +300,11 @@ public class AppController {
 		return "manage-users";
 	}
 	
+	@RequestMapping(value = "follow-all-users", method = RequestMethod.GET)
+	public String followAllUsers(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		return authInitializeRedirect(request, response, model, "follow-all-users");
+	}
+	
 	@RequestMapping(value = "follow-users", method = RequestMethod.GET)
 	public String followUsers(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		model.put("fieldname", "created_at");
