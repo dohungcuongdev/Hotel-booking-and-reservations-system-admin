@@ -327,7 +327,6 @@ public class AppController {
 	
 	@RequestMapping(value = "follow-users-search/{fieldname}/{keyword}/{sort}/{page}", method = RequestMethod.GET)
 	public String searchFollowUsers(@PathVariable(value = "fieldname") String fieldname, @PathVariable(value = "keyword") String keyword, @PathVariable(value = "sort") String sort, @PathVariable(value = "page") int page, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		model.put("action", "search");
 		return authInitializeRedirect(request, response, model, "follow-users");
 	}
 

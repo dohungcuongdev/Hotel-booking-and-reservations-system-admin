@@ -231,9 +231,6 @@ function initFieldName() {
 		document.getElementById('keyword').type = 'text';
 		document.getElementById('range1').style.display = 'block';
 		document.getElementById('range2').style.display = 'block';
-		let keywordDuration = getDurationKeywordFormat(keyword);
-		$("#keyword").val(keywordDuration);
-		changeRangeVal();
 	} else {
 		document.getElementById('range1').style.display = 'none';
 		document.getElementById('range2').style.display = 'none';
@@ -250,6 +247,7 @@ function selectFieldName() {
 	$("#range1").val(0);
 	$("#range2").val(0);
 	$("#search-keyword").html('');
+	$("#search-fu-btn").css("margin-top", "0px");
 }
 
 function showSearchKeyword() {

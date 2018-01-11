@@ -30,7 +30,7 @@
                     <input onchange="showRangeVal()" class="input-sm pull-right slider" min="0" max="3600000" type="range" style="display: none; margin-right: 20px;" id="range1" title="Type in duration..">
                     <h5 id="search-keyword" style="margin-left:15px; margin-top: 6px;"></h5>
                     <div class="input-group-btn">
-                        <button class="btn btn-sm btn-default" style="margin-top:-5px" onclick="search()"><i class="fa fa-search"></i></button>
+                        <button id="search-fu-btn" class="btn btn-sm btn-default" onclick="search()"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
             </div>
@@ -84,7 +84,6 @@
 
 <script>
 var page = ${page};
-var action = '${action}';
 var fieldname = '${fieldname}';
 var sort = '${sort}';
 var keyword = '${keyword}';
@@ -94,7 +93,7 @@ var clickPageURL = serverURL;
 
 var tracking_api_url = '';
 
-if(action == 'search') {
+if(keyword != '') {
 	totalPageAPI = TOTAL_PAGE_SEARCH_API + fieldname + '/' + keyword;
 	tracking_api_url = TRACKING_SEARCH_API +  fieldname + '/' + keyword + '/' + sort + '/' + page;
 	clickPageURL += 'follow-users-search/' + fieldname + '/' + keyword + '/' + sort  + '/';
@@ -137,9 +136,18 @@ function filter() {
 window.onload = function () { //first load page
 	$("#fieldname").val(fieldname);
 	$("#sort").val(sort);
-	$("#keyword").val(keyword);
 	initFieldName();
 	showSearchKeyword();
+	if(keyword != '') {
+		$("#search-fu-btn").css("margin-top", "-5px");
+		if(fieldname == 'duration') {
+		    let keywordDuration = getDurationKeywordFormat(keyword);
+		    $("#keyword").val(keywordDuration);
+		    changeRangeVal();
+		} else
+			$("#keyword").val(keyword);
+	} else
+		$("#search-fu-btn").css("margin-top", "0px");
 };
 </script>
 <script src="${pageContext.request.contextPath}/resources/custom/follow-user-angular.js" type="text/javascript"></script>
