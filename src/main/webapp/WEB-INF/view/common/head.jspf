@@ -14,6 +14,7 @@
         <!-- bootstrap 3.0.2 -->
         <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <!-- font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <!-- Ionicons -->
         <link href="${pageContext.request.contextPath}/resources/css/ionicons.min.css" rel="stylesheet" type="text/css" />
@@ -41,7 +42,6 @@
         <script src="${pageContext.request.contextPath}/resources/alert/sweetalert-dev.js"></script> 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/alert/sweetalert.css">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-		<link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
         
         <!-- Resources -->
         <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
@@ -91,6 +91,8 @@
 		<script src="${pageContext.request.contextPath}/resources/custom/alert.js" type="text/javascript"></script>
 		<!-- My Const -->
 		<script src="${pageContext.request.contextPath}/resources/custom/const.js" type="text/javascript"></script>
-		
+		<style>
+		.fa-bed:before{content:"\f236"}
+		</style>
     </head>
     <body class="skin-black">

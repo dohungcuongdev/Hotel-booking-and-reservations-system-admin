@@ -73,6 +73,8 @@ fa-bar-chart-o:before,.fa-bar-chart:before{
 	content:"\f080"
 }
 
+fa-bed:before{content:"\f236"}
+
 .slider {
 	margin-top: 3px;
     -webkit-appearance: none;
