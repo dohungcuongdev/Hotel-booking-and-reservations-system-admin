@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-lg-12">
         <section class="panel">
-            <header class="panel-heading" style="font-weight: bold; color:red">Change Information!</header>
+            <header class="panel-heading" style="font-weight: bold; color:red">Add New Restaurant Item!</header>
             <div class="panel-body">
                 <form:form method="post" commandName="newService" action="${pageContext.request.contextPath}/service-added.html">
                     <div class="form-group">
