@@ -142,4 +142,9 @@ public class UserServiceImpl implements UserService {
 	public List<CountryChartData> getCountryChartData() {
 		return trackingDAO.getCountryChartData();
 	}
+
+	@Override
+	public boolean isExists(String username) {
+		return adminDAO.isExists(username);
+	}
 }

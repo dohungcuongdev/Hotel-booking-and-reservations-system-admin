@@ -32,6 +32,7 @@ public interface UserService {
     public List<CustomerBehavior> getDataCollection();  
     public CustomerBehavior getOneDataCollection(String username);  
     public Administrator getAdminByUserName(String username);
+    public boolean isExists (String username);
     public void updateAdmin(Administrator ad);
     public void updatePassword(String username,  String newpassword);
     public void editProfileImg(String username, String img);

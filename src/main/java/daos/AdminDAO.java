@@ -17,4 +17,5 @@ public interface AdminDAO {
     public void updateAdmin(Administrator ad);
     public void editProfileImg(String username, String img);
     public void updatePassword(String username, String newpassword);
+    public boolean isExists (String username);
 }

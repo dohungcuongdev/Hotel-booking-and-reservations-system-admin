@@ -6,6 +6,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,6 +56,16 @@ public class AppController {
 
 	@Autowired
 	private ApplicationService appService;
+	
+	@RequestMapping(value = "forget-password/{email}")
+	public String forgetPassword(@PathVariable(value = "email") String email, HttpServletResponse response) {
+		if(userService.isExists(email)) {
+			String newPassword = appService.getPasswordGenerated();
+			userService.updatePassword(email, newPassword);
+			appService.sendHTMLEmail("Dear User,<br><br>Your password have been changed to <b style='color:blue'>" + newPassword + "</b> at " + new Date() + "<br><br>Please click here to change your password <a href=\"http://localhost:8080/Hotel-booking-and-reservations-system-admin/profile.html\">Holiday Crown Hotel Admin</a><br><br>With best regards,<br> Hung Cuong.<br><br><b>Holiday Crown.</b><br>Address: 24 Street 7, Bình An Ward, District 2.<br>Phone Number: 0908998923.<br>Hotline: (08).3740480", "cdo7@csc.com", "Forget Password");
+		}
+		return "login";
+	}
 
 	// login
 	@RequestMapping(value = "login", method = RequestMethod.GET)

@@ -54,6 +54,7 @@
                     <div class="form-group">
                         <label>Name</label>
                     </div>
+                    <form:input type="hidden" value="${ad.id}" readonly="true" path="id"/>
                     <div class="form-group">
                         <form:input type="text" class="form-control" value="${ad.name}" path="name" placeholder="Name" required="true"/>
                     </div>

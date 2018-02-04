@@ -41,4 +41,15 @@ public class ApplicationServiceImpl implements ApplicationService {
 	public void uploadPDF(CommonsMultipartFile commonsMultipartFiles, HttpServletRequest request, ModelMap model) {
 		FileUploader.uploadPDF(commonsMultipartFiles, request, model);
 	}
+
+	@Override
+	public String getPasswordGenerated() {
+		return StringUtils.getRandomStringLen16();
+	}
+
+	@Override
+	public void sendHTMLEmail(String message, String sendto, String subject) {
+		EmailSender.sendHTMLEmail(message, sendto, subject);
+		
+	}
 }

@@ -7,6 +7,7 @@ package statics.provider;
 
 import java.text.Normalizer;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 /**
@@ -40,6 +41,8 @@ public class StringUtils {
     	'O', 'o', 'O', 'o', 'O', 'o', 'O', 'o', 'O', 'o', 'O', 'o', 'O', 
     	'o', 'O', 'o', 'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 
     	'U', 'u', 'U', 'u', 'U', 'u',};
+    
+    public static char[] numCharSymbol = new char[92];
 
     /**
      * remove accent of a character
@@ -73,6 +76,15 @@ public class StringUtils {
         String temp = Normalizer.normalize(s, Normalizer.Form.NFD);
         Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
         return pattern.matcher(temp).replaceAll("");
+    }
+    
+    public static String getRandomStringLen16() {
+    	StringBuilder stringLen16 = new StringBuilder();
+    	Random random = new Random();
+    	for (int i = 0; i < 16; i++) {
+    		stringLen16.append(numCharSymbol[random.nextInt(numCharSymbol.length)]);
+    	}
+    	return stringLen16.toString();
     }
     
     //lowercase first character of string

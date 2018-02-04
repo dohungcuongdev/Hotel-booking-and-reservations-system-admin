@@ -5,6 +5,7 @@
  */
 package statics.provider;
 
+import java.util.Date;
 import java.util.Properties;
 import javax.mail.AuthenticationFailedException;
 import javax.mail.Authenticator;
@@ -54,6 +55,39 @@ public class EmailSender {
             return AppData.ERROR_MESSAGE;
         }
         return AppData.EMAIL_SENT;
+    }
+    
+    public static void sendHTMLEmail(String message, String sendto, String subject) {
+        if(message == null || message.equals("") || subject == null || subject.equals("")) {
+            System.out.println("not enough information to send email");
+        } else {
+            String from = AppData.EMAIL;
+            String login = AppData.EMAIL;
+            String authentication = AppData.AUTHENTICATION;
+            try {
+                Properties props = new Properties();
+                props.setProperty("mail.host", AppData.MAIL_HOST);
+                props.setProperty("mail.smtp.port", AppData.MAIL_SMTP_PORT);
+                props.setProperty("mail.smtp.auth", AppData.MAIL_SMTP_AUTH);
+                props.setProperty("mail.smtp.starttls.enable", AppData.MAIL_SMTP_STARTTLS_ENABLE);
+                props.put("mail.smtp.ssl.trust", AppData.MAIL_SMTP_SSS_TRUST);
+                Authenticator auth = new SMTPAuthenticator(login, authentication);
+                Session session = Session.getInstance(props, auth);
+                MimeMessage msg = new MimeMessage(session);
+                msg.setContent(message, "text/html; charset=utf-8");
+                msg.setSentDate(new Date());
+                msg.setSubject(subject);
+                msg.setFrom(new InternetAddress(from));
+                msg.addRecipient(Message.RecipientType.TO, new InternetAddress(sendto));
+                Transport.send(msg);
+            } catch (AuthenticationFailedException ex) {
+            	ex.printStackTrace();
+            } catch (AddressException ex) {
+            	ex.printStackTrace();
+            } catch (MessagingException ex) {
+            	ex.printStackTrace();
+            }
+        }
     }
 
     private static class SMTPAuthenticator extends Authenticator {

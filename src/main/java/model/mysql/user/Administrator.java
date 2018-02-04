@@ -18,7 +18,8 @@ import model.mysql.MySQLAbstractModel;
 @Entity(name = "admin")
 public class Administrator extends MySQLAbstractModel {
 
-	@Column(name = "username", unique = true, nullable = false, length = 255)
+	//@Column(name = "username", unique = true, nullable = false, length = 255)
+	@Column(name = "username", nullable = false)
 	protected String username;
 	
 	@Column(name = "phone", nullable = false)

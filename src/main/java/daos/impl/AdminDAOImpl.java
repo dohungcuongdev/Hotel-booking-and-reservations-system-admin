@@ -35,7 +35,7 @@ public class AdminDAOImpl implements AdminDAO {
 
     @Override
     public void updateAdmin(Administrator admin) {
-		if(!isExists(admin))
+//		if(!isExists(admin.getUsername()))
 			sessionFactory.getCurrentSession().saveOrUpdate(admin);
     }
 
@@ -56,9 +56,10 @@ public class AdminDAOImpl implements AdminDAO {
 		q.executeUpdate();
     }
 	
-	private boolean isExists (Administrator admin) {
+    @Override
+    public boolean isExists (String username) {
 	    Query query = sessionFactory.getCurrentSession().createQuery("from " + Administrator.class.getName() + " where username = :username");
-	    query.setParameter("username", admin.getUsername());
+	    query.setParameter("username", username);
 	    return query.uniqueResult() != null;
 	}
 
