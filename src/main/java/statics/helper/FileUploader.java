@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package statics.provider;
+package statics.helper;
 
 import java.io.File;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
-import statics.AppData;
+
 import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
+import statics.constant.AppData;
 
 /**
  *

@@ -12,13 +12,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import daos.impl.EncryptDecryptAES;
 import model.api.user.tracking.GeoLocation;
 import services.ApplicationService;
-import statics.provider.FileUploader;
-import statics.provider.GeoLookup;
-import statics.provider.EmailSender;
-import statics.provider.StringUtils;
+import services.aes.Decryption;
+import services.aes.Encryption;
+import statics.helper.EmailSender;
+import statics.helper.FileUploader;
+import statics.helper.GeoLookup;
+import statics.helper.StringUtils;
 
 /**
  *
@@ -29,7 +30,10 @@ import statics.provider.StringUtils;
 public class ApplicationServiceImpl implements ApplicationService {
 	
 	@Autowired
-	EncryptDecryptAES edAES;
+	Decryption decryption;
+	
+	@Autowired
+	Encryption ecryption;
 
 	@Override
 	public String uploadImage(CommonsMultipartFile commonsMultipartFiles, HttpServletRequest request, ModelMap model, String itemType) {
@@ -64,7 +68,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 	@Override
 	public String getEncryptPassword(String password) {
 		try {
-			return edAES.encrypt(password);
+			return ecryption.encrypt(password);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -74,7 +78,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 	@Override
 	public String getDecryptPassword(String pwEncryted) {
 		try {
-			return edAES.decrypt(pwEncryted);
+			return decryption.decrypt(pwEncryted);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

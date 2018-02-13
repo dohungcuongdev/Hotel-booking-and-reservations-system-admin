@@ -4,7 +4,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import statics.provider.StringUtils;
+import statics.helper.StringUtils;
 
 @Component
 public class StartupHousekeeper implements ApplicationListener<ContextRefreshedEvent> {

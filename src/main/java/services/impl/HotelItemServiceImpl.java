@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 
 import daos.RestaurantDAO;
 import daos.RoomDAO;
-import model.mysql.hotel.HotelRoom;
-import model.mysql.hotel.HotelService;
+import model.sql.hotel.HotelRoom;
+import model.sql.hotel.HotelService;
 import services.HotelItemService;
 import test.TestRoomAPI;
 

@@ -31,13 +31,13 @@ import model.bean.ChangePasswordBean;
 import model.bean.LoginBean;
 import model.mongodb.user.Customer;
 import model.mongodb.user.tracking.Activity;
-import model.mysql.hotel.HotelRoom;
-import model.mysql.hotel.HotelService;
-import model.mysql.user.Administrator;
+import model.sql.hotel.HotelRoom;
+import model.sql.hotel.HotelService;
+import model.sql.user.Administrator;
 import services.ApplicationService;
 import services.HotelItemService;
 import services.UserService;
-import statics.AppData;
+import statics.constant.AppData;
 
 /**
  *
@@ -61,7 +61,8 @@ public class AppController {
 	public String forgetPassword(@PathVariable(value = "email") String email, HttpServletResponse response) {
 		if(userService.isExists(email)) {
 			String newPassword = appService.getPasswordGenerated();
-			userService.updatePassword(email, appService.getEncryptPassword(newPassword));
+			String newEncryptedPW = appService.getEncryptPassword(newPassword);
+			userService.updatePassword(email, newEncryptedPW);
 			appService.sendHTMLEmail(AppData.FORGET_PW_HEADER_EMAIL + newPassword + "</b> at " + new Date() + AppData.FORGET_PW_FOOTER_EMAIL, email, "Forget Password");
 		}
 		return "login";
@@ -128,12 +129,13 @@ public class AppController {
 	@RequestMapping(value = "change-password", method = RequestMethod.POST)
 	public String changePassword(@ModelAttribute(value = "changePassBean") ChangePasswordBean changePassBean, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		checkAuth(request, response);
-		String correctPassword = AppData.admin.getPassword();
+		String correctPassword = appService.getDecryptPassword(AppData.admin.getPassword());
 		String newPassword = changePassBean.getNewpassword();
 		model.put("pwCheckingResult", changePassBean.getPWCheckingResult(correctPassword));
 		if (changePassBean.isMatchPassword(correctPassword)) {
-			userService.updatePassword(AppData.admin.getUsername(), newPassword);
-			AppData.admin.setPassword(newPassword);
+			String newEncryptedPW = appService.getEncryptPassword(newPassword);
+			userService.updatePassword(AppData.admin.getUsername(), newEncryptedPW);
+			AppData.admin.setPassword(newEncryptedPW);
 		}
 		return initializeProfile(model);
 	}
@@ -597,5 +599,10 @@ public class AppController {
 		System.out.println(encrytedPW);
 		System.out.println(decrytedPW);
 		userService.updatePassword(username, encrytedPW);
+	}
+	
+	@SuppressWarnings("unused")
+	private void addNewAdmin() {
+		
 	}
 }

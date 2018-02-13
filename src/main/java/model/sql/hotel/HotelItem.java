@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.mysql.hotel;
+package model.sql.hotel;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 import org.hibernate.annotations.Type;
 
-import model.mysql.MySQLAbstractModel;
-import statics.AppData;
-import statics.provider.DateTimeCalculator;
+import model.sql.SQLAbstractModel;
+import statics.constant.AppData;
+import statics.helper.DateTimeCalculator;
 
 /**
  *
@@ -20,7 +20,7 @@ import statics.provider.DateTimeCalculator;
  */
 
 @MappedSuperclass
-public abstract class HotelItem extends MySQLAbstractModel {
+public abstract class HotelItem extends SQLAbstractModel {
 
 	@Column(name = "price", nullable = false)
     protected int price;

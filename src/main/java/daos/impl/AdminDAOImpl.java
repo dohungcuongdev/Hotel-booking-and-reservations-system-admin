@@ -6,7 +6,7 @@
 package daos.impl;
 
 import daos.AdminDAO;
-import model.mysql.user.Administrator;
+import model.sql.user.Administrator;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;

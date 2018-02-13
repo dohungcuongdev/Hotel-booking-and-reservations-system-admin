@@ -1,4 +1,4 @@
-package daos.impl;
+package daos;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -13,7 +13,7 @@ import org.apache.http.util.EntityUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
-public class APIDAOImpl {
+public class APIDAO {
 
 	private final Gson gson = new Gson();
 

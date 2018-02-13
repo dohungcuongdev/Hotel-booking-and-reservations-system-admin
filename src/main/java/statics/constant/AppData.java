@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package statics;
+package statics.constant;
 
 import java.util.Arrays;
 import java.util.List;
 
-import model.mysql.user.Administrator;
+import model.sql.user.Administrator;
 
 /**
  *

@@ -1,4 +1,4 @@
-package statics;
+package statics.constant;
 
 public class APIData {
 

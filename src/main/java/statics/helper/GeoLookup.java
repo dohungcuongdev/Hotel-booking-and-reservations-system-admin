@@ -1,4 +1,4 @@
-package statics.provider;
+package statics.helper;
 
 import java.io.IOException;
 

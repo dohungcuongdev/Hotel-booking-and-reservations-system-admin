@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package statics.provider;
+package statics.helper;
 
 import java.util.Date;
 import java.util.Properties;
@@ -17,7 +17,8 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import statics.AppData;
+
+import statics.constant.AppData;
 
 /**
  *

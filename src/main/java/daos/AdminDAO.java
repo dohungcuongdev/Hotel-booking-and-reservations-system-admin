@@ -5,7 +5,7 @@
  */
 package daos;
 
-import model.mysql.user.Administrator;
+import model.sql.user.Administrator;
 
 /**
  *

@@ -5,13 +5,15 @@
  */
 package daos.impl;
 
-import static statics.provider.MathCalculator.round;
+import static statics.helper.MathCalculator.round;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.google.gson.reflect.TypeToken;
+
+import daos.APIDAO;
 import daos.ActivityDAO;
 import daos.CustomerDAO;
 import daos.TrackingDAO;
@@ -21,8 +23,8 @@ import model.api.user.tracking.DataCollection;
 import model.api.user.tracking.Feedback;
 import model.mongodb.user.Customer;
 import model.mongodb.user.tracking.Activity;
-import statics.APIData;
-import statics.AppData;
+import statics.constant.APIData;
+import statics.constant.AppData;
 
 /**
  *
@@ -30,7 +32,7 @@ import statics.AppData;
  */
 
 @Repository
-public class CustomerDAOImpl extends APIDAOImpl implements CustomerDAO {
+public class CustomerDAOImpl extends APIDAO implements CustomerDAO {
 
 	@Autowired
 	private ActivityDAO activityDAO;

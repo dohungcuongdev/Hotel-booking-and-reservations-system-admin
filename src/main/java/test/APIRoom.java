@@ -1,10 +1,10 @@
 package test;
 
-import daos.impl.APIDAOImpl;
+import daos.APIDAO;
 
 public class APIRoom {
 	
-	APIDAOImpl a = new APIDAOImpl();
+	APIDAO a = new APIDAO();
 	
 	public String getApi() {
 		return a.getStringAPI("http://localhost:8080/Hotel-booking-and-reservations-system-admin/api/rooms");

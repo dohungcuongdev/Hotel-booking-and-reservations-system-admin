@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.mysql.user;
+package model.sql.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-import model.mysql.MySQLAbstractModel;
+import model.sql.SQLAbstractModel;
 
 /**
  *
@@ -16,7 +16,7 @@ import model.mysql.MySQLAbstractModel;
  */
 
 @Entity(name = "admin")
-public class Administrator extends MySQLAbstractModel {
+public class Administrator extends SQLAbstractModel {
 
 	//@Column(name = "username", unique = true, nullable = false, length = 255)
 	@Column(name = "username", nullable = false)

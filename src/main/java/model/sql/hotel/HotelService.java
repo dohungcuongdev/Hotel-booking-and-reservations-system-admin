@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.mysql.hotel;
+package model.sql.hotel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-import statics.AppData;
+import statics.constant.AppData;
 
 /**
  *

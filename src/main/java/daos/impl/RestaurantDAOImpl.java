@@ -6,7 +6,8 @@
 package daos.impl;
 
 import daos.RestaurantDAO;
-import model.mysql.hotel.HotelService;
+import model.sql.hotel.HotelService;
+
 import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

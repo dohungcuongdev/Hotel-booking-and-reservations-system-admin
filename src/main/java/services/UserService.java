@@ -13,7 +13,7 @@ import model.api.user.tracking.CountryChartData;
 import model.api.user.tracking.PageAccessChartData;
 import model.mongodb.user.Customer;
 import model.mongodb.user.tracking.Activity;
-import model.mysql.user.Administrator;
+import model.sql.user.Administrator;
 
 /**
  *

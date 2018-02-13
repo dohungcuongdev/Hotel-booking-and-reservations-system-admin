@@ -12,9 +12,10 @@ import org.springframework.stereotype.Repository;
 
 import com.google.gson.reflect.TypeToken;
 
+import daos.APIDAO;
 import daos.ActivityDAO;
 import model.mongodb.user.tracking.Activity;
-import statics.APIData;
+import statics.constant.APIData;
 
 /**
  *
@@ -22,7 +23,7 @@ import statics.APIData;
  */
 
 @Repository
-public class ActivityDAOImpl extends APIDAOImpl implements ActivityDAO {
+public class ActivityDAOImpl extends APIDAO implements ActivityDAO {
 
 	@Override
 	public List<Activity> getAllActivity() {

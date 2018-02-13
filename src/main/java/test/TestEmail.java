@@ -3,8 +3,8 @@ package test;
 import java.util.Date;
 import java.util.Random;
 
-import statics.provider.EmailSender;
-import statics.provider.StringUtils;
+import statics.helper.EmailSender;
+import statics.helper.StringUtils;
 
 public class TestEmail {
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.mysql;
+package model.sql;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -19,7 +19,7 @@ import model.AbstractModel;
  */
 
 @MappedSuperclass
-public abstract class MySQLAbstractModel extends AbstractModel {
+public abstract class SQLAbstractModel extends AbstractModel {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -45,9 +45,9 @@ public abstract class MySQLAbstractModel extends AbstractModel {
 		this.name = name;
 	}
 	
-    public MySQLAbstractModel() {}
+    public SQLAbstractModel() {}
     
-    public MySQLAbstractModel(int id, String name) {
+    public SQLAbstractModel(int id, String name) {
 		this.id = id;
 		this.name = name;
 	}

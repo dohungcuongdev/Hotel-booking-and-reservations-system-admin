@@ -4,7 +4,7 @@ import java.net.UnknownHostException;
 
 import org.json.JSONException;
 
-import statics.provider.GeoLookup;
+import statics.helper.GeoLookup;
 
 public class LookUpProgram {
 

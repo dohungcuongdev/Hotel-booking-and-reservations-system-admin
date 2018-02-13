@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import daos.CustomerDAO;
 import daos.RoomDAO;
 import model.mongodb.user.Customer;
-import model.mysql.hotel.HotelRoom;
+import model.sql.hotel.HotelRoom;
 
 /**
  *

@@ -5,7 +5,7 @@
  */
 package daos.impl;
 
-import static statics.provider.StringUtils.upperFirstChar;
+import static statics.helper.StringUtils.upperFirstChar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +14,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Repository;
 import com.google.gson.reflect.TypeToken;
+
+import daos.APIDAO;
 import daos.TrackingDAO;
 import model.api.user.tracking.ExternalIP;
 import model.api.user.tracking.FollowUsers;
 import model.api.user.tracking.GeoLocation;
 import model.api.user.tracking.CountryChartData;
 import model.api.user.tracking.PageAccessChartData;
-import statics.APIData;
-import statics.provider.GeoLookup;
+import statics.constant.APIData;
+import statics.helper.GeoLookup;
 
 /**
  *
@@ -29,7 +31,7 @@ import statics.provider.GeoLookup;
  */
 
 @Repository
-public class TrackingDAOImpl extends APIDAOImpl implements TrackingDAO {
+public class TrackingDAOImpl extends APIDAO implements TrackingDAO {
 	
 	@Override
 	public ExternalIP getExternalIPDetails(String external_ip_address) {
@@ -64,7 +66,7 @@ public class TrackingDAOImpl extends APIDAOImpl implements TrackingDAO {
 			return null;
 		List<CountryChartData> listGeo = new ArrayList<>();
 		try {
-			JSONArray jsonArray = new JSONArray();
+			JSONArray jsonArray = new JSONArray(json);
 			List<String> temp = new ArrayList<>();
 			for (int i = 0; i < jsonArray.length(); i++) {
 				CountryChartData geo = new CountryChartData();
@@ -92,12 +94,13 @@ public class TrackingDAOImpl extends APIDAOImpl implements TrackingDAO {
 	}
 	
 	private List<PageAccessChartData> getPageAccessChartData(String api) {
-		if(api == null)
+		String json = getStringAPI(api);
+		if(json == null)
 			return null;
 		List<PageAccessChartData> listPAData = new ArrayList<>();
 		List<String> keys = new ArrayList<>();
 		try {
-			JSONArray jsonArr = new JSONArray(getStringAPI(api));
+			JSONArray jsonArr = new JSONArray(json);
 			for (int i = 0; i < jsonArr.length(); i++) {
 				JSONObject o = jsonArr.getJSONObject(i);
 				String page_access = mergeKey(o.getString("_id"));

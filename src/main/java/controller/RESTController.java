@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import model.api.user.tracking.CountryChartData;
 import model.api.user.tracking.PageAccessChartData;
-import model.mysql.hotel.HotelRoom;
-import model.mysql.hotel.HotelService;
+import model.sql.hotel.HotelRoom;
+import model.sql.hotel.HotelService;
 import services.HotelItemService;
 import services.UserService;
 

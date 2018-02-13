@@ -7,7 +7,8 @@ package model;
 
 import java.text.ParseException;
 import java.util.Date;
-import statics.provider.DateTimeCalculator;
+
+import statics.helper.DateTimeCalculator;
 
 /**
  *

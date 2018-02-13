@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import daos.HotelItemDAO;
-import model.mysql.hotel.HotelItem;
+import model.sql.hotel.HotelItem;
 
 /**
  *
