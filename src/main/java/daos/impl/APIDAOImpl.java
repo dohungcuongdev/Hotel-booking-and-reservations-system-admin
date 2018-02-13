@@ -1,8 +1,7 @@
 package daos.impl;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Type;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -10,14 +9,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import model.api.user.tracking.CountryChartData;
-import statics.provider.GeoLookup;
+import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
 
 public class APIDAOImpl {
+
+	private final Gson gson = new Gson();
 
 	public String getStringAPI(String api) {
 		// env.getProperty(api)
@@ -32,4 +30,11 @@ public class APIDAOImpl {
 		}
 		return jsonData;
 	}
+
+	public <T> T getJsonData(String json, Type typeOfT) throws JsonParseException {
+		if(json == null)
+			return null;
+		return gson.fromJson(json, typeOfT);
+	}
+
 }

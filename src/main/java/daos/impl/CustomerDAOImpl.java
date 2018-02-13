@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import daos.ActivityDAO;
 import daos.CustomerDAO;
@@ -38,16 +37,15 @@ public class CustomerDAOImpl extends APIDAOImpl implements CustomerDAO {
 
 	@Autowired
 	private TrackingDAO userDAO;
-	private final Gson gson = new Gson();
 
 	@Override
 	public Customer getCustomerByUsername(String username) {
-		return gson.fromJson(getStringAPI(APIData.USER_USERNAME_API + username), Customer.class);
+		return getJsonData(getStringAPI(APIData.USER_USERNAME_API + username), Customer.class);
 	}
 
 	@Override
 	public List<Customer> getAllCustomers() {
-		return gson.fromJson(getStringAPI(APIData.USER_API), new TypeToken<List<Customer>>(){}.getType());
+		return getJsonData(getStringAPI(APIData.USER_API), new TypeToken<List<Customer>>(){}.getType());
 	}
 
 	@Override

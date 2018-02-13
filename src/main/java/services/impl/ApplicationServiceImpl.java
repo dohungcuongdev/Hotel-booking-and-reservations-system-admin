@@ -6,11 +6,17 @@
 package services.impl;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
+import daos.impl.EncryptDecryptAES;
+import model.api.user.tracking.GeoLocation;
 import services.ApplicationService;
 import statics.provider.FileUploader;
+import statics.provider.GeoLookup;
 import statics.provider.EmailSender;
 import statics.provider.StringUtils;
 
@@ -21,6 +27,9 @@ import statics.provider.StringUtils;
 
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
+	
+	@Autowired
+	EncryptDecryptAES edAES;
 
 	@Override
 	public String uploadImage(CommonsMultipartFile commonsMultipartFiles, HttpServletRequest request, ModelMap model, String itemType) {
@@ -50,6 +59,30 @@ public class ApplicationServiceImpl implements ApplicationService {
 	@Override
 	public void sendHTMLEmail(String message, String sendto, String subject) {
 		EmailSender.sendHTMLEmail(message, sendto, subject);
-		
+	}
+
+	@Override
+	public String getEncryptPassword(String password) {
+		try {
+			return edAES.encrypt(password);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return password;
+	}
+
+	@Override
+	public String getDecryptPassword(String pwEncryted) {
+		try {
+			return edAES.decrypt(pwEncryted);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pwEncryted;
+	}
+
+	@Override
+	public GeoLocation getLocationByIP(String externalIP) {
+		return GeoLookup.getLocation(externalIP);
 	}
 }

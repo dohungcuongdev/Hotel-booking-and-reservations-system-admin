@@ -28,6 +28,8 @@ public class AppData {
     public static final String WRONG_EMAIL_ADDRESS = "Wrong email address";
     public static final String ERROR_MESSAGE = "ErrorMessage";
     public static final String EMAIL_SENT = "Sent successfully";
+    public static final String FORGET_PW_HEADER_EMAIL = "Dear User,<br><br>Your password have been changed to <b style='color:blue'>";
+    public static final String FORGET_PW_FOOTER_EMAIL = "<br><br>Please click here to change your password <a href=\"http://localhost:8080/Hotel-booking-and-reservations-system-admin/profile.html\">Holiday Crown Hotel Admin</a><br><br>With best regards,<br> Hung Cuong.<br><br><b>Holiday Crown.</b><br>Address: 24 Street 7, Bình An Ward, District 2.<br>Phone Number: 0908998923.<br>Hotline: (08).3740480";
     public static final String EMAIL_NO_SUBJECT_MES = "Please input subject and message!";
     public static final String INFOR_NOT_ENOUGH = "Please input all the information!";
     public static final String WRONG_ROOM_NAME = "Room name must be 3 digits natural number! (Ex: 604)";

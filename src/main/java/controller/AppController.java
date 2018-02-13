@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -37,7 +38,6 @@ import services.ApplicationService;
 import services.HotelItemService;
 import services.UserService;
 import statics.AppData;
-import statics.provider.GeoLookup;
 
 /**
  *
@@ -61,8 +61,8 @@ public class AppController {
 	public String forgetPassword(@PathVariable(value = "email") String email, HttpServletResponse response) {
 		if(userService.isExists(email)) {
 			String newPassword = appService.getPasswordGenerated();
-			userService.updatePassword(email, newPassword);
-			appService.sendHTMLEmail("Dear User,<br><br>Your password have been changed to <b style='color:blue'>" + newPassword + "</b> at " + new Date() + "<br><br>Please click here to change your password <a href=\"http://localhost:8080/Hotel-booking-and-reservations-system-admin/profile.html\">Holiday Crown Hotel Admin</a><br><br>With best regards,<br> Hung Cuong.<br><br><b>Holiday Crown.</b><br>Address: 24 Street 7, Bình An Ward, District 2.<br>Phone Number: 0908998923.<br>Hotline: (08).3740480", "cdo7@csc.com", "Forget Password");
+			userService.updatePassword(email, appService.getEncryptPassword(newPassword));
+			appService.sendHTMLEmail(AppData.FORGET_PW_HEADER_EMAIL + newPassword + "</b> at " + new Date() + AppData.FORGET_PW_FOOTER_EMAIL, email, "Forget Password");
 		}
 		return "login";
 	}
@@ -81,9 +81,15 @@ public class AppController {
 		String username = loginbean.getUserName();
 		String password = loginbean.getPassword();
 		AppData.admin = userService.getAdminByUserName(username);
-		if (AppData.admin != null && username.equals(AppData.admin.getUsername()) && password.equals(AppData.admin.getPassword())) {
+		if (AppData.admin != null && username.equals(AppData.admin.getUsername()) && password.equals(appService.getDecryptPassword(AppData.admin.getPassword()))) {
 			request.getSession().setAttribute("username", username);
 			request.getSession().setMaxInactiveInterval(24 * 60 * 60);
+			Cookie cookieUN = new Cookie("username", username);
+			Cookie cookiePW = new Cookie("password", appService.getEncryptPassword(password));
+			cookieUN.setMaxAge(3600*24*3);
+			cookiePW.setMaxAge(3600*24*3);
+			response.addCookie(cookieUN);
+			response.addCookie(cookiePW);
 			return index(request, response, model);
 		}
 		model.put("checkLogin", "Invalid username or password!");
@@ -398,7 +404,7 @@ public class AppController {
 	public String ipDetails(@PathVariable(value = "externalip") String externalip, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		checkAuth(request, response);
 		initialize(model);
-		model.put("ipDetails", GeoLookup.getLocation(externalip));
+		model.put("ipDetails", appService.getLocationByIP(externalip));
 		return "ip-details";
 	}
 
@@ -544,10 +550,10 @@ public class AppController {
 		model.put("listactivily", listactivily);
 		model.put("listrooms", listrooms);
 		model.put("listservices", listservices);
-		model.put("totalUsers", listusers.size() * 100);
-		model.put("totalMessage", listactivily.size() * 100);
-		model.put("totalRooms", listrooms.size() * 100);
-		model.put("totalServices", listservices.size() * 100);
+		model.put("totalUsers", getX100SizeOfList(listusers));
+		model.put("totalMessage", getX100SizeOfList(listactivily));
+		model.put("totalRooms", getX100SizeOfList(listrooms));
+		model.put("totalServices", getX100SizeOfList(listservices));
 	}
 
 	private String initializeProfile(ModelMap model) {
@@ -576,5 +582,20 @@ public class AppController {
 	private String initializeTracking(String tracking, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		model.put("tracking", tracking);
 		return authInitializeRedirect(request, response, model, "tracking-users");
+	}
+	
+	private int getX100SizeOfList(List<?> list) {
+		if(list == null)
+			return 0;
+		return list.size()*100;
+	}
+	
+	@SuppressWarnings("unused")
+	private void updateEncryptedPW(String username, String password) {
+		String encrytedPW = appService.getEncryptPassword(password);
+		String decrytedPW = appService.getDecryptPassword(encrytedPW);
+		System.out.println(encrytedPW);
+		System.out.println(decrytedPW);
+		userService.updatePassword(username, encrytedPW);
 	}
 }

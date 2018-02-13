@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import daos.impl.APIDAOImpl;
 import model.mysql.hotel.HotelRoom;
 import model.mysql.hotel.HotelService;
 
@@ -78,7 +79,7 @@ public class TestRoomAPI {
 	}
 
 	public static void main(String[] args) throws JSONException {
-		System.out.println((2*3600 + 59*60 + 59)*1000 + 999);
+		System.out.println(new APIDAOImpl().getStringAPI("aaa"));
 	}
 
 }

@@ -13,7 +13,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Repository;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import daos.TrackingDAO;
 import model.api.user.tracking.ExternalIP;
@@ -31,17 +30,15 @@ import statics.provider.GeoLookup;
 
 @Repository
 public class TrackingDAOImpl extends APIDAOImpl implements TrackingDAO {
-
-	private final Gson gson = new Gson();
 	
 	@Override
 	public ExternalIP getExternalIPDetails(String external_ip_address) {
-		return gson.fromJson(getStringAPI(APIData.EXTERNAL_IP_DETAILS_API + external_ip_address),ExternalIP.class);
+		return getJsonData(getStringAPI(APIData.EXTERNAL_IP_DETAILS_API + external_ip_address),ExternalIP.class);
 	}
 
 	@Override
 	public List<FollowUsers> getListFollowUsers() {
-		return gson.fromJson(getStringAPI(APIData.FOLLOW_USERS_API),new TypeToken<List<FollowUsers>>() {}.getType());
+		return getJsonData(getStringAPI(APIData.FOLLOW_USERS_API),new TypeToken<List<FollowUsers>>() {}.getType());
 	}
 	
 	@Override
@@ -62,9 +59,12 @@ public class TrackingDAOImpl extends APIDAOImpl implements TrackingDAO {
 	
 	@Override
 	public List<CountryChartData> getCountryChartData() {
+		String json = getStringAPI(APIData.EXTERNAL_IP_API);
+		if(json == null)
+			return null;
 		List<CountryChartData> listGeo = new ArrayList<>();
 		try {
-			JSONArray jsonArray = new JSONArray(getStringAPI(APIData.EXTERNAL_IP_API));
+			JSONArray jsonArray = new JSONArray();
 			List<String> temp = new ArrayList<>();
 			for (int i = 0; i < jsonArray.length(); i++) {
 				CountryChartData geo = new CountryChartData();
@@ -92,6 +92,8 @@ public class TrackingDAOImpl extends APIDAOImpl implements TrackingDAO {
 	}
 	
 	private List<PageAccessChartData> getPageAccessChartData(String api) {
+		if(api == null)
+			return null;
 		List<PageAccessChartData> listPAData = new ArrayList<>();
 		List<String> keys = new ArrayList<>();
 		try {

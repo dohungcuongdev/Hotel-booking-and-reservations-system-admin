@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import daos.ActivityDAO;
@@ -25,35 +24,33 @@ import statics.APIData;
 @Repository
 public class ActivityDAOImpl extends APIDAOImpl implements ActivityDAO {
 
-	private final Gson gson = new Gson();
-
 	@Override
 	public List<Activity> getAllActivity() {
-		return gson.fromJson(getStringAPI(APIData.ACTIVITY_API), new TypeToken<List<Activity>>(){}.getType());
+		return getJsonData(getStringAPI(APIData.ACTIVITY_API), new TypeToken<List<Activity>>(){}.getType());
 	}
 
 	@Override
 	public List<Activity> getAllActivityByUserName(String username) {
-		return gson.fromJson(getStringAPI(APIData.ACTIVITY_USERNAME_API + username), new TypeToken<List<Activity>>(){}.getType());
+		return getJsonData(getStringAPI(APIData.ACTIVITY_USERNAME_API + username), new TypeToken<List<Activity>>(){}.getType());
 	}
 
 	@Override
 	public Activity getActivityBy(String id) {
-		return gson.fromJson(getStringAPI(APIData.ACTIVITY_API + id), Activity.class);
+		return getJsonData(getStringAPI(APIData.ACTIVITY_API + id), Activity.class);
 	}
 
 	@Override
 	public List<Activity> getNewListNotification() {
-		return gson.fromJson(getStringAPI(APIData.ACTIVITY_NO_RESPONSE_API), new TypeToken<List<Activity>>(){}.getType());
+		return getJsonData(getStringAPI(APIData.ACTIVITY_NO_RESPONSE_API), new TypeToken<List<Activity>>(){}.getType());
 	}
 
 	@Override
 	public Activity seenNotification(String id) {
-		return gson.fromJson(getStringAPI(APIData.SEEN_NOTIFICATION_API + id), Activity.class);
+		return getJsonData(getStringAPI(APIData.SEEN_NOTIFICATION_API + id), Activity.class);
 	}
 	
 	@Override
 	public Activity replyNotification(String id) {
-		return gson.fromJson(getStringAPI(APIData.REPLY_NOTIFICATION_API + id), Activity.class);
+		return getJsonData(getStringAPI(APIData.REPLY_NOTIFICATION_API + id), Activity.class);
 	}
 }
