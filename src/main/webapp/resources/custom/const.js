@@ -11,7 +11,15 @@
 */
 
 const SPRING_API_URL = "http://localhost:8080/Hotel-booking-and-reservations-system-admin/api/";
-const MEAN_API_URL = "http://localhost:3000/api/";
+
+
+//local
+//var MEAN_URL = "http://localhost:3000/";
+
+//online
+var MEAN_URL = 'https://hotel-booking-and-reservations.herokuapp.com/';
+
+const MEAN_API_URL = MEAN_URL + "api/";
 const TRACKING_API_URL = MEAN_API_URL + "follow-users/";
 const TRACKING_API_URL_PAGE = MEAN_API_URL + "follow-users/page/";
 const TRACKING_TOTAL_PAGE_API = TRACKING_API_URL + "count/page/";
