@@ -1,0 +1,8 @@
+https://devcenter.heroku.com/articles/java-webapp-runner
+or
+https://devcenter.heroku.com/articles/war-deployment
+
+
+https://dashboard.heroku.com/apps/hotel-booking-and-reservations/deploy/heroku-git
+or
+https://dashboard.heroku.com/apps/admin-hotel-booking/deploy/heroku-git

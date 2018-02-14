@@ -14,7 +14,7 @@
 //const SPRING_API_URL = "http://localhost:8080/Hotel-booking-and-reservations-system-admin/api/";
 
 //online
-const SPRING_API_URL = "https://hotel-booking-admin.herokuapp.com//";
+const SPRING_API_URL = "https://hotel-booking-admin.herokuapp.com/api/";
 
 
 //local
