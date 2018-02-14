@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* Hotel-booking-and-reservations-system-admin
+web: java $JAVA_OPTS -cp target/classes:target/dependency/* Hotel-booking-and-reservations-system-admin.war
