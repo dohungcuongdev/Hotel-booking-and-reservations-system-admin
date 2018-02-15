@@ -489,7 +489,7 @@ public class AppController {
 	}
 	
 	@RequestMapping(value = "upload-fqa", method = RequestMethod.POST)
-	public String UploadFQA(@RequestParam(value = "fqaPDF") CommonsMultipartFile fqaPDF, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+	public String uploadFQA(@RequestParam(value = "fqaPDF") CommonsMultipartFile fqaPDF, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		checkAuth(request, response);
 		initialize(model);
 		appService.uploadPDF(fqaPDF, request, model);

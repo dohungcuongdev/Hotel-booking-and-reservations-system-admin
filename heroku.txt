@@ -1,8 +1,11 @@
+Deploy war on heroku (https://dashboard.heroku.com/apps/admin-hotel-booking/deploy/heroku-git)
+- refer link https://devcenter.heroku.com/articles/war-deployment
+- command:
+         1/ heroku plugins:install heroku-cli-deploy (install one time)
+         2/ heroku war:deploy <path_to_war_file--app <app_name>
+            (heroku war:deploy Hotel-booking-and-reservations-system-admin.war --app admin-hotel-booking)
+         3/ heroku logs --tail (view logs or error) or heroku logs --app admin-hotel-booking
+            
+
+Deploy project on heroku
 https://devcenter.heroku.com/articles/java-webapp-runner
-or
-https://devcenter.heroku.com/articles/war-deployment
-
-
-https://dashboard.heroku.com/apps/hotel-booking-and-reservations/deploy/heroku-git
-or
-https://dashboard.heroku.com/apps/admin-hotel-booking/deploy/heroku-git

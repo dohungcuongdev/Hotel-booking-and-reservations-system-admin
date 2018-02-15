@@ -8,7 +8,7 @@
 				<input type="file" name="fqaPDF" />
 			</div>
 			<button type="submit" class="btn btn-info"><b>Upload PDF</b> <i class="fa fa-upload"></i></button>
-			<button class="btn btn-success"><a href="${pageContext.request.contextPath}/resources/pdf/fqa.pdf" download><b>Download PDF </b><i class="fa fa-download"></i></a></button>
+			<button type="button" class="btn btn-success"><a href="${pageContext.request.contextPath}/resources/pdf/fqa.pdf" download><b>Download PDF </b><i class="fa fa-download"></i></a></button>
 		</form>
 	</div>
 </div>
