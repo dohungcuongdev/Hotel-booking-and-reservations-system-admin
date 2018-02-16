@@ -83,6 +83,8 @@ public class AppController {
 		String password = loginbean.getPassword();
 		AppData.admin = userService.getAdminByUserName(username);
 		if (AppData.admin != null && username.equals(AppData.admin.getUsername()) && password.equals(appService.getDecryptPassword(AppData.admin.getPassword()))) {
+			AppData.listrooms = hotelItemService.getAllRooms();
+			AppData.listservices = hotelItemService.getAllHotelServices();
 			request.getSession().setAttribute("username", username);
 			request.getSession().setMaxInactiveInterval(24 * 60 * 60);
 			Cookie cookieUN = new Cookie("username", username);
@@ -197,6 +199,7 @@ public class AppController {
 			model.addAttribute("roomEdit", new HotelRoom());
 			model.put("room", newRoom);
 			model.put("relatedRoom", hotelItemService.getRelatedHotelRooms(newRoom.getType()));
+			AppData.listrooms = hotelItemService.getAllRooms();
 		} else {
 			model.addAttribute("newRoom", new HotelRoom());
 			return "add-room";
@@ -215,6 +218,7 @@ public class AppController {
 			hotelItemService.updateRoom(roomEdit);
 			model.put("room", roomEdit);
 			model.put("relatedRoom", hotelItemService.getRelatedHotelRooms(roomEdit.getType()));
+			AppData.listrooms = hotelItemService.getAllRooms();
 		} else {
 			return initializeSingleRoom(model, roomEdit.getName(), "edit-room");
 		}
@@ -226,6 +230,7 @@ public class AppController {
 		checkAuth(request, response);
 		hotelItemService.deleteRoom(id);
 		model.put("deleteResult", AppData.ABLE_TO_EDIT);
+		AppData.listrooms = hotelItemService.getAllRooms();
 		return manageRooms(request, response, model);
 	}
 
@@ -234,6 +239,7 @@ public class AppController {
 		checkAuth(request, response);
 		model.addAttribute("roomEdit", new HotelRoom());
 		hotelItemService.editImageRoom(roomName, appService.uploadImage(img1, request, model, "rooms"), appService.uploadImage(img2, request, model, "rooms"));
+		AppData.listrooms = hotelItemService.getAllRooms();
 		return initializeSingleRoom(model, roomName, "edit-room");
 	}
 
@@ -266,6 +272,7 @@ public class AppController {
 			model.addAttribute("serviceEdit", new HotelService());
 			model.put("service", newService);
 			model.put("relatedRoom", hotelItemService.getRelatedHotelServices(newService.getType()));
+			AppData.listservices = hotelItemService.getAllHotelServices();
 		} else {
 			model.addAttribute("newService", new HotelService());
 			return "add-service";
@@ -290,6 +297,7 @@ public class AppController {
 			hotelItemService.updateService(serviceEdit);
 			model.put("service", serviceEdit);
 			model.put("relatedServices", hotelItemService.getRelatedHotelServices(serviceEdit.getType()));
+			AppData.listservices = hotelItemService.getAllHotelServices();
 		} else {
 			return initializeSingleService(model, serviceEdit.getName(), "edit-service");
 		}
@@ -300,6 +308,7 @@ public class AppController {
 	public String removeService(@PathVariable(value = "id") int id, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		hotelItemService.deleteService(id);
 		model.put("deleteResult", AppData.ABLE_TO_EDIT);
+		AppData.listservices = hotelItemService.getAllHotelServices();
 		return manageRestaurant(request, response, model);
 	}
 
@@ -307,6 +316,7 @@ public class AppController {
 	public String serviceImgEdited(@RequestParam(value = "img1") CommonsMultipartFile img1, @RequestParam(value = "img2") CommonsMultipartFile img2, @PathVariable(value = "servicename") String servicename, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		model.addAttribute("serviceEdit", new HotelService());
 		hotelItemService.editImageService(servicename, appService.uploadImage(img1, request, model, "restaurant"), appService.uploadImage(img2, request, model, "restaurant"));
+		AppData.listservices = hotelItemService.getAllHotelServices();
 		return initializeSingleService(model, servicename, "edit-service");
 	}
 
@@ -543,19 +553,23 @@ public class AppController {
 	// initialize function
 	private void initialize(ModelMap model) {
 		List<Activity> listactivily = userService.getAllActivity();
-		List<HotelRoom> listrooms = hotelItemService.getAllRooms();
-		List<HotelService> listservices = hotelItemService.getAllHotelServices();
+//		List<HotelRoom> listrooms = hotelItemService.getAllRooms();
+//		List<HotelService> listservices = hotelItemService.getAllHotelServices();
 		List<Customer> listusers = userService.getAllCustomers();
 		model.put("ad", AppData.admin);
 		model.put("listusers", listusers);
 		model.put("newNotifications", userService.getNewListNotification());
 		model.put("listactivily", listactivily);
-		model.put("listrooms", listrooms);
-		model.put("listservices", listservices);
+//		model.put("listrooms", listrooms);
+//		model.put("listservices", listservices);
+		model.put("listrooms", AppData.listrooms);
+		model.put("listservices", AppData.listservices);
 		model.put("totalUsers", getX100SizeOfList(listusers));
 		model.put("totalMessage", getX100SizeOfList(listactivily));
-		model.put("totalRooms", getX100SizeOfList(listrooms));
-		model.put("totalServices", getX100SizeOfList(listservices));
+//		model.put("totalRooms", getX100SizeOfList(listrooms));
+//		model.put("totalServices", getX100SizeOfList(listservices));
+		model.put("totalRooms", getX100SizeOfList(AppData.listrooms));
+		model.put("totalServices", getX100SizeOfList(AppData.listservices));
 	}
 
 	private String initializeProfile(ModelMap model) {

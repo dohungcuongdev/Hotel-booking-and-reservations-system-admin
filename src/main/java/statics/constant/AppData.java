@@ -5,9 +5,12 @@
  */
 package statics.constant;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import model.sql.hotel.HotelRoom;
+import model.sql.hotel.HotelService;
 import model.sql.user.Administrator;
 
 /**
@@ -75,4 +78,6 @@ public class AppData {
     };
     
     public static Administrator admin = new Administrator();
+    public static List<HotelRoom> listrooms = new ArrayList<>();
+    public static List<HotelService> listservices = new ArrayList<>();	
 }
