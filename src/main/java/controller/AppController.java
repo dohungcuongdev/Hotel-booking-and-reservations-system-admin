@@ -83,8 +83,6 @@ public class AppController {
 		String password = loginbean.getPassword();
 		AppData.admin = userService.getAdminByUserName(username);
 		if (AppData.admin != null && username.equals(AppData.admin.getUsername()) && password.equals(appService.getDecryptPassword(AppData.admin.getPassword()))) {
-			AppData.listrooms = hotelItemService.getAllRooms();
-			AppData.listservices = hotelItemService.getAllHotelServices();
 			request.getSession().setAttribute("username", username);
 			request.getSession().setMaxInactiveInterval(24 * 60 * 60);
 			Cookie cookieUN = new Cookie("username", username);
@@ -191,6 +189,7 @@ public class AppController {
 	@RequestMapping(value = "room-added", method = RequestMethod.POST)
 	public String roomAdded(@ModelAttribute(value = "newRoom") HotelRoom newRoom, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		checkAuth(request, response);
+		String newRoomName;
 		initialize(model);
 		newRoom.setNewInfor();
 		String ableToAddNewRoom = newRoom.getAbleToUpdate();
@@ -199,12 +198,13 @@ public class AppController {
 			model.addAttribute("roomEdit", new HotelRoom());
 			model.put("room", newRoom);
 			model.put("relatedRoom", hotelItemService.getRelatedHotelRooms(newRoom.getType()));
+			newRoomName = hotelItemService.findAndAddNewRoom(newRoom);
 			AppData.listrooms = hotelItemService.getAllRooms();
 		} else {
 			model.addAttribute("newRoom", new HotelRoom());
 			return "add-room";
 		}
-		return initializeSingleRoom(model, hotelItemService.findAndAddNewRoom(newRoom), "edit-room");
+		return initializeSingleRoom(model, newRoomName, "edit-room");
 	}
 
 	@RequestMapping(value = "room-edited", method = RequestMethod.POST)
@@ -264,6 +264,7 @@ public class AppController {
 	@RequestMapping(value = "service-added", method = RequestMethod.POST)
 	public String serviceAdded(@ModelAttribute(value = "newService") HotelService newService, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		checkAuth(request, response);
+		String newServiceName;
 		initialize(model);
 		newService.setNewInfor();
 		String ableToAddNewService = newService.getAbleToUpdate();
@@ -272,12 +273,13 @@ public class AppController {
 			model.addAttribute("serviceEdit", new HotelService());
 			model.put("service", newService);
 			model.put("relatedRoom", hotelItemService.getRelatedHotelServices(newService.getType()));
+			newServiceName = hotelItemService.findAndAddNewService(newService);
 			AppData.listservices = hotelItemService.getAllHotelServices();
 		} else {
 			model.addAttribute("newService", new HotelService());
 			return "add-service";
 		}
-		return initializeSingleService(model, hotelItemService.findAndAddNewService(newService), "edit-service");
+		return initializeSingleService(model, newServiceName, "edit-service");
 	}
 
 	@RequestMapping(value = "edit-service/{servicename}", method = RequestMethod.GET)

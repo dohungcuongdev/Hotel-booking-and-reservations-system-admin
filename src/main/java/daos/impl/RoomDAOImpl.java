@@ -18,6 +18,7 @@ import daos.CustomerDAO;
 import daos.RoomDAO;
 import model.mongodb.user.Customer;
 import model.sql.hotel.HotelRoom;
+import statics.constant.AppData;
 
 /**
  *
@@ -40,12 +41,14 @@ public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO 
 
 	@Override
 	public HotelRoom getRoomByID(int id) {
-		return (HotelRoom) getHotelItemByID(id);
+		return getHotelRoomByIDNoDB(id);
+		//return (HotelRoom) getHotelItemByID(id);
 	}
 
 	@Override
 	public HotelRoom getRoomByName(String name) {
-		return (HotelRoom) getHotelItemByName(name);
+		return getHotelRoomByNameNoDB(name);
+		//return (HotelRoom) getHotelItemByName(name);
 	}
 
 	@Override
@@ -55,7 +58,8 @@ public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO 
 
 	@Override
 	public List<HotelRoom> getRelatedHotelRooms(String type) {
-		return getRelatedHotelItems(type);
+		return getRelatedHotelRoomsNoDB(type);
+		//return getRelatedHotelItems(type);
 	}
 
 	@Override
@@ -91,4 +95,26 @@ public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO 
 			}
 		}
 	}
+	
+    private HotelRoom getHotelRoomByIDNoDB(int id) {
+    	for(HotelRoom item: AppData.listrooms)
+    		if(item.getId() == id)
+    			return item;
+    	return null;
+    }
+	
+    private HotelRoom getHotelRoomByNameNoDB(String name) {
+    	for(HotelRoom item: AppData.listrooms)
+    		if(item.getName().equals(name))
+    			return item;
+    	return null;
+    }
+    
+    private List<HotelRoom> getRelatedHotelRoomsNoDB(String type) {
+    	List<HotelRoom> listRelatedRooms = new ArrayList<>();
+    	for(HotelRoom item: AppData.listrooms)
+    		if(item.getType().equals(type))
+    			listRelatedRooms.add(item);
+    	return listRelatedRooms;
+    }
 }

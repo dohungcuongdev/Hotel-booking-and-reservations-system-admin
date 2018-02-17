@@ -17,6 +17,7 @@ import model.sql.hotel.HotelRoom;
 import model.sql.hotel.HotelService;
 import services.HotelItemService;
 import services.UserService;
+import statics.constant.AppData;
 
 @RestController
 @RequestMapping("/api")
@@ -31,13 +32,15 @@ public class RESTController {
 	@CrossOrigin
 	@RequestMapping(value = "/rooms", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
 	public List<HotelRoom> getListRooms() {
-		return hotelItemService.getAllRooms();
+		return AppData.listrooms;
+		//return hotelItemService.getAllRooms();
 	}
 	
 	@CrossOrigin
 	@RequestMapping(value = "/restaurant", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
 	public List<HotelService> getListServiceInRestaurant() {
-		return hotelItemService.getAllHotelServices();
+		return AppData.listservices;
+		//return hotelItemService.getAllHotelServices();
 	}	
 	
 	@CrossOrigin
