@@ -7,6 +7,7 @@ package daos.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -97,24 +98,14 @@ public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO 
 	}
 	
     private HotelRoom getHotelRoomByIDNoDB(int id) {
-    	for(HotelRoom item: AppData.listrooms)
-    		if(item.getId() == id)
-    			return item;
-    	return null;
+    	return AppData.listrooms.stream().filter((item) -> (item.getId() == id)).findFirst().get();
     }
 	
     private HotelRoom getHotelRoomByNameNoDB(String name) {
-    	for(HotelRoom item: AppData.listrooms)
-    		if(item.getName().equals(name))
-    			return item;
-    	return null;
+    	return AppData.listrooms.stream().filter((item) -> (item.getName().equals(name))).findFirst().get();
     }
     
     private List<HotelRoom> getRelatedHotelRoomsNoDB(String type) {
-    	List<HotelRoom> listRelatedRooms = new ArrayList<>();
-    	for(HotelRoom item: AppData.listrooms)
-    		if(item.getType().equals(type))
-    			listRelatedRooms.add(item);
-    	return listRelatedRooms;
+    	return AppData.listrooms.stream().filter((item) -> (item.getType().equals(type))).collect(Collectors.toList());
     }
 }

@@ -63,7 +63,7 @@ public class RESTController {
 	
 	@CrossOrigin
 	@RequestMapping(value = "/rooms/all/quantity", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-	public long getNumRoom() {
+	public long getNumRoom() {	
 		return hotelItemService.getNumRooms();
 	}
 	

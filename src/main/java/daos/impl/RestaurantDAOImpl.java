@@ -8,9 +8,9 @@ package daos.impl;
 import daos.RestaurantDAO;
 import model.sql.hotel.HotelService;
 import statics.constant.AppData;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,24 +61,14 @@ public class RestaurantDAOImpl extends HotelItemDAOImpl<HotelService> implements
 	}
 	
     private HotelService getHotelServiceByIDNoDB(int id) {
-    	for(HotelService item: AppData.listservices)
-    		if(item.getId() == id)
-    			return item;
-    	return null;
+    	return AppData.listservices.stream().filter((item) -> (item.getId() == id)).findFirst().get();
     }
-
-	private HotelService getHotelServiceByNameNoDB(String name) {
-		for (HotelService item : AppData.listservices)
-			if (item.getName().equals(name))
-				return item;
-		return null;
-	}
-
-	private List<HotelService> getRelatedHotelServicesNoDB(String type) {
-		List<HotelService> listRelatedServices = new ArrayList<>();
-		for (HotelService item : AppData.listservices)
-			if (item.getType().equals(type))
-				listRelatedServices.add(item);
-		return listRelatedServices;
-	}
+	
+    private HotelService getHotelServiceByNameNoDB(String name) {
+    	return AppData.listservices.stream().filter((item) -> (item.getName().equals(name))).findFirst().get();
+    }
+    
+    private List<HotelService> getRelatedHotelServicesNoDB(String type) {
+    	return AppData.listservices.stream().filter((item) -> (item.getType().equals(type))).collect(Collectors.toList());
+    }
 }
