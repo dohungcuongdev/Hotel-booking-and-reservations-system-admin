@@ -77,6 +77,7 @@ public class RESTController {
 	@RequestMapping(value = "/rooms/{name}", method = RequestMethod.PUT, produces = "application/json; charset=UTF-8")
 	public ResponseEntity<HotelRoom> bookRoom(@PathVariable(value = "name") String name, @RequestBody HotelRoom room) {
 		hotelItemService.bookRoom(room);
+		AppData.listrooms = hotelItemService.getAllRooms();
 		return new ResponseEntity<HotelRoom>(room, HttpStatus.OK);
 	}
 	
