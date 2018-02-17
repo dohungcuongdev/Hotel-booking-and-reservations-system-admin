@@ -21,10 +21,10 @@ import model.sql.user.Administrator;
 public class AppData {
 	
 	//local
-	//public static final String SPRING_APP_URL = "http://localhost:8080/Hotel-booking-and-reservations-system-admin/";
+	public static final String SPRING_APP_URL = "http://localhost:8080/Hotel-booking-and-reservations-system-admin/";
 	
 	//online
-	public static final String SPRING_APP_URL = "https://admin-hotel-booking.herokuapp.com/";
+	//public static final String SPRING_APP_URL = "https://admin-hotel-booking.herokuapp.com/";
 	
     public static final String EMAIL = "cuongvip1295@gmail.com";
     public static final String AUTHENTICATION = "ititiu13170";
