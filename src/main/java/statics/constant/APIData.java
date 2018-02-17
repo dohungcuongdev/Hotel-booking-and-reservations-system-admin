@@ -3,11 +3,11 @@ package statics.constant;
 public class APIData {
 
 	//local
-	public static final String MEAN_URL = "http://localhost:3000/";
+	//public static final String MEAN_URL = "http://localhost:3000/";
 	
 	
 	//online
-	//public static final String MEAN_URL = "https://hotel-booking-and-reservations.herokuapp.com/";
+	public static final String MEAN_URL = "https://hotel-booking-and-reservations.herokuapp.com/";
 	
 	
 	public static final String MEAN_API_URL = MEAN_URL + "api/";

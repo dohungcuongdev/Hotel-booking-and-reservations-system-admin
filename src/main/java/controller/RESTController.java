@@ -1,6 +1,8 @@
 package controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import model.api.user.tracking.CountryChartData;
+import model.api.user.tracking.CustomerBehavior;
 import model.api.user.tracking.PageAccessChartData;
+import model.mongodb.user.tracking.Activity;
 import model.sql.hotel.HotelRoom;
 import model.sql.hotel.HotelService;
 import services.HotelItemService;
@@ -74,11 +78,50 @@ public class RESTController {
 	}
 	
 	@CrossOrigin
-	@RequestMapping(value = "/rooms/{name}", method = RequestMethod.PUT, produces = "application/json; charset=UTF-8")
+	@RequestMapping(value = "/book-room/{name}", method = RequestMethod.PUT, produces = "application/json; charset=UTF-8")
 	public ResponseEntity<HotelRoom> bookRoom(@PathVariable(value = "name") String name, @RequestBody HotelRoom room) {
 		hotelItemService.bookRoom(room);
 		AppData.listrooms = hotelItemService.getAllRooms();
 		return new ResponseEntity<HotelRoom>(room, HttpStatus.OK);
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value = "/feedback-room/{name}", method = RequestMethod.PUT, produces = "application/json; charset=UTF-8")
+	public ResponseEntity<HotelRoom> ratingRoom(@PathVariable(value = "name") String name, @RequestBody HotelRoom room) {
+		hotelItemService.feedbackRoom(room);
+		AppData.listrooms = hotelItemService.getAllRooms();
+		return new ResponseEntity<HotelRoom>(room, HttpStatus.OK);
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value = "/correct-room/{name}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	public HotelRoom correctRoom(@PathVariable(value = "name") String name) {
+		List<Activity> listAct = userService.getAllActivity();
+		List<Activity> listActFB = listAct.stream().filter((item) -> (item.getName().equals("Feedback Room") && item.getClick().equals(name))).collect(Collectors.toList());
+		int numvote = 0;
+		int star = 0;
+		if(listActFB.size() != 0)
+		for(int i = 0; i < listActFB.size(); i++) {
+			++numvote;
+			star += Integer.parseInt(listActFB.get(i).getNote().substring(21, 22));
+		}
+		HotelRoom room = hotelItemService.getRoomByName(name);
+		room.setStar(star);
+		room.setNumvote(numvote);
+		hotelItemService.updateRoom(room);
+		AppData.listrooms = hotelItemService.getAllRooms();
+		return room;
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value = "/correct-all-rooms", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	public List<HotelRoom> correctAllRooms() {
+		List<HotelRoom> Newrooms = hotelItemService.getAllRooms();
+		List<HotelRoom> rooms = hotelItemService.getAllRooms();
+		for(HotelRoom room: rooms) {
+			Newrooms.add(correctRoom(room.getName()));
+		}
+		return Newrooms;
 	}
 	
 	@CrossOrigin

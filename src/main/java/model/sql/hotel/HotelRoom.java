@@ -194,6 +194,10 @@ public class HotelRoom extends HotelItem {
 		return checkNotNull(booked_by, checkin, checkout) && isvalidDate();
 	}
 	
+	public boolean isReadyToFeedback() {
+		return checkNaturalNumber(star, numvote);
+	}
+	
 	public HotelRoom() {}
 	
 	public HotelRoom(String name, int price, String img, String img2, String details, String type, String created_by, String created_at, int size, int numpeople, String status, String amenities, String booked_by, int avgAminities, String checkin, String checkout, int star, int numvote) {

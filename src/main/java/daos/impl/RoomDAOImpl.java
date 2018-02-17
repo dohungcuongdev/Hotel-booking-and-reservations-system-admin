@@ -29,27 +29,27 @@ import statics.constant.AppData;
 @Repository
 @Transactional
 public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO {
-	
-    public RoomDAOImpl() {
-    	classOfT = HotelRoom.class;
-    }
+
+	public RoomDAOImpl() {
+		classOfT = HotelRoom.class;
+	}
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	@Autowired
 	private CustomerDAO customerDAO;
 
 	@Override
 	public HotelRoom getRoomByID(int id) {
 		return getHotelRoomByIDNoDB(id);
-		//return (HotelRoom) getHotelItemByID(id);
+		// return (HotelRoom) getHotelItemByID(id);
 	}
 
 	@Override
 	public HotelRoom getRoomByName(String name) {
 		return getHotelRoomByNameNoDB(name);
-		//return (HotelRoom) getHotelItemByName(name);
+		// return (HotelRoom) getHotelItemByName(name);
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO 
 	@Override
 	public List<HotelRoom> getRelatedHotelRooms(String type) {
 		return getRelatedHotelRoomsNoDB(type);
-		//return getRelatedHotelItems(type);
+		// return getRelatedHotelItems(type);
 	}
 
 	@Override
@@ -86,26 +86,33 @@ public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO 
 	public void updateRoom(HotelRoom room) {
 		updateItem(room);
 	}
-	
+
 	@Override
 	public void bookRoom(HotelRoom room) {
-		if(room.isReadyToBook()) {
+		if (room.isReadyToBook()) {
 			Customer whoBook = customerDAO.getCustomerByUsername(room.getBooked_by());
-			if(whoBook.getBalance() >= room.getPrice()) {
+			if (whoBook.getBalance() >= room.getPrice()) {
 				updateRoom(room);
 			}
 		}
 	}
-	
-    private HotelRoom getHotelRoomByIDNoDB(int id) {
-    	return AppData.listrooms.stream().filter((item) -> (item.getId() == id)).findFirst().get();
-    }
-	
-    private HotelRoom getHotelRoomByNameNoDB(String name) {
-    	return AppData.listrooms.stream().filter((item) -> (item.getName().equals(name))).findFirst().get();
-    }
-    
-    private List<HotelRoom> getRelatedHotelRoomsNoDB(String type) {
-    	return AppData.listrooms.stream().filter((item) -> (item.getType().equals(type))).collect(Collectors.toList());
-    }
+
+	@Override
+	public void feedbackRoom(HotelRoom room) {
+		if (room.isReadyToFeedback()) {
+			updateRoom(room);
+		}
+	}
+
+	private HotelRoom getHotelRoomByIDNoDB(int id) {
+		return AppData.listrooms.stream().filter((item) -> (item.getId() == id)).findFirst().get();
+	}
+
+	private HotelRoom getHotelRoomByNameNoDB(String name) {
+		return AppData.listrooms.stream().filter((item) -> (item.getName().equals(name))).findFirst().get();
+	}
+
+	private List<HotelRoom> getRelatedHotelRoomsNoDB(String type) {
+		return AppData.listrooms.stream().filter((item) -> (item.getType().equals(type))).collect(Collectors.toList());
+	}
 }

@@ -144,4 +144,9 @@ public class HotelItemServiceImpl implements HotelItemService {
 	public void bookRoom(HotelRoom room) {
 		roomDAO.bookRoom(room);
 	}
+	
+	@Override
+	public void feedbackRoom(HotelRoom room) {
+		roomDAO.feedbackRoom(room);
+	}
 }

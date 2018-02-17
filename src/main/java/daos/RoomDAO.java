@@ -26,4 +26,5 @@ public interface RoomDAO {
 	public void editImage(String name, String img, String img2);
 	public void deleteItem(int id);
 	public void bookRoom(HotelRoom room);
+	public void feedbackRoom(HotelRoom room);
 }
