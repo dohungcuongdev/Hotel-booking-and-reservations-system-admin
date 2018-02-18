@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package daos.impl;
+package daos.impl.sql;
 
-import daos.AdminDAO;
 import model.sql.user.Administrator;
 
 import org.hibernate.Query;
@@ -14,12 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import daos.sql.AdminDAO;
+
 /**
  *
  * @author Do Hung Cuong
  */
 
-@Repository
+//@Repository
 @Transactional
 public class AdminDAOImpl implements AdminDAO {
 	

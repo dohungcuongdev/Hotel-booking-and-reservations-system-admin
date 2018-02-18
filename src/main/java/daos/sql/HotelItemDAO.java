@@ -1,4 +1,4 @@
-package daos;
+package daos.sql;
 
 import java.util.List;
 

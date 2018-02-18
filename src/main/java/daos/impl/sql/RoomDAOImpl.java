@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package daos.impl;
+package daos.impl.sql;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import daos.CustomerDAO;
-import daos.RoomDAO;
+import daos.sql.CustomerDAO;
+import daos.sql.RoomDAO;
 import model.mongodb.user.Customer;
 import model.sql.hotel.HotelRoom;
 import statics.constant.AppData;
@@ -26,7 +26,7 @@ import statics.constant.AppData;
  * @author Do Hung Cuong
  */
 
-@Repository
+//@Repository
 @Transactional
 public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO {
 

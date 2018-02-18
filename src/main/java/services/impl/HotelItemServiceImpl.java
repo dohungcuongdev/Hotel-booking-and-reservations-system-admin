@@ -10,12 +10,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import daos.RestaurantDAO;
-import daos.RoomDAO;
+import daos.sql.RestaurantDAO;
+import daos.sql.RoomDAO;
 import model.sql.hotel.HotelRoom;
 import model.sql.hotel.HotelService;
 import services.HotelItemService;
-import test.TestRoomAPI;
+import test.TestConvertMongoToSQL;
 
 /**
  *
@@ -123,7 +123,7 @@ public class HotelItemServiceImpl implements HotelItemService {
 	
 	@Override
 	public void convertRoomFromMongoToMySQL() {
-		List<HotelRoom> l = TestRoomAPI.convertRoomFromMongoToMySQL();
+		List<HotelRoom> l = TestConvertMongoToSQL.convertRoomFromMongoToMySQL();
 		System.out.println(l);
 		for(HotelRoom r: l) {
 			String roomName = roomDAO.findAndAddNewRoom(r);
@@ -133,7 +133,7 @@ public class HotelItemServiceImpl implements HotelItemService {
 
 	@Override
 	public void convertRestaurantMongoToMySQL() {
-		List<HotelService> l = TestRoomAPI.convertRestaurantMongoToMySQL();
+		List<HotelService> l = TestConvertMongoToSQL.convertRestaurantMongoToMySQL();
 		for(HotelService hs: l) {
 			restaurantDAO.findAndAddNewService(hs);
 		}

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package daos.impl;
+package daos.impl.sql;
 
 
 import java.util.List;
@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
 
 import com.google.gson.reflect.TypeToken;
 
-import daos.APIDAO;
-import daos.ActivityDAO;
+import daos.sql.APIDAO;
+import daos.sql.ActivityDAO;
 import model.mongodb.user.tracking.Activity;
 import statics.constant.APIData;
 
@@ -22,7 +22,7 @@ import statics.constant.APIData;
  * @author Do Hung Cuong
  */
 
-@Repository
+//@Repository
 public class ActivityDAOImpl extends APIDAO implements ActivityDAO {
 
 	@Override

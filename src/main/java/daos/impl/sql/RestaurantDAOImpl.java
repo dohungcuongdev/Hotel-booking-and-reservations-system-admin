@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package daos.impl;
+package daos.impl.sql;
 
-import daos.RestaurantDAO;
 import model.sql.hotel.HotelService;
 import statics.constant.AppData;
 import java.util.List;
@@ -14,12 +13,14 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import daos.sql.RestaurantDAO;
+
 /**
  *
  * @author Do Hung Cuong
  */
 
-@Repository
+//@Repository
 @Transactional
 public class RestaurantDAOImpl extends HotelItemDAOImpl<HotelService> implements RestaurantDAO {
 

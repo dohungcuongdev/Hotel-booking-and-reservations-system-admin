@@ -92,6 +92,31 @@ public class RESTController {
 		AppData.listrooms = hotelItemService.getAllRooms();
 		return new ResponseEntity<HotelRoom>(room, HttpStatus.OK);
 	}
+
+	@CrossOrigin
+	@RequestMapping(value = "/page-access-chart", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	public List<PageAccessChartData> getPageAccessChart() {
+		return userService.getPageAccessChartData();
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value = "/page-access-chart/userIP/{userIP}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	public List<PageAccessChartData> getPageAccessChartByIP(@PathVariable(value = "userIP") String userIP) {
+		return userService.getPageAccessChartDataByIP(userIP);
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value = "/page-access-chart/username/{username}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	public List<PageAccessChartData> getPageAccessChartByUsername(@PathVariable(value = "username") String username) {
+		return userService.getPageAccessChartDataByUsername(username);
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value = "/country-chart", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	public List<CountryChartData> getCountryChartData() {
+		return userService.getCountryChartData();
+	}
+	
 	
 	@CrossOrigin
 	@RequestMapping(value = "/correct-room/{name}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
@@ -122,30 +147,6 @@ public class RESTController {
 			Newrooms.add(correctRoom(room.getName()));
 		}
 		return Newrooms;
-	}
-	
-	@CrossOrigin
-	@RequestMapping(value = "/page-access-chart", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-	public List<PageAccessChartData> getPageAccessChart() {
-		return userService.getPageAccessChartData();
-	}
-	
-	@CrossOrigin
-	@RequestMapping(value = "/page-access-chart/userIP/{userIP}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-	public List<PageAccessChartData> getPageAccessChartByIP(@PathVariable(value = "userIP") String userIP) {
-		return userService.getPageAccessChartDataByIP(userIP);
-	}
-	
-	@CrossOrigin
-	@RequestMapping(value = "/page-access-chart/username/{username}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-	public List<PageAccessChartData> getPageAccessChartByUsername(@PathVariable(value = "username") String username) {
-		return userService.getPageAccessChartDataByUsername(username);
-	}
-	
-	@CrossOrigin
-	@RequestMapping(value = "/country-chart", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-	public List<CountryChartData> getCountryChartData() {
-		return userService.getCountryChartData();
 	}
 	
 	

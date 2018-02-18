@@ -9,6 +9,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import daos.sql.ActivityDAO;
+import daos.sql.AdminDAO;
+import daos.sql.CustomerDAO;
+import daos.sql.TrackingDAO;
 import model.api.user.tracking.CustomerBehavior;
 import model.api.user.tracking.ExternalIP;
 import model.api.user.tracking.FollowUsers;
@@ -18,10 +22,6 @@ import model.mongodb.user.Customer;
 import model.mongodb.user.tracking.Activity;
 import model.sql.user.Administrator;
 import services.UserService;
-import daos.AdminDAO;
-import daos.CustomerDAO;
-import daos.TrackingDAO;
-import daos.ActivityDAO;
 
 /**
  *

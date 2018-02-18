@@ -7,16 +7,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import daos.APIDAO;
+import daos.sql.APIDAO;
 import model.sql.hotel.HotelRoom;
 import model.sql.hotel.HotelService;
 
-public class TestRoomAPI {
+public class TestConvertMongoToSQL {
 
 	public static List<HotelRoom> convertRoomFromMongoToMySQL() {
 		List<HotelRoom> l = new ArrayList<>();
 		try {
-			APIRoom a = new APIRoom();
+			TestAPI a = new TestAPI();
 			String json = a.getApi();
 			JSONArray jarray = new JSONArray(json);
 			for (int i = 0; i < jarray.length(); i++) {
@@ -51,7 +51,7 @@ public class TestRoomAPI {
 	public static List<HotelService> convertRestaurantMongoToMySQL() {
 		List<HotelService> l = new ArrayList<>();
 		try {
-			APIRoom a = new APIRoom();
+			TestAPI a = new TestAPI();
 			String json = a.getApi2();
 			JSONArray jarray = new JSONArray(json);
 			for (int i = 0; i < jarray.length(); i++) {
@@ -79,7 +79,7 @@ public class TestRoomAPI {
 	}
 
 	public static void main(String[] args) throws JSONException {
-		System.out.println(new APIDAO().getStringAPI("aaa"));
+		System.out.println(convertRoomFromMongoToMySQL());
 	}
 
 }

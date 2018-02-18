@@ -1,17 +1,21 @@
 package test;
 
-import daos.APIDAO;
+import daos.sql.APIDAO;
 
-public class APIRoom {
+public class TestAPI {
 	
-	APIDAO a = new APIDAO();
+	static APIDAO a = new APIDAO();
 	
-	public String getApi() {
+	public static String getApi() {
 		return a.getStringAPI("http://localhost:8080/Hotel-booking-and-reservations-system-admin/api/rooms");
 	}
 	
-	public String getApi2() {
+	public static String getApi2() {
 		return a.getStringAPI("http://localhost:8080/Hotel-booking-and-reservations-system-admin/api/restaurant");
+	}
+	
+	public static void main(String args[]) {
+		System.out.println(getApi());
 	}
 
 }

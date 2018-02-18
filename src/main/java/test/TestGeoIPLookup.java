@@ -1,4 +1,4 @@
-package testGeoIP;
+package test;
 
 import java.net.UnknownHostException;
 
@@ -6,7 +6,7 @@ import org.json.JSONException;
 
 import statics.helper.GeoLookup;
 
-public class LookUpProgram {
+public class TestGeoIPLookup {
 
 	public static void testGEO(String exIP) {
 		System.out.println("By String IP address: \n" + GeoLookup.getLocation(exIP));

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package daos.impl;
+package daos.impl.sql;
 
 import static statics.helper.StringUtils.upperFirstChar;
 
@@ -15,8 +15,8 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Repository;
 import com.google.gson.reflect.TypeToken;
 
-import daos.APIDAO;
-import daos.TrackingDAO;
+import daos.sql.APIDAO;
+import daos.sql.TrackingDAO;
 import model.api.user.tracking.ExternalIP;
 import model.api.user.tracking.FollowUsers;
 import model.api.user.tracking.GeoLocation;
@@ -30,7 +30,7 @@ import statics.helper.GeoLookup;
  * @author HUNGCUONG
  */
 
-@Repository
+//@Repository
 public class TrackingDAOImpl extends APIDAO implements TrackingDAO {
 	
 	@Override
