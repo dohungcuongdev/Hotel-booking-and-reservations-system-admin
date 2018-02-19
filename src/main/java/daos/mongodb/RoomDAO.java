@@ -1,0 +1,30 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package daos.mongodb;
+
+import java.util.List;
+
+import model.mongodb.hotel.HotelRoom;
+
+/**
+ *
+ * @author Do Hung Cuong
+ */
+public interface RoomDAO {
+
+	public HotelRoom getRoomByID(String id);
+    public HotelRoom getRoomByName(String name);
+    public List<HotelRoom> getAllRooms();
+    public long getNumRooms();
+    public List<HotelRoom> getRoomByPage(int page);
+    public List<HotelRoom> getRelatedHotelRooms(String type);
+    public void updateRoom(HotelRoom room);
+    public String findAndAddNewRoom(HotelRoom newRoom);
+	public void editImage(String name, String img, String img2);
+	public void deleteItem(String id);
+	public void bookRoom(HotelRoom room);
+	public void feedbackRoom(HotelRoom room);
+}
