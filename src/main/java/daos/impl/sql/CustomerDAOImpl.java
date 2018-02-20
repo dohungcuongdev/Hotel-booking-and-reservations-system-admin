@@ -13,10 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.google.gson.reflect.TypeToken;
 
-import daos.sql.APIDAO;
-import daos.sql.ActivityDAO;
-import daos.sql.CustomerDAO;
-import daos.sql.TrackingDAO;
+import daos.ActivityDAO;
+import daos.CustomerDAO;
+import daos.TrackingDAO;
 import model.api.user.tracking.ActionTracking;
 import model.api.user.tracking.CustomerBehavior;
 import model.api.user.tracking.DataCollection;
@@ -31,7 +30,7 @@ import statics.constant.AppData;
  * @author Do Hung Cuong
  */
 
-//@Repository
+@Repository
 public class CustomerDAOImpl extends APIDAO implements CustomerDAO {
 
 	@Autowired

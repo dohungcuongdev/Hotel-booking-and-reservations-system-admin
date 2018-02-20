@@ -53,4 +53,16 @@ public class DateTimeCalculator {
         cal.add(Calendar.HOUR_OF_DAY, 7);
     	return cal.getTime();
     }
+    
+    public static String getStringICTDateTime(String dateTime) {
+    	Date date = formatDateTime(dateTime, "E MMM dd HH:mm:ss Z yyyy");
+    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:sss");
+    	return format.format(date);
+    }
+    
+    public static String getStringICTDateTime(Object dateTimeobj) {
+    	Date date = formatDateTime(dateTimeobj.toString(), "E MMM dd HH:mm:ss Z yyyy");
+    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.sss");
+    	return format.format(date).replaceFirst(" ","T") + "Z";
+    }
 }

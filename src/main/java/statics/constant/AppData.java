@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import model.sql.hotel.HotelRoom;
-import model.sql.hotel.HotelService;
+import model.hotel.HotelRoom;
+import model.hotel.HotelService;
 import model.sql.user.Administrator;
 
 /**
@@ -27,11 +27,16 @@ public class AppData {
 	// online
 	public static final String SPRING_APP_URL = "https://admin-hotel-booking.herokuapp.com/";
 
-	// for mongodb DAO
-	public static final String DATABASE = "HotelBookingReservationsSystem";
-	public static final String DATABASE_HOST = "localhost";
-	public static final int DATABASE_PORT = 27017;
-
+	// for using mongodb with Spring instead of using Hibernate + SQL 
+	//local
+//	public static final String DATABASE = "HotelBookingReservationsSystem";
+//	public static final String DATABASE_HOST = "localhost";
+//	public static final int DATABASE_PORT = 27017;
+	
+	//online
+	public static final String DATABASE = "hotel_booking_system";
+	public static final String MONGGO_URL = "mongodb://dohungcuongdev:ititiu13170@ds157057.mlab.com:57057/" + DATABASE;
+			
 	public static final String EMAIL = "cuongvip1295@gmail.com";
 	public static final String AUTHENTICATION = "ititiu13170";
 	public static final String MAIL_HOST = "smtp.gmail.com";

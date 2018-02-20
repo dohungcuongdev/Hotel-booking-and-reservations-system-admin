@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package daos.sql;
+package daos;
 
 import java.util.List;
 
-import model.sql.hotel.HotelService;
+import model.hotel.HotelService;
 
 /**
  *

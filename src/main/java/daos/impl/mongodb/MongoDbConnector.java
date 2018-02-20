@@ -22,9 +22,9 @@ import org.bson.types.ObjectId;
 public class MongoDbConnector {
 
     public static DBCollection createConnection(String collectionName) throws UnknownHostException {
-    	MongoClientURI uri = new MongoClientURI("mongodb://dohungcuongdev:ititiu13170@ds157057.mlab.com:57057/hotel_booking_system");
+    	MongoClientURI uri = new MongoClientURI(AppData.MONGGO_URL);
     	MongoClient mongoClient = new MongoClient(uri);
-    	DB db = mongoClient.getDB("hotel_booking_system");
+    	DB db = mongoClient.getDB(AppData.DATABASE);
     	
 //        MongoClient mongoClient = new MongoClient(AppData.DATABASE_HOST, AppData.DATABASE_PORT);
 //        DB db = mongoClient.getDB(AppData.DATABASE);

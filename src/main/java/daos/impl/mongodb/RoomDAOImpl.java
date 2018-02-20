@@ -16,18 +16,18 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
-import daos.mongodb.CustomerDAO;
-import daos.mongodb.RoomDAO;
+import daos.CustomerDAO;
+import daos.RoomDAO;
+import model.hotel.HotelRoom;
 import model.mongodb.user.Customer;
-import model.mongodb.hotel.HotelRoom;
 
 /**
  *
  * @author Do Hung Cuong
  */
 
-@Repository
-@Transactional
+//@Repository
+//@Transactional
 public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO {
 
 	public RoomDAOImpl() throws UnknownHostException {
@@ -39,8 +39,12 @@ public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO 
 	private CustomerDAO customerDAO;
 
 	@Override
-	public HotelRoom getRoomByID(String id) {
+	public HotelRoom getRoomByID(int id) {
 		return (HotelRoom) getHotelItemByID(id);
+	}
+	
+	public HotelRoom getRoomByID(String _id) {
+		return (HotelRoom) getHotelItemByID(_id);
 	}
 
 	@Override
@@ -99,10 +103,5 @@ public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO 
 		if (room.isReadyToFeedback()) {
 			updateRoom(room);
 		}
-	}
-
-	@Override
-	public void deleteItem(String id) {
-		deleteItem(id);
 	}
 }

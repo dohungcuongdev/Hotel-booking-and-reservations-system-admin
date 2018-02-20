@@ -12,8 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.google.gson.reflect.TypeToken;
 
-import daos.sql.APIDAO;
-import daos.sql.ActivityDAO;
+import daos.ActivityDAO;
 import model.mongodb.user.tracking.Activity;
 import statics.constant.APIData;
 
@@ -22,7 +21,7 @@ import statics.constant.APIData;
  * @author Do Hung Cuong
  */
 
-//@Repository
+@Repository
 public class ActivityDAOImpl extends APIDAO implements ActivityDAO {
 
 	@Override

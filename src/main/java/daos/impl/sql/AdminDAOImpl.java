@@ -13,14 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import daos.sql.AdminDAO;
+import daos.AdminDAO;
 
 /**
  *
  * @author Do Hung Cuong
  */
 
-//@Repository
+@Repository
 @Transactional
 public class AdminDAOImpl implements AdminDAO {
 	

@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.sql.hotel;
+package model.hotel;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 import org.hibernate.annotations.Type;
+
+import com.mongodb.DBObject;
 
 import model.sql.SQLAbstractModel;
 import statics.constant.AppData;
@@ -142,4 +144,7 @@ public abstract class HotelItem extends SQLAbstractModel {
 	public String toString() {
 		return "HotelItem [price=" + price + ", img=" + img + ", img2=" + img2 + ", details=" + details + ", type=" + type + ", created_by=" + created_by + ", created_at=" + created_at + ", id=" + id + ", name=" + name + "]";
 	}
+	 
+	//use for old DAOs: mongodb DAOs
+    public abstract DBObject toDBObject();
 }

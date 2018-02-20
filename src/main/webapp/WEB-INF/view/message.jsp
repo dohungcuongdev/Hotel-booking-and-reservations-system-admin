@@ -18,7 +18,7 @@
                                     <button data-dismiss="alert" class="close close-sm" type="button">
                                         <i class="fa fa-times"></i>
                                     </button> 
-                                    <a href="${pageContext.request.contextPath}/notification/${activity.id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
+                                    <a href="${pageContext.request.contextPath}/notification/${activity._id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
                                     </strong>
                                     <br>Username: <a href="${pageContext.request.contextPath}/user/${activity.username}.html">${activity.username}</a>
                                     <br><b>Sent content</b>: ${activity.content}
@@ -29,7 +29,7 @@
                                     <button data-dismiss="alert" class="close close-sm" type="button">
                                         <i class="fa fa-times"></i>
                                     </button> 
-                                    <a href="${pageContext.request.contextPath}/notification/${activity.id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
+                                    <a href="${pageContext.request.contextPath}/notification/${activity._id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
                                     <br>Username: <a href="${pageContext.request.contextPath}/user/${activity.username}.html">${activity.username}</a>
                                     <br><b>Received content</b>: ${activity.content}
                                 </div>
@@ -39,7 +39,7 @@
                                     <button data-dismiss="alert" class="close close-sm" type="button">
                                         <i class="fa fa-times"></i>
                                     </button> 
-                                    <a href="${pageContext.request.contextPath}/reply ${activity.name}/${activity.id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
+                                    <a href="${pageContext.request.contextPath}/reply ${activity.name}/${activity._id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
                                     <br>Username: <a href="${pageContext.request.contextPath}/user/${activity.username}.html">${activity.username}</a>
                                     <br><b>Received content</b>: ${activity.content}
                                 </div>
@@ -49,7 +49,7 @@
                                     <button data-dismiss="alert" class="close close-sm" type="button">
                                         <i class="fa fa-times"></i>
                                     </button> 
-                                    <a href="${pageContext.request.contextPath}/notification/${activity.id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
+                                    <a href="${pageContext.request.contextPath}/notification/${activity._id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
                                     </strong>
                                     <br>
                                     <c:choose>

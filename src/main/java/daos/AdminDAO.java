@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package daos.mongodb;
+package daos;
 
-import model.mongodb.user.Administrator;
+import model.sql.user.Administrator;
 
 /**
  *
  * @author Do Hung Cuong
  */
 public interface AdminDAO {
-    
+
     public Administrator getAdminByUserName(String username);
     public void updateAdmin(Administrator ad);
     public void editProfileImg(String username, String img);

@@ -15,8 +15,7 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Repository;
 import com.google.gson.reflect.TypeToken;
 
-import daos.sql.APIDAO;
-import daos.sql.TrackingDAO;
+import daos.TrackingDAO;
 import model.api.user.tracking.ExternalIP;
 import model.api.user.tracking.FollowUsers;
 import model.api.user.tracking.GeoLocation;
@@ -30,7 +29,7 @@ import statics.helper.GeoLookup;
  * @author HUNGCUONG
  */
 
-//@Repository
+@Repository
 public class TrackingDAOImpl extends APIDAO implements TrackingDAO {
 	
 	@Override

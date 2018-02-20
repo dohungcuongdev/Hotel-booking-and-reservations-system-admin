@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.sql.hotel;
+package model.hotel;
 
 import java.util.Date;
 
@@ -11,6 +11,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import org.hibernate.annotations.Type;
+
+import com.mongodb.BasicDBObjectBuilder;
+import com.mongodb.DBObject;
 
 import statics.constant.AppData;
 import statics.helper.DateTimeCalculator;
@@ -222,6 +225,12 @@ public class HotelRoom extends HotelItem {
 	@Override
 	public String toString() {
 		return "HotelRoom [ id=" + id + ", name=" + name + ", size=" + size + ", numpeople=" + numpeople + ", status=" + status + ", amenities=" + amenities + ", booked_by=" + booked_by + ", avgAminities=" + avgAminities + ", checkin=" + checkin + ", checkout=" + checkout + ", star=" + star + ", numvote=" + numvote + ", price=" + price + ", img=" + img + ", img2=" + img2 + ", details=" + details + ", type=" + type + ", created_by=" + created_by + ", created_at=" + created_at + "]";
+	}	
+	
+	//use for old DAOs: mongodb DAOs
+	@Override
+	public DBObject toDBObject() {
+		return BasicDBObjectBuilder.start("id", id).append("name", name).append("type", type).append("size", size).append("price", price).append("numpeople", numpeople).append("status", status).append("type", type).append("img", img).append("img2", img2).append("details", details).append("amenities", amenities).append("avgAminities", avgAminities).append("created_by", created_by).append("created_at", created_at).get();
 	}
 	
 }

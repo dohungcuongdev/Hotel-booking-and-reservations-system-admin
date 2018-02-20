@@ -15,25 +15,32 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
-import daos.mongodb.HotelItemDAO;
-import model.mongodb.hotel.HotelItem;
+import daos.HotelItemDAO;
+import model.hotel.HotelItem;
 
 /**
  *
  * @author Do Hung Cuong
  */
 
-@Repository
-public abstract class HotelItemDAOImpl<T> extends JsonParser implements HotelItemDAO<T> {
+//@Repository
+public abstract class HotelItemDAOImpl<T> extends JsonParserDAO implements HotelItemDAO<T> {
     
     protected DBCollection collection;    
     
     protected Class<T> classOfT;
     
     @Override
-    public T getHotelItemByID(String id) {
+    public T getHotelItemByID(int id) {
         BasicDBObject whereQuery = new BasicDBObject();
-        whereQuery.put("_id", new ObjectId(id));
+        whereQuery.put("id", id);
+        DBObject obj = collection.findOne(whereQuery);
+        return (T) fromJson(obj, classOfT);
+    }
+    
+    public T getHotelItemByID(String _id) {
+        BasicDBObject whereQuery = new BasicDBObject();
+        whereQuery.put("_id", new ObjectId(_id));
         DBObject obj = collection.findOne(whereQuery);
         return (T) fromJson(obj, classOfT);
     }
@@ -73,6 +80,11 @@ public abstract class HotelItemDAOImpl<T> extends JsonParser implements HotelIte
     @Override
     public String findAndAddNewItem(HotelItem newItem) {
 		if(!isExists(newItem)) {
+			BasicDBObject sortQuery = new BasicDBObject();
+			sortQuery.put("id", -1);
+			DBCursor cursor = collection.find().sort(sortQuery).limit(1);
+			int id = cursor.hasNext() ?  Integer.parseInt(cursor.next().get("id").toString()) + 1: 1;
+			newItem.setId(id);
 	    	collection.insert(newItem.toDBObject());
 	    	return newItem.getName();
 		}
@@ -97,13 +109,16 @@ public abstract class HotelItemDAOImpl<T> extends JsonParser implements HotelIte
     }
     
     @Override
+    public void deleteItem(int id) {
+    	collection.remove(new BasicDBObject().append("id", id));
+    }
+    
     public void deleteItem(String id) {
     	collection.remove(new BasicDBObject().append("_id", new ObjectId(id)));
     }
     
     @Override
     public void updateItem(HotelItem item) {
-    	item.setId(null);
         DBObject document = parseJSON(toJson(item));
         DBObject searchObject = new BasicDBObject();
         searchObject.put("name", item.getName());

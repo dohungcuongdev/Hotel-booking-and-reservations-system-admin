@@ -10,10 +10,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import daos.sql.RestaurantDAO;
-import daos.sql.RoomDAO;
-import model.sql.hotel.HotelRoom;
-import model.sql.hotel.HotelService;
+import daos.RestaurantDAO;
+import daos.RoomDAO;
+import model.hotel.HotelRoom;
+import model.hotel.HotelService;
 import services.HotelItemService;
 import test.TestConvertMongoToSQL;
 

@@ -1,6 +1,6 @@
 <li>
 	<!-- start message --> 
-	<a href="${pageContext.request.contextPath}/notification/${message.id}.html">
+	<a href="${pageContext.request.contextPath}/notification/${message._id}.html">
 		<c:choose>
 			<c:when test="${message.click.equals('contact') || message.click.equals('reservation')}">
 				<div class="pull-left"> <img src="${pageContext.request.contextPath}/resources/img/users/guest.jpg" class="img-circle" alt="User Image" /></div>

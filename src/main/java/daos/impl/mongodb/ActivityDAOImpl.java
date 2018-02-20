@@ -18,16 +18,17 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
-import daos.mongodb.ActivityDAO;
+import daos.ActivityDAO;
 import model.mongodb.user.tracking.Activity;
+import statics.helper.DateTimeCalculator;
 
 /**
  *
  * @author Do Hung Cuong
  */
 
-@Repository
-public class ActivityDAOImpl extends JsonParser implements ActivityDAO {
+//@Repository
+public class ActivityDAOImpl extends JsonParserDAO implements ActivityDAO {
 	
 	private DBCollection collection; 
 	
@@ -106,9 +107,9 @@ public class ActivityDAOImpl extends JsonParser implements ActivityDAO {
 	
     private Activity getActivityDB(DBObject obj) {
     	String id = obj.get("_id") + "";
-    	String created_at = obj.get("created_at") + "";
+    	String created_at = obj.get("created_at").toString();
     	Activity act = fromJson2(obj, Activity.class);
-        act.setId(id);
+        act.set_id(id);
         act.setCreated_at(created_at);
         act.setContent(act.getContent().replaceAll("\n", "<br>"));
         return act;

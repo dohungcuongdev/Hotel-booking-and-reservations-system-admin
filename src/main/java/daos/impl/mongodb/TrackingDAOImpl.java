@@ -18,7 +18,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 
-import daos.mongodb.TrackingDAO;
+import daos.TrackingDAO;
 import model.api.user.tracking.ExternalIP;
 import model.api.user.tracking.FollowUsers;
 import model.api.user.tracking.GeoLocation;
@@ -31,8 +31,8 @@ import statics.helper.GeoLookup;
  * @author HUNGCUONG
  */
 
-@Repository
-public class TrackingDAOImpl extends JsonParser implements TrackingDAO {
+//@Repository
+public class TrackingDAOImpl extends JsonParserDAO implements TrackingDAO {
 	
 	private DBCollection collection; 
 	

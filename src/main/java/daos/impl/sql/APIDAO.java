@@ -1,4 +1,4 @@
-package daos.sql;
+package daos.impl.sql;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

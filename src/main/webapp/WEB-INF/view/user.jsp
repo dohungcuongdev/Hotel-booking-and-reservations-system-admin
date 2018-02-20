@@ -39,7 +39,7 @@
                     <c:if test="${activity.name.contains('Feedback')}"> 
                         <div class="alert alert-block alert-warning">
                             <button data-dismiss="alert" class="close close-sm" type="button"><i class="fa fa-times"></i></button>
-							<a href="${pageContext.request.contextPath}/notification/${activity.id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
+							<a href="${pageContext.request.contextPath}/notification/${activity._id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
 							<br>UserName: ${customer.username}
                             <br><b>Sent content:</b> ${activity.content}
                         </div>
@@ -47,7 +47,7 @@
                     <c:if test="${activity.click.equals('register')}"> 
                         <div class="alert alert-block alert-success">
                             <button data-dismiss="alert" class="close close-sm" type="button"><i class="fa fa-times"></i></button>
-							<a href="${pageContext.request.contextPath}/notification/${activity.id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
+							<a href="${pageContext.request.contextPath}/notification/${activity._id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
 							<br>UserName: ${customer.username}
                             <br><b>Received content:</b> ${activity.content}
                         </div>
@@ -55,7 +55,7 @@
                     <c:if test="${activity.name.equals('Book Room')}"> 
                         <div class="alert alert-block alert-info">
                             <button data-dismiss="alert" class="close close-sm" type="button"><i class="fa fa-times"></i></button>
-							<a href="${pageContext.request.contextPath}/reply ${activity.name}/${activity.id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
+							<a href="${pageContext.request.contextPath}/reply ${activity.name}/${activity._id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
 							<br>UserName: ${customer.username}
 							<br><b>Received content:</b> ${activity.content}
                         </div>
@@ -63,7 +63,7 @@
                     <c:if test="${activity.name.equals('Cancel Room')}"> 
                         <div class="alert alert-block alert-danger">
                             <button data-dismiss="alert" class="close close-sm" type="button"><i class="fa fa-times"></i></button>
-							<a href="${pageContext.request.contextPath}/reply ${activity.name}/${activity.id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
+							<a href="${pageContext.request.contextPath}/reply ${activity.name}/${activity._id}.html"><strong>${activity.getICTDateTime(activity.created_at)}! </strong></a>
                             <br>UserName: ${customer.username}
                             <br><b>Received content:</b> ${activity.content}
                         </div>

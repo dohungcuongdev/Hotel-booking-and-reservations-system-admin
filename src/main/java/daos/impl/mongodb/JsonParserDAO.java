@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 
-public class JsonParser {
+public class JsonParserDAO {
 	
 	private Gson gson = new Gson();
 

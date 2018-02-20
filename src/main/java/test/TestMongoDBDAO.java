@@ -4,27 +4,31 @@ import java.net.UnknownHostException;
 import java.util.List;
 
 import daos.impl.mongodb.ActivityDAOImpl;
+import daos.impl.mongodb.CustomerDAOImpl;
 import daos.impl.mongodb.RoomDAOImpl;
 import daos.impl.mongodb.TrackingDAOImpl;
-import daos.mongodb.ActivityDAO;
-import daos.mongodb.RoomDAO;
-import daos.mongodb.TrackingDAO;
-import model.mongodb.hotel.HotelRoom;
+import daos.ActivityDAO;
+import daos.CustomerDAO;
+import daos.RoomDAO;
+import daos.TrackingDAO;
+import model.api.user.tracking.CustomerBehavior;
+import model.hotel.HotelRoom;
+import model.mongodb.user.Customer;
 import model.mongodb.user.tracking.Activity;
+import statics.helper.DateTimeCalculator;
 
 public class TestMongoDBDAO {
 	
 	public static void testRoom() throws UnknownHostException {
 		RoomDAO roomDAO = new RoomDAOImpl();
-		List<HotelRoom> rooms = roomDAO.getAllRooms();
-		HotelRoom room = rooms.get(0);
-		//System.out.println(room);
-		room.setSize(300);
-		roomDAO.updateRoom(room);
-		//System.out.println(room);
-		room.setName("103");
-		roomDAO.findAndAddNewRoom(room);
-		//System.out.println(room);
+		List<HotelRoom> rooms = roomDAO.getRelatedHotelRooms("deluxe");
+		System.out.println(rooms);
+	}
+	
+	public static void testCustomer() throws UnknownHostException {
+		CustomerDAO customerDAO = new CustomerDAOImpl();
+		List<Customer> customers = customerDAO.getAllCustomers();
+		System.out.println(customers);
 	}
 	
 	public static void testActivity() throws UnknownHostException {
@@ -45,10 +49,13 @@ public class TestMongoDBDAO {
 		System.out.println(trackingDAO.getCountryChartData());
 		
 	}
+	
+	public static void testAdmin() {
+		
+	}
 
 	public static void main(String[] args) throws UnknownHostException {
-		testFollowUsers();
-
+		
 	}
 
 }

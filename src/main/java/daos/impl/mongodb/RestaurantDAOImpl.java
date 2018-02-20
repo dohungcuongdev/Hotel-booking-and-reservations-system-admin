@@ -5,21 +5,20 @@
  */
 package daos.impl.mongodb;
 
-import model.mongodb.hotel.HotelService;
-
 import java.net.UnknownHostException;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import daos.mongodb.RestaurantDAO;
+import daos.RestaurantDAO;
+import model.hotel.HotelService;
 
 /**
  *
  * @author Do Hung Cuong
  */
 
-@Repository
+//@Repository
 public class RestaurantDAOImpl extends HotelItemDAOImpl<HotelService> implements RestaurantDAO {
 
     public RestaurantDAOImpl() throws UnknownHostException {
@@ -28,8 +27,12 @@ public class RestaurantDAOImpl extends HotelItemDAOImpl<HotelService> implements
     }
 
 	@Override
-    public HotelService getHotelServiceByID(String id) {
+    public HotelService getHotelServiceByID(int id) {
     	return (HotelService) getHotelItemByID(id);
+    }
+	
+    public HotelService getHotelServiceByID(String _id) {
+    	return (HotelService) getHotelItemByID(_id);
     }
 
     @Override
@@ -56,9 +59,4 @@ public class RestaurantDAOImpl extends HotelItemDAOImpl<HotelService> implements
 	public void updateService(HotelService service) {
 		updateItem(service);
 	}
-
-	@Override
-    public void deleteItem(String id) {
-		deleteItem(id);
-    }
 }

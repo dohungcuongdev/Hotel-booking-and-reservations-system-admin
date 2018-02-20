@@ -7,8 +7,8 @@ package services;
 
 import java.util.List;
 
-import model.sql.hotel.HotelRoom;
-import model.sql.hotel.HotelService;
+import model.hotel.HotelRoom;
+import model.hotel.HotelService;
 
 /**
  *

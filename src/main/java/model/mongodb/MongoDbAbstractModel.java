@@ -21,11 +21,11 @@ public abstract class MongoDbAbstractModel extends AbstractModel {
 	protected String name;
 	protected String created_at;
 	
-	public String getId() {
+	public String get_id() {
 		return _id;
 	}
 
-	public void setId(String id) {
+	public void set_id(String id) {
 		this._id = id;
 	}
 

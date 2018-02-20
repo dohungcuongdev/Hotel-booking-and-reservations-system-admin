@@ -51,7 +51,7 @@
                     <form action="${pageContext.request.contextPath}/send-mail.html" method="post" accept-charset="UTF-8">
                         <textarea class="form-control" name="message" placeholder="Write something on reply.." rows="14">${emailTemplate}
                         </textarea>
-                        <input type="hidden" name="activity-id" value="${activity.id}"/>
+                        <input type="hidden" name="activity-id" value="${activity._id}"/>
                         <c:choose>
                         <c:when test="${activity.username.contains('A guest')}">
                         <input type="hidden" name="user-email" value="${activity.username.replaceFirst("a guest with name: ", "").split(",")[1].replaceFirst(" email: ", "")}"/>
