@@ -21,7 +21,7 @@ import daos.AdminDAO;
  * @author Do Hung Cuong
  */
 
-//@Repository
+@Repository
 public class AdminDAOImpl extends JsonParserDAO implements AdminDAO {
 	
 	private DBCollection collection;    

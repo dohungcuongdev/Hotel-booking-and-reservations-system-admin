@@ -20,8 +20,8 @@ import daos.AdminDAO;
  * @author Do Hung Cuong
  */
 
-@Repository
-@Transactional
+//@Repository
+//@Transactional
 public class AdminDAOImpl implements AdminDAO {
 	
 	@Autowired

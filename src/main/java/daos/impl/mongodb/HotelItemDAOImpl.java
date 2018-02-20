@@ -16,14 +16,14 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import daos.HotelItemDAO;
-import model.hotel.HotelItem;
+import model.sql.hotel.HotelItem;
 
 /**
  *
  * @author Do Hung Cuong
  */
 
-//@Repository
+@Repository
 public abstract class HotelItemDAOImpl<T> extends JsonParserDAO implements HotelItemDAO<T> {
     
     protected DBCollection collection;    

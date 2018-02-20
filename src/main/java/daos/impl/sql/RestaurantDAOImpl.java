@@ -13,15 +13,15 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import daos.RestaurantDAO;
-import model.hotel.HotelService;
+import model.sql.hotel.HotelService;
 
 /**
  *
  * @author Do Hung Cuong
  */
 
-@Repository
-@Transactional
+//@Repository
+//@Transactional
 public class RestaurantDAOImpl extends HotelItemDAOImpl<HotelService> implements RestaurantDAO {
 
 	public RestaurantDAOImpl() {
@@ -30,14 +30,14 @@ public class RestaurantDAOImpl extends HotelItemDAOImpl<HotelService> implements
 
 	@Override
 	public HotelService getHotelServiceByID(int id) {
-		return getHotelServiceByIDNoDB(id);
-		//return (HotelService) getHotelItemByID(id);
+		//return getHotelServiceByIDNoDB(id);
+		return (HotelService) getHotelItemByID(id);
 	}
 
 	@Override
 	public HotelService getHotelServiceByName(String name) {
-		return getHotelServiceByNameNoDB(name);
-		// return (HotelService) getHotelItemByName(name);
+		//return getHotelServiceByNameNoDB(name);
+		return (HotelService) getHotelItemByName(name);
 	}
 
 	@Override
@@ -47,8 +47,8 @@ public class RestaurantDAOImpl extends HotelItemDAOImpl<HotelService> implements
 
 	@Override
 	public List<HotelService> getRelatedHotelServices(String type) {
-		return getRelatedHotelServicesNoDB(type);
-		//return getRelatedHotelItems(type);
+		//return getRelatedHotelServicesNoDB(type);
+		return getRelatedHotelItems(type);
 	}
 
 	@Override

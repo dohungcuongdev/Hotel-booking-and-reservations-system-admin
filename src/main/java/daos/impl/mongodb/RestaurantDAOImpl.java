@@ -11,14 +11,14 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import daos.RestaurantDAO;
-import model.hotel.HotelService;
+import model.sql.hotel.HotelService;
 
 /**
  *
  * @author Do Hung Cuong
  */
 
-//@Repository
+@Repository
 public class RestaurantDAOImpl extends HotelItemDAOImpl<HotelService> implements RestaurantDAO {
 
     public RestaurantDAOImpl() throws UnknownHostException {

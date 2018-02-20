@@ -2,7 +2,7 @@ package daos;
 
 import java.util.List;
 
-import model.hotel.HotelItem;
+import model.sql.hotel.HotelItem;
 
 public interface HotelItemDAO<T> {
 

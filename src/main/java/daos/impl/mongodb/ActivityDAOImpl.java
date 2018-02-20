@@ -27,7 +27,7 @@ import statics.helper.DateTimeCalculator;
  * @author Do Hung Cuong
  */
 
-//@Repository
+@Repository
 public class ActivityDAOImpl extends JsonParserDAO implements ActivityDAO {
 	
 	private DBCollection collection; 
@@ -107,7 +107,7 @@ public class ActivityDAOImpl extends JsonParserDAO implements ActivityDAO {
 	
     private Activity getActivityDB(DBObject obj) {
     	String id = obj.get("_id") + "";
-    	String created_at = obj.get("created_at").toString();
+    	String created_at = DateTimeCalculator.getStringICTDateTime(obj.get("created_at"));
     	Activity act = fromJson2(obj, Activity.class);
         act.set_id(id);
         act.setCreated_at(created_at);

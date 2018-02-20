@@ -34,7 +34,7 @@ import statics.helper.DateTimeCalculator;
  * @author Do Hung Cuong
  */
 
-//@Repository
+@Repository
 public class CustomerDAOImpl extends JsonParserDAO implements CustomerDAO {
 
 	@Autowired
@@ -141,7 +141,7 @@ public class CustomerDAOImpl extends JsonParserDAO implements CustomerDAO {
 	
     private Customer getCustomerDB(DBObject obj) {
     	String id = obj.get("_id") + "";
-    	String created_at = obj.get("created_at").toString();
+    	String created_at = DateTimeCalculator.getStringICTDateTime(obj.get("created_at"));
     	Customer cus = fromJson2(obj, Customer.class);
     	cus.set_id(id);
     	cus.setCreated_at(created_at);

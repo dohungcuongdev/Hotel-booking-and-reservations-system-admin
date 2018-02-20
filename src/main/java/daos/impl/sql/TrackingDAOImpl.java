@@ -29,7 +29,7 @@ import statics.helper.GeoLookup;
  * @author HUNGCUONG
  */
 
-@Repository
+//@Repository
 public class TrackingDAOImpl extends APIDAO implements TrackingDAO {
 	
 	@Override

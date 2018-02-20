@@ -8,8 +8,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import daos.impl.sql.APIDAO;
-import model.hotel.HotelRoom;
-import model.hotel.HotelService;
+import model.sql.hotel.HotelRoom;
+import model.sql.hotel.HotelService;
 
 public class TestConvertMongoToSQL {
 

@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import model.api.user.tracking.CountryChartData;
 import model.api.user.tracking.CustomerBehavior;
 import model.api.user.tracking.PageAccessChartData;
-import model.hotel.HotelRoom;
-import model.hotel.HotelService;
 import model.mongodb.user.tracking.Activity;
+import model.sql.hotel.HotelRoom;
+import model.sql.hotel.HotelService;
 import services.HotelItemService;
 import services.UserService;
 import statics.constant.AppData;
@@ -36,15 +36,15 @@ public class RESTController {
 	@CrossOrigin
 	@RequestMapping(value = "/rooms", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
 	public List<HotelRoom> getListRooms() {
-		return AppData.listrooms;
-		//return hotelItemService.getAllRooms();
+		//return AppData.listrooms;
+		return hotelItemService.getAllRooms();
 	}
 	
 	@CrossOrigin
 	@RequestMapping(value = "/restaurant", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
 	public List<HotelService> getListServiceInRestaurant() {
-		return AppData.listservices;
-		//return hotelItemService.getAllHotelServices();
+		//return AppData.listservices;
+		return hotelItemService.getAllHotelServices();
 	}	
 	
 	@CrossOrigin
@@ -81,7 +81,7 @@ public class RESTController {
 	@RequestMapping(value = "/book-room/{name}", method = RequestMethod.PUT, produces = "application/json; charset=UTF-8")
 	public ResponseEntity<HotelRoom> bookRoom(@PathVariable(value = "name") String name, @RequestBody HotelRoom room) {
 		hotelItemService.bookRoom(room);
-		AppData.listrooms = hotelItemService.getAllRooms();
+		//AppData.listrooms = hotelItemService.getAllRooms();
 		return new ResponseEntity<HotelRoom>(room, HttpStatus.OK);
 	}
 	
@@ -89,7 +89,7 @@ public class RESTController {
 	@RequestMapping(value = "/feedback-room/{name}", method = RequestMethod.PUT, produces = "application/json; charset=UTF-8")
 	public ResponseEntity<HotelRoom> ratingRoom(@PathVariable(value = "name") String name, @RequestBody HotelRoom room) {
 		hotelItemService.feedbackRoom(room);
-		AppData.listrooms = hotelItemService.getAllRooms();
+		//AppData.listrooms = hotelItemService.getAllRooms();
 		return new ResponseEntity<HotelRoom>(room, HttpStatus.OK);
 	}
 
@@ -134,7 +134,7 @@ public class RESTController {
 		room.setStar(star);
 		room.setNumvote(numvote);
 		hotelItemService.updateRoom(room);
-		AppData.listrooms = hotelItemService.getAllRooms();
+		//AppData.listrooms = hotelItemService.getAllRooms();
 		return room;
 	}
 	

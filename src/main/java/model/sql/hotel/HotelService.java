@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.hotel;
+package model.sql.hotel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -136,6 +136,6 @@ public class HotelService extends HotelItem {
 	//use for old DAOs: mongodb DAOs
 	@Override
     public DBObject toDBObject() {
-    	return BasicDBObjectBuilder.start("name", name).append("type", type).append("price", price).append("quantity", quantity).append("note", note).append("details", details).append("img", img).append("img2", img2).append("serveType", serveType).append("created_by", created_by).append("created_at", created_at).get();
+    	return BasicDBObjectBuilder.start("id", id).append("name", name).append("type", type).append("price", price).append("quantity", quantity).append("note", note).append("details", details).append("img", img).append("img2", img2).append("serveType", serveType).append("created_by", created_by).append("created_at", created_at).get();
     }
 }

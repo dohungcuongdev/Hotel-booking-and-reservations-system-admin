@@ -16,7 +16,7 @@ public class StartupHousekeeper implements ApplicationListener<ContextRefreshedE
 
 	@Override
 	public void onApplicationEvent(final ContextRefreshedEvent event) {
-		AppData.listrooms = hotelItemService.getAllRooms();
-		AppData.listservices = hotelItemService.getAllHotelServices();
+//		AppData.listrooms = hotelItemService.getAllRooms();
+//		AppData.listservices = hotelItemService.getAllHotelServices();
 	}
 }

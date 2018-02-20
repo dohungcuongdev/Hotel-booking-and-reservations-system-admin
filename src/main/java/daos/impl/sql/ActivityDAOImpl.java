@@ -21,7 +21,7 @@ import statics.constant.APIData;
  * @author Do Hung Cuong
  */
 
-@Repository
+//@Repository
 public class ActivityDAOImpl extends APIDAO implements ActivityDAO {
 
 	@Override

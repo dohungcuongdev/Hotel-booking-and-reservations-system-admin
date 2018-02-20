@@ -11,23 +11,21 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import daos.CustomerDAO;
 import daos.RoomDAO;
-import model.hotel.HotelRoom;
 import model.mongodb.user.Customer;
+import model.sql.hotel.HotelRoom;
 
 /**
  *
  * @author Do Hung Cuong
  */
 
-//@Repository
-//@Transactional
+@Repository
 public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO {
 
 	public RoomDAOImpl() throws UnknownHostException {

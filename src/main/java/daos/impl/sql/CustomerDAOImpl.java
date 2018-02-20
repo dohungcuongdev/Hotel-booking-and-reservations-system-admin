@@ -30,7 +30,7 @@ import statics.constant.AppData;
  * @author Do Hung Cuong
  */
 
-@Repository
+//@Repository
 public class CustomerDAOImpl extends APIDAO implements CustomerDAO {
 
 	@Autowired

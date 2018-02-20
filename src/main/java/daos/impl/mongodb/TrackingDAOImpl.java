@@ -31,7 +31,7 @@ import statics.helper.GeoLookup;
  * @author HUNGCUONG
  */
 
-//@Repository
+@Repository
 public class TrackingDAOImpl extends JsonParserDAO implements TrackingDAO {
 	
 	private DBCollection collection; 
@@ -86,9 +86,8 @@ public class TrackingDAOImpl extends JsonParserDAO implements TrackingDAO {
 		Iterable<DBObject> result = collection.aggregate(q).results();
 		Iterator iterator = result.iterator();
 		List<CountryChartData> listGeo = new ArrayList<>();
+		List<String> temp = new ArrayList<>();
 		while (iterator.hasNext()) {
-			List<String> temp = new ArrayList<>();
-
 			CountryChartData geo = new CountryChartData();
 			DBObject element = (DBObject) iterator.next();
 			String exPI = element.get("_id").toString();

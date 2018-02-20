@@ -14,15 +14,15 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import daos.HotelItemDAO;
-import model.hotel.HotelItem;
+import model.sql.hotel.HotelItem;
 
 /**
  *
  * @author Do Hung Cuong
  */
 
-@Repository
-@Transactional
+//@Repository
+//@Transactional
 public abstract class HotelItemDAOImpl<T> implements HotelItemDAO<T> {
     
     protected Class<T> classOfT;

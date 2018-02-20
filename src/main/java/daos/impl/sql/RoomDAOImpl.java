@@ -17,8 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import daos.CustomerDAO;
 import daos.RoomDAO;
-import model.hotel.HotelRoom;
 import model.mongodb.user.Customer;
+import model.sql.hotel.HotelRoom;
 import statics.constant.AppData;
 
 /**
@@ -26,8 +26,8 @@ import statics.constant.AppData;
  * @author Do Hung Cuong
  */
 
-@Repository
-@Transactional
+//@Repository
+//@Transactional
 public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO {
 
 	public RoomDAOImpl() {
@@ -42,14 +42,14 @@ public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO 
 
 	@Override
 	public HotelRoom getRoomByID(int id) {
-		return getHotelRoomByIDNoDB(id);
-		// return (HotelRoom) getHotelItemByID(id);
+		//return getHotelRoomByIDNoDB(id);
+		return (HotelRoom) getHotelItemByID(id);
 	}
 
 	@Override
 	public HotelRoom getRoomByName(String name) {
-		return getHotelRoomByNameNoDB(name);
-		// return (HotelRoom) getHotelItemByName(name);
+		//return getHotelRoomByNameNoDB(name);
+		return (HotelRoom) getHotelItemByName(name);
 	}
 
 	@Override
@@ -59,8 +59,8 @@ public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO 
 
 	@Override
 	public List<HotelRoom> getRelatedHotelRooms(String type) {
-		return getRelatedHotelRoomsNoDB(type);
-		// return getRelatedHotelItems(type);
+		//return getRelatedHotelRoomsNoDB(type);
+		return getRelatedHotelItems(type);
 	}
 
 	@Override
