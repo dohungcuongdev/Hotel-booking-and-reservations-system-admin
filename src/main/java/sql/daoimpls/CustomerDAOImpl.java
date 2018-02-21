@@ -3,19 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package daos.impl.mongodb;
+package sql.daoimpls;
 
 import static statics.helper.MathCalculator.round;
 
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
+import com.google.gson.reflect.TypeToken;
 
 import daos.ActivityDAO;
 import daos.CustomerDAO;
@@ -26,8 +22,8 @@ import model.api.user.tracking.DataCollection;
 import model.api.user.tracking.Feedback;
 import model.mongodb.user.Customer;
 import model.mongodb.user.tracking.Activity;
+import statics.constant.APIData;
 import statics.constant.AppData;
-import statics.helper.DateTimeCalculator;
 
 /**
  *
@@ -35,39 +31,22 @@ import statics.helper.DateTimeCalculator;
  */
 
 @Repository
-public class CustomerDAOImpl extends JsonParserDAO implements CustomerDAO {
+public class CustomerDAOImpl extends APIDAO implements CustomerDAO {
 
 	@Autowired
-	private ActivityDAO activityDAO = new ActivityDAOImpl();
+	private ActivityDAO activityDAO;
 
 	@Autowired
-	private TrackingDAO userDAO = new TrackingDAOImpl();
-	
-	private DBCollection collection;    
-	
-	public CustomerDAOImpl() throws UnknownHostException {
-		collection = MongoDbConnector.createConnection("customers");
-	}
+	private TrackingDAO userDAO;
 
 	@Override
 	public Customer getCustomerByUsername(String username) {
-        BasicDBObject whereQuery = new BasicDBObject();
-        whereQuery.put("username", username);
-        DBObject obj = collection.findOne(whereQuery);
-        return getCustomerDB(obj);
+		return getJsonData(getStringAPI(APIData.USER_USERNAME_API + username), Customer.class);
 	}
 
 	@Override
 	public List<Customer> getAllCustomers() {
-        List<Customer> customers = new ArrayList<>();
-        BasicDBObject orderBy = new BasicDBObject();
-        orderBy.put("created_at", -1);
-        DBCursor cursor = collection.find().sort(orderBy);
-        while (cursor.hasNext()) {
-        	DBObject obj = cursor.next();
-        	customers.add(getCustomerDB(obj));
-        }
-        return customers;
+		return getJsonData(getStringAPI(APIData.USER_API), new TypeToken<List<Customer>>(){}.getType());
 	}
 
 	@Override
@@ -80,7 +59,7 @@ public class CustomerDAOImpl extends JsonParserDAO implements CustomerDAO {
 		int starFB = 0, countFB = 0;
 		List<Activity> activities = activityDAO.getAllActivityByUserName(username);
 		for (Activity act : activities) {
-			String date = act.getCreated_at();
+			String date = act.getICTStrDateTime(act.getCreated_at());;
 			if (act.getName().equals(AppData.ACTIVITY[0])) {
 				roombooked.add(new DataCollection(date, act.getDetails().substring(12)));
 			}
@@ -138,13 +117,4 @@ public class CustomerDAOImpl extends JsonParserDAO implements CustomerDAO {
 				});
 		return dateVisits;
 	}
-	
-    private Customer getCustomerDB(DBObject obj) {
-    	String id = obj.get("_id") + "";
-    	String created_at = DateTimeCalculator.getStringICTDateTime(obj.get("created_at"));
-    	Customer cus = fromJson2(obj, Customer.class);
-    	cus.set_id(id);
-    	cus.setCreated_at(created_at);
-        return cus;
-    }
 }

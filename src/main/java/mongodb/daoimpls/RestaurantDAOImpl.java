@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package daos.impl.mongodb;
+package mongodb.daoimpls;
 
 import java.net.UnknownHostException;
 import java.util.List;

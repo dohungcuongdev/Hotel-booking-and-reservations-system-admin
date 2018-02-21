@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package daos.impl.sql;
+package sql.daoimpls;
 
 
 import java.util.List;
@@ -21,7 +21,7 @@ import statics.constant.APIData;
  * @author Do Hung Cuong
  */
 
-//@Repository
+@Repository
 public class ActivityDAOImpl extends APIDAO implements ActivityDAO {
 
 	@Override

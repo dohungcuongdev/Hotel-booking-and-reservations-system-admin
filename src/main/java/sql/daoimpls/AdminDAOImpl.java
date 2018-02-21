@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package daos.impl.sql;
+package sql.daoimpls;
 
 import model.sql.user.Administrator;
 
@@ -20,8 +20,8 @@ import daos.AdminDAO;
  * @author Do Hung Cuong
  */
 
-//@Repository
-//@Transactional
+@Repository
+@Transactional
 public class AdminDAOImpl implements AdminDAO {
 	
 	@Autowired

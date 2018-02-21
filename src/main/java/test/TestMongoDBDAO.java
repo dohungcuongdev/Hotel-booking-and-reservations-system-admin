@@ -3,11 +3,6 @@ package test;
 import java.net.UnknownHostException;
 import java.util.List;
 
-import daos.impl.mongodb.ActivityDAOImpl;
-import daos.impl.mongodb.CustomerDAOImpl;
-import daos.impl.mongodb.RestaurantDAOImpl;
-import daos.impl.mongodb.RoomDAOImpl;
-import daos.impl.mongodb.TrackingDAOImpl;
 import daos.ActivityDAO;
 import daos.CustomerDAO;
 import daos.RestaurantDAO;
@@ -18,6 +13,11 @@ import model.mongodb.user.Customer;
 import model.mongodb.user.tracking.Activity;
 import model.sql.hotel.HotelRoom;
 import model.sql.hotel.HotelService;
+import mongodb.daoimpls.ActivityDAOImpl;
+import mongodb.daoimpls.CustomerDAOImpl;
+import mongodb.daoimpls.RestaurantDAOImpl;
+import mongodb.daoimpls.RoomDAOImpl;
+import mongodb.daoimpls.TrackingDAOImpl;
 import statics.helper.DateTimeCalculator;
 
 public class TestMongoDBDAO {

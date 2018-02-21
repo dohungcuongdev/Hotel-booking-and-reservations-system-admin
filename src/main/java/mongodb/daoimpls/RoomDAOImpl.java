@@ -3,52 +3,50 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package daos.impl.sql;
+package mongodb.daoimpls;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import org.hibernate.Query;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 
 import daos.CustomerDAO;
 import daos.RoomDAO;
 import model.mongodb.user.Customer;
 import model.sql.hotel.HotelRoom;
-import statics.constant.AppData;
 
 /**
  *
  * @author Do Hung Cuong
  */
 
-//@Repository
-//@Transactional
+@Repository
 public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO {
 
-	public RoomDAOImpl() {
+	public RoomDAOImpl() throws UnknownHostException {
 		classOfT = HotelRoom.class;
+		collection = MongoDbConnector.createConnection("rooms");
 	}
-
-	@Autowired
-	private SessionFactory sessionFactory;
 
 	@Autowired
 	private CustomerDAO customerDAO;
 
 	@Override
 	public HotelRoom getRoomByID(int id) {
-		//return getHotelRoomByIDNoDB(id);
 		return (HotelRoom) getHotelItemByID(id);
+	}
+	
+	public HotelRoom getRoomByID(String _id) {
+		return (HotelRoom) getHotelItemByID(_id);
 	}
 
 	@Override
 	public HotelRoom getRoomByName(String name) {
-		//return getHotelRoomByNameNoDB(name);
 		return (HotelRoom) getHotelItemByName(name);
 	}
 
@@ -59,7 +57,6 @@ public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO 
 
 	@Override
 	public List<HotelRoom> getRelatedHotelRooms(String type) {
-		//return getRelatedHotelRoomsNoDB(type);
 		return getRelatedHotelItems(type);
 	}
 
@@ -71,15 +68,17 @@ public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO 
 	@Override
 	public List<HotelRoom> getRoomByPage(int page) {
 		ArrayList<HotelRoom> rooms = new ArrayList<>();
-		Query q = sessionFactory.getCurrentSession().createQuery("from " + HotelRoom.class.getName());
-		q.setFirstResult((page - 1) * 6);
-		q.setMaxResults(6);
-		return q.list();
+		DBCursor cursor = collection.find().skip((page - 1) * 6).limit(6);
+		while (cursor.hasNext()) {
+			DBObject obj = cursor.next();
+			rooms.add(fromJson(obj, classOfT));
+		}
+		return rooms;
 	}
 
 	@Override
 	public long getNumRooms() {
-		return 0;
+		return collection.count();
 	}
 
 	@Override
@@ -102,17 +101,5 @@ public class RoomDAOImpl extends HotelItemDAOImpl<HotelRoom> implements RoomDAO 
 		if (room.isReadyToFeedback()) {
 			updateRoom(room);
 		}
-	}
-
-	private HotelRoom getHotelRoomByIDNoDB(int id) {
-		return AppData.listrooms.stream().filter((item) -> (item.getId() == id)).findFirst().get();
-	}
-
-	private HotelRoom getHotelRoomByNameNoDB(String name) {
-		return AppData.listrooms.stream().filter((item) -> (item.getName().equals(name))).findFirst().get();
-	}
-
-	private List<HotelRoom> getRelatedHotelRoomsNoDB(String type) {
-		return AppData.listrooms.stream().filter((item) -> (item.getType().equals(type))).collect(Collectors.toList());
 	}
 }

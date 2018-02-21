@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package daos.impl.sql;
+package sql.daoimpls;
 
 import static statics.helper.StringUtils.upperFirstChar;
 
@@ -29,7 +29,7 @@ import statics.helper.GeoLookup;
  * @author HUNGCUONG
  */
 
-//@Repository
+@Repository
 public class TrackingDAOImpl extends APIDAO implements TrackingDAO {
 	
 	@Override

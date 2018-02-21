@@ -1,4 +1,4 @@
-package daos.impl.mongodb;
+package mongodb.daoimpls;
 
 import com.google.gson.Gson;
 import com.mongodb.DBObject;

@@ -23,14 +23,18 @@ public class AppData {
 	// local
 	public static final String SPRING_APP_URL = "http://localhost:8080/Hotel-booking-and-reservations-system-admin/";
 
-	// online
-	//public static final String SPRING_APP_URL = "https://admin-hotel-booking.herokuapp.com/";
-
 	// for using mongodb with Spring instead of using Hibernate + SQL 
 	//local
 	public static final String DATABASE = "HotelBookingReservationsSystem";
 	public static final String DATABASE_HOST = "localhost";
 	public static final int DATABASE_PORT = 27017;
+	public static final String MONGGO_URL = "mongodb://" + AppData.DATABASE_HOST + ":" + AppData.DATABASE_PORT;
+
+	// online
+	//public static final String SPRING_APP_URL = "https://admin-hotel-booking.herokuapp.com/";
+	
+	// online v1
+	//public static final String SPRING_APP_URL = "https://admin-hotel-booking-v1.herokuapp.com/";
 	
 	//online
 //	public static final String DATABASE = "hotel_booking_system";

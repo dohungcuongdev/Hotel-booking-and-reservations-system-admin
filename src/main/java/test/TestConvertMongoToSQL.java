@@ -7,9 +7,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import daos.impl.sql.APIDAO;
 import model.sql.hotel.HotelRoom;
 import model.sql.hotel.HotelService;
+import sql.daoimpls.APIDAO;
 
 public class TestConvertMongoToSQL {
 

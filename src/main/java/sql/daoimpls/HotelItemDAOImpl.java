@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package daos.impl.sql;
+package sql.daoimpls;
 
 import java.util.List;
 
@@ -21,8 +21,8 @@ import model.sql.hotel.HotelItem;
  * @author Do Hung Cuong
  */
 
-//@Repository
-//@Transactional
+@Repository
+@Transactional
 public abstract class HotelItemDAOImpl<T> implements HotelItemDAO<T> {
     
     protected Class<T> classOfT;

@@ -25,9 +25,13 @@
 
 	<context:annotation-config />
 	<context:component-scan base-package="controller" />
-	<context:component-scan base-package="daos" />
 	<context:component-scan base-package="api" />
 	<context:component-scan base-package="services" />
+	<context:component-scan base-package="daos" />
+	
+	<!-- config dao implement -->
+	<context:component-scan base-package="sql" />
+	<!-- <context:component-scan base-package="mongodb" /> -->
 
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

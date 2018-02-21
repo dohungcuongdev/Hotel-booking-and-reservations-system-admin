@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package daos.impl.sql;
+package sql.daoimpls;
 
 import statics.constant.AppData;
 import java.util.List;
@@ -20,8 +20,8 @@ import model.sql.hotel.HotelService;
  * @author Do Hung Cuong
  */
 
-//@Repository
-//@Transactional
+@Repository
+@Transactional
 public class RestaurantDAOImpl extends HotelItemDAOImpl<HotelService> implements RestaurantDAO {
 
 	public RestaurantDAOImpl() {

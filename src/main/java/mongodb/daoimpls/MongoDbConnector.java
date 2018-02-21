@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package daos.impl.mongodb;
+package mongodb.daoimpls;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -22,14 +22,9 @@ import org.bson.types.ObjectId;
 public class MongoDbConnector {
 
     public static DBCollection createConnection(String collectionName) throws UnknownHostException {
-//    	MongoClientURI uri = new MongoClientURI(AppData.MONGGO_URL);
-//    	MongoClient mongoClient = new MongoClient(uri);
-//    	DB db = mongoClient.getDB(AppData.DATABASE);
     	
-        MongoClient mongoClient = new MongoClient(AppData.DATABASE_HOST, AppData.DATABASE_PORT);
-        DB db = mongoClient.getDB(AppData.DATABASE);
-    	
-    	
+    	MongoClient mongoClient = new MongoClient(new MongoClientURI(AppData.MONGGO_URL));
+    	DB db = mongoClient.getDB(AppData.DATABASE);
         return db.getCollection(collectionName);
     }
 

@@ -1,6 +1,6 @@
 package test;
 
-import daos.impl.sql.APIDAO;
+import sql.daoimpls.APIDAO;
 
 public class TestAPI {
 	
