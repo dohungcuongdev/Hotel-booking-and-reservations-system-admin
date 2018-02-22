@@ -45,3 +45,11 @@
 </div>
 <%@ include file="common/footer.jspf"%>
 <script src="${pageContext.request.contextPath}/resources/custom/follow-user-angular.js" type="text/javascript"></script>
+<script>
+    function responsiveFn() {
+    	responsiveGeneral('#follow-user-box', 500);
+    }
+
+     // load() event and resize() event are combined 
+    $(window).ready(responsiveFn).resize(responsiveFn); 
+</script>

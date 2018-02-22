@@ -59,6 +59,8 @@ public abstract class HotelItemDAOImpl<T> extends JsonParserDAO implements Hotel
         DBCursor cursor = collection.find();
         while (cursor.hasNext()) {
         	DBObject obj = cursor.next();
+//        	T t = (T) fromJson(obj, classOfT);
+//        	System.out.println(t);
         	items.add((T) fromJson(obj, classOfT));
         }
         return items;

@@ -95,7 +95,7 @@ public class HotelService extends HotelItem {
     }
     
     @Override
-    public String getAbleToUpdate() {
+    public String isAbleToUpdate() {
         return !isEnoughInfor() ?  AppData.INFOR_NOT_ENOUGH : !isNumberFormat() ? AppData.WRONG_NUMBER_FORMAT_SERVICE : isInvalidType() ? AppData.WRONG_TYPE_SERVICE : isInvalidServeType() ? AppData.INVALID_SERVICE_TYPE: AppData.ABLE_TO_EDIT;
     }
     

@@ -192,7 +192,7 @@ public class AppController {
 		String newRoomName;
 		initialize(model);
 		newRoom.setNewInfor();
-		String ableToAddNewRoom = newRoom.getAbleToUpdate();
+		String ableToAddNewRoom = newRoom.isAbleToUpdate();
 		model.put("addResult", ableToAddNewRoom);
 		if (ableToAddNewRoom.equals(AppData.ABLE_TO_ADD)) {
 			model.addAttribute("roomEdit", new HotelRoom());
@@ -212,7 +212,7 @@ public class AppController {
 		checkAuth(request, response);
 		roomEdit.initializeSomeInfor();
 		initialize(model);
-		String ableToEditRoom = roomEdit.getAbleToUpdate();
+		String ableToEditRoom = roomEdit.isAbleToUpdate();
 		model.put("editResult", ableToEditRoom);
 		if (ableToEditRoom.equals(AppData.ABLE_TO_EDIT)) {
 			hotelItemService.updateRoom(roomEdit);
@@ -267,7 +267,7 @@ public class AppController {
 		String newServiceName;
 		initialize(model);
 		newService.setNewInfor();
-		String ableToAddNewService = newService.getAbleToUpdate();
+		String ableToAddNewService = newService.isAbleToUpdate();
 		model.put("addResult", ableToAddNewService);
 		if (ableToAddNewService.equals(AppData.ABLE_TO_ADD)) {
 			model.addAttribute("serviceEdit", new HotelService());
@@ -293,7 +293,7 @@ public class AppController {
 		checkAuth(request, response);
 		serviceEdit.initializeSomeInfor();
 		initialize(model);
-		String strEdit = serviceEdit.getAbleToUpdate();
+		String strEdit = serviceEdit.isAbleToUpdate();
 		model.put("editResult", strEdit);
 		if (strEdit.equals(AppData.ABLE_TO_EDIT)) {
 			hotelItemService.updateService(serviceEdit);

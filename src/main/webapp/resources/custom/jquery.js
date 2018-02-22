@@ -81,10 +81,28 @@ $('#page-access-box').slimScroll({
     BorderRadius: '5px'
 });
 $('#follow-user-box').slimScroll({
-    height: '400px',
+    height: '500px',
     size: '5px',
     BorderRadius: '5px'
 });
+
+function removeID(id) {
+	$(id).removeAttr('id');
+}
+
+function removeManyID(...ids) {
+    for (var i = 0; i < ids.length; i++)
+    	$(ids[i]).removeAttr('id');
+}
+
+function removeCSS(id) {
+	$(id).removeAttr('style');
+}
+
+function removeManyCSS(...ids) {
+	for (var i = 0; i < ids.length; i++)
+		$(ids[i]).removeAttr('style');
+}
 
 var windowsize = $(window).width();
 
@@ -92,6 +110,22 @@ $(window).resize(function () {
     windowsize = $(window).width();
     if (windowsize < 1000) {
         //if the window is greater than 440px wide then turn on jScrollPane..
-
+    	
+    	
     }
 });
+
+//responsive
+function responsiveGeneral(slimScrollID, slimScrollHeight) {
+    width = $( window ).width();
+    height = $( window ).height();
+
+   //mobile screen width
+   if(width <= 480){
+	   $('.slimScrollDiv')[2].removeAttribute('style');
+	   removeCSS(slimScrollID);
+   } else {
+	   $('.slimScrollDiv')[2].setAttribute("style", "position: relative; overflow: hidden; width: auto; height: " + slimScrollHeight + "px");
+	   $(slimScrollID).css({"position": "relative", "overflow": "hidden", "width": "auto", "height": slimScrollHeight + "px"});
+   }
+}

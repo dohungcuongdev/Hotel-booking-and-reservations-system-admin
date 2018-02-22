@@ -33,52 +33,54 @@ import statics.helper.GeoLookup;
 
 @Repository
 public class TrackingDAOImpl extends JsonParserDAO implements TrackingDAO {
-	
-	private DBCollection collection; 
-	
+
+	private DBCollection collection;
+
 	public TrackingDAOImpl() throws UnknownHostException {
 		collection = MongoDbConnector.createConnection("follow-users");
 	}
-	
+
 	@Override
 	public ExternalIP getExternalIPDetails(String external_ip_address) {
-        BasicDBObject whereQuery = new BasicDBObject();
-        whereQuery.put("external_ip_address", external_ip_address);
-        DBObject obj = collection.findOne(whereQuery);
-        return fromJson(obj.toString(), ExternalIP.class);
+		BasicDBObject whereQuery = new BasicDBObject();
+		whereQuery.put("external_ip_address", external_ip_address);
+		DBObject obj = collection.findOne(whereQuery);
+		return fromJson(obj.toString(), ExternalIP.class);
 	}
 
 	@Override
 	public List<FollowUsers> getListFollowUsers() {
-        List<FollowUsers> listFU = new ArrayList<>();
-        BasicDBObject orderBy = new BasicDBObject();
-        orderBy.put("created_at", -1);
-        DBCursor cursor = collection.find().sort(orderBy);
-        while (cursor.hasNext()) {
-        	DBObject obj = cursor.next();
-        	listFU.add(getFollowUsersDB(obj));
-        }
-        return listFU;
+		List<FollowUsers> listFU = new ArrayList<>();
+		BasicDBObject orderBy = new BasicDBObject();
+		orderBy.put("created_at", -1);
+		DBCursor cursor = collection.find().sort(orderBy);
+		while (cursor.hasNext()) {
+			DBObject obj = cursor.next();
+			listFU.add(getFollowUsersDB(obj));
+		}
+		return listFU;
 	}
-	
+
 	@Override
 	public List<PageAccessChartData> getPageAccessChartData() {
-		String query="[{ \"$group\": { _id: \"$page_access\", count: { $sum: 1 } } }]";
+		String query = "[{ \"$group\": { _id: \"$page_access\", count: { $sum: 1 } } }]";
 		return getPageAccessChartData(query);
 	}
 
 	@Override
 	public List<PageAccessChartData> getPageAccessChartDataByIP(String ipaddress) {
-		String query = "[{ $match: { user_ip_address: '" + ipaddress + "' } }, { \"$group\": { _id: \"$page_access\", count: { $sum: 1 } } }]";
+		String query = "[{ $match: { user_ip_address: '" + ipaddress
+				+ "' } }, { \"$group\": { _id: \"$page_access\", count: { $sum: 1 } } }]";
 		return getPageAccessChartData(query);
 	}
-	
+
 	@Override
 	public List<PageAccessChartData> getPageAccessChartDataByUsername(String username) {
-		String query = "[{ $match: { username: '" + username + "' } }, { \"$group\": { _id: \"$page_access\", count: { $sum: 1 } } }]";
+		String query = "[{ $match: { username: '" + username
+				+ "' } }, { \"$group\": { _id: \"$page_access\", count: { $sum: 1 } } }]";
 		return getPageAccessChartData(query);
 	}
-	
+
 	@Override
 	public List<CountryChartData> getCountryChartData() {
 		String query = "[{ \"$group\": { _id: \"$external_ip_address\", count: { $sum: 1 } } }]";
@@ -108,9 +110,9 @@ public class TrackingDAOImpl extends JsonParserDAO implements TrackingDAO {
 		}
 		return listGeo;
 	}
-	
+
 	private List<PageAccessChartData> getPageAccessChartData(String query) {
-		List<DBObject> q= (List<DBObject>)JSON.parse(query);
+		List<DBObject> q = (List<DBObject>) JSON.parse(query);
 		Iterable<DBObject> result = collection.aggregate(q).results();
 		Iterator iterator = result.iterator();
 		List<PageAccessChartData> listPAData = new ArrayList<>();
@@ -119,9 +121,10 @@ public class TrackingDAOImpl extends JsonParserDAO implements TrackingDAO {
 			DBObject element = (DBObject) iterator.next();
 			String page_access = mergeKey(element.get("_id").toString());
 			int visit_time = Integer.parseInt(element.get("count").toString());
-			if(keys.contains(page_access)) {
+			if (keys.contains(page_access)) {
 				int index = keys.indexOf(page_access);
-				listPAData.set(index, new PageAccessChartData(page_access, listPAData.get(index).getVisit_time() + visit_time));
+				listPAData.set(index,
+						new PageAccessChartData(page_access, listPAData.get(index).getVisit_time() + visit_time));
 			} else {
 				keys.add(page_access);
 				listPAData.add(new PageAccessChartData(page_access, visit_time));
@@ -159,11 +162,16 @@ public class TrackingDAOImpl extends JsonParserDAO implements TrackingDAO {
 			return "Change password";
 		return key;
 	}
-	
-    private FollowUsers getFollowUsersDB(DBObject obj) {
-    	String created_at = obj.get("created_at") + "";
-    	FollowUsers fu = fromJson2(obj, FollowUsers.class);
-    	fu.setCreated_at(created_at);
-        return fu;
-    }
+
+	private FollowUsers getFollowUsersDB(DBObject obj) {
+		String created_at = obj.get("created_at") + "";
+		FollowUsers fu = fromJson2(obj, FollowUsers.class);
+		fu.setCreated_at(created_at);
+		return fu;
+	}
+
+	public void addNewItem(FollowUsers newFU) {
+		BasicDBObject sortQuery = new BasicDBObject();
+		collection.insert(newFU.toDBObject());
+	}
 }

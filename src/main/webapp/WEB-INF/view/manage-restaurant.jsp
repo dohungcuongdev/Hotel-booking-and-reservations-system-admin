@@ -30,4 +30,11 @@
             window.history.pushState("string", "Hotel Admin", "${pageContext.request.contextPath}/manage-restaurant.html");
         }
     };
+    
+    function responsiveFn() {
+    	responsiveGeneral('#manage-services-box', 500);
+    }     
+    
+    // load() event and resize() event are combined 
+    $(window).ready(responsiveFn).resize(responsiveFn); 
 </script>

@@ -136,7 +136,7 @@ public abstract class HotelItem extends SQLAbstractModel {
 
 	public abstract void initializeSomeInfor();
 
-	public abstract String getAbleToUpdate();
+	public abstract String isAbleToUpdate();
     
 	public abstract void setNewInfor();
 

@@ -1,4 +1,4 @@
- <table id="table-rooms">
+ <table id="table-rooms"  class="table-responsive">
      <tr id="tableHeader">
          <th class="tr-p" onclick="sortNum(0,'table-rooms')">No.</th>
          <th class="tr-p" onclick="sortAlpha(1,'table-rooms')">Room</th>

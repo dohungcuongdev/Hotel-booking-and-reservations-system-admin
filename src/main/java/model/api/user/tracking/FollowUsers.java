@@ -5,6 +5,9 @@
  */
 package model.api.user.tracking;
 
+import com.mongodb.BasicDBObjectBuilder;
+import com.mongodb.DBObject;
+
 /**
  *
  * @author HUNGCUONG
@@ -89,5 +92,9 @@ public class FollowUsers {
 		return "FollowUsers [user_ip_address=" + user_ip_address + ", external_ip_address=" + external_ip_address
 				+ ", user_id=" + user_id + ", username=" + username + ", created_at=" + created_at + ", page_access="
 				+ page_access + ", duration=" + duration + ", durationTime=" + durationTime + "]";
+	}	
+	
+	public DBObject toDBObject() {
+		return BasicDBObjectBuilder.start("user_ip_address", user_ip_address).append("external_ip_address", external_ip_address).append("username", username).append("created_at", created_at).append("page_access", page_access).append("duration", duration).get();
 	}
 }

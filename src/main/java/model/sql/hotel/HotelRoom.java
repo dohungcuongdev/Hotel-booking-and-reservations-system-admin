@@ -174,10 +174,13 @@ public class HotelRoom extends HotelItem {
 	public boolean isvalidDate() {
 		if (status.equals("available"))
 			return true;
-		Date today = DateTimeCalculator.getToday();
-		Date checkindate = DateTimeCalculator.formatDateTime(checkin);
-		Date checkoutdate = DateTimeCalculator.formatDateTime(checkout);
-		return today.compareTo(checkindate) <= 0 && checkindate.compareTo(checkoutdate) <= 0;
+		else if(checkin!=null && checkout!=null && !checkin.equals("") && !checkout.equals("")) {
+			Date today = DateTimeCalculator.getToday();
+			Date checkindate = DateTimeCalculator.formatDateTime(checkin);
+			Date checkoutdate = DateTimeCalculator.formatDateTime(checkout);
+			return today.compareTo(checkindate) <= 0 && checkindate.compareTo(checkoutdate) <= 0;
+		}
+		return false;
 	}
 
 	public boolean isCorrectRoomName() {
@@ -185,7 +188,7 @@ public class HotelRoom extends HotelItem {
 	}
 
 	@Override
-	public String getAbleToUpdate() {
+	public String isAbleToUpdate() {
 		return !isEnoughInfor() ? AppData.INFOR_NOT_ENOUGH : !isCorrectRoomName() ? AppData.WRONG_ROOM_NAME : (!isNumberFormat())  ? AppData.WRONG_NUMBER_FORMAT_ROOM : (isInvalidType())  ? AppData.WRONG_TYPE_ROOM : (isInvalidStatus())  ? AppData.WRONG_STATUS_ROOM : (!isvalidDate())  ? AppData.WRONG_CHECKIN_CHECKOUT: AppData.ABLE_TO_EDIT;
 	}
 
