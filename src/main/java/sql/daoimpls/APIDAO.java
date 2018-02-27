@@ -26,7 +26,8 @@ public class APIDAO {
 			HttpEntity entity = response.getEntity();
 			jsonData = EntityUtils.toString(entity);
 		} catch (IOException e) {
-			System.out.println("API not found");
+			System.err.print("Error: ");
+			System.out.println("API " + api + " not found");
 		}
 		return jsonData;
 	}
