@@ -66,6 +66,69 @@ app.controller('folowUserCtrl', function($scope, $http) {
 	      $scope.followUserData = response.data;
 	  });
   }
+  
+	$scope.isSortAsc1, $scope.isSortAsc2, $scope.isSortAsc3, $scope.isSortAsc4, $scope.isSortAsc5, $scope.isSortAsc6, $scope.isSortAsc7 = false;
+	
+	$scope.sortIP = function(followUserData) {
+		if($scope.isSortAsc1) {
+			timsort.sort(followUserData, (x, y) => x.user_ip_address.localeCompare(y.user_ip_address));
+			$scope.isSortAsc1 = false;
+		}
+		else {
+			timsort.sort(followUserData, (x, y) => y.user_ip_address.localeCompare(x.user_ip_address));
+			$scope.isSortAsc1 = true;;
+		}
+	};
+	$scope.sortExIP = function(followUserData) {
+		if($scope.isSortAsc2) {
+			timsort.sort(followUserData, (x, y) => x.external_ip_address.localeCompare(y.external_ip_address));
+			$scope.isSortAsc2 = false;
+		}
+		else {
+			timsort.sort(followUserData, (x, y) => y.external_ip_address.localeCompare(x.external_ip_address));
+			$scope.isSortAsc2 = true;;
+		}
+	};
+	$scope.sortUser = function(followUserData) {
+		if($scope.isSortAsc4) {
+			timsort.sort(followUserData, (x, y) => x.username.localeCompare(y.username));
+			$scope.isSortAsc4 = false;
+		}
+		else {
+			timsort.sort(followUserData, (x, y) => y.username.localeCompare(x.username));
+			$scope.isSortAsc4 = true;;
+		}
+	};
+	$scope.sortDateAccess = function(followUserData) {
+		if($scope.isSortAsc6) {
+			timsort.sort(followUserData, (x, y) => new Date(x.created_at).getTime() - new Date(y.created_at).getTime());
+			$scope.isSortAsc6 = false;
+		}
+		else {
+			timsort.sort(followUserData, (x, y) => new Date(y.created_at).getTime() - new Date(x.created_at).getTime());
+			$scope.isSortAsc6 = true;;
+		}
+	};
+	$scope.sortPageAccess = function(followUserData) {
+		if($scope.isSortAsc5) {
+			timsort.sort(followUserData, (x, y) => x.page_access.localeCompare(y.page_access));
+			$scope.isSortAsc5 = false;
+		}
+		else {
+			timsort.sort(followUserData, (x, y) => y.page_access.localeCompare(x.page_access));
+			$scope.isSortAsc5 = true;;
+		}
+	};
+	$scope.sortDuration = function(followUserData) {
+		if($scope.isSortAsc7) {
+			timsort.sort(followUserData, (x, y) => x.duration - y.duration);
+			$scope.isSortAsc7 = false;
+		}
+		else {
+			timsort.sort(followUserData, (x, y) => y.duration - x.duration);
+			$scope.isSortAsc7 = true;;
+		}
+	};
 });
 
 app.controller('folowAllUserCtrl', function($scope, $http) {

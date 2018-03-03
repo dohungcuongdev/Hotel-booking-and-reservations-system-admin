@@ -159,4 +159,11 @@ function sortTable(n, myTable, dataType) {
             }
         }
     }
+    reLineNumbering(myTable);
+}
+
+function reLineNumbering(tableId){
+    $('#' + tableId + ' > tbody > tr').each(function(i, val){
+        $('td:first', this).text(i+1); 
+    });
 }

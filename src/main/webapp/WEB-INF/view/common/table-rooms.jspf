@@ -1,4 +1,5 @@
  <table id="table-rooms"  class="table-responsive">
+ 	 <thead>
      <tr id="tableHeader">
          <th class="tr-p" onclick="sortNum(0,'table-rooms')">No.</th>
          <th class="tr-p" onclick="sortAlpha(1,'table-rooms')">Room</th>
@@ -12,6 +13,8 @@
          <th>Edit</th>
          <th>Del</th>
      </tr>
+     </thead>
+     <tbody>
      <c:forEach var="room" items="${listrooms}" varStatus="loop">
          <tr>
              <td>${loop.index + 1}</td>
@@ -38,4 +41,5 @@
              <td><button onclick="deleteRoom('${pageContext.request.contextPath}/remove-room/${room.id}.html')" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button></td>
          </tr>
      </c:forEach>
+     </tbody>
  </table>

@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <table id="cdc-table">
+	<thead>
     <tr id="tableHeader">
         <th class="tr-p" onclick="sortNum(0,'cdc-table')">No.</th>
         <th class="tr-p" onclick="sortAlpha(1,'cdc-table')">User</th>
@@ -11,6 +12,8 @@
         <th>Del</th>
         <th>Ban</th>
     </tr>
+    </thead>
+    <tbody>
     <c:forEach var="user" items="${cusDataCollection}" varStatus="loop">
         <tr>
             <td>${loop.index + 1}</td>
@@ -24,4 +27,5 @@
             <td><button class="btn btn-default btn-xs"><i class="fa fa-ban"></i></button></td>
         </tr>
     </c:forEach>
+    </tbody>
 </table>

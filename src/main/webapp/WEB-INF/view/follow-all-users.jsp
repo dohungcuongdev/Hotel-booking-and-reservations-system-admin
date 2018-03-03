@@ -13,6 +13,7 @@
             </div>
             <div class="panel-body table-responsive" id="follow-user-box">
                 <table id="follow-user-table" ng-app="follow-users" ng-controller="folowAllUserCtrl">
+                   	<thead>
                    	<tr id="tableHeader" style="font-size:11px">
 						<th class="tr-p" ng-click="sortNum(followUserData)">No.</th>
 						<th class="tr-p" ng-click="sortDateAccess(followUserData)">Date Access</th>
@@ -22,6 +23,7 @@
 						<th class="tr-p" ng-click="sortPageAccess(followUserData)">Page Access</th>
 						<th class="tr-p" ng-click="sortDuration(followUserData)">Duration</th>
 					</tr>
+					</thead>
                     <tbody id="followUserTableBody">
 	                    <tr ng-repeat="d in followUserData" style="font-size:11px">
 	                        <td>{{ $index + 1 }}</td>

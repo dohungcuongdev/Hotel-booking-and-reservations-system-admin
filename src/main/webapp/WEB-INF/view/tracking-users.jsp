@@ -16,16 +16,20 @@
             </div>
             <div class="panel-body table-responsive">
 				<table id="table-tracking" ng-app="trackingTable" ng-controller="trackingCtrl">
+				    <thead>
 				    <tr id="tableHeader">
 				        <th class="tr-p" onclick="sortNum(0, 'table-tracking')">No.</th>
 				        <th class="tr-p" onclick="sortAlpha(1, 'table-tracking')">${tracking}</th>
 				        <th class="tr-p" onclick="sortNum(2, 'table-tracking')">Visit Times</th>
 				    </tr>
+				    </thead>
+				    <tbody>
 				    <tr ng-repeat="d in trackingData">
 				        <td>{{ $index + 1 }}</td>
 				        <td><a href = "${pageContext.request.contextPath}/${tracking}/{{ d._id }}.html">{{ d._id }}</a></td>
 				        <td>{{ d.count }}</td>
 				    </tr>
+					</tbody>    
 				</table>
             </div>
         </div>

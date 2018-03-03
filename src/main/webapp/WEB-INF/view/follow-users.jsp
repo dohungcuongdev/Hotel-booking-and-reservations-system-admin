@@ -37,15 +37,17 @@
             
             <div class="panel-body table-responsive">
                 <table id="follow-user-table">
+                	<thead>
                    	<tr id="tableHeader" style="font-size:11px">
 						<th class="tr-p">No.</th>
-						<th class="tr-p" ng-click="sortDB('created_at')">Date Access</th>
-						<th class="tr-p" ng-click="sortDB('user_ip_address')">User IP Address</th>
-						<th class="tr-p" ng-click="sortDB('external_ip_address')">External IP Address</th>
-						<th class="tr-p" ng-click="sortDB('username')">User</th>
-						<th class="tr-p" ng-click="sortDB('page_access')">Page Access</th>
-						<th class="tr-p" ng-click="sortDB('duration')">Duration</th>
+						<th class="tr-p" ng-click="sortDateAccess(followUserData)">Date Access</th>
+						<th class="tr-p" ng-click="sortIP(followUserData)">User IP Address</th>
+						<th class="tr-p" ng-click="sortExIP(followUserData)">External IP Address</th>
+						<th class="tr-p" ng-click="sortUser(followUserData)">User</th>
+						<th class="tr-p" ng-click="sortPageAccess(followUserData)">Page Access</th>
+						<th class="tr-p" ng-click="sortDuration(followUserData)">Duration</th>
 					</tr>
+					</thead>
                     <tbody id="followUserTableBody">
 	                    <tr ng-repeat="d in followUserData" style="font-size:11px">
 	                        <td>{{ $index + 1 }}</td>
