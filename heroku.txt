@@ -2,10 +2,13 @@ Deploy war on heroku (https://dashboard.heroku.com/apps/admin-hotel-booking/depl
 - refer link https://devcenter.heroku.com/articles/war-deployment
 - command:
          1/ heroku plugins:install heroku-cli-deploy (install one time)
-         2/ heroku war:deploy <path_to_war_file--app <app_name>
+         2/ heroku war:deploy <path_to_war_file> --app <app_name>
             Ex: heroku war:deploy target/Hotel-booking-and-reservations-system-admin.war --app admin-hotel-booking
          3/ heroku logs --tail (view logs or error) or heroku logs --app admin-hotel-booking
             
 
 Deploy project on heroku
 https://devcenter.heroku.com/articles/java-webapp-runner
+
+email-authentication:
+https://accounts.google.com/displayunlockcaptcha
