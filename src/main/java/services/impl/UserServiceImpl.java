@@ -147,4 +147,24 @@ public class UserServiceImpl implements UserService {
 	public boolean isExists(String username) {
 		return adminDAO.isExists(username);
 	}
+
+	@Override
+	public void blockUser(String username) {
+		customerDAO.blockUser(username);	
+	}
+
+	@Override
+	public void unblockUser(String username) {
+		customerDAO.unblockUser(username);
+	}
+
+	@Override
+	public List<Customer> getAllBlockedCustomers() {
+		return customerDAO.getAllBlockedCustomers();
+	}
+
+	@Override
+	public List<Customer> getAllValidCustomers() {
+		return customerDAO.getAllValidCustomers();
+	}
 }

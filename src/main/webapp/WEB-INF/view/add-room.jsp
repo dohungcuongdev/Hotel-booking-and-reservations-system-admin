@@ -60,7 +60,7 @@
                     </div>
                     <p class="help-block">Please input enough information and click Submit to add a new room.</p>
                     <button style="margin-top: 3.5px" type="submit" class="btn btn-info">Submit</button>
-                    <button style="margin-top: 3.5px" onclick="location.href = '${pageContext.request.contextPath}/edit-room/${room.name}.html'" type="reset" class="btn btn-danger">Cancel</button>
+                    <button style="margin-top: 3.5px" onclick="location.href = '${pageContext.request.contextPath}/add-room.html'" type="reset" class="btn btn-danger">Cancel</button>
                 </form:form>
             </div>
         </section>

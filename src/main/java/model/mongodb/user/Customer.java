@@ -24,6 +24,7 @@ public class Customer extends MongoDbAbstractModel {
     private int balance;
     private List<Activity> activity = new ArrayList<>();
     private List<String> dateVisit;
+    private String status;
     
     public String getUsername() {
         return username;
@@ -81,9 +82,18 @@ public class Customer extends MongoDbAbstractModel {
         this.dateVisit = dateVisit;
     }
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
-		return "Customer [address=" + address + ", balance=" + balance + ", activity=" + activity + ", dateVisit="
-				+ dateVisit + "]";
+		return "Customer [username=" + username + ", phone=" + phone + ", password=" + password + ", address=" + address
+				+ ", balance=" + balance + ", activity=" + activity + ", dateVisit=" + dateVisit + ", status=" + status
+				+ "]";
 	}
 }

@@ -22,4 +22,8 @@ public interface CustomerDAO {
     public ActionTracking getActionTrackingByUsername(String username);  
     public List<CustomerBehavior> getDataCollection();
     public CustomerBehavior getOneDataCollection(String username);
+    public void blockUser(String username);
+    public void unblockUser(String username);
+    public List<Customer> getAllBlockedCustomers();
+    public List<Customer> getAllValidCustomers();
 }

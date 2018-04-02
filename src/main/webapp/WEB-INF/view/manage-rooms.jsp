@@ -23,13 +23,6 @@
 </div>
 <%@ include file="common/footer.jspf"%>
 <script>
-    window.onload = function () { //first loat page
-        var r = '${deleteResult}';
-        if (r !== undefined && r === "success") {
-            swal("Deleted!", "The room has been deleted.", "success");
-            window.history.pushState("string", "Hotel Admin", "${pageContext.request.contextPath}/manage-rooms.html");
-        }
-    };
     
     function responsiveFn() {
         responsiveGeneral('#manage-rooms-box', 500);

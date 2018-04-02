@@ -57,7 +57,30 @@ public class AppController {
 
 	@Autowired
 	private ApplicationService appService;
+	
+	//block-user
+	@RequestMapping(value = "block-user/{username}")
+	public String blockUser(@PathVariable(value = "username") String username, ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+		checkAuth(request, response);
+		initialize(model);
+		model.put("cusDataCollection", userService.getDataCollection());
+		userService.blockUser(username);
+		model.put("configUserResult", "User was blocked successfully");
+		return "manage-users";
+	}
+	
+	//unblock-user
+	@RequestMapping(value = "unblock-user/{username}")
+	public String unblockUser(@PathVariable(value = "username") String username, ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+		checkAuth(request, response);
+		initialize(model);
+		model.put("cusDataCollection", userService.getDataCollection());
+		userService.unblockUser(username);
+		model.put("configUserResult", "User was unblocked successfully");
+		return "manage-users";
+	}
 
+	// forget-password
 	@RequestMapping(value = "forget-password/{email}")
 	public String forgetPassword(@PathVariable(value = "email") String email, HttpServletResponse response) {
 		if (userService.isExists(email)) {

@@ -1,4 +1,4 @@
-<table id="table-users">
+<table id="table-users" border="1">
 	<thead>
     <tr id="tableHeader">
         <th class="tr-p" onclick="sortNum(0,'table-users')">No.</th>
@@ -7,9 +7,10 @@
         <th class="tr-p" onclick="sortAlpha(3,'table-users')">Full Name</th>
         <th class="tr-p" onclick="sortAlpha(4,'table-users')">Phone</th>
         <th class="tr-p" onclick="sortAlpha(5,'table-users')">Address</th>
+        <th class="tr-p" onclick="sortAlpha(6,'table-users')">Status</th>
         <th>View</th>
-        <th>Del</th>
-        <th>Ban</th>
+        <th>Block</th>
+        <th>Unblock</th>
     </tr>
     </thead>
     <tbody>
@@ -21,10 +22,27 @@
             <td>${user.name}</td>
             <td><span class="label label-success">${user.phone}</span></td>
             <td>${user.address}</td>
+            <td>${user.status}</td>
             <td><button onclick="location.href = '${pageContext.request.contextPath}/user/${user.username}.html'" class="btn btn-default btn-xs"><i class="fa fa-check"></i></button></td>
-            <td><button class="btn btn-default btn-xs"><i class="fa fa-times"></i></button></td>
-            <td><button class="btn btn-default btn-xs"><i class="fa fa-ban"></i></button></td>
+            <td><button onclick="blockUser('${pageContext.request.contextPath}/block-user/${user.username}.html')" class="btn btn-default btn-xs"><i class="fa fa-ban"></i></button></td>
+            <td><button onclick="unblockUser('${pageContext.request.contextPath}/unblock-user/${user.username}.html')" class="btn btn-default btn-xs"><i class="fa fa-unlock"></i></button></td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
+<script type="text/javascript">
+    window.onload = function () { //first load page
+        var configUserResult = '${configUserResult}';
+        checkResult(configUserResult);
+    };
+    
+    function checkResult(r) {
+        if (r === undefined) {
+        } else if (r === "User was blocked successfully")
+            swal('Congrats!', r, 'success');
+        else if (r === "User was unblocked successfully")
+            swal('Congrats!', r, 'success');
+        else if (r !== '')
+            swal('Oops...!', r, 'error');
+    }
+</script>

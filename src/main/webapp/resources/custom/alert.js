@@ -1,23 +1,35 @@
-function remove(url, text) {
+function remove(url, text, confirm) {
     swal({
         title: "Are you sure?",
         text: text,
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Yes, delete it!",
+        confirmButtonText: confirm,
         closeOnConfirm: false
     }, function () {
         window.location.href = url;
     });
 }
 
+function defaultRemove(url, text) {
+	remove(url, text, "Yes, delete it!");
+}
+
 function deleteService(url) {
-	remove(url, 'Delete this item from restaurant now!');
+	defaultRemove(url, 'Delete this item from restaurant now!');
 }
 
 function deleteRoom(url) {
-	remove(url, 'Delete this room now!');
+	defaultRemove(url, 'Delete this room now!');
+}
+
+function blockUser(url) {
+	remove(url, 'Block this user now!', "Yes, block plz!");
+}
+
+function unblockUser(url) {
+	remove(url, 'Unblock this user now!', "Yes, unblock plz!");
 }
 
 function checkSendEmail(r) {

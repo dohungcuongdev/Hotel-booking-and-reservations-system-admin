@@ -61,7 +61,7 @@
                     <form:input type="hidden" path="img2"/>
                     <p class="help-block">Please input all information of the item and submit.</p>
                     <button style="margin-top: 3.5px" type="submit" class="btn btn-info">Submit</button>
-                    <button style="margin-top: 3.5px" type="reset" onclick="location.href = '${pageContext.request.contextPath}/edit-service/${service.name}.html'" class="btn btn-danger">Cancel</button>
+                    <button style="margin-top: 3.5px" type="reset" onclick="location.href = '${pageContext.request.contextPath}/add-service.html'" class="btn btn-danger">Cancel</button>
                 </form:form>
             </div>
         </section>

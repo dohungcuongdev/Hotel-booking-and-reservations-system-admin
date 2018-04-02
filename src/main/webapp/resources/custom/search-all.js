@@ -25,14 +25,14 @@ function searchAllDisplay(keyword) {
 		$('#result').html('<center><b>Found no result for keyowrd: ' + keyword + '</b></center>').css({'color' : '#a94442', 'background': '#fad5d5'});
 		$('#keep-footer-bottom').html('<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>');
 	}
-	if(numRowRoom <= 1) remove('room-result');
-	if(numRowRestaurant <= 1) remove('restaurant-result');
-	if(numRowUser <= 1) remove('user-result');
-	if(numRowCDC <= 1) remove('cdc-result');
-	if(numMes <= 0) remove('message-result');
+	if(numRowRoom <= 1) removeResult('room-result');
+	if(numRowRestaurant <= 1) removeResult('restaurant-result');
+	if(numRowUser <= 1) removeResult('user-result');
+	if(numRowCDC <= 1) removeResult('cdc-result');
+	if(numMes <= 0) removeResult('message-result');
 }
 
-function remove(id) {
+function removeResult(id) {
     var elem = document.getElementById(id);
     return elem.parentNode.removeChild(elem);
 }

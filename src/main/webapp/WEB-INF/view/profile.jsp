@@ -19,7 +19,7 @@
                         <input type="file" name="img" value="${ad.img}" onchange="readURL(this, '#blah', 200, 210);"/>
                     </div>
                     <button type="submit" class="btn btn-info">Change your image</button>
-                    <button type="submit" class="btn btn-danger">Cancel</button>
+                    <button type="reset" onclick="location.href = '${pageContext.request.contextPath}/profile.html'" class="btn btn-danger">Cancel</button>
                 </form>
                 <form:form method="post" commandName="changePassBean" action="${pageContext.request.contextPath}/change-password.html">
                     <div class="form-group">
@@ -39,7 +39,7 @@
                         <p class="help-block">Make sure that your confirm password match.</p>
                     </div>
                     <button type="submit" class="btn btn-info">Submit</button>
-                    <button type="submit" class="btn btn-danger">Cancel</button>
+                    <button type="reset" onclick="location.href = '${pageContext.request.contextPath}/profile.html'" class="btn btn-danger">Cancel</button>
                 </form:form>
             </div>
         </section>

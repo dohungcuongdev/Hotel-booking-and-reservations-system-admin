@@ -42,4 +42,8 @@ public interface UserService {
     public Activity getActivityBy(String id);
     public Activity seenNotification(String id);
     public Activity replyNotification(String id);
+    public void blockUser(String username);
+    public void unblockUser(String username);
+    public List<Customer> getAllBlockedCustomers();
+    public List<Customer> getAllValidCustomers();
 }

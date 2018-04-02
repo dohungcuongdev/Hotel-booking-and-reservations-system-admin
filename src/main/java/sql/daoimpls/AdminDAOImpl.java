@@ -63,5 +63,21 @@ public class AdminDAOImpl implements AdminDAO {
 	    query.setParameter("username", username);
 	    return query.uniqueResult() != null;
 	}
+    
+    public void blockAdmin(String username) {
+    	changeValidFlagAdmin(username, 2);
+    }
+    
+    public void unblockAdmin(String username) {
+    	changeValidFlagAdmin(username, 1);
+    }
+    
+    public void changeValidFlagAdmin(String username, Object validflag) {
+		Query q = sessionFactory.getCurrentSession()
+				.createQuery("update " + Administrator.class.getName() + " set validflag = :validflag where username = :username");
+		q.setParameter("username", username);
+		q.setParameter("validflag", validflag);
+		q.executeUpdate();
+    }
 
 }

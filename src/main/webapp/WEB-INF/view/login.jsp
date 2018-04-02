@@ -3,14 +3,34 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<style>
+body {
+    background-image: url("${pageContext.request.contextPath}/resources/img/hotel/hotel-backgroung.jpg");
+	/* background-repeat: no-repeat; */
+    background-attachment: fixed;
+}
+
+.center {
+    margin: auto;
+    width: 40%;
+    border: 3px solid #73AD21;
+    padding: 10px;
+    background: white;
+}
+</style>
 <html>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/custom/loginstyles.css">
     <script src="${pageContext.request.contextPath}/resources/custom/loginscripts.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/resources/alert/sweetalert-dev.js"></script> 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/alert/sweetalert.css">
     <body>
-	    <center style="margin-top: 18%"><h2>Please Login into System</h2></center>
-	    <center><button id="login-btn" onclick="document.getElementById('id01').style.display = 'block'" style="width:auto;">Please Login</button></center>
+	    <center style="margin-top: 18%">
+	    	<div class="center" id="click-to-login">
+		    <h2>Please Login into System</h2>
+		    <button id="login-btn" onclick="document.getElementById('id01').style.display = 'block'" style="width:auto;">Please Login</button>
+		    </div>
+	    </center>
 	    <div id="id01" class="modal">
 	        <form:form class="modal-content animate" method="post" commandName="loginbean" action="${pageContext.request.contextPath}/check-login.html">
 	            <div class="imgcontainer">
@@ -41,6 +61,23 @@
         	document.getElementById('login-btn').click();
         }
     };
+    
+    function responsiveFn() {
+        width = $( window ).width();
+        height = $( window ).height();
+
+       //mobile screen width
+       if(width <= 480){
+    	   console.log('1');
+    	   $('#click-to-login').css("margin-top", "0%");
+       } else {
+    	   console.log('2');
+    	   $('#click-to-login').css("margin-top", "25%");
+       }
+    }
+
+     // load() event and resize() event are combined 
+    $(window).ready(responsiveFn).resize(responsiveFn); 
     
     function forgetPW() {
     	swal({

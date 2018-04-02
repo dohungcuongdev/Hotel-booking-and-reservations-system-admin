@@ -48,6 +48,53 @@ public class CustomerDAOImpl extends JsonParserDAO implements CustomerDAO {
 	public CustomerDAOImpl() throws UnknownHostException {
 		collection = MongoDbConnector.createConnection("customers");
 	}
+	
+	private void changStatusUser(String username, String status) {
+    	BasicDBObject document = new BasicDBObject();
+        document.append("$set", new BasicDBObject().append("status", status));
+        BasicDBObject searchQuery = new BasicDBObject().append("username", username);
+        collection.update(searchQuery, document);
+	}
+	
+	@Override
+	public void blockUser(String username) {
+		changStatusUser(username, "Blocked");
+	}
+	
+	@Override
+	public void unblockUser(String username) {
+		changStatusUser(username, "Valid");
+	}
+	
+	@Override
+	public List<Customer> getAllBlockedCustomers() {
+        List<Customer> customers = new ArrayList<>();
+        BasicDBObject whereQuery = new BasicDBObject();
+        whereQuery.put("validFlag", 2);
+        BasicDBObject orderBy = new BasicDBObject();
+        orderBy.put("created_at", -1);
+        DBCursor cursor = collection.find(whereQuery).sort(orderBy);
+        while (cursor.hasNext()) {
+        	DBObject obj = cursor.next();
+        	customers.add(getCustomerDB(obj));
+        }
+        return customers;
+	}
+	
+	@Override
+	public List<Customer> getAllValidCustomers() {
+        List<Customer> customers = new ArrayList<>();
+        BasicDBObject whereQuery = new BasicDBObject();
+        whereQuery.put("validFlag", 1);
+        BasicDBObject orderBy = new BasicDBObject();
+        orderBy.put("created_at", -1);
+        DBCursor cursor = collection.find(whereQuery).sort(orderBy);
+        while (cursor.hasNext()) {
+        	DBObject obj = cursor.next();
+        	customers.add(getCustomerDB(obj));
+        }
+        return customers;
+	}
 
 	@Override
 	public Customer getCustomerByUsername(String username) {
