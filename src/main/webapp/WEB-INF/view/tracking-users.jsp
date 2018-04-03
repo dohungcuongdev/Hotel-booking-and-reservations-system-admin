@@ -14,7 +14,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-body table-responsive">
+            <div class="panel-body table-responsive" id="page-access-box">
 				<table id="table-tracking" ng-app="trackingTable" ng-controller="trackingCtrl">
 				    <thead>
 				    <tr id="tableHeader">
@@ -42,5 +42,12 @@ app.controller('trackingCtrl', function($scope, $http) {
       $scope.trackingData = response.data;
   });
 });
+
+function responsiveFn() {
+    responsiveGeneral('#page-access-box', 500);
+}
+
+ // load() event and resize() event are combined 
+$(window).ready(responsiveFn).resize(responsiveFn);
 </script>
 <%@ include file="common/footer.jspf"%>

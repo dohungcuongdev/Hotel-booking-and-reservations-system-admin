@@ -27,4 +27,5 @@ public class APIData {
 	public static final String PAGE_ACCESS_USERIP_API = MEAN_URL + "api/follow-users/statistics/PageAccess/userIP/";
 	public static final String PAGE_ACCESS_USERNAME_API = MEAN_URL + "api/follow-users/statistics/PageAccess/username/";
 	public static final String EXTERNAL_IP_API = MEAN_URL + "api/follow-users/statistics/ExternalIP/";
+	public static final String STATUS_USER_IP_API = MEAN_URL + "api/users/status/username/";
 }

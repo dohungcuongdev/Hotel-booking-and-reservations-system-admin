@@ -119,7 +119,7 @@ public class CustomerDAOImpl extends APIDAO implements CustomerDAO {
 	}
 	
 	private void changStatusUser(String username, String status) {
-		// TODO Auto-generated method stub
+		callAPI(APIData.STATUS_USER_IP_API + status + "/" + username);
 	}
 
 	@Override

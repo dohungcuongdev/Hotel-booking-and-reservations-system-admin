@@ -26,10 +26,24 @@ public class APIDAO {
 			HttpEntity entity = response.getEntity();
 			jsonData = EntityUtils.toString(entity);
 		} catch (IOException e) {
-			System.err.print("Error: ");
-			System.out.println("API " + api + " not found");
+			logIOErr(api,e);
 		}
 		return jsonData;
+	}
+	
+	public void callAPI(String api) {
+		// env.getProperty(api)
+		HttpGet httpGetKeyAndId = new HttpGet(api);
+		try (CloseableHttpClient httpClient = HttpClients.createDefault();
+				CloseableHttpResponse response = httpClient.execute(httpGetKeyAndId)) {
+		} catch (IOException e) {
+			logIOErr(api,e);
+		}
+	}
+	
+	private void logIOErr(String api, IOException e) {
+		System.err.print("Error: ");
+		System.out.println("API " + api + " not found");
 	}
 
 	public <T> T getJsonData(String json, Type typeOfT) throws JsonParseException {

@@ -6,6 +6,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import services.HotelItemService;
+import services.UserService;
 import statics.constant.AppData;
 
 @Component
@@ -13,10 +14,16 @@ public class StartupHousekeeper implements ApplicationListener<ContextRefreshedE
 	
 	@Autowired
 	private HotelItemService hotelItemService;
+	
+	@Autowired
+	private UserService userService;
 
 	@Override
 	public void onApplicationEvent(final ContextRefreshedEvent event) {
-//		AppData.listrooms = hotelItemService.getAllRooms();
-//		AppData.listservices = hotelItemService.getAllHotelServices();
+		
+		//testing data
+/*		AppData.listrooms = hotelItemService.getAllRooms();
+		AppData.listservices = hotelItemService.getAllHotelServices();
+		AppData.listcustomers = userService.getAllCustomers();*/
 	}
 }

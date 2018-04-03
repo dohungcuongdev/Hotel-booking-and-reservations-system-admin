@@ -118,6 +118,7 @@ public class RESTController {
 	}
 	
 	
+	//testing - fix bug API
 	@CrossOrigin
 	@RequestMapping(value = "/correct-room/{name}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
 	public HotelRoom correctRoom(@PathVariable(value = "name") String name) {
@@ -138,6 +139,7 @@ public class RESTController {
 		return room;
 	}
 	
+	//testing - fix bug API
 	@CrossOrigin
 	@RequestMapping(value = "/correct-all-rooms", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
 	public List<HotelRoom> correctAllRooms() {

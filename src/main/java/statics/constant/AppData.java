@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import model.mongodb.user.Customer;
 import model.sql.hotel.HotelRoom;
 import model.sql.hotel.HotelService;
 import model.sql.user.Administrator;
@@ -54,7 +55,7 @@ public class AppData {
 	public static final String FORGET_PW_HEADER_EMAIL = "Dear User,<br><br>Your password have been changed to <b style='color:blue'>";
 	public static final String FORGET_PW_FOOTER_EMAIL = "<br><br>Please click here to change your password <a href='"
 			+ SPRING_APP_URL
-			+ "'>Holiday Crown Hotel Admin</a><br><br>With best regards,<br> Hung Cuong.<br><br><b>Holiday Crown.</b><br>Address: 24 Street 7, Bình An Ward, District 2.<br>Phone Number: 0908998923.<br>Hotline: (08).3740480";
+			+ "'>Marina Meepo Hotel Admin</a><br><br>With best regards,<br> Hung Cuong.<br><br><b>Marina Meepo.</b><br>Address: 24 Street 7, Bình An Ward, District 2.<br>Phone Number: 0908998923.<br>Hotline: (08).3740480";
 	public static final String EMAIL_NO_SUBJECT_MES = "Please input subject and message!";
 	public static final String INFOR_NOT_ENOUGH = "Please input all the information!";
 	public static final String WRONG_ROOM_NAME = "Room name must be 3 digits natural number! (Ex: 604)";
@@ -93,10 +94,11 @@ public class AppData {
 			"room-pictures-delightful-livingfamily-room-aaron-design-and-build-inc.jpg", };
 	public static final String RESTAURANT_DEFAULT_IMG[] = { "pizza.jpg", "pizza_2.jpg", };
 	public static final String EMAIL_TEMPLATE_1[] = { "",
-			"Dear Mr. Đỗ Hùng Cường, &#13;&#13;Thank you for your interest in our hotel. This email is to acknowledge the receipt of your email and thank you for sending us your request. We will carefully review your request. Should your request match our ability, we will contact you soon. In other cases, we will keep the request for future opportunities.&#13;&#13;With best regards, &#13Hùng Cường.&#13&#13...&#13Holiday Crown.&#13Address: 24 Street 7, Bình An Ward, District 2.&#13Phone Number: 0908998923.&#13Hotline: (08).37404802.",
-			"Dear Mr. Đỗ Hùng Cường, &#13;&#13;Thank you for your interest in our hotel. This email is to acknowledge the receipt of your email and thank you for sending us your request. We will carefully review your request. Should your request match our ability, we will contact you soon. In other cases, we will keep the request for future opportunities.&#13;&#13;With best regards, &#13Hùng Cường.&#13&#13...&#13Holiday Crown.&#13Address: 24 Street 7, Bình An Ward, District 2.&#13Phone Number: 0908998923.&#13Hotline: (08).37404802." };
+			"Dear Mr. Đỗ Hùng Cường, &#13;&#13;Thank you for your interest in our hotel. This email is to acknowledge the receipt of your email and thank you for sending us your request. We will carefully review your request. Should your request match our ability, we will contact you soon. In other cases, we will keep the request for future opportunities.&#13;&#13;With best regards, &#13Hùng Cường.&#13&#13...&#13Marina Meepo.&#13Address: 24 Street 7, Bình An Ward, District 2.&#13Phone Number: 0908998923.&#13Hotline: (08).37404802.",
+			"Dear Mr. Đỗ Hùng Cường, &#13;&#13;Thank you for your interest in our hotel. This email is to acknowledge the receipt of your email and thank you for sending us your request. We will carefully review your request. Should your request match our ability, we will contact you soon. In other cases, we will keep the request for future opportunities.&#13;&#13;With best regards, &#13Hùng Cường.&#13&#13...&#13Marina Meepo.&#13Address: 24 Street 7, Bình An Ward, District 2.&#13Phone Number: 0908998923.&#13Hotline: (08).37404802." };
 
 	public static Administrator admin = new Administrator();
 	public static List<HotelRoom> listrooms = new ArrayList<>();
 	public static List<HotelService> listservices = new ArrayList<>();
+	public static List<Customer> listcustomers = new ArrayList<>();
 }

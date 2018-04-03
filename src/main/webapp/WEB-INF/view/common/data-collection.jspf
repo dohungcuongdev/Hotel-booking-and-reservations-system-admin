@@ -8,7 +8,7 @@
         <th class="tr-p" onclick="sortNum(3,'cdc-table')">Total Room Canceled</th>
         <th class="tr-p" onclick="sortNum(4,'cdc-table')">Average Feedback Room</th>
         <th class="tr-p" onclick="sortNum(5,'cdc-table')">Average Feedback Service</th>
-        <th class="tr-p" onclick="sortAlpha(6,'table-users')">Status</th>
+        <th class="tr-p" onclick="sortAlpha(6,'cdc-table')">Status</th>
         <th>View</th>
         <th>Block</th>
         <th>Unblock</th>
