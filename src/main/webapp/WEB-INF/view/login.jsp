@@ -66,8 +66,8 @@ body {
         width = $( window ).width();
         height = $( window ).height();
 
-       //mobile screen width
-       if(width <= 480){
+       //desktop screen width
+       if(height <= 700){
     	   console.log('1');
     	   $('#click-to-login').css("margin-top", "0%");
        } else {
