@@ -62,10 +62,10 @@ public class AppController {
 	@RequestMapping(value = "block-user/{username}")
 	public String blockUser(@PathVariable(value = "username") String username, ModelMap model, HttpServletRequest request, HttpServletResponse response) {
 		checkAuth(request, response);
-		initialize(model);
-		model.put("cusDataCollection", userService.getDataCollection());
 		userService.blockUser(username);
 		model.put("configUserResult", "User was blocked successfully");
+		initialize(model);
+		model.put("cusDataCollection", userService.getDataCollection());
 		return "manage-users";
 	}
 	
@@ -73,10 +73,10 @@ public class AppController {
 	@RequestMapping(value = "unblock-user/{username}")
 	public String unblockUser(@PathVariable(value = "username") String username, ModelMap model, HttpServletRequest request, HttpServletResponse response) {
 		checkAuth(request, response);
-		initialize(model);
-		model.put("cusDataCollection", userService.getDataCollection());
 		userService.unblockUser(username);
 		model.put("configUserResult", "User was unblocked successfully");
+		initialize(model);
+		model.put("cusDataCollection", userService.getDataCollection());
 		return "manage-users";
 	}
 

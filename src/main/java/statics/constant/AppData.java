@@ -20,26 +20,77 @@ import model.sql.user.Administrator;
  */
 
 public class AppData {
-
-	// local
-	public static final String SPRING_APP_URL = "http://localhost:8080/Hotel-booking-and-reservations-system-admin/";
-
-	// for using mongodb with Spring instead of using Hibernate + SQL 
-	//local
-	public static final String DATABASE = "HotelBookingReservationsSystem";
-	public static final String DATABASE_HOST = "localhost";
-	public static final int DATABASE_PORT = 27017;
-	public static final String MONGGO_URL = "mongodb://" + AppData.DATABASE_HOST + ":" + AppData.DATABASE_PORT;
-
-	// online
-	//public static final String SPRING_APP_URL = "https://admin-hotel-booking.herokuapp.com/";
 	
-	// online v1
-	//public static final String SPRING_APP_URL = "https://admin-hotel-booking-v1.herokuapp.com/";
 	
-	//online
-//	public static final String DATABASE = "hotel_booking_system";
-//	public static final String MONGGO_URL = "mongodb://dohungcuongdev:ititiu13170@ds157057.mlab.com:57057/" + DATABASE;
+	/* change server config here */
+	// public static final String SERVER_CONFIGURATION = "custom";
+	// public static final String SERVER_CONFIGURATION = "localhost:3000";
+	public static final String SERVER_CONFIGURATION = "localhost:3000 & localhost:8080";
+	// public static final String SERVER_CONFIGURATION = "https://hotel-booking-and-reservations.herokuapp.com";
+	// public static final String SERVER_CONFIGURATION = "https://hotel-booking-system-v1.herokuapp.com";
+	// public static final String SERVER_CONFIGURATION = "https://hotel-booking-system-v2.herokuapp.com";
+	
+	
+	/* change database config here */
+	public static final String DB_CONFIGURATION = "local";
+	// public static final String DB_CONFIGURATION = "mlab";
+	
+	public static String SPRING_APP_URL;
+	public static String MEAN_URL;
+	public static String MONGGO_URL;
+	public static String DATABASE;
+	
+	static {
+		switch (SERVER_CONFIGURATION) {
+		
+		case "custom":
+			/* change your custom server config here */
+			MEAN_URL = "http://localhost:3000/";
+			SPRING_APP_URL = "https://admin-hotel-booking-v1.herokuapp.com/";
+			break;
+			
+		case "localhost:3000":
+			MEAN_URL = "http://localhost:3000/";
+			SPRING_APP_URL = "http://localhost:3000/";
+			break;
+			
+		case "localhost:3000 & localhost:8080":
+			MEAN_URL = "http://localhost:3000/";
+			SPRING_APP_URL = "http://localhost:8080/Hotel-booking-and-reservations-system-admin/";
+			break;
+			
+		case "https://hotel-booking-and-reservations.herokuapp.com":
+			MEAN_URL = "https://hotel-booking-and-reservations.herokuapp.com/";
+			SPRING_APP_URL = "https://admin-hotel-booking.herokuapp.com/";
+			break;
+			
+		case "https://hotel-booking-system-v1.herokuapp.com":
+			MEAN_URL = "https://hotel-booking-system-v1.herokuapp.com/";
+			SPRING_APP_URL = "https://admin-hotel-booking-v1.herokuapp.com/";
+			break;
+		case "https://hotel-booking-system-v2.herokuapp.com":
+			MEAN_URL = "https://hotel-booking-system-v2.herokuapp.com/";
+			SPRING_APP_URL = "https://admin-hotel-booking-v1.herokuapp.com/";
+			break;
+			
+		default:
+			break;
+		}
+		
+		if(DB_CONFIGURATION.equals("local")) {
+				DATABASE = "HotelBookingReservationsSystem";
+				String DATABASE_HOST = "localhost";
+				int DATABASE_PORT = 27017;
+				MONGGO_URL = "mongodb://" + DATABASE_HOST + ":" + DATABASE_PORT;
+		}
+		
+		if(DB_CONFIGURATION.equals("mlab")) {
+				DATABASE = "hotel_booking_system";
+				MONGGO_URL = "mongodb://dohungcuongdev:ititiu13170@ds157057.mlab.com:57057/" + DATABASE;
+		}
+	}
+
+
 			
 	public static final String EMAIL = "cuongvip1295@gmail.com";
 	public static final String AUTHENTICATION = "ititiu13170";

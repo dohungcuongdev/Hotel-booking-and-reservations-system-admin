@@ -1,17 +1,17 @@
-1/ Config API URL for backend java
-	D:\thesis-in-process\Hotel-booking-and-reservations-system-admin\src\main\java\statics\constant\APIData.java
+1/ Config Server URL for backend java
+	src\main\java\statics\constant\AppData.java
 
-2/ Config Server URL for backend java
-	D:\thesis-in-process\Hotel-booking-and-reservations-system-admin\src\main\java\statics\constant\AppData.java
+2/  Config Server URL & API URL for front-end AngularJS
+	src\main\webapp\resources\custom\const.js
 
-3/  Config Server URL & API URL for front-end AngularJS
-	D:\thesis-in-process\Hotel-booking-and-reservations-system-admin\src\main\webapp\resources\custom\const.js
+3/  Config database properties for backend java
+	src\main\webapp\WEB-INF\database.properties
 
-4/  Config database properties for backend java
-	D:\thesis-in-process\Hotel-booking-and-reservations-system-admin\src\main\webapp\WEB-INF\database.properties
-
-5/ Config hibernate for backend java
-	D:\thesis-in-process\Hotel-booking-and-reservations-system-admin\src\main\webapp\WEB-INF\hibernate.cfg.xml
+4/ Config hibernate for backend java
+	src\main\webapp\WEB-INF\hibernate.cfg.xml
+	
+5/ Config DA0
+	src\main\webapp\WEB-INF\dispatcher-servlet.xml
 
 6/ To allow server send email via gmail account
 	https://accounts.google.com/displayunlockcaptcha

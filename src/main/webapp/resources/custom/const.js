@@ -10,17 +10,45 @@
     Author     : HUNGCUONG
 */
 
-//local
-const SPRING_API_URL = "http://localhost:8080/Hotel-booking-and-reservations-system-admin/api/";
-var MEAN_URL = "http://localhost:3000/";
+/* change server config here */
+// const SERVER_CONFIGURATION = 'custom';
+// const SERVER_CONFIGURATION = 'localhost:3000';
+const SERVER_CONFIGURATION = 'localhost:3000 & localhost:8080';
+// const SERVER_CONFIGURATION = 'https://hotel-booking-and-reservations.herokuapp.com';
+// const SERVER_CONFIGURATION = 'https://hotel-booking-system-v1.herokuapp.com';
+// const SERVER_CONFIGURATION = 'https://hotel-booking-system-v2.herokuapp.com';
 
-//online
-//const SPRING_API_URL = "https://admin-hotel-booking.herokuapp.com/api/";
-//var MEAN_URL = 'https://hotel-booking-and-reservations.herokuapp.com/';
+var SPRING_SERVER_URL;
+var MEAN_SERVER_URL;
 
-//online v1
-//const SPRING_API_URL = "https://admin-hotel-booking-v1.herokuapp.com/api/";
-//const MEAN_URL = 'https://hotel-booking-system-v1.herokuapp.com/'
+if(SERVER_CONFIGURATION == 'http://localhost:3000') {
+    MEAN_SERVER_URL = "http://localhost:3000/";
+    SPRING_SERVER_URL = "http://localhost:3000/";
+}
+
+if(SERVER_CONFIGURATION == 'localhost:3000 & localhost:8080') {
+    MEAN_SERVER_URL = "http://localhost:3000/";
+    SPRING_SERVER_URL = "http://localhost:8080/Hotel-booking-and-reservations-system-admin/";
+}
+
+if(SERVER_CONFIGURATION == 'https://hotel-booking-and-reservations.herokuapp.com') {
+    MEAN_SERVER_URL = "https://hotel-booking-and-reservations.herokuapp.com/";
+    SPRING_SERVER_URL = "https://admin-hotel-booking.herokuapp.com/";
+}
+
+if(SERVER_CONFIGURATION == 'https://hotel-booking-system-v1.herokuapp.com') {
+    MEAN_SERVER_URL = "https://hotel-booking-system-v1.herokuapp.com/";
+    SPRING_SERVER_URL = "https://admin-hotel-booking-v1.herokuapp.com/";
+}
+
+if(SERVER_CONFIGURATION == 'https://hotel-booking-system-v2.herokuapp.com') {
+    MEAN_SERVER_URL = "https://hotel-booking-system-v2.herokuapp.com/";
+    SPRING_SERVER_URL = "https://admin-hotel-booking-v1.herokuapp.com/";
+}
+
+
+var SPRING_API_URL = SPRING_SERVER_URL + 'api/';
+var MEAN_URL = MEAN_SERVER_URL;
 
 const MEAN_API_URL = MEAN_URL + "api/";
 const TRACKING_API_URL = MEAN_API_URL + "follow-users/";
